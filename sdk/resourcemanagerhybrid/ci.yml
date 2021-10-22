@@ -1,0 +1,92 @@
+# NOTE: Please refer to https://aka.ms/azsdk/engsys/ci-yaml before editing this file.
+
+trigger:
+  branches:
+    include:
+      - main
+      - hotfix/*
+      - release/*
+  paths:
+    include:
+      - sdk/resourcemanagerhybrid/
+    exclude:
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-appservice/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-authorization/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-compute/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-containerregistry/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-containerservice/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-dns/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-eventhubs/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-keyvault/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-monitor/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-network/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-resources/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-storage/pom.xml
+
+pr:
+  branches:
+    include:
+      - main
+      - feature/*
+      - hotfix/*
+      - release/*
+  paths:
+    include:
+      - sdk/resourcemanagerhybrid/
+    exclude:
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-appservice/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-authorization/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-compute/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-containerregistry/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-containerservice/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-dns/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-eventhubs/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-keyvault/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-monitor/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-network/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-resources/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-storage/pom.xml
+
+# Safe name uses hybrid at end instead to remove conflict with
+# com.azure.resourcemanager.hybridcompute.
+extends:
+  template: ../../eng/pipelines/templates/stages/archetype-sdk-client.yml
+  parameters:
+    ServiceDirectory: resourcemanager
+    Artifacts:
+      - name: azure-resourcemanagerhybrid-appservice
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagerappservicehybrid
+      - name: azure-resourcemanagerhybrid-authorization
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagerauthorizationhybrid
+      - name: azure-resourcemanagerhybrid-compute
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagercomputehybrid
+      - name: azure-resourcemanagerhybrid-containerregistry
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagercontainerregistryhybrid
+      - name: azure-resourcemanagerhybrid-containerservice
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagercontainerservicehybrid
+      - name: azure-resourcemanagerhybrid-dns
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagerdnshybrid
+      - name: azure-resourcemanagerhybrid-eventhubs
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagereventhubshybrid
+      - name: azure-resourcemanagerhybrid-keyvault
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagerkeyvaulthybrid
+      - name: azure-resourcemanagerhybrid-monitor
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagermonitorhybrid
+      - name: azure-resourcemanagerhybrid-network
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagernetworkhybrid
+      - name: azure-resourcemanagerhybrid-resources
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagerresourceshybrid
+      - name: azure-resourcemanagerhybrid-storage
+        groupId: com.azure.resourcemanagerhybrid
+        safeName: azureresourcemanagerstoragehybrid

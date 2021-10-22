@@ -360,6 +360,7 @@
               <includes combine.children="append">
                 <include>com.azure:*</include>
                 <include>com.azure.resourcemanager:*</include>
+                <include>com.azure.resourcemanagerhybrid:*</include>
                 <include>com.azure.spring:*</include>
 
                 <!-- Used by many libraries to bring in annotations used by Reactor -->
