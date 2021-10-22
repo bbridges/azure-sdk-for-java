@@ -22,6 +22,7 @@ trigger:
       - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-network/pom.xml
       - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-resources/pom.xml
       - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-storage/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-test/pom.xml
 
 pr:
   branches:
@@ -46,6 +47,7 @@ pr:
       - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-network/pom.xml
       - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-resources/pom.xml
       - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-storage/pom.xml
+      - sdk/resourcemanagerhybrid/azure-resourcemanagerhybrid-test/pom.xml
 
 # Safe name uses hybrid at end instead to remove conflict with
 # com.azure.resourcemanager.hybridcompute.

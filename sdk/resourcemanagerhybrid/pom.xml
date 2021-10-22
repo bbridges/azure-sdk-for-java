@@ -26,6 +26,7 @@
         <module>azure-resourcemanagerhybrid-network</module>
         <module>azure-resourcemanagerhybrid-resources</module>
         <module>azure-resourcemanagerhybrid-storage</module>
+        <module>azure-resourcemanagerhybrid-test</module>
       </modules>
       <dependencies>
         <dependency>
@@ -74,6 +75,7 @@
         <module>azure-resourcemanagerhybrid-network</module>
         <module>azure-resourcemanagerhybrid-resources</module>
         <module>azure-resourcemanagerhybrid-storage</module>
+        <module>azure-resourcemanagerhybrid-test</module>
       </modules>
     </profile>
   </profiles>
