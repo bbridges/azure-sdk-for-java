@@ -12,13 +12,13 @@
     <relativePath>../../parents/azure-client-sdk-parent</relativePath>
   </parent>
 
-  <groupId>com.azure.resourcemanager</groupId>
-  <artifactId>azure-resourcemanager-resources</artifactId>
-  <version>2.8.0-beta.1</version> <!-- {x-version-update;com.azure.resourcemanager:azure-resourcemanager-resources;current} -->
+  <groupId>com.azure.resourcemanagerhybrid</groupId>
+  <artifactId>azure-resourcemanagerhybrid-resources</artifactId>
+  <version>1.0.0-beta.1</version> <!-- {x-version-update;com.azure.resourcemanagerhybrid:azure-resourcemanagerhybrid-resources;current} -->
   <packaging>jar</packaging>
 
-  <name>Microsoft Azure SDK for Resource Management</name>
-  <description>This package contains Microsoft Azure Resource Management SDK. For documentation on how to use this package, please see https://aka.ms/azsdk/java/mgmt</description>
+  <name>Microsoft Azure SDK for Resource Management (Hybrid)</name>
+  <description>This package contains Microsoft Azure Resource Management Hybrid SDK. For documentation on how to use this package, please see https://aka.ms/azsdk/java/mgmt</description>
   <url>https://github.com/Azure/azure-sdk-for-java</url>
 
   <licenses>

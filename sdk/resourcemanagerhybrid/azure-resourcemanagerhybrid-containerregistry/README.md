@@ -1,6 +1,6 @@
-# Azure Resource Manager Containerregistry client library for Java
+# Azure Resource Manager Containerregistry client library for Java (Hybrid)
 
-Azure Resource Manager Containerregistry client library for Java
+Azure Resource Manager Containerregistry client library for Java (Hybrid)
 
 For documentation on how to use this package, please see [Azure Management Libraries for Java](https://aka.ms/azsdk/java/mgmt).
 
@@ -13,12 +13,12 @@ For documentation on how to use this package, please see [Azure Management Libra
 
 ### Adding the package to your product
 
-[//]: # ({x-version-update-start;com.azure.resourcemanager:azure-resourcemanager-containerregistry;current})
+[//]: # ({x-version-update-start;com.azure.resourcemanagerhybrid:azure-resourcemanagerhybrid-containerregistry;current})
 ```xml
 <dependency>
-    <groupId>com.azure.resourcemanager</groupId>
-    <artifactId>azure-resourcemanager-containerregistry</artifactId>
-    <version>2.7.0</version>
+    <groupId>com.azure.resourcemanagerhybrid</groupId>
+    <artifactId>azure-resourcemanagerhybrid-containerregistry</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
 [//]: # ({x-version-update-end})
