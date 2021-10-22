@@ -5,20 +5,16 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.azure.resourcemanager.network.models.RouteNextHopType;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Route resource.
- */
+/** Route resource. */
 @Fluent
 public final class RoutePropertiesFormat {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(RoutePropertiesFormat.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(RoutePropertiesFormat.class);
 
     /*
      * The destination CIDR to which the route applies.
@@ -27,9 +23,7 @@ public final class RoutePropertiesFormat {
     private String addressPrefix;
 
     /*
-     * The type of Azure hop the packet should be sent to. Possible values are:
-     * 'VirtualNetworkGateway', 'VnetLocal', 'Internet', 'VirtualAppliance',
-     * and 'None'
+     * The type of Azure hop the packet should be sent to.
      */
     @JsonProperty(value = "nextHopType", required = true)
     private RouteNextHopType nextHopType;
@@ -42,16 +36,21 @@ public final class RoutePropertiesFormat {
     private String nextHopIpAddress;
 
     /*
-     * The provisioning state of the resource. Possible values are: 'Updating',
-     * 'Deleting', and 'Failed'.
+     * The provisioning state of the route resource.
      */
-    @JsonProperty(value = "provisioningState")
-    private String provisioningState;
+    @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
+    private ProvisioningState provisioningState;
+
+    /*
+     * A value indicating whether this route overrides overlapping BGP routes
+     * regardless of LPM.
+     */
+    @JsonProperty(value = "hasBgpOverride")
+    private Boolean hasBgpOverride;
 
     /**
-     * Get the addressPrefix property: The destination CIDR to which the route
-     * applies.
-     * 
+     * Get the addressPrefix property: The destination CIDR to which the route applies.
+     *
      * @return the addressPrefix value.
      */
     public String addressPrefix() {
@@ -59,9 +58,8 @@ public final class RoutePropertiesFormat {
     }
 
     /**
-     * Set the addressPrefix property: The destination CIDR to which the route
-     * applies.
-     * 
+     * Set the addressPrefix property: The destination CIDR to which the route applies.
+     *
      * @param addressPrefix the addressPrefix value to set.
      * @return the RoutePropertiesFormat object itself.
      */
@@ -71,10 +69,8 @@ public final class RoutePropertiesFormat {
     }
 
     /**
-     * Get the nextHopType property: The type of Azure hop the packet should be
-     * sent to. Possible values are: 'VirtualNetworkGateway', 'VnetLocal',
-     * 'Internet', 'VirtualAppliance', and 'None'.
-     * 
+     * Get the nextHopType property: The type of Azure hop the packet should be sent to.
+     *
      * @return the nextHopType value.
      */
     public RouteNextHopType nextHopType() {
@@ -82,10 +78,8 @@ public final class RoutePropertiesFormat {
     }
 
     /**
-     * Set the nextHopType property: The type of Azure hop the packet should be
-     * sent to. Possible values are: 'VirtualNetworkGateway', 'VnetLocal',
-     * 'Internet', 'VirtualAppliance', and 'None'.
-     * 
+     * Set the nextHopType property: The type of Azure hop the packet should be sent to.
+     *
      * @param nextHopType the nextHopType value to set.
      * @return the RoutePropertiesFormat object itself.
      */
@@ -95,10 +89,9 @@ public final class RoutePropertiesFormat {
     }
 
     /**
-     * Get the nextHopIpAddress property: The IP address packets should be
-     * forwarded to. Next hop values are only allowed in routes where the next
-     * hop type is VirtualAppliance.
-     * 
+     * Get the nextHopIpAddress property: The IP address packets should be forwarded to. Next hop values are only
+     * allowed in routes where the next hop type is VirtualAppliance.
+     *
      * @return the nextHopIpAddress value.
      */
     public String nextHopIpAddress() {
@@ -106,10 +99,9 @@ public final class RoutePropertiesFormat {
     }
 
     /**
-     * Set the nextHopIpAddress property: The IP address packets should be
-     * forwarded to. Next hop values are only allowed in routes where the next
-     * hop type is VirtualAppliance.
-     * 
+     * Set the nextHopIpAddress property: The IP address packets should be forwarded to. Next hop values are only
+     * allowed in routes where the next hop type is VirtualAppliance.
+     *
      * @param nextHopIpAddress the nextHopIpAddress value to set.
      * @return the RoutePropertiesFormat object itself.
      */
@@ -119,35 +111,47 @@ public final class RoutePropertiesFormat {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * resource. Possible values are: 'Updating', 'Deleting', and 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the route resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.provisioningState;
     }
 
     /**
-     * Set the provisioningState property: The provisioning state of the
-     * resource. Possible values are: 'Updating', 'Deleting', and 'Failed'.
-     * 
-     * @param provisioningState the provisioningState value to set.
+     * Get the hasBgpOverride property: A value indicating whether this route overrides overlapping BGP routes
+     * regardless of LPM.
+     *
+     * @return the hasBgpOverride value.
+     */
+    public Boolean hasBgpOverride() {
+        return this.hasBgpOverride;
+    }
+
+    /**
+     * Set the hasBgpOverride property: A value indicating whether this route overrides overlapping BGP routes
+     * regardless of LPM.
+     *
+     * @param hasBgpOverride the hasBgpOverride value to set.
      * @return the RoutePropertiesFormat object itself.
      */
-    public RoutePropertiesFormat withProvisioningState(String provisioningState) {
-        this.provisioningState = provisioningState;
+    public RoutePropertiesFormat withHasBgpOverride(Boolean hasBgpOverride) {
+        this.hasBgpOverride = hasBgpOverride;
         return this;
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
         if (nextHopType() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property nextHopType in model RoutePropertiesFormat"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException(
+                        "Missing required property nextHopType in model RoutePropertiesFormat"));
         }
     }
 }

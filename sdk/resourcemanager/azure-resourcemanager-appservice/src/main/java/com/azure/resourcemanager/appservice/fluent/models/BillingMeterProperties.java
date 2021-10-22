@@ -50,6 +50,12 @@ public final class BillingMeterProperties {
     @JsonProperty(value = "osType")
     private String osType;
 
+    /*
+     * Meter Multiplier
+     */
+    @JsonProperty(value = "multiplier")
+    private Double multiplier;
+
     /**
      * Get the meterId property: Meter GUID onboarded in Commerce.
      *
@@ -167,6 +173,26 @@ public final class BillingMeterProperties {
      */
     public BillingMeterProperties withOsType(String osType) {
         this.osType = osType;
+        return this;
+    }
+
+    /**
+     * Get the multiplier property: Meter Multiplier.
+     *
+     * @return the multiplier value.
+     */
+    public Double multiplier() {
+        return this.multiplier;
+    }
+
+    /**
+     * Set the multiplier property: Meter Multiplier.
+     *
+     * @param multiplier the multiplier value to set.
+     * @return the BillingMeterProperties object itself.
+     */
+    public BillingMeterProperties withMultiplier(Double multiplier) {
+        this.multiplier = multiplier;
         return this;
     }
 

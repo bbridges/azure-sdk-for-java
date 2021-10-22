@@ -6,37 +6,80 @@ package com.azure.resourcemanager.appservice.models;
 
 import com.azure.core.annotation.Fluent;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.appservice.fluent.models.TriggeredJobRunProperties;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.OffsetDateTime;
 
 /** Triggered Web Job Run Information. */
 @Fluent
-public final class TriggeredJobRun extends ProxyOnlyResource {
+public final class TriggeredJobRun {
     @JsonIgnore private final ClientLogger logger = new ClientLogger(TriggeredJobRun.class);
 
     /*
-     * TriggeredJobRun resource specific properties
+     * Job ID.
      */
-    @JsonProperty(value = "properties")
-    private TriggeredJobRunProperties innerProperties;
+    @JsonProperty(value = "web_job_id")
+    private String webJobId;
 
-    /**
-     * Get the innerProperties property: TriggeredJobRun resource specific properties.
-     *
-     * @return the innerProperties value.
+    /*
+     * Job name.
      */
-    private TriggeredJobRunProperties innerProperties() {
-        return this.innerProperties;
-    }
+    @JsonProperty(value = "web_job_name")
+    private String webJobName;
 
-    /** {@inheritDoc} */
-    @Override
-    public TriggeredJobRun withKind(String kind) {
-        super.withKind(kind);
-        return this;
-    }
+    /*
+     * Job status.
+     */
+    @JsonProperty(value = "status")
+    private TriggeredWebJobStatus status;
+
+    /*
+     * Start time.
+     */
+    @JsonProperty(value = "start_time")
+    private OffsetDateTime startTime;
+
+    /*
+     * End time.
+     */
+    @JsonProperty(value = "end_time")
+    private OffsetDateTime endTime;
+
+    /*
+     * Job duration.
+     */
+    @JsonProperty(value = "duration")
+    private String duration;
+
+    /*
+     * Output URL.
+     */
+    @JsonProperty(value = "output_url")
+    private String outputUrl;
+
+    /*
+     * Error URL.
+     */
+    @JsonProperty(value = "error_url")
+    private String errorUrl;
+
+    /*
+     * Job URL.
+     */
+    @JsonProperty(value = "url")
+    private String url;
+
+    /*
+     * Job name.
+     */
+    @JsonProperty(value = "job_name")
+    private String jobName;
+
+    /*
+     * Job trigger.
+     */
+    @JsonProperty(value = "trigger")
+    private String trigger;
 
     /**
      * Get the webJobId property: Job ID.
@@ -44,7 +87,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the webJobId value.
      */
     public String webJobId() {
-        return this.innerProperties() == null ? null : this.innerProperties().webJobId();
+        return this.webJobId;
     }
 
     /**
@@ -54,10 +97,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withWebJobId(String webJobId) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withWebJobId(webJobId);
+        this.webJobId = webJobId;
         return this;
     }
 
@@ -67,7 +107,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the webJobName value.
      */
     public String webJobName() {
-        return this.innerProperties() == null ? null : this.innerProperties().webJobName();
+        return this.webJobName;
     }
 
     /**
@@ -77,10 +117,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withWebJobName(String webJobName) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withWebJobName(webJobName);
+        this.webJobName = webJobName;
         return this;
     }
 
@@ -90,7 +127,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the status value.
      */
     public TriggeredWebJobStatus status() {
-        return this.innerProperties() == null ? null : this.innerProperties().status();
+        return this.status;
     }
 
     /**
@@ -100,10 +137,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withStatus(TriggeredWebJobStatus status) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withStatus(status);
+        this.status = status;
         return this;
     }
 
@@ -113,7 +147,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the startTime value.
      */
     public OffsetDateTime startTime() {
-        return this.innerProperties() == null ? null : this.innerProperties().startTime();
+        return this.startTime;
     }
 
     /**
@@ -123,10 +157,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withStartTime(OffsetDateTime startTime) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withStartTime(startTime);
+        this.startTime = startTime;
         return this;
     }
 
@@ -136,7 +167,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the endTime value.
      */
     public OffsetDateTime endTime() {
-        return this.innerProperties() == null ? null : this.innerProperties().endTime();
+        return this.endTime;
     }
 
     /**
@@ -146,10 +177,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withEndTime(OffsetDateTime endTime) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withEndTime(endTime);
+        this.endTime = endTime;
         return this;
     }
 
@@ -159,7 +187,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the duration value.
      */
     public String duration() {
-        return this.innerProperties() == null ? null : this.innerProperties().duration();
+        return this.duration;
     }
 
     /**
@@ -169,10 +197,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withDuration(String duration) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withDuration(duration);
+        this.duration = duration;
         return this;
     }
 
@@ -182,7 +207,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the outputUrl value.
      */
     public String outputUrl() {
-        return this.innerProperties() == null ? null : this.innerProperties().outputUrl();
+        return this.outputUrl;
     }
 
     /**
@@ -192,10 +217,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withOutputUrl(String outputUrl) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withOutputUrl(outputUrl);
+        this.outputUrl = outputUrl;
         return this;
     }
 
@@ -205,7 +227,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the errorUrl value.
      */
     public String errorUrl() {
-        return this.innerProperties() == null ? null : this.innerProperties().errorUrl();
+        return this.errorUrl;
     }
 
     /**
@@ -215,10 +237,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withErrorUrl(String errorUrl) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withErrorUrl(errorUrl);
+        this.errorUrl = errorUrl;
         return this;
     }
 
@@ -228,7 +247,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the url value.
      */
     public String url() {
-        return this.innerProperties() == null ? null : this.innerProperties().url();
+        return this.url;
     }
 
     /**
@@ -238,10 +257,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withUrl(String url) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withUrl(url);
+        this.url = url;
         return this;
     }
 
@@ -251,7 +267,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the jobName value.
      */
     public String jobName() {
-        return this.innerProperties() == null ? null : this.innerProperties().jobName();
+        return this.jobName;
     }
 
     /**
@@ -261,10 +277,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withJobName(String jobName) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withJobName(jobName);
+        this.jobName = jobName;
         return this;
     }
 
@@ -274,7 +287,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the trigger value.
      */
     public String trigger() {
-        return this.innerProperties() == null ? null : this.innerProperties().trigger();
+        return this.trigger;
     }
 
     /**
@@ -284,10 +297,7 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      * @return the TriggeredJobRun object itself.
      */
     public TriggeredJobRun withTrigger(String trigger) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new TriggeredJobRunProperties();
-        }
-        this.innerProperties().withTrigger(trigger);
+        this.trigger = trigger;
         return this;
     }
 
@@ -296,11 +306,6 @@ public final class TriggeredJobRun extends ProxyOnlyResource {
      *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
-    @Override
     public void validate() {
-        super.validate();
-        if (innerProperties() != null) {
-            innerProperties().validate();
-        }
     }
 }

@@ -25,14 +25,14 @@ public final class DiagnosticDetectorResponseInner extends ProxyOnlyResource {
      * DiagnosticDetectorResponse resource specific properties
      */
     @JsonProperty(value = "properties")
-    private DiagnosticDetectorResponsePropertiesInner innerProperties;
+    private DiagnosticDetectorResponseProperties innerProperties;
 
     /**
      * Get the innerProperties property: DiagnosticDetectorResponse resource specific properties.
      *
      * @return the innerProperties value.
      */
-    private DiagnosticDetectorResponsePropertiesInner innerProperties() {
+    private DiagnosticDetectorResponseProperties innerProperties() {
         return this.innerProperties;
     }
 
@@ -60,7 +60,7 @@ public final class DiagnosticDetectorResponseInner extends ProxyOnlyResource {
      */
     public DiagnosticDetectorResponseInner withStartTime(OffsetDateTime startTime) {
         if (this.innerProperties() == null) {
-            this.innerProperties = new DiagnosticDetectorResponsePropertiesInner();
+            this.innerProperties = new DiagnosticDetectorResponseProperties();
         }
         this.innerProperties().withStartTime(startTime);
         return this;
@@ -83,7 +83,7 @@ public final class DiagnosticDetectorResponseInner extends ProxyOnlyResource {
      */
     public DiagnosticDetectorResponseInner withEndTime(OffsetDateTime endTime) {
         if (this.innerProperties() == null) {
-            this.innerProperties = new DiagnosticDetectorResponsePropertiesInner();
+            this.innerProperties = new DiagnosticDetectorResponseProperties();
         }
         this.innerProperties().withEndTime(endTime);
         return this;
@@ -106,7 +106,7 @@ public final class DiagnosticDetectorResponseInner extends ProxyOnlyResource {
      */
     public DiagnosticDetectorResponseInner withIssueDetected(Boolean issueDetected) {
         if (this.innerProperties() == null) {
-            this.innerProperties = new DiagnosticDetectorResponsePropertiesInner();
+            this.innerProperties = new DiagnosticDetectorResponseProperties();
         }
         this.innerProperties().withIssueDetected(issueDetected);
         return this;
@@ -117,7 +117,7 @@ public final class DiagnosticDetectorResponseInner extends ProxyOnlyResource {
      *
      * @return the detectorDefinition value.
      */
-    public DetectorDefinitionInner detectorDefinition() {
+    public DetectorDefinition detectorDefinition() {
         return this.innerProperties() == null ? null : this.innerProperties().detectorDefinition();
     }
 
@@ -127,9 +127,9 @@ public final class DiagnosticDetectorResponseInner extends ProxyOnlyResource {
      * @param detectorDefinition the detectorDefinition value to set.
      * @return the DiagnosticDetectorResponseInner object itself.
      */
-    public DiagnosticDetectorResponseInner withDetectorDefinition(DetectorDefinitionInner detectorDefinition) {
+    public DiagnosticDetectorResponseInner withDetectorDefinition(DetectorDefinition detectorDefinition) {
         if (this.innerProperties() == null) {
-            this.innerProperties = new DiagnosticDetectorResponsePropertiesInner();
+            this.innerProperties = new DiagnosticDetectorResponseProperties();
         }
         this.innerProperties().withDetectorDefinition(detectorDefinition);
         return this;
@@ -152,7 +152,7 @@ public final class DiagnosticDetectorResponseInner extends ProxyOnlyResource {
      */
     public DiagnosticDetectorResponseInner withMetrics(List<DiagnosticMetricSet> metrics) {
         if (this.innerProperties() == null) {
-            this.innerProperties = new DiagnosticDetectorResponsePropertiesInner();
+            this.innerProperties = new DiagnosticDetectorResponseProperties();
         }
         this.innerProperties().withMetrics(metrics);
         return this;
@@ -176,7 +176,7 @@ public final class DiagnosticDetectorResponseInner extends ProxyOnlyResource {
     public DiagnosticDetectorResponseInner withAbnormalTimePeriods(
         List<DetectorAbnormalTimePeriod> abnormalTimePeriods) {
         if (this.innerProperties() == null) {
-            this.innerProperties = new DiagnosticDetectorResponsePropertiesInner();
+            this.innerProperties = new DiagnosticDetectorResponseProperties();
         }
         this.innerProperties().withAbnormalTimePeriods(abnormalTimePeriods);
         return this;
@@ -199,7 +199,7 @@ public final class DiagnosticDetectorResponseInner extends ProxyOnlyResource {
      */
     public DiagnosticDetectorResponseInner withData(List<List<NameValuePair>> data) {
         if (this.innerProperties() == null) {
-            this.innerProperties = new DiagnosticDetectorResponsePropertiesInner();
+            this.innerProperties = new DiagnosticDetectorResponseProperties();
         }
         this.innerProperties().withData(data);
         return this;
@@ -222,7 +222,7 @@ public final class DiagnosticDetectorResponseInner extends ProxyOnlyResource {
      */
     public DiagnosticDetectorResponseInner withResponseMetadata(ResponseMetadata responseMetadata) {
         if (this.innerProperties() == null) {
-            this.innerProperties = new DiagnosticDetectorResponsePropertiesInner();
+            this.innerProperties = new DiagnosticDetectorResponseProperties();
         }
         this.innerProperties().withResponseMetadata(responseMetadata);
         return this;

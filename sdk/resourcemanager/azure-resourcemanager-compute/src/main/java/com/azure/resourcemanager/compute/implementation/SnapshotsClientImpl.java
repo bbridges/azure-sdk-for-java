@@ -43,112 +43,184 @@ import com.azure.resourcemanager.compute.models.SnapshotUpdate;
 import com.azure.resourcemanager.resources.fluentcore.collection.InnerSupportsDelete;
 import com.azure.resourcemanager.resources.fluentcore.collection.InnerSupportsGet;
 import com.azure.resourcemanager.resources.fluentcore.collection.InnerSupportsListing;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.nio.ByteBuffer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-/**
- * An instance of this class provides access to all the operations defined in
- * SnapshotsClient.
- */
-public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner>, InnerSupportsListing<SnapshotInner>, InnerSupportsDelete<Void>, SnapshotsClient {
+/** An instance of this class provides access to all the operations defined in SnapshotsClient. */
+public final class SnapshotsClientImpl
+    implements InnerSupportsGet<SnapshotInner>,
+        InnerSupportsListing<SnapshotInner>,
+        InnerSupportsDelete<Void>,
+        SnapshotsClient {
     private final ClientLogger logger = new ClientLogger(SnapshotsClientImpl.class);
 
-    /**
-     * The proxy service used to perform REST calls.
-     */
+    /** The proxy service used to perform REST calls. */
     private final SnapshotsService service;
 
-    /**
-     * The service client containing this operation class.
-     */
+    /** The service client containing this operation class. */
     private final ComputeManagementClientImpl client;
 
     /**
      * Initializes an instance of SnapshotsClientImpl.
-     * 
+     *
      * @param client the instance of the service client containing this operation class.
      */
     SnapshotsClientImpl(ComputeManagementClientImpl client) {
-        this.service = RestProxy.create(SnapshotsService.class, client.getHttpPipeline(), client.getSerializerAdapter());
+        this.service =
+            RestProxy.create(SnapshotsService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;
     }
 
     /**
-     * The interface defining all the services for
-     * ComputeManagementClientSnapshots to be used by the proxy service to
+     * The interface defining all the services for ComputeManagementClientSnapshots to be used by the proxy service to
      * perform REST calls.
      */
     @Host("{$host}")
     @ServiceInterface(name = "ComputeManagementCli")
     private interface SnapshotsService {
-        @Headers({ "Content-Type: application/json" })
-        @Put("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}")
+        @Headers({"Content-Type: application/json"})
+        @Put(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots"
+                + "/{snapshotName}")
         @ExpectedResponses({200, 202})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<Flux<ByteBuffer>>> createOrUpdate(@HostParam("$host") String endpoint, @PathParam("subscriptionId") String subscriptionId, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("snapshotName") String snapshotName, @QueryParam("api-version") String apiVersion, @BodyParam("application/json") SnapshotInner snapshot, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<Flux<ByteBuffer>>> createOrUpdate(
+            @HostParam("$host") String endpoint,
+            @PathParam("subscriptionId") String subscriptionId,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("snapshotName") String snapshotName,
+            @QueryParam("api-version") String apiVersion,
+            @BodyParam("application/json") SnapshotInner snapshot,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
-        @Patch("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}")
+        @Headers({"Content-Type: application/json"})
+        @Patch(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots"
+                + "/{snapshotName}")
         @ExpectedResponses({200, 202})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<Flux<ByteBuffer>>> update(@HostParam("$host") String endpoint, @PathParam("subscriptionId") String subscriptionId, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("snapshotName") String snapshotName, @QueryParam("api-version") String apiVersion, @BodyParam("application/json") SnapshotUpdate snapshot, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<Flux<ByteBuffer>>> update(
+            @HostParam("$host") String endpoint,
+            @PathParam("subscriptionId") String subscriptionId,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("snapshotName") String snapshotName,
+            @QueryParam("api-version") String apiVersion,
+            @BodyParam("application/json") SnapshotUpdate snapshot,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
-        @Get("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}")
+        @Headers({"Content-Type: application/json"})
+        @Get(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots"
+                + "/{snapshotName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<SnapshotInner>> getByResourceGroup(@HostParam("$host") String endpoint, @PathParam("subscriptionId") String subscriptionId, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("snapshotName") String snapshotName, @QueryParam("api-version") String apiVersion, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<SnapshotInner>> getByResourceGroup(
+            @HostParam("$host") String endpoint,
+            @PathParam("subscriptionId") String subscriptionId,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("snapshotName") String snapshotName,
+            @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Accept: application/json;q=0.9", "Content-Type: application/json" })
-        @Delete("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}")
+        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Delete(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots"
+                + "/{snapshotName}")
         @ExpectedResponses({200, 202, 204})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<Flux<ByteBuffer>>> delete(@HostParam("$host") String endpoint, @PathParam("subscriptionId") String subscriptionId, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("snapshotName") String snapshotName, @QueryParam("api-version") String apiVersion, Context context);
+        Mono<Response<Flux<ByteBuffer>>> delete(
+            @HostParam("$host") String endpoint,
+            @PathParam("subscriptionId") String subscriptionId,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("snapshotName") String snapshotName,
+            @QueryParam("api-version") String apiVersion,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Get("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<SnapshotList>> listByResourceGroup(@HostParam("$host") String endpoint, @PathParam("subscriptionId") String subscriptionId, @PathParam("resourceGroupName") String resourceGroupName, @QueryParam("api-version") String apiVersion, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<SnapshotList>> listByResourceGroup(
+            @HostParam("$host") String endpoint,
+            @PathParam("subscriptionId") String subscriptionId,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Get("/subscriptions/{subscriptionId}/providers/Microsoft.Compute/snapshots")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<SnapshotList>> list(@HostParam("$host") String endpoint, @PathParam("subscriptionId") String subscriptionId, @QueryParam("api-version") String apiVersion, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<SnapshotList>> list(
+            @HostParam("$host") String endpoint,
+            @PathParam("subscriptionId") String subscriptionId,
+            @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
-        @Post("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}/beginGetAccess")
+        @Headers({"Content-Type: application/json"})
+        @Post(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots"
+                + "/{snapshotName}/beginGetAccess")
         @ExpectedResponses({200, 202})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<Flux<ByteBuffer>>> grantAccess(@HostParam("$host") String endpoint, @PathParam("subscriptionId") String subscriptionId, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("snapshotName") String snapshotName, @QueryParam("api-version") String apiVersion, @BodyParam("application/json") GrantAccessData grantAccessData, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<Flux<ByteBuffer>>> grantAccess(
+            @HostParam("$host") String endpoint,
+            @PathParam("subscriptionId") String subscriptionId,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("snapshotName") String snapshotName,
+            @QueryParam("api-version") String apiVersion,
+            @BodyParam("application/json") GrantAccessData grantAccessData,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Accept: application/json;q=0.9", "Content-Type: application/json" })
-        @Post("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}/endGetAccess")
+        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Post(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots"
+                + "/{snapshotName}/endGetAccess")
         @ExpectedResponses({200, 202})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<Flux<ByteBuffer>>> revokeAccess(@HostParam("$host") String endpoint, @PathParam("subscriptionId") String subscriptionId, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("snapshotName") String snapshotName, @QueryParam("api-version") String apiVersion, Context context);
+        Mono<Response<Flux<ByteBuffer>>> revokeAccess(
+            @HostParam("$host") String endpoint,
+            @PathParam("subscriptionId") String subscriptionId,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("snapshotName") String snapshotName,
+            @QueryParam("api-version") String apiVersion,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Get("{nextLink}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<SnapshotList>> listByResourceGroupNext(@PathParam(value = "nextLink", encoded = true) String nextLink, @HostParam("$host") String endpoint, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<SnapshotList>> listByResourceGroupNext(
+            @PathParam(value = "nextLink", encoded = true) String nextLink,
+            @HostParam("$host") String endpoint,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Get("{nextLink}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<SnapshotList>> listNext(@PathParam(value = "nextLink", encoded = true) String nextLink, @HostParam("$host") String endpoint, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<SnapshotList>> listNext(
+            @PathParam(value = "nextLink", encoded = true) String nextLink,
+            @HostParam("$host") String endpoint,
+            @HeaderParam("Accept") String accept,
+            Context context);
     }
 
     /**
      * Creates or updates a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Put disk operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -156,15 +228,23 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<Flux<ByteBuffer>>> createOrUpdateWithResponseAsync(String resourceGroupName, String snapshotName, SnapshotInner snapshot) {
+    public Mono<Response<Flux<ByteBuffer>>> createOrUpdateWithResponseAsync(
+        String resourceGroupName, String snapshotName, SnapshotInner snapshot) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
@@ -174,17 +254,31 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
         } else {
             snapshot.validate();
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.createOrUpdate(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, snapshot, accept, context))
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .createOrUpdate(
+                            this.client.getEndpoint(),
+                            this.client.getSubscriptionId(),
+                            resourceGroupName,
+                            snapshotName,
+                            apiVersion,
+                            snapshot,
+                            accept,
+                            context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Creates or updates a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Put disk operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -193,15 +287,23 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<Flux<ByteBuffer>>> createOrUpdateWithResponseAsync(String resourceGroupName, String snapshotName, SnapshotInner snapshot, Context context) {
+    private Mono<Response<Flux<ByteBuffer>>> createOrUpdateWithResponseAsync(
+        String resourceGroupName, String snapshotName, SnapshotInner snapshot, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
@@ -211,17 +313,28 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
         } else {
             snapshot.validate();
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.createOrUpdate(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, snapshot, accept, context);
+        return service
+            .createOrUpdate(
+                this.client.getEndpoint(),
+                this.client.getSubscriptionId(),
+                resourceGroupName,
+                snapshotName,
+                apiVersion,
+                snapshot,
+                accept,
+                context);
     }
 
     /**
      * Creates or updates a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Put disk operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -229,16 +342,23 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public PollerFlux<PollResult<SnapshotInner>, SnapshotInner> beginCreateOrUpdateAsync(String resourceGroupName, String snapshotName, SnapshotInner snapshot) {
-        Mono<Response<Flux<ByteBuffer>>> mono = createOrUpdateWithResponseAsync(resourceGroupName, snapshotName, snapshot);
-        return this.client.<SnapshotInner, SnapshotInner>getLroResult(mono, this.client.getHttpPipeline(), SnapshotInner.class, SnapshotInner.class, Context.NONE);
+    public PollerFlux<PollResult<SnapshotInner>, SnapshotInner> beginCreateOrUpdateAsync(
+        String resourceGroupName, String snapshotName, SnapshotInner snapshot) {
+        Mono<Response<Flux<ByteBuffer>>> mono =
+            createOrUpdateWithResponseAsync(resourceGroupName, snapshotName, snapshot);
+        return this
+            .client
+            .<SnapshotInner, SnapshotInner>getLroResult(
+                mono, this.client.getHttpPipeline(), SnapshotInner.class, SnapshotInner.class, Context.NONE);
     }
 
     /**
      * Creates or updates a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Put disk operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -247,17 +367,24 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private PollerFlux<PollResult<SnapshotInner>, SnapshotInner> beginCreateOrUpdateAsync(String resourceGroupName, String snapshotName, SnapshotInner snapshot, Context context) {
+    private PollerFlux<PollResult<SnapshotInner>, SnapshotInner> beginCreateOrUpdateAsync(
+        String resourceGroupName, String snapshotName, SnapshotInner snapshot, Context context) {
         context = this.client.mergeContext(context);
-        Mono<Response<Flux<ByteBuffer>>> mono = createOrUpdateWithResponseAsync(resourceGroupName, snapshotName, snapshot, context);
-        return this.client.<SnapshotInner, SnapshotInner>getLroResult(mono, this.client.getHttpPipeline(), SnapshotInner.class, SnapshotInner.class, context);
+        Mono<Response<Flux<ByteBuffer>>> mono =
+            createOrUpdateWithResponseAsync(resourceGroupName, snapshotName, snapshot, context);
+        return this
+            .client
+            .<SnapshotInner, SnapshotInner>getLroResult(
+                mono, this.client.getHttpPipeline(), SnapshotInner.class, SnapshotInner.class, context);
     }
 
     /**
      * Creates or updates a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Put disk operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -265,15 +392,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<SnapshotInner>, SnapshotInner> beginCreateOrUpdate(String resourceGroupName, String snapshotName, SnapshotInner snapshot) {
-        return beginCreateOrUpdateAsync(resourceGroupName, snapshotName, snapshot)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<SnapshotInner>, SnapshotInner> beginCreateOrUpdate(
+        String resourceGroupName, String snapshotName, SnapshotInner snapshot) {
+        return beginCreateOrUpdateAsync(resourceGroupName, snapshotName, snapshot).getSyncPoller();
+    }
 
     /**
      * Creates or updates a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Put disk operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -282,15 +412,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<SnapshotInner>, SnapshotInner> beginCreateOrUpdate(String resourceGroupName, String snapshotName, SnapshotInner snapshot, Context context) {
-        return beginCreateOrUpdateAsync(resourceGroupName, snapshotName, snapshot, context)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<SnapshotInner>, SnapshotInner> beginCreateOrUpdate(
+        String resourceGroupName, String snapshotName, SnapshotInner snapshot, Context context) {
+        return beginCreateOrUpdateAsync(resourceGroupName, snapshotName, snapshot, context).getSyncPoller();
+    }
 
     /**
      * Creates or updates a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Put disk operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -298,7 +431,8 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<SnapshotInner> createOrUpdateAsync(String resourceGroupName, String snapshotName, SnapshotInner snapshot) {
+    public Mono<SnapshotInner> createOrUpdateAsync(
+        String resourceGroupName, String snapshotName, SnapshotInner snapshot) {
         return beginCreateOrUpdateAsync(resourceGroupName, snapshotName, snapshot)
             .last()
             .flatMap(this.client::getLroFinalResultOrError);
@@ -306,9 +440,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Creates or updates a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Put disk operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -317,7 +453,8 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<SnapshotInner> createOrUpdateAsync(String resourceGroupName, String snapshotName, SnapshotInner snapshot, Context context) {
+    private Mono<SnapshotInner> createOrUpdateAsync(
+        String resourceGroupName, String snapshotName, SnapshotInner snapshot, Context context) {
         return beginCreateOrUpdateAsync(resourceGroupName, snapshotName, snapshot, context)
             .last()
             .flatMap(this.client::getLroFinalResultOrError);
@@ -325,9 +462,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Creates or updates a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Put disk operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -341,9 +480,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Creates or updates a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Put disk operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -352,15 +493,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SnapshotInner createOrUpdate(String resourceGroupName, String snapshotName, SnapshotInner snapshot, Context context) {
+    public SnapshotInner createOrUpdate(
+        String resourceGroupName, String snapshotName, SnapshotInner snapshot, Context context) {
         return createOrUpdateAsync(resourceGroupName, snapshotName, snapshot, context).block();
     }
 
     /**
      * Updates (patches) a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Patch snapshot operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -368,15 +512,23 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<Flux<ByteBuffer>>> updateWithResponseAsync(String resourceGroupName, String snapshotName, SnapshotUpdate snapshot) {
+    public Mono<Response<Flux<ByteBuffer>>> updateWithResponseAsync(
+        String resourceGroupName, String snapshotName, SnapshotUpdate snapshot) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
@@ -386,17 +538,31 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
         } else {
             snapshot.validate();
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.update(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, snapshot, accept, context))
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .update(
+                            this.client.getEndpoint(),
+                            this.client.getSubscriptionId(),
+                            resourceGroupName,
+                            snapshotName,
+                            apiVersion,
+                            snapshot,
+                            accept,
+                            context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Updates (patches) a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Patch snapshot operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -405,15 +571,23 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<Flux<ByteBuffer>>> updateWithResponseAsync(String resourceGroupName, String snapshotName, SnapshotUpdate snapshot, Context context) {
+    private Mono<Response<Flux<ByteBuffer>>> updateWithResponseAsync(
+        String resourceGroupName, String snapshotName, SnapshotUpdate snapshot, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
@@ -423,17 +597,28 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
         } else {
             snapshot.validate();
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.update(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, snapshot, accept, context);
+        return service
+            .update(
+                this.client.getEndpoint(),
+                this.client.getSubscriptionId(),
+                resourceGroupName,
+                snapshotName,
+                apiVersion,
+                snapshot,
+                accept,
+                context);
     }
 
     /**
      * Updates (patches) a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Patch snapshot operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -441,16 +626,22 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public PollerFlux<PollResult<SnapshotInner>, SnapshotInner> beginUpdateAsync(String resourceGroupName, String snapshotName, SnapshotUpdate snapshot) {
+    public PollerFlux<PollResult<SnapshotInner>, SnapshotInner> beginUpdateAsync(
+        String resourceGroupName, String snapshotName, SnapshotUpdate snapshot) {
         Mono<Response<Flux<ByteBuffer>>> mono = updateWithResponseAsync(resourceGroupName, snapshotName, snapshot);
-        return this.client.<SnapshotInner, SnapshotInner>getLroResult(mono, this.client.getHttpPipeline(), SnapshotInner.class, SnapshotInner.class, Context.NONE);
+        return this
+            .client
+            .<SnapshotInner, SnapshotInner>getLroResult(
+                mono, this.client.getHttpPipeline(), SnapshotInner.class, SnapshotInner.class, Context.NONE);
     }
 
     /**
      * Updates (patches) a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Patch snapshot operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -459,17 +650,24 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private PollerFlux<PollResult<SnapshotInner>, SnapshotInner> beginUpdateAsync(String resourceGroupName, String snapshotName, SnapshotUpdate snapshot, Context context) {
+    private PollerFlux<PollResult<SnapshotInner>, SnapshotInner> beginUpdateAsync(
+        String resourceGroupName, String snapshotName, SnapshotUpdate snapshot, Context context) {
         context = this.client.mergeContext(context);
-        Mono<Response<Flux<ByteBuffer>>> mono = updateWithResponseAsync(resourceGroupName, snapshotName, snapshot, context);
-        return this.client.<SnapshotInner, SnapshotInner>getLroResult(mono, this.client.getHttpPipeline(), SnapshotInner.class, SnapshotInner.class, context);
+        Mono<Response<Flux<ByteBuffer>>> mono =
+            updateWithResponseAsync(resourceGroupName, snapshotName, snapshot, context);
+        return this
+            .client
+            .<SnapshotInner, SnapshotInner>getLroResult(
+                mono, this.client.getHttpPipeline(), SnapshotInner.class, SnapshotInner.class, context);
     }
 
     /**
      * Updates (patches) a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Patch snapshot operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -477,15 +675,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<SnapshotInner>, SnapshotInner> beginUpdate(String resourceGroupName, String snapshotName, SnapshotUpdate snapshot) {
-        return beginUpdateAsync(resourceGroupName, snapshotName, snapshot)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<SnapshotInner>, SnapshotInner> beginUpdate(
+        String resourceGroupName, String snapshotName, SnapshotUpdate snapshot) {
+        return beginUpdateAsync(resourceGroupName, snapshotName, snapshot).getSyncPoller();
+    }
 
     /**
      * Updates (patches) a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Patch snapshot operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -494,15 +695,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<SnapshotInner>, SnapshotInner> beginUpdate(String resourceGroupName, String snapshotName, SnapshotUpdate snapshot, Context context) {
-        return beginUpdateAsync(resourceGroupName, snapshotName, snapshot, context)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<SnapshotInner>, SnapshotInner> beginUpdate(
+        String resourceGroupName, String snapshotName, SnapshotUpdate snapshot, Context context) {
+        return beginUpdateAsync(resourceGroupName, snapshotName, snapshot, context).getSyncPoller();
+    }
 
     /**
      * Updates (patches) a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Patch snapshot operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -518,9 +722,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Updates (patches) a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Patch snapshot operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -529,7 +735,8 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<SnapshotInner> updateAsync(String resourceGroupName, String snapshotName, SnapshotUpdate snapshot, Context context) {
+    private Mono<SnapshotInner> updateAsync(
+        String resourceGroupName, String snapshotName, SnapshotUpdate snapshot, Context context) {
         return beginUpdateAsync(resourceGroupName, snapshotName, snapshot, context)
             .last()
             .flatMap(this.client::getLroFinalResultOrError);
@@ -537,9 +744,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Updates (patches) a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Patch snapshot operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -553,9 +762,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Updates (patches) a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param snapshot Snapshot object supplied in the body of the Patch snapshot operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -564,45 +775,69 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return snapshot resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SnapshotInner update(String resourceGroupName, String snapshotName, SnapshotUpdate snapshot, Context context) {
+    public SnapshotInner update(
+        String resourceGroupName, String snapshotName, SnapshotUpdate snapshot, Context context) {
         return updateAsync(resourceGroupName, snapshotName, snapshot, context).block();
     }
 
     /**
      * Gets information about a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return information about a snapshot.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<SnapshotInner>> getByResourceGroupWithResponseAsync(String resourceGroupName, String snapshotName) {
+    public Mono<Response<SnapshotInner>> getByResourceGroupWithResponseAsync(
+        String resourceGroupName, String snapshotName) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.getByResourceGroup(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, accept, context))
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .getByResourceGroup(
+                            this.client.getEndpoint(),
+                            this.client.getSubscriptionId(),
+                            resourceGroupName,
+                            snapshotName,
+                            apiVersion,
+                            accept,
+                            context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Gets information about a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -610,30 +845,48 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return information about a snapshot.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<SnapshotInner>> getByResourceGroupWithResponseAsync(String resourceGroupName, String snapshotName, Context context) {
+    private Mono<Response<SnapshotInner>> getByResourceGroupWithResponseAsync(
+        String resourceGroupName, String snapshotName, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.getByResourceGroup(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, accept, context);
+        return service
+            .getByResourceGroup(
+                this.client.getEndpoint(),
+                this.client.getSubscriptionId(),
+                resourceGroupName,
+                snapshotName,
+                apiVersion,
+                accept,
+                context);
     }
 
     /**
      * Gets information about a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -642,20 +895,23 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<SnapshotInner> getByResourceGroupAsync(String resourceGroupName, String snapshotName) {
         return getByResourceGroupWithResponseAsync(resourceGroupName, snapshotName)
-            .flatMap((Response<SnapshotInner> res) -> {
-                if (res.getValue() != null) {
-                    return Mono.just(res.getValue());
-                } else {
-                    return Mono.empty();
-                }
-            });
+            .flatMap(
+                (Response<SnapshotInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
      * Gets information about a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -668,9 +924,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Gets information about a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -678,15 +936,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return information about a snapshot.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<SnapshotInner> getByResourceGroupWithResponse(String resourceGroupName, String snapshotName, Context context) {
+    public Response<SnapshotInner> getByResourceGroupWithResponse(
+        String resourceGroupName, String snapshotName, Context context) {
         return getByResourceGroupWithResponseAsync(resourceGroupName, snapshotName, context).block();
     }
 
     /**
      * Deletes a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -695,27 +956,46 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<Flux<ByteBuffer>>> deleteWithResponseAsync(String resourceGroupName, String snapshotName) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
         }
-        final String apiVersion = "2019-07-01";
-        return FluxUtil.withContext(context -> service.delete(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, context))
+        final String apiVersion = "2021-04-01";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .delete(
+                            this.client.getEndpoint(),
+                            this.client.getSubscriptionId(),
+                            resourceGroupName,
+                            snapshotName,
+                            apiVersion,
+                            context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Deletes a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -723,29 +1003,46 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<Flux<ByteBuffer>>> deleteWithResponseAsync(String resourceGroupName, String snapshotName, Context context) {
+    private Mono<Response<Flux<ByteBuffer>>> deleteWithResponseAsync(
+        String resourceGroupName, String snapshotName, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         context = this.client.mergeContext(context);
-        return service.delete(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, context);
+        return service
+            .delete(
+                this.client.getEndpoint(),
+                this.client.getSubscriptionId(),
+                resourceGroupName,
+                snapshotName,
+                apiVersion,
+                context);
     }
 
     /**
      * Deletes a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -754,14 +1051,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
     @ServiceMethod(returns = ReturnType.SINGLE)
     public PollerFlux<PollResult<Void>, Void> beginDeleteAsync(String resourceGroupName, String snapshotName) {
         Mono<Response<Flux<ByteBuffer>>> mono = deleteWithResponseAsync(resourceGroupName, snapshotName);
-        return this.client.<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, Context.NONE);
+        return this
+            .client
+            .<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, Context.NONE);
     }
 
     /**
      * Deletes a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -769,17 +1070,22 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private PollerFlux<PollResult<Void>, Void> beginDeleteAsync(String resourceGroupName, String snapshotName, Context context) {
+    private PollerFlux<PollResult<Void>, Void> beginDeleteAsync(
+        String resourceGroupName, String snapshotName, Context context) {
         context = this.client.mergeContext(context);
         Mono<Response<Flux<ByteBuffer>>> mono = deleteWithResponseAsync(resourceGroupName, snapshotName, context);
-        return this.client.<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, context);
+        return this
+            .client
+            .<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, context);
     }
 
     /**
      * Deletes a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -787,14 +1093,16 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public SyncPoller<PollResult<Void>, Void> beginDelete(String resourceGroupName, String snapshotName) {
-        return beginDeleteAsync(resourceGroupName, snapshotName)
-            .getSyncPoller();}
+        return beginDeleteAsync(resourceGroupName, snapshotName).getSyncPoller();
+    }
 
     /**
      * Deletes a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -802,15 +1110,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<Void>, Void> beginDelete(String resourceGroupName, String snapshotName, Context context) {
-        return beginDeleteAsync(resourceGroupName, snapshotName, context)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<Void>, Void> beginDelete(
+        String resourceGroupName, String snapshotName, Context context) {
+        return beginDeleteAsync(resourceGroupName, snapshotName, context).getSyncPoller();
+    }
 
     /**
      * Deletes a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -818,16 +1129,16 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Void> deleteAsync(String resourceGroupName, String snapshotName) {
-        return beginDeleteAsync(resourceGroupName, snapshotName)
-            .last()
-            .flatMap(this.client::getLroFinalResultOrError);
+        return beginDeleteAsync(resourceGroupName, snapshotName).last().flatMap(this.client::getLroFinalResultOrError);
     }
 
     /**
      * Deletes a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -843,9 +1154,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Deletes a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -857,9 +1170,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Deletes a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -872,7 +1187,7 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Lists snapshots under a resource group.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -882,30 +1197,49 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<SnapshotInner>> listByResourceGroupSinglePageAsync(String resourceGroupName) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.listByResourceGroup(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, apiVersion, accept, context))
-            .<PagedResponse<SnapshotInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .listByResourceGroup(
+                            this.client.getEndpoint(),
+                            this.client.getSubscriptionId(),
+                            resourceGroupName,
+                            apiVersion,
+                            accept,
+                            context))
+            .<PagedResponse<SnapshotInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Lists snapshots under a resource group.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -914,32 +1248,49 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return the List Snapshots operation response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<SnapshotInner>> listByResourceGroupSinglePageAsync(String resourceGroupName, Context context) {
+    private Mono<PagedResponse<SnapshotInner>> listByResourceGroupSinglePageAsync(
+        String resourceGroupName, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.listByResourceGroup(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, apiVersion, accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .listByResourceGroup(
+                this.client.getEndpoint(),
+                this.client.getSubscriptionId(),
+                resourceGroupName,
+                apiVersion,
+                accept,
+                context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 
     /**
      * Lists snapshots under a resource group.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -955,7 +1306,7 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Lists snapshots under a resource group.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -972,7 +1323,7 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Lists snapshots under a resource group.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -986,7 +1337,7 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Lists snapshots under a resource group.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1001,7 +1352,7 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Lists snapshots under a subscription.
-     * 
+     *
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the List Snapshots operation response.
@@ -1009,27 +1360,39 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<SnapshotInner>> listSinglePageAsync() {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.list(this.client.getEndpoint(), this.client.getSubscriptionId(), apiVersion, accept, context))
-            .<PagedResponse<SnapshotInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .list(this.client.getEndpoint(), this.client.getSubscriptionId(), apiVersion, accept, context))
+            .<PagedResponse<SnapshotInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Lists snapshots under a subscription.
-     * 
+     *
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1039,41 +1402,48 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<SnapshotInner>> listSinglePageAsync(Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.list(this.client.getEndpoint(), this.client.getSubscriptionId(), apiVersion, accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .list(this.client.getEndpoint(), this.client.getSubscriptionId(), apiVersion, accept, context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 
     /**
      * Lists snapshots under a subscription.
-     * 
+     *
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the List Snapshots operation response.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedFlux<SnapshotInner> listAsync() {
-        return new PagedFlux<>(
-            () -> listSinglePageAsync(),
-            nextLink -> listNextSinglePageAsync(nextLink));
+        return new PagedFlux<>(() -> listSinglePageAsync(), nextLink -> listNextSinglePageAsync(nextLink));
     }
 
     /**
      * Lists snapshots under a subscription.
-     * 
+     *
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1083,13 +1453,12 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
     @ServiceMethod(returns = ReturnType.COLLECTION)
     private PagedFlux<SnapshotInner> listAsync(Context context) {
         return new PagedFlux<>(
-            () -> listSinglePageAsync(context),
-            nextLink -> listNextSinglePageAsync(nextLink, context));
+            () -> listSinglePageAsync(context), nextLink -> listNextSinglePageAsync(nextLink, context));
     }
 
     /**
      * Lists snapshots under a subscription.
-     * 
+     *
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the List Snapshots operation response.
@@ -1101,7 +1470,7 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Lists snapshots under a subscription.
-     * 
+     *
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1115,9 +1484,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Grants access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param grantAccessData Access data object supplied in the body of the get snapshot access operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1125,35 +1496,58 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return a disk access SAS uri.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<Flux<ByteBuffer>>> grantAccessWithResponseAsync(String resourceGroupName, String snapshotName, GrantAccessData grantAccessData) {
+    public Mono<Response<Flux<ByteBuffer>>> grantAccessWithResponseAsync(
+        String resourceGroupName, String snapshotName, GrantAccessData grantAccessData) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
         }
         if (grantAccessData == null) {
-            return Mono.error(new IllegalArgumentException("Parameter grantAccessData is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter grantAccessData is required and cannot be null."));
         } else {
             grantAccessData.validate();
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.grantAccess(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, grantAccessData, accept, context))
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .grantAccess(
+                            this.client.getEndpoint(),
+                            this.client.getSubscriptionId(),
+                            resourceGroupName,
+                            snapshotName,
+                            apiVersion,
+                            grantAccessData,
+                            accept,
+                            context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Grants access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param grantAccessData Access data object supplied in the body of the get snapshot access operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1162,35 +1556,55 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return a disk access SAS uri.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<Flux<ByteBuffer>>> grantAccessWithResponseAsync(String resourceGroupName, String snapshotName, GrantAccessData grantAccessData, Context context) {
+    private Mono<Response<Flux<ByteBuffer>>> grantAccessWithResponseAsync(
+        String resourceGroupName, String snapshotName, GrantAccessData grantAccessData, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
         }
         if (grantAccessData == null) {
-            return Mono.error(new IllegalArgumentException("Parameter grantAccessData is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter grantAccessData is required and cannot be null."));
         } else {
             grantAccessData.validate();
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.grantAccess(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, grantAccessData, accept, context);
+        return service
+            .grantAccess(
+                this.client.getEndpoint(),
+                this.client.getSubscriptionId(),
+                resourceGroupName,
+                snapshotName,
+                apiVersion,
+                grantAccessData,
+                accept,
+                context);
     }
 
     /**
      * Grants access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param grantAccessData Access data object supplied in the body of the get snapshot access operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1198,16 +1612,23 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return a disk access SAS uri.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public PollerFlux<PollResult<AccessUriInner>, AccessUriInner> beginGrantAccessAsync(String resourceGroupName, String snapshotName, GrantAccessData grantAccessData) {
-        Mono<Response<Flux<ByteBuffer>>> mono = grantAccessWithResponseAsync(resourceGroupName, snapshotName, grantAccessData);
-        return this.client.<AccessUriInner, AccessUriInner>getLroResult(mono, this.client.getHttpPipeline(), AccessUriInner.class, AccessUriInner.class, Context.NONE);
+    public PollerFlux<PollResult<AccessUriInner>, AccessUriInner> beginGrantAccessAsync(
+        String resourceGroupName, String snapshotName, GrantAccessData grantAccessData) {
+        Mono<Response<Flux<ByteBuffer>>> mono =
+            grantAccessWithResponseAsync(resourceGroupName, snapshotName, grantAccessData);
+        return this
+            .client
+            .<AccessUriInner, AccessUriInner>getLroResult(
+                mono, this.client.getHttpPipeline(), AccessUriInner.class, AccessUriInner.class, Context.NONE);
     }
 
     /**
      * Grants access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param grantAccessData Access data object supplied in the body of the get snapshot access operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1216,17 +1637,24 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return a disk access SAS uri.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private PollerFlux<PollResult<AccessUriInner>, AccessUriInner> beginGrantAccessAsync(String resourceGroupName, String snapshotName, GrantAccessData grantAccessData, Context context) {
+    private PollerFlux<PollResult<AccessUriInner>, AccessUriInner> beginGrantAccessAsync(
+        String resourceGroupName, String snapshotName, GrantAccessData grantAccessData, Context context) {
         context = this.client.mergeContext(context);
-        Mono<Response<Flux<ByteBuffer>>> mono = grantAccessWithResponseAsync(resourceGroupName, snapshotName, grantAccessData, context);
-        return this.client.<AccessUriInner, AccessUriInner>getLroResult(mono, this.client.getHttpPipeline(), AccessUriInner.class, AccessUriInner.class, context);
+        Mono<Response<Flux<ByteBuffer>>> mono =
+            grantAccessWithResponseAsync(resourceGroupName, snapshotName, grantAccessData, context);
+        return this
+            .client
+            .<AccessUriInner, AccessUriInner>getLroResult(
+                mono, this.client.getHttpPipeline(), AccessUriInner.class, AccessUriInner.class, context);
     }
 
     /**
      * Grants access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param grantAccessData Access data object supplied in the body of the get snapshot access operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1234,15 +1662,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return a disk access SAS uri.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<AccessUriInner>, AccessUriInner> beginGrantAccess(String resourceGroupName, String snapshotName, GrantAccessData grantAccessData) {
-        return beginGrantAccessAsync(resourceGroupName, snapshotName, grantAccessData)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<AccessUriInner>, AccessUriInner> beginGrantAccess(
+        String resourceGroupName, String snapshotName, GrantAccessData grantAccessData) {
+        return beginGrantAccessAsync(resourceGroupName, snapshotName, grantAccessData).getSyncPoller();
+    }
 
     /**
      * Grants access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param grantAccessData Access data object supplied in the body of the get snapshot access operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1251,15 +1682,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return a disk access SAS uri.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<AccessUriInner>, AccessUriInner> beginGrantAccess(String resourceGroupName, String snapshotName, GrantAccessData grantAccessData, Context context) {
-        return beginGrantAccessAsync(resourceGroupName, snapshotName, grantAccessData, context)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<AccessUriInner>, AccessUriInner> beginGrantAccess(
+        String resourceGroupName, String snapshotName, GrantAccessData grantAccessData, Context context) {
+        return beginGrantAccessAsync(resourceGroupName, snapshotName, grantAccessData, context).getSyncPoller();
+    }
 
     /**
      * Grants access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param grantAccessData Access data object supplied in the body of the get snapshot access operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1267,7 +1701,8 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return a disk access SAS uri.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<AccessUriInner> grantAccessAsync(String resourceGroupName, String snapshotName, GrantAccessData grantAccessData) {
+    public Mono<AccessUriInner> grantAccessAsync(
+        String resourceGroupName, String snapshotName, GrantAccessData grantAccessData) {
         return beginGrantAccessAsync(resourceGroupName, snapshotName, grantAccessData)
             .last()
             .flatMap(this.client::getLroFinalResultOrError);
@@ -1275,9 +1710,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Grants access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param grantAccessData Access data object supplied in the body of the get snapshot access operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1286,7 +1723,8 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return a disk access SAS uri.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<AccessUriInner> grantAccessAsync(String resourceGroupName, String snapshotName, GrantAccessData grantAccessData, Context context) {
+    private Mono<AccessUriInner> grantAccessAsync(
+        String resourceGroupName, String snapshotName, GrantAccessData grantAccessData, Context context) {
         return beginGrantAccessAsync(resourceGroupName, snapshotName, grantAccessData, context)
             .last()
             .flatMap(this.client::getLroFinalResultOrError);
@@ -1294,9 +1732,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Grants access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param grantAccessData Access data object supplied in the body of the get snapshot access operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1310,9 +1750,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Grants access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param grantAccessData Access data object supplied in the body of the get snapshot access operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1321,44 +1763,67 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return a disk access SAS uri.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public AccessUriInner grantAccess(String resourceGroupName, String snapshotName, GrantAccessData grantAccessData, Context context) {
+    public AccessUriInner grantAccess(
+        String resourceGroupName, String snapshotName, GrantAccessData grantAccessData, Context context) {
         return grantAccessAsync(resourceGroupName, snapshotName, grantAccessData, context).block();
     }
 
     /**
      * Revokes access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<Flux<ByteBuffer>>> revokeAccessWithResponseAsync(String resourceGroupName, String snapshotName) {
+    public Mono<Response<Flux<ByteBuffer>>> revokeAccessWithResponseAsync(
+        String resourceGroupName, String snapshotName) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
         }
-        final String apiVersion = "2019-07-01";
-        return FluxUtil.withContext(context -> service.revokeAccess(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, context))
+        final String apiVersion = "2021-04-01";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .revokeAccess(
+                            this.client.getEndpoint(),
+                            this.client.getSubscriptionId(),
+                            resourceGroupName,
+                            snapshotName,
+                            apiVersion,
+                            context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Revokes access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1366,29 +1831,46 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<Flux<ByteBuffer>>> revokeAccessWithResponseAsync(String resourceGroupName, String snapshotName, Context context) {
+    private Mono<Response<Flux<ByteBuffer>>> revokeAccessWithResponseAsync(
+        String resourceGroupName, String snapshotName, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (snapshotName == null) {
             return Mono.error(new IllegalArgumentException("Parameter snapshotName is required and cannot be null."));
         }
-        final String apiVersion = "2019-07-01";
+        final String apiVersion = "2021-04-01";
         context = this.client.mergeContext(context);
-        return service.revokeAccess(this.client.getEndpoint(), this.client.getSubscriptionId(), resourceGroupName, snapshotName, apiVersion, context);
+        return service
+            .revokeAccess(
+                this.client.getEndpoint(),
+                this.client.getSubscriptionId(),
+                resourceGroupName,
+                snapshotName,
+                apiVersion,
+                context);
     }
 
     /**
      * Revokes access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -1397,14 +1879,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
     @ServiceMethod(returns = ReturnType.SINGLE)
     public PollerFlux<PollResult<Void>, Void> beginRevokeAccessAsync(String resourceGroupName, String snapshotName) {
         Mono<Response<Flux<ByteBuffer>>> mono = revokeAccessWithResponseAsync(resourceGroupName, snapshotName);
-        return this.client.<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, Context.NONE);
+        return this
+            .client
+            .<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, Context.NONE);
     }
 
     /**
      * Revokes access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1412,17 +1898,22 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private PollerFlux<PollResult<Void>, Void> beginRevokeAccessAsync(String resourceGroupName, String snapshotName, Context context) {
+    private PollerFlux<PollResult<Void>, Void> beginRevokeAccessAsync(
+        String resourceGroupName, String snapshotName, Context context) {
         context = this.client.mergeContext(context);
         Mono<Response<Flux<ByteBuffer>>> mono = revokeAccessWithResponseAsync(resourceGroupName, snapshotName, context);
-        return this.client.<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, context);
+        return this
+            .client
+            .<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, context);
     }
 
     /**
      * Revokes access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -1430,14 +1921,16 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public SyncPoller<PollResult<Void>, Void> beginRevokeAccess(String resourceGroupName, String snapshotName) {
-        return beginRevokeAccessAsync(resourceGroupName, snapshotName)
-            .getSyncPoller();}
+        return beginRevokeAccessAsync(resourceGroupName, snapshotName).getSyncPoller();
+    }
 
     /**
      * Revokes access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1445,15 +1938,18 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<Void>, Void> beginRevokeAccess(String resourceGroupName, String snapshotName, Context context) {
-        return beginRevokeAccessAsync(resourceGroupName, snapshotName, context)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<Void>, Void> beginRevokeAccess(
+        String resourceGroupName, String snapshotName, Context context) {
+        return beginRevokeAccessAsync(resourceGroupName, snapshotName, context).getSyncPoller();
+    }
 
     /**
      * Revokes access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -1468,9 +1964,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Revokes access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1486,9 +1984,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Revokes access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -1500,9 +2000,11 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Revokes access to a snapshot.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
-     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot is created. Supported characters for the name are a-z, A-Z, 0-9 and _. The max name length is 80 characters.
+     * @param snapshotName The name of the snapshot that is being created. The name can't be changed after the snapshot
+     *     is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
+     *     characters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1515,7 +2017,7 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1528,23 +2030,30 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.listByResourceGroupNext(nextLink, this.client.getEndpoint(), accept, context))
-            .<PagedResponse<SnapshotInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        return FluxUtil
+            .withContext(
+                context -> service.listByResourceGroupNext(nextLink, this.client.getEndpoint(), accept, context))
+            .<PagedResponse<SnapshotInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1553,28 +2062,35 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
      * @return the List Snapshots operation response.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<SnapshotInner>> listByResourceGroupNextSinglePageAsync(String nextLink, Context context) {
+    private Mono<PagedResponse<SnapshotInner>> listByResourceGroupNextSinglePageAsync(
+        String nextLink, Context context) {
         if (nextLink == null) {
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.listByResourceGroupNext(nextLink, this.client.getEndpoint(), accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .listByResourceGroupNext(nextLink, this.client.getEndpoint(), accept, context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1587,23 +2103,29 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.listNext(nextLink, this.client.getEndpoint(), accept, context))
-            .<PagedResponse<SnapshotInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        return FluxUtil
+            .withContext(context -> service.listNext(nextLink, this.client.getEndpoint(), accept, context))
+            .<PagedResponse<SnapshotInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1617,17 +2139,23 @@ public final class SnapshotsClientImpl implements InnerSupportsGet<SnapshotInner
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.listNext(nextLink, this.client.getEndpoint(), accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .listNext(nextLink, this.client.getEndpoint(), accept, context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 }

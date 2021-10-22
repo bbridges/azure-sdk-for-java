@@ -5,26 +5,21 @@
 package com.azure.resourcemanager.network.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.fluent.models.ApplicationGatewayBackendAddressPoolPropertiesFormat;
 import com.azure.resourcemanager.network.fluent.models.NetworkInterfaceIpConfigurationInner;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * Backend Address Pool of an application gateway.
- */
+/** Backend Address Pool of an application gateway. */
 @Fluent
 public final class ApplicationGatewayBackendAddressPool extends SubResource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(ApplicationGatewayBackendAddressPool.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(ApplicationGatewayBackendAddressPool.class);
 
     /*
-     * Properties of Backend Address Pool of an application gateway.
+     * Properties of the application gateway backend address pool.
      */
     @JsonProperty(value = "properties")
     private ApplicationGatewayBackendAddressPoolPropertiesFormat innerProperties;
@@ -39,19 +34,18 @@ public final class ApplicationGatewayBackendAddressPool extends SubResource {
     /*
      * A unique read-only string that changes whenever the resource is updated.
      */
-    @JsonProperty(value = "etag")
+    @JsonProperty(value = "etag", access = JsonProperty.Access.WRITE_ONLY)
     private String etag;
 
     /*
      * Type of the resource.
      */
-    @JsonProperty(value = "type")
+    @JsonProperty(value = "type", access = JsonProperty.Access.WRITE_ONLY)
     private String type;
 
     /**
-     * Get the innerProperties property: Properties of Backend Address Pool of
-     * an application gateway.
-     * 
+     * Get the innerProperties property: Properties of the application gateway backend address pool.
+     *
      * @return the innerProperties value.
      */
     private ApplicationGatewayBackendAddressPoolPropertiesFormat innerProperties() {
@@ -59,9 +53,8 @@ public final class ApplicationGatewayBackendAddressPool extends SubResource {
     }
 
     /**
-     * Get the name property: Name of the backend address pool that is unique
-     * within an Application Gateway.
-     * 
+     * Get the name property: Name of the backend address pool that is unique within an Application Gateway.
+     *
      * @return the name value.
      */
     public String name() {
@@ -69,9 +62,8 @@ public final class ApplicationGatewayBackendAddressPool extends SubResource {
     }
 
     /**
-     * Set the name property: Name of the backend address pool that is unique
-     * within an Application Gateway.
-     * 
+     * Set the name property: Name of the backend address pool that is unique within an Application Gateway.
+     *
      * @param name the name value to set.
      * @return the ApplicationGatewayBackendAddressPool object itself.
      */
@@ -81,9 +73,8 @@ public final class ApplicationGatewayBackendAddressPool extends SubResource {
     }
 
     /**
-     * Get the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
+     * Get the etag property: A unique read-only string that changes whenever the resource is updated.
+     *
      * @return the etag value.
      */
     public String etag() {
@@ -91,40 +82,15 @@ public final class ApplicationGatewayBackendAddressPool extends SubResource {
     }
 
     /**
-     * Set the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
-     * @param etag the etag value to set.
-     * @return the ApplicationGatewayBackendAddressPool object itself.
-     */
-    public ApplicationGatewayBackendAddressPool withEtag(String etag) {
-        this.etag = etag;
-        return this;
-    }
-
-    /**
      * Get the type property: Type of the resource.
-     * 
+     *
      * @return the type value.
      */
     public String type() {
         return this.type;
     }
 
-    /**
-     * Set the type property: Type of the resource.
-     * 
-     * @param type the type value to set.
-     * @return the ApplicationGatewayBackendAddressPool object itself.
-     */
-    public ApplicationGatewayBackendAddressPool withType(String type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public ApplicationGatewayBackendAddressPool withId(String id) {
         super.withId(id);
@@ -132,9 +98,8 @@ public final class ApplicationGatewayBackendAddressPool extends SubResource {
     }
 
     /**
-     * Get the backendIpConfigurations property: Collection of references to
-     * IPs defined in network interfaces.
-     * 
+     * Get the backendIpConfigurations property: Collection of references to IPs defined in network interfaces.
+     *
      * @return the backendIpConfigurations value.
      */
     public List<NetworkInterfaceIpConfigurationInner> backendIpConfigurations() {
@@ -142,23 +107,8 @@ public final class ApplicationGatewayBackendAddressPool extends SubResource {
     }
 
     /**
-     * Set the backendIpConfigurations property: Collection of references to
-     * IPs defined in network interfaces.
-     * 
-     * @param backendIpConfigurations the backendIpConfigurations value to set.
-     * @return the ApplicationGatewayBackendAddressPool object itself.
-     */
-    public ApplicationGatewayBackendAddressPool withBackendIpConfigurations(List<NetworkInterfaceIpConfigurationInner> backendIpConfigurations) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new ApplicationGatewayBackendAddressPoolPropertiesFormat();
-        }
-        this.innerProperties().withBackendIpConfigurations(backendIpConfigurations);
-        return this;
-    }
-
-    /**
      * Get the backendAddresses property: Backend addresses.
-     * 
+     *
      * @return the backendAddresses value.
      */
     public List<ApplicationGatewayBackendAddress> backendAddresses() {
@@ -167,11 +117,12 @@ public final class ApplicationGatewayBackendAddressPool extends SubResource {
 
     /**
      * Set the backendAddresses property: Backend addresses.
-     * 
+     *
      * @param backendAddresses the backendAddresses value to set.
      * @return the ApplicationGatewayBackendAddressPool object itself.
      */
-    public ApplicationGatewayBackendAddressPool withBackendAddresses(List<ApplicationGatewayBackendAddress> backendAddresses) {
+    public ApplicationGatewayBackendAddressPool withBackendAddresses(
+        List<ApplicationGatewayBackendAddress> backendAddresses) {
         if (this.innerProperties() == null) {
             this.innerProperties = new ApplicationGatewayBackendAddressPoolPropertiesFormat();
         }
@@ -180,35 +131,17 @@ public final class ApplicationGatewayBackendAddressPool extends SubResource {
     }
 
     /**
-     * Get the provisioningState property: Provisioning state of the backend
-     * address pool resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the backend address pool resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.innerProperties() == null ? null : this.innerProperties().provisioningState();
     }
 
     /**
-     * Set the provisioningState property: Provisioning state of the backend
-     * address pool resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
-     * @param provisioningState the provisioningState value to set.
-     * @return the ApplicationGatewayBackendAddressPool object itself.
-     */
-    public ApplicationGatewayBackendAddressPool withProvisioningState(String provisioningState) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new ApplicationGatewayBackendAddressPoolPropertiesFormat();
-        }
-        this.innerProperties().withProvisioningState(provisioningState);
-        return this;
-    }
-
-    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

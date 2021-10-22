@@ -8,6 +8,7 @@ import com.azure.core.annotation.Fluent;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.appservice.models.AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem;
 import com.azure.resourcemanager.appservice.models.CertificateDetails;
+import com.azure.resourcemanager.appservice.models.CertificateOrderContact;
 import com.azure.resourcemanager.appservice.models.CertificateOrderStatus;
 import com.azure.resourcemanager.appservice.models.CertificateProductType;
 import com.azure.resourcemanager.appservice.models.ProvisioningState;
@@ -44,7 +45,7 @@ public final class AppServiceCertificateOrderPatchResourceProperties {
     private String domainVerificationToken;
 
     /*
-     * Duration in years (must be between 1 and 3).
+     * Duration in years (must be 1).
      */
     @JsonProperty(value = "validityInYears")
     private Integer validityInYears;
@@ -143,6 +144,12 @@ public final class AppServiceCertificateOrderPatchResourceProperties {
     @JsonProperty(value = "nextAutoRenewalTimeStamp", access = JsonProperty.Access.WRITE_ONLY)
     private OffsetDateTime nextAutoRenewalTimestamp;
 
+    /*
+     * Contact info
+     */
+    @JsonProperty(value = "contact", access = JsonProperty.Access.WRITE_ONLY)
+    private CertificateOrderContact contact;
+
     /**
      * Get the certificates property: State of the Key Vault secret.
      *
@@ -194,7 +201,7 @@ public final class AppServiceCertificateOrderPatchResourceProperties {
     }
 
     /**
-     * Get the validityInYears property: Duration in years (must be between 1 and 3).
+     * Get the validityInYears property: Duration in years (must be 1).
      *
      * @return the validityInYears value.
      */
@@ -203,7 +210,7 @@ public final class AppServiceCertificateOrderPatchResourceProperties {
     }
 
     /**
-     * Set the validityInYears property: Duration in years (must be between 1 and 3).
+     * Set the validityInYears property: Duration in years (must be 1).
      *
      * @param validityInYears the validityInYears value to set.
      * @return the AppServiceCertificateOrderPatchResourceProperties object itself.
@@ -398,6 +405,15 @@ public final class AppServiceCertificateOrderPatchResourceProperties {
     }
 
     /**
+     * Get the contact property: Contact info.
+     *
+     * @return the contact value.
+     */
+    public CertificateOrderContact contact() {
+        return this.contact;
+    }
+
+    /**
      * Validates the instance.
      *
      * @throws IllegalArgumentException thrown if the instance is not valid.
@@ -428,6 +444,9 @@ public final class AppServiceCertificateOrderPatchResourceProperties {
         }
         if (root() != null) {
             root().validate();
+        }
+        if (contact() != null) {
+            contact().validate();
         }
     }
 }

@@ -5,242 +5,228 @@
 package com.azure.resourcemanager.resources.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
+import com.azure.core.annotation.JsonFlatten;
+import com.azure.core.management.ProxyResource;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.resourcemanager.resources.models.PolicyMode;
+import com.azure.resourcemanager.resources.models.ParameterDefinitionsValue;
 import com.azure.resourcemanager.resources.models.PolicyType;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 
-/**
- * The policy definition.
- */
+/** The policy definition. */
+@JsonFlatten
 @Fluent
-public final class PolicyDefinitionInner {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(PolicyDefinitionInner.class);
+public class PolicyDefinitionInner extends ProxyResource {
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(PolicyDefinitionInner.class);
 
     /*
-     * The policy definition properties.
+     * The type of policy definition. Possible values are NotSpecified,
+     * BuiltIn, Custom, and Static.
      */
-    @JsonProperty(value = "properties")
-    private PolicyDefinitionProperties innerProperties;
+    @JsonProperty(value = "properties.policyType")
+    private PolicyType policyType;
 
     /*
-     * The ID of the policy definition.
+     * The policy definition mode. Some examples are All, Indexed,
+     * Microsoft.KeyVault.Data.
      */
-    @JsonProperty(value = "id", access = JsonProperty.Access.WRITE_ONLY)
-    private String id;
+    @JsonProperty(value = "properties.mode")
+    private String mode;
 
     /*
-     * The name of the policy definition.
+     * The display name of the policy definition.
      */
-    @JsonProperty(value = "name", access = JsonProperty.Access.WRITE_ONLY)
-    private String name;
+    @JsonProperty(value = "properties.displayName")
+    private String displayName;
+
+    /*
+     * The policy definition description.
+     */
+    @JsonProperty(value = "properties.description")
+    private String description;
+
+    /*
+     * The policy rule.
+     */
+    @JsonProperty(value = "properties.policyRule")
+    private Object policyRule;
+
+    /*
+     * The policy definition metadata.  Metadata is an open ended object and is
+     * typically a collection of key value pairs.
+     */
+    @JsonProperty(value = "properties.metadata")
+    private Object metadata;
+
+    /*
+     * The parameter definitions for parameters used in the policy rule. The
+     * keys are the parameter names.
+     */
+    @JsonProperty(value = "properties.parameters")
+    private Map<String, ParameterDefinitionsValue> parameters;
 
     /**
-     * Get the innerProperties property: The policy definition properties.
-     * 
-     * @return the innerProperties value.
-     */
-    private PolicyDefinitionProperties innerProperties() {
-        return this.innerProperties;
-    }
-
-    /**
-     * Get the id property: The ID of the policy definition.
-     * 
-     * @return the id value.
-     */
-    public String id() {
-        return this.id;
-    }
-
-    /**
-     * Get the name property: The name of the policy definition.
-     * 
-     * @return the name value.
-     */
-    public String name() {
-        return this.name;
-    }
-
-    /**
-     * Get the policyType property: The type of policy definition. Possible
-     * values are NotSpecified, BuiltIn, and Custom.
-     * 
+     * Get the policyType property: The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom,
+     * and Static.
+     *
      * @return the policyType value.
      */
     public PolicyType policyType() {
-        return this.innerProperties() == null ? null : this.innerProperties().policyType();
+        return this.policyType;
     }
 
     /**
-     * Set the policyType property: The type of policy definition. Possible
-     * values are NotSpecified, BuiltIn, and Custom.
-     * 
+     * Set the policyType property: The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom,
+     * and Static.
+     *
      * @param policyType the policyType value to set.
      * @return the PolicyDefinitionInner object itself.
      */
     public PolicyDefinitionInner withPolicyType(PolicyType policyType) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new PolicyDefinitionProperties();
-        }
-        this.innerProperties().withPolicyType(policyType);
+        this.policyType = policyType;
         return this;
     }
 
     /**
-     * Get the mode property: The policy definition mode. Possible values are
-     * NotSpecified, Indexed, and All.
-     * 
+     * Get the mode property: The policy definition mode. Some examples are All, Indexed, Microsoft.KeyVault.Data.
+     *
      * @return the mode value.
      */
-    public PolicyMode mode() {
-        return this.innerProperties() == null ? null : this.innerProperties().mode();
+    public String mode() {
+        return this.mode;
     }
 
     /**
-     * Set the mode property: The policy definition mode. Possible values are
-     * NotSpecified, Indexed, and All.
-     * 
+     * Set the mode property: The policy definition mode. Some examples are All, Indexed, Microsoft.KeyVault.Data.
+     *
      * @param mode the mode value to set.
      * @return the PolicyDefinitionInner object itself.
      */
-    public PolicyDefinitionInner withMode(PolicyMode mode) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new PolicyDefinitionProperties();
-        }
-        this.innerProperties().withMode(mode);
+    public PolicyDefinitionInner withMode(String mode) {
+        this.mode = mode;
         return this;
     }
 
     /**
      * Get the displayName property: The display name of the policy definition.
-     * 
+     *
      * @return the displayName value.
      */
     public String displayName() {
-        return this.innerProperties() == null ? null : this.innerProperties().displayName();
+        return this.displayName;
     }
 
     /**
      * Set the displayName property: The display name of the policy definition.
-     * 
+     *
      * @param displayName the displayName value to set.
      * @return the PolicyDefinitionInner object itself.
      */
     public PolicyDefinitionInner withDisplayName(String displayName) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new PolicyDefinitionProperties();
-        }
-        this.innerProperties().withDisplayName(displayName);
+        this.displayName = displayName;
         return this;
     }
 
     /**
      * Get the description property: The policy definition description.
-     * 
+     *
      * @return the description value.
      */
     public String description() {
-        return this.innerProperties() == null ? null : this.innerProperties().description();
+        return this.description;
     }
 
     /**
      * Set the description property: The policy definition description.
-     * 
+     *
      * @param description the description value to set.
      * @return the PolicyDefinitionInner object itself.
      */
     public PolicyDefinitionInner withDescription(String description) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new PolicyDefinitionProperties();
-        }
-        this.innerProperties().withDescription(description);
+        this.description = description;
         return this;
     }
 
     /**
      * Get the policyRule property: The policy rule.
-     * 
+     *
      * @return the policyRule value.
      */
     public Object policyRule() {
-        return this.innerProperties() == null ? null : this.innerProperties().policyRule();
+        return this.policyRule;
     }
 
     /**
      * Set the policyRule property: The policy rule.
-     * 
+     *
      * @param policyRule the policyRule value to set.
      * @return the PolicyDefinitionInner object itself.
      */
     public PolicyDefinitionInner withPolicyRule(Object policyRule) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new PolicyDefinitionProperties();
-        }
-        this.innerProperties().withPolicyRule(policyRule);
+        this.policyRule = policyRule;
         return this;
     }
 
     /**
-     * Get the metadata property: The policy definition metadata.
-     * 
+     * Get the metadata property: The policy definition metadata. Metadata is an open ended object and is typically a
+     * collection of key value pairs.
+     *
      * @return the metadata value.
      */
     public Object metadata() {
-        return this.innerProperties() == null ? null : this.innerProperties().metadata();
+        return this.metadata;
     }
 
     /**
-     * Set the metadata property: The policy definition metadata.
-     * 
+     * Set the metadata property: The policy definition metadata. Metadata is an open ended object and is typically a
+     * collection of key value pairs.
+     *
      * @param metadata the metadata value to set.
      * @return the PolicyDefinitionInner object itself.
      */
     public PolicyDefinitionInner withMetadata(Object metadata) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new PolicyDefinitionProperties();
-        }
-        this.innerProperties().withMetadata(metadata);
+        this.metadata = metadata;
         return this;
     }
 
     /**
-     * Get the parameters property: Required if a parameter is used in policy
-     * rule.
-     * 
+     * Get the parameters property: The parameter definitions for parameters used in the policy rule. The keys are the
+     * parameter names.
+     *
      * @return the parameters value.
      */
-    public Object parameters() {
-        return this.innerProperties() == null ? null : this.innerProperties().parameters();
+    public Map<String, ParameterDefinitionsValue> parameters() {
+        return this.parameters;
     }
 
     /**
-     * Set the parameters property: Required if a parameter is used in policy
-     * rule.
-     * 
+     * Set the parameters property: The parameter definitions for parameters used in the policy rule. The keys are the
+     * parameter names.
+     *
      * @param parameters the parameters value to set.
      * @return the PolicyDefinitionInner object itself.
      */
-    public PolicyDefinitionInner withParameters(Object parameters) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new PolicyDefinitionProperties();
-        }
-        this.innerProperties().withParameters(parameters);
+    public PolicyDefinitionInner withParameters(Map<String, ParameterDefinitionsValue> parameters) {
+        this.parameters = parameters;
         return this;
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
-        if (innerProperties() != null) {
-            innerProperties().validate();
+        if (parameters() != null) {
+            parameters()
+                .values()
+                .forEach(
+                    e -> {
+                        if (e != null) {
+                            e.validate();
+                        }
+                    });
         }
     }
 }

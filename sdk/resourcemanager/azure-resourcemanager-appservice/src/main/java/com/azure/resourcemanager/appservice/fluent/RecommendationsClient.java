@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 /** An instance of this class provides access to all the operations defined in RecommendationsClient. */
 public interface RecommendationsClient {
     /**
-     * List all recommendations for a subscription.
+     * Description for List all recommendations for a subscription.
      *
      * @param featured Specify &lt;code&gt;true&lt;/code&gt; to return only the most critical recommendations. The
      *     default is &lt;code&gt;false&lt;/code&gt;, which returns all recommendations.
@@ -34,7 +34,7 @@ public interface RecommendationsClient {
     PagedFlux<RecommendationInner> listAsync(Boolean featured, String filter);
 
     /**
-     * List all recommendations for a subscription.
+     * Description for List all recommendations for a subscription.
      *
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
@@ -45,7 +45,7 @@ public interface RecommendationsClient {
     PagedFlux<RecommendationInner> listAsync();
 
     /**
-     * List all recommendations for a subscription.
+     * Description for List all recommendations for a subscription.
      *
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
@@ -56,7 +56,7 @@ public interface RecommendationsClient {
     PagedIterable<RecommendationInner> list();
 
     /**
-     * List all recommendations for a subscription.
+     * Description for List all recommendations for a subscription.
      *
      * @param featured Specify &lt;code&gt;true&lt;/code&gt; to return only the most critical recommendations. The
      *     default is &lt;code&gt;false&lt;/code&gt;, which returns all recommendations.
@@ -74,9 +74,10 @@ public interface RecommendationsClient {
     PagedIterable<RecommendationInner> list(Boolean featured, String filter, Context context);
 
     /**
-     * Reset all recommendation opt-out settings for a subscription.
+     * Description for Reset all recommendation opt-out settings for a subscription.
      *
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -84,9 +85,10 @@ public interface RecommendationsClient {
     Mono<Response<Void>> resetAllFiltersWithResponseAsync();
 
     /**
-     * Reset all recommendation opt-out settings for a subscription.
+     * Description for Reset all recommendation opt-out settings for a subscription.
      *
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -94,20 +96,22 @@ public interface RecommendationsClient {
     Mono<Void> resetAllFiltersAsync();
 
     /**
-     * Reset all recommendation opt-out settings for a subscription.
+     * Description for Reset all recommendation opt-out settings for a subscription.
      *
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     void resetAllFilters();
 
     /**
-     * Reset all recommendation opt-out settings for a subscription.
+     * Description for Reset all recommendation opt-out settings for a subscription.
      *
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -115,11 +119,12 @@ public interface RecommendationsClient {
     Response<Void> resetAllFiltersWithResponse(Context context);
 
     /**
-     * Disables the specified rule so it will not apply to a subscription in the future.
+     * Description for Disables the specified rule so it will not apply to a subscription in the future.
      *
      * @param name Rule name.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -127,11 +132,12 @@ public interface RecommendationsClient {
     Mono<Response<Void>> disableRecommendationForSubscriptionWithResponseAsync(String name);
 
     /**
-     * Disables the specified rule so it will not apply to a subscription in the future.
+     * Description for Disables the specified rule so it will not apply to a subscription in the future.
      *
      * @param name Rule name.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -139,23 +145,25 @@ public interface RecommendationsClient {
     Mono<Void> disableRecommendationForSubscriptionAsync(String name);
 
     /**
-     * Disables the specified rule so it will not apply to a subscription in the future.
+     * Description for Disables the specified rule so it will not apply to a subscription in the future.
      *
      * @param name Rule name.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     void disableRecommendationForSubscription(String name);
 
     /**
-     * Disables the specified rule so it will not apply to a subscription in the future.
+     * Description for Disables the specified rule so it will not apply to a subscription in the future.
      *
      * @param name Rule name.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -163,7 +171,7 @@ public interface RecommendationsClient {
     Response<Void> disableRecommendationForSubscriptionWithResponse(String name, Context context);
 
     /**
-     * Get past recommendations for an app, optionally specified by the time range.
+     * Description for Get past recommendations for an app, optionally specified by the time range.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the hosting environment.
@@ -176,14 +184,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return past recommendations for an app, optionally specified by the time range.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<RecommendationInner> listHistoryForHostingEnvironmentAsync(
         String resourceGroupName, String hostingEnvironmentName, Boolean expiredOnly, String filter);
 
     /**
-     * Get past recommendations for an app, optionally specified by the time range.
+     * Description for Get past recommendations for an app, optionally specified by the time range.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the hosting environment.
@@ -191,14 +199,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return past recommendations for an app, optionally specified by the time range.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<RecommendationInner> listHistoryForHostingEnvironmentAsync(
         String resourceGroupName, String hostingEnvironmentName);
 
     /**
-     * Get past recommendations for an app, optionally specified by the time range.
+     * Description for Get past recommendations for an app, optionally specified by the time range.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the hosting environment.
@@ -206,14 +214,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return past recommendations for an app, optionally specified by the time range.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<RecommendationInner> listHistoryForHostingEnvironment(
         String resourceGroupName, String hostingEnvironmentName);
 
     /**
-     * Get past recommendations for an app, optionally specified by the time range.
+     * Description for Get past recommendations for an app, optionally specified by the time range.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the hosting environment.
@@ -227,14 +235,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return past recommendations for an app, optionally specified by the time range.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<RecommendationInner> listHistoryForHostingEnvironment(
         String resourceGroupName, String hostingEnvironmentName, Boolean expiredOnly, String filter, Context context);
 
     /**
-     * Get all recommendations for an app.
+     * Description for Get all recommendations for a hosting environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the app.
@@ -246,14 +254,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all recommendations for an app.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<RecommendationInner> listRecommendedRulesForHostingEnvironmentAsync(
         String resourceGroupName, String hostingEnvironmentName, Boolean featured, String filter);
 
     /**
-     * Get all recommendations for an app.
+     * Description for Get all recommendations for a hosting environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the app.
@@ -261,14 +269,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all recommendations for an app.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<RecommendationInner> listRecommendedRulesForHostingEnvironmentAsync(
         String resourceGroupName, String hostingEnvironmentName);
 
     /**
-     * Get all recommendations for an app.
+     * Description for Get all recommendations for a hosting environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the app.
@@ -276,14 +284,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all recommendations for an app.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<RecommendationInner> listRecommendedRulesForHostingEnvironment(
         String resourceGroupName, String hostingEnvironmentName);
 
     /**
-     * Get all recommendations for an app.
+     * Description for Get all recommendations for a hosting environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the app.
@@ -296,20 +304,21 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all recommendations for an app.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<RecommendationInner> listRecommendedRulesForHostingEnvironment(
         String resourceGroupName, String hostingEnvironmentName, Boolean featured, String filter, Context context);
 
     /**
-     * Disable all recommendations for an app.
+     * Description for Disable all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Name of the app.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -318,13 +327,14 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String hostingEnvironmentName);
 
     /**
-     * Disable all recommendations for an app.
+     * Description for Disable all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Name of the app.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -333,13 +343,14 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String hostingEnvironmentName);
 
     /**
-     * Disable all recommendations for an app.
+     * Description for Disable all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Name of the app.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -347,14 +358,15 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String hostingEnvironmentName);
 
     /**
-     * Disable all recommendations for an app.
+     * Description for Disable all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Name of the app.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -363,13 +375,14 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String hostingEnvironmentName, Context context);
 
     /**
-     * Reset all recommendation opt-out settings for an app.
+     * Description for Reset all recommendation opt-out settings for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Name of the app.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -378,13 +391,14 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String hostingEnvironmentName);
 
     /**
-     * Reset all recommendation opt-out settings for an app.
+     * Description for Reset all recommendation opt-out settings for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Name of the app.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -393,13 +407,14 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String hostingEnvironmentName);
 
     /**
-     * Reset all recommendation opt-out settings for an app.
+     * Description for Reset all recommendation opt-out settings for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Name of the app.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -407,14 +422,15 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String hostingEnvironmentName);
 
     /**
-     * Reset all recommendation opt-out settings for an app.
+     * Description for Reset all recommendation opt-out settings for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Name of the app.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -423,7 +439,7 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String hostingEnvironmentName, Context context);
 
     /**
-     * Get a recommendation rule for an app.
+     * Description for Get a recommendation rule for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the hosting environment.
@@ -436,7 +452,7 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a recommendation rule for an app.
+     * @return represents a recommendation rule that the recommendation engine can perform.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<Response<RecommendationRuleInner>> getRuleDetailsByHostingEnvironmentWithResponseAsync(
@@ -447,7 +463,7 @@ public interface RecommendationsClient {
         String recommendationId);
 
     /**
-     * Get a recommendation rule for an app.
+     * Description for Get a recommendation rule for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the hosting environment.
@@ -460,7 +476,7 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a recommendation rule for an app.
+     * @return represents a recommendation rule that the recommendation engine can perform.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<RecommendationRuleInner> getRuleDetailsByHostingEnvironmentAsync(
@@ -471,7 +487,7 @@ public interface RecommendationsClient {
         String recommendationId);
 
     /**
-     * Get a recommendation rule for an app.
+     * Description for Get a recommendation rule for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the hosting environment.
@@ -480,14 +496,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a recommendation rule for an app.
+     * @return represents a recommendation rule that the recommendation engine can perform.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<RecommendationRuleInner> getRuleDetailsByHostingEnvironmentAsync(
         String resourceGroupName, String hostingEnvironmentName, String name);
 
     /**
-     * Get a recommendation rule for an app.
+     * Description for Get a recommendation rule for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the hosting environment.
@@ -496,14 +512,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a recommendation rule for an app.
+     * @return represents a recommendation rule that the recommendation engine can perform.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     RecommendationRuleInner getRuleDetailsByHostingEnvironment(
         String resourceGroupName, String hostingEnvironmentName, String name);
 
     /**
-     * Get a recommendation rule for an app.
+     * Description for Get a recommendation rule for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param hostingEnvironmentName Name of the hosting environment.
@@ -517,7 +533,7 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a recommendation rule for an app.
+     * @return represents a recommendation rule that the recommendation engine can perform.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Response<RecommendationRuleInner> getRuleDetailsByHostingEnvironmentWithResponse(
@@ -529,14 +545,15 @@ public interface RecommendationsClient {
         Context context);
 
     /**
-     * Disables the specific rule for a web site permanently.
+     * Description for Disables the specific rule for a web site permanently.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Site name.
      * @param name Rule name.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -545,14 +562,15 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String name, String hostingEnvironmentName);
 
     /**
-     * Disables the specific rule for a web site permanently.
+     * Description for Disables the specific rule for a web site permanently.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Site name.
      * @param name Rule name.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -561,14 +579,15 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String name, String hostingEnvironmentName);
 
     /**
-     * Disables the specific rule for a web site permanently.
+     * Description for Disables the specific rule for a web site permanently.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Site name.
      * @param name Rule name.
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -576,7 +595,7 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String name, String hostingEnvironmentName);
 
     /**
-     * Disables the specific rule for a web site permanently.
+     * Description for Disables the specific rule for a web site permanently.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param environmentName Site name.
@@ -584,7 +603,8 @@ public interface RecommendationsClient {
      * @param hostingEnvironmentName The hostingEnvironmentName parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -593,7 +613,7 @@ public interface RecommendationsClient {
         String resourceGroupName, String environmentName, String name, String hostingEnvironmentName, Context context);
 
     /**
-     * Get past recommendations for an app, optionally specified by the time range.
+     * Description for Get past recommendations for an app, optionally specified by the time range.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -606,14 +626,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return past recommendations for an app, optionally specified by the time range.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<RecommendationInner> listHistoryForWebAppAsync(
         String resourceGroupName, String siteName, Boolean expiredOnly, String filter);
 
     /**
-     * Get past recommendations for an app, optionally specified by the time range.
+     * Description for Get past recommendations for an app, optionally specified by the time range.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -621,13 +641,13 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return past recommendations for an app, optionally specified by the time range.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<RecommendationInner> listHistoryForWebAppAsync(String resourceGroupName, String siteName);
 
     /**
-     * Get past recommendations for an app, optionally specified by the time range.
+     * Description for Get past recommendations for an app, optionally specified by the time range.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -635,13 +655,13 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return past recommendations for an app, optionally specified by the time range.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<RecommendationInner> listHistoryForWebApp(String resourceGroupName, String siteName);
 
     /**
-     * Get past recommendations for an app, optionally specified by the time range.
+     * Description for Get past recommendations for an app, optionally specified by the time range.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -655,14 +675,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return past recommendations for an app, optionally specified by the time range.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<RecommendationInner> listHistoryForWebApp(
         String resourceGroupName, String siteName, Boolean expiredOnly, String filter, Context context);
 
     /**
-     * Get all recommendations for an app.
+     * Description for Get all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -674,14 +694,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all recommendations for an app.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<RecommendationInner> listRecommendedRulesForWebAppAsync(
         String resourceGroupName, String siteName, Boolean featured, String filter);
 
     /**
-     * Get all recommendations for an app.
+     * Description for Get all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -689,13 +709,13 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all recommendations for an app.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<RecommendationInner> listRecommendedRulesForWebAppAsync(String resourceGroupName, String siteName);
 
     /**
-     * Get all recommendations for an app.
+     * Description for Get all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -703,13 +723,13 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all recommendations for an app.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<RecommendationInner> listRecommendedRulesForWebApp(String resourceGroupName, String siteName);
 
     /**
-     * Get all recommendations for an app.
+     * Description for Get all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -722,19 +742,20 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all recommendations for an app.
+     * @return collection of recommendations.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<RecommendationInner> listRecommendedRulesForWebApp(
         String resourceGroupName, String siteName, Boolean featured, String filter, Context context);
 
     /**
-     * Disable all recommendations for an app.
+     * Description for Disable all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -742,12 +763,13 @@ public interface RecommendationsClient {
     Mono<Response<Void>> disableAllForWebAppWithResponseAsync(String resourceGroupName, String siteName);
 
     /**
-     * Disable all recommendations for an app.
+     * Description for Disable all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -755,25 +777,27 @@ public interface RecommendationsClient {
     Mono<Void> disableAllForWebAppAsync(String resourceGroupName, String siteName);
 
     /**
-     * Disable all recommendations for an app.
+     * Description for Disable all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     void disableAllForWebApp(String resourceGroupName, String siteName);
 
     /**
-     * Disable all recommendations for an app.
+     * Description for Disable all recommendations for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -781,12 +805,13 @@ public interface RecommendationsClient {
     Response<Void> disableAllForWebAppWithResponse(String resourceGroupName, String siteName, Context context);
 
     /**
-     * Reset all recommendation opt-out settings for an app.
+     * Description for Reset all recommendation opt-out settings for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -794,12 +819,13 @@ public interface RecommendationsClient {
     Mono<Response<Void>> resetAllFiltersForWebAppWithResponseAsync(String resourceGroupName, String siteName);
 
     /**
-     * Reset all recommendation opt-out settings for an app.
+     * Description for Reset all recommendation opt-out settings for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -807,25 +833,27 @@ public interface RecommendationsClient {
     Mono<Void> resetAllFiltersForWebAppAsync(String resourceGroupName, String siteName);
 
     /**
-     * Reset all recommendation opt-out settings for an app.
+     * Description for Reset all recommendation opt-out settings for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     void resetAllFiltersForWebApp(String resourceGroupName, String siteName);
 
     /**
-     * Reset all recommendation opt-out settings for an app.
+     * Description for Reset all recommendation opt-out settings for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -833,7 +861,7 @@ public interface RecommendationsClient {
     Response<Void> resetAllFiltersForWebAppWithResponse(String resourceGroupName, String siteName, Context context);
 
     /**
-     * Get a recommendation rule for an app.
+     * Description for Get a recommendation rule for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -846,14 +874,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a recommendation rule for an app.
+     * @return represents a recommendation rule that the recommendation engine can perform.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<Response<RecommendationRuleInner>> getRuleDetailsByWebAppWithResponseAsync(
         String resourceGroupName, String siteName, String name, Boolean updateSeen, String recommendationId);
 
     /**
-     * Get a recommendation rule for an app.
+     * Description for Get a recommendation rule for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -866,14 +894,14 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a recommendation rule for an app.
+     * @return represents a recommendation rule that the recommendation engine can perform.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<RecommendationRuleInner> getRuleDetailsByWebAppAsync(
         String resourceGroupName, String siteName, String name, Boolean updateSeen, String recommendationId);
 
     /**
-     * Get a recommendation rule for an app.
+     * Description for Get a recommendation rule for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -882,13 +910,13 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a recommendation rule for an app.
+     * @return represents a recommendation rule that the recommendation engine can perform.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<RecommendationRuleInner> getRuleDetailsByWebAppAsync(String resourceGroupName, String siteName, String name);
 
     /**
-     * Get a recommendation rule for an app.
+     * Description for Get a recommendation rule for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -897,13 +925,13 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a recommendation rule for an app.
+     * @return represents a recommendation rule that the recommendation engine can perform.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     RecommendationRuleInner getRuleDetailsByWebApp(String resourceGroupName, String siteName, String name);
 
     /**
-     * Get a recommendation rule for an app.
+     * Description for Get a recommendation rule for an app.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Name of the app.
@@ -917,7 +945,7 @@ public interface RecommendationsClient {
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a recommendation rule for an app.
+     * @return represents a recommendation rule that the recommendation engine can perform.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Response<RecommendationRuleInner> getRuleDetailsByWebAppWithResponse(
@@ -929,13 +957,14 @@ public interface RecommendationsClient {
         Context context);
 
     /**
-     * Disables the specific rule for a web site permanently.
+     * Description for Disables the specific rule for a web site permanently.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site name.
      * @param name Rule name.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -944,13 +973,14 @@ public interface RecommendationsClient {
         String resourceGroupName, String siteName, String name);
 
     /**
-     * Disables the specific rule for a web site permanently.
+     * Description for Disables the specific rule for a web site permanently.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site name.
      * @param name Rule name.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -958,27 +988,29 @@ public interface RecommendationsClient {
     Mono<Void> disableRecommendationForSiteAsync(String resourceGroupName, String siteName, String name);
 
     /**
-     * Disables the specific rule for a web site permanently.
+     * Description for Disables the specific rule for a web site permanently.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site name.
      * @param name Rule name.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     void disableRecommendationForSite(String resourceGroupName, String siteName, String name);
 
     /**
-     * Disables the specific rule for a web site permanently.
+     * Description for Disables the specific rule for a web site permanently.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site name.
      * @param name Rule name.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */

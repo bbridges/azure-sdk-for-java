@@ -4,6 +4,8 @@
 package com.azure.resourcemanager.resources.implementation;
 
 import com.azure.core.util.logging.ClientLogger;
+import com.azure.resourcemanager.resources.models.ParameterDefinitionsValue;
+import com.azure.resourcemanager.resources.models.ParameterType;
 import com.azure.resourcemanager.resources.models.PolicyDefinition;
 import com.azure.resourcemanager.resources.models.PolicyType;
 import com.azure.resourcemanager.resources.fluent.models.PolicyDefinitionInner;
@@ -55,7 +57,11 @@ final class PolicyDefinitionImpl extends
     }
 
     @Override
-    public Object parameters() { return innerModel().parameters(); }
+    public Map<String, ParameterDefinitionsValue> parameters() {
+        return innerModel().parameters() == null
+            ? Collections.emptyMap()
+            : Collections.unmodifiableMap(innerModel().parameters());
+    }
 
     @Override
     public String id() {
@@ -113,8 +119,23 @@ final class PolicyDefinitionImpl extends
     }
 
     @Override
-    public PolicyDefinitionImpl withParameters(Object parameters) {
-        innerModel().withParameters(parameters);
+    public PolicyDefinitionImpl withParameter(String name, ParameterDefinitionsValue definition) {
+        if (innerModel().parameters() == null) {
+            innerModel().withParameters(new TreeMap<>());
+        }
+        innerModel().parameters().put(name, definition);
+        return this;
+    }
+
+    @Override
+    public PolicyDefinitionImpl withParameter(String name, ParameterType parameterType, Object defaultValue) {
+        if (innerModel().parameters() == null) {
+            innerModel().withParameters(new TreeMap<>());
+        }
+        innerModel().parameters().put(name,
+            new ParameterDefinitionsValue()
+                .withType(parameterType)
+                .withDefaultValue(defaultValue));
         return this;
     }
 }

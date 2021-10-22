@@ -5,29 +5,23 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.Resource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.ExpressRoutePortsLocationBandwidths;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
 
-/**
- * ExpressRoutePorts Peering Location Definition of the ExpressRoutePorts
- * peering location resource.
- */
+/** ExpressRoutePorts Peering Location Definition of the ExpressRoutePorts peering location resource. */
 @Fluent
 public final class ExpressRoutePortsLocationInner extends Resource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(ExpressRoutePortsLocationInner.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(ExpressRoutePortsLocationInner.class);
 
     /*
      * ExpressRoutePorts Location Properties ExpressRoutePort peering location
-     * properties
+     * properties.
      */
     @JsonProperty(value = "properties")
     private ExpressRoutePortsLocationPropertiesFormat innerProperties;
@@ -39,9 +33,9 @@ public final class ExpressRoutePortsLocationInner extends Resource {
     private String id;
 
     /**
-     * Get the innerProperties property: ExpressRoutePorts Location Properties
-     * ExpressRoutePort peering location properties.
-     * 
+     * Get the innerProperties property: ExpressRoutePorts Location Properties ExpressRoutePort peering location
+     * properties.
+     *
      * @return the innerProperties value.
      */
     private ExpressRoutePortsLocationPropertiesFormat innerProperties() {
@@ -50,7 +44,7 @@ public final class ExpressRoutePortsLocationInner extends Resource {
 
     /**
      * Get the id property: Resource ID.
-     * 
+     *
      * @return the id value.
      */
     public String id() {
@@ -59,7 +53,7 @@ public final class ExpressRoutePortsLocationInner extends Resource {
 
     /**
      * Set the id property: Resource ID.
-     * 
+     *
      * @param id the id value to set.
      * @return the ExpressRoutePortsLocationInner object itself.
      */
@@ -68,18 +62,14 @@ public final class ExpressRoutePortsLocationInner extends Resource {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public ExpressRoutePortsLocationInner withLocation(String location) {
         super.withLocation(location);
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public ExpressRoutePortsLocationInner withTags(Map<String, String> tags) {
         super.withTags(tags);
@@ -88,7 +78,7 @@ public final class ExpressRoutePortsLocationInner extends Resource {
 
     /**
      * Get the address property: Address of peering location.
-     * 
+     *
      * @return the address value.
      */
     public String address() {
@@ -97,7 +87,7 @@ public final class ExpressRoutePortsLocationInner extends Resource {
 
     /**
      * Get the contact property: Contact details of peering locations.
-     * 
+     *
      * @return the contact value.
      */
     public String contact() {
@@ -105,9 +95,8 @@ public final class ExpressRoutePortsLocationInner extends Resource {
     }
 
     /**
-     * Get the availableBandwidths property: The inventory of available
-     * ExpressRoutePort bandwidths.
-     * 
+     * Get the availableBandwidths property: The inventory of available ExpressRoutePort bandwidths.
+     *
      * @return the availableBandwidths value.
      */
     public List<ExpressRoutePortsLocationBandwidths> availableBandwidths() {
@@ -115,13 +104,13 @@ public final class ExpressRoutePortsLocationInner extends Resource {
     }
 
     /**
-     * Set the availableBandwidths property: The inventory of available
-     * ExpressRoutePort bandwidths.
-     * 
+     * Set the availableBandwidths property: The inventory of available ExpressRoutePort bandwidths.
+     *
      * @param availableBandwidths the availableBandwidths value to set.
      * @return the ExpressRoutePortsLocationInner object itself.
      */
-    public ExpressRoutePortsLocationInner withAvailableBandwidths(List<ExpressRoutePortsLocationBandwidths> availableBandwidths) {
+    public ExpressRoutePortsLocationInner withAvailableBandwidths(
+        List<ExpressRoutePortsLocationBandwidths> availableBandwidths) {
         if (this.innerProperties() == null) {
             this.innerProperties = new ExpressRoutePortsLocationPropertiesFormat();
         }
@@ -130,19 +119,17 @@ public final class ExpressRoutePortsLocationInner extends Resource {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * ExpressRoutePortLocation resource. Possible values are: 'Succeeded',
-     * 'Updating', 'Deleting', and 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the express route port location resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.innerProperties() == null ? null : this.innerProperties().provisioningState();
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

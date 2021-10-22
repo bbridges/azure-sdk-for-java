@@ -6,6 +6,7 @@ import com.azure.resourcemanager.containerservice.fluent.models.AgentPoolInner;
 import com.azure.resourcemanager.containerservice.models.AgentPoolMode;
 import com.azure.resourcemanager.containerservice.models.AgentPoolType;
 import com.azure.resourcemanager.containerservice.models.ContainerServiceVMSizeTypes;
+import com.azure.resourcemanager.containerservice.models.KubeletDiskType;
 import com.azure.resourcemanager.containerservice.models.KubernetesCluster;
 import com.azure.resourcemanager.containerservice.models.KubernetesClusterAgentPool;
 import com.azure.resourcemanager.containerservice.models.ManagedClusterAgentPoolProfile;
@@ -57,7 +58,7 @@ public class KubernetesClusterAgentPoolImpl
 
     @Override
     public ContainerServiceVMSizeTypes vmSize() {
-        return this.innerModel().vmSize();
+        return ContainerServiceVMSizeTypes.fromString(this.innerModel().vmSize());
     }
 
     @Override
@@ -160,10 +161,14 @@ public class KubernetesClusterAgentPoolImpl
         return innerModel().osDiskType();
     }
 
+    @Override
+    public KubeletDiskType kubeletDiskType() {
+        return innerModel().kubeletDiskType();
+    }
 
     @Override
     public KubernetesClusterAgentPoolImpl withVirtualMachineSize(ContainerServiceVMSizeTypes vmSize) {
-        this.innerModel().withVmSize(vmSize);
+        this.innerModel().withVmSize(vmSize.toString());
         return this;
     }
 
@@ -244,6 +249,10 @@ public class KubernetesClusterAgentPoolImpl
         agentPoolInner.withProximityPlacementGroupId(innerModel().proximityPlacementGroupId());
         agentPoolInner.withKubeletConfig(innerModel().kubeletConfig());
         agentPoolInner.withLinuxOSConfig(innerModel().linuxOSConfig());
+        agentPoolInner.withEnableEncryptionAtHost(innerModel().enableEncryptionAtHost());
+        agentPoolInner.withEnableUltraSsd(innerModel().enableUltraSsd());
+        agentPoolInner.withEnableFips(innerModel().enableFips());
+        agentPoolInner.withGpuInstanceProfile(innerModel().gpuInstanceProfile());
         return agentPoolInner;
     }
 
@@ -315,6 +324,12 @@ public class KubernetesClusterAgentPoolImpl
     @Override
     public KubernetesClusterAgentPoolImpl withOSDiskType(OSDiskType osDiskType) {
         innerModel().withOsDiskType(osDiskType);
+        return this;
+    }
+
+    @Override
+    public KubernetesClusterAgentPoolImpl withKubeletDiskType(KubeletDiskType kubeletDiskType) {
+        innerModel().withKubeletDiskType(kubeletDiskType);
         return this;
     }
 }

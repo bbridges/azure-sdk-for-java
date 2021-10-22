@@ -9,6 +9,7 @@ import com.azure.resourcemanager.dns.DnsZoneManager;
 import com.azure.resourcemanager.dns.models.ARecordSets;
 import com.azure.resourcemanager.dns.models.AaaaRecordSets;
 import com.azure.resourcemanager.dns.models.CnameRecordSets;
+import com.azure.resourcemanager.dns.models.CaaRecordSets;
 import com.azure.resourcemanager.dns.models.DnsRecordSet;
 import com.azure.resourcemanager.dns.models.DnsZone;
 import com.azure.resourcemanager.dns.models.MxRecordSets;
@@ -36,6 +37,7 @@ public class DnsZoneImpl extends GroupableResourceImpl<DnsZone, ZoneInner, DnsZo
 
     private ARecordSets aRecordSets;
     private AaaaRecordSets aaaaRecordSets;
+    private CaaRecordSets caaRecordSets;
     private CnameRecordSets cnameRecordSets;
     private MxRecordSets mxRecordSets;
     private NsRecordSets nsRecordSets;
@@ -76,6 +78,28 @@ public class DnsZoneImpl extends GroupableResourceImpl<DnsZone, ZoneInner, DnsZo
     }
 
     @Override
+    public List<String> registrationVirtualNetworkIds() {
+        List<String> list = new ArrayList<>();
+        if (this.innerModel().registrationVirtualNetworks() != null) {
+            for (SubResource sb : this.innerModel().registrationVirtualNetworks()) {
+                list.add(sb.id());
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<String> resolutionVirtualNetworkIds() {
+        List<String> list = new ArrayList<>();
+        if (this.innerModel().resolutionVirtualNetworks() != null) {
+            for (SubResource sb : this.innerModel().resolutionVirtualNetworks()) {
+                list.add(sb.id());
+            }
+        }
+        return list;
+    }
+
+    @Override
     public PagedIterable<DnsRecordSet> listRecordSets() {
         return this.listRecordSetsIntern(null, null);
     }
@@ -111,6 +135,11 @@ public class DnsZoneImpl extends GroupableResourceImpl<DnsZone, ZoneInner, DnsZo
     @Override
     public AaaaRecordSets aaaaRecordSets() {
         return this.aaaaRecordSets;
+    }
+
+    @Override
+    public CaaRecordSets caaRecordSets() {
+        return this.caaRecordSets;
     }
 
     @Override
@@ -166,6 +195,11 @@ public class DnsZoneImpl extends GroupableResourceImpl<DnsZone, ZoneInner, DnsZo
     }
 
     @Override
+    public DnsRecordSetImpl defineCaaRecordSet(String name) {
+        return recordSets.defineCaaRecordSet(name);
+    }
+
+    @Override
     public DnsZoneImpl withCNameRecordSet(String name, String alias) {
         recordSets.withCNameRecordSet(name, alias);
         return this;
@@ -209,6 +243,11 @@ public class DnsZoneImpl extends GroupableResourceImpl<DnsZone, ZoneInner, DnsZo
     @Override
     public DnsRecordSetImpl updateAaaaRecordSet(String name) {
         return recordSets.updateAaaaRecordSet(name);
+    }
+
+    @Override
+    public DnsRecordSetImpl updateCaaRecordSet(String name) {
+        return recordSets.updateCaaRecordSet(name);
     }
 
     @Override
@@ -265,6 +304,17 @@ public class DnsZoneImpl extends GroupableResourceImpl<DnsZone, ZoneInner, DnsZo
     @Override
     public DnsZoneImpl withoutAaaaRecordSet(String name, String etag) {
         recordSets.withoutAaaaRecordSet(name, etag);
+        return this;
+    }
+
+    @Override
+    public DnsZoneImpl withoutCaaRecordSet(String name) {
+        return this.withoutCaaRecordSet(name, null);
+    }
+
+    @Override
+    public DnsZoneImpl withoutCaaRecordSet(String name, String etag) {
+        recordSets.withoutCaaRecordSet(name, etag);
         return this;
     }
 
@@ -402,6 +452,7 @@ public class DnsZoneImpl extends GroupableResourceImpl<DnsZone, ZoneInner, DnsZo
     private void initRecordSets() {
         this.aRecordSets = new ARecordSetsImpl(this);
         this.aaaaRecordSets = new AaaaRecordSetsImpl(this);
+        this.caaRecordSets = new CaaRecordSetsImpl(this);
         this.cnameRecordSets = new CnameRecordSetsImpl(this);
         this.mxRecordSets = new MxRecordSetsImpl(this);
         this.nsRecordSets = new NsRecordSetsImpl(this);
@@ -428,6 +479,8 @@ public class DnsZoneImpl extends GroupableResourceImpl<DnsZone, ZoneInner, DnsZo
                                 return Mono.just(new ARecordSetImpl(inner.name(), self, inner));
                             case AAAA:
                                 return Mono.just(new AaaaRecordSetImpl(inner.name(), self, inner));
+                            case CAA:
+                                return Mono.just(new CaaRecordSetImpl(inner.name(), self, inner));
                             case CNAME:
                                 return Mono.just(new CnameRecordSetImpl(inner.name(), self, inner));
                             case MX:

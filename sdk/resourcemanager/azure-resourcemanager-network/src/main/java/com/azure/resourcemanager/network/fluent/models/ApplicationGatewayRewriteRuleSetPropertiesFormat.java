@@ -5,17 +5,14 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.ApplicationGatewayRewriteRule;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * Properties of rewrite rule set of the application gateway.
- */
+/** Properties of rewrite rule set of the application gateway. */
 @Fluent
 public final class ApplicationGatewayRewriteRuleSetPropertiesFormat {
     @JsonIgnore
@@ -28,15 +25,14 @@ public final class ApplicationGatewayRewriteRuleSetPropertiesFormat {
     private List<ApplicationGatewayRewriteRule> rewriteRules;
 
     /*
-     * Provisioning state of the rewrite rule set resource. Possible values
-     * are: 'Updating', 'Deleting', and 'Failed'.
+     * The provisioning state of the rewrite rule set resource.
      */
     @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
-    private String provisioningState;
+    private ProvisioningState provisioningState;
 
     /**
      * Get the rewriteRules property: Rewrite rules in the rewrite rule set.
-     * 
+     *
      * @return the rewriteRules value.
      */
     public List<ApplicationGatewayRewriteRule> rewriteRules() {
@@ -45,30 +41,28 @@ public final class ApplicationGatewayRewriteRuleSetPropertiesFormat {
 
     /**
      * Set the rewriteRules property: Rewrite rules in the rewrite rule set.
-     * 
+     *
      * @param rewriteRules the rewriteRules value to set.
-     * @return the ApplicationGatewayRewriteRuleSetPropertiesFormat object
-     * itself.
+     * @return the ApplicationGatewayRewriteRuleSetPropertiesFormat object itself.
      */
-    public ApplicationGatewayRewriteRuleSetPropertiesFormat withRewriteRules(List<ApplicationGatewayRewriteRule> rewriteRules) {
+    public ApplicationGatewayRewriteRuleSetPropertiesFormat withRewriteRules(
+        List<ApplicationGatewayRewriteRule> rewriteRules) {
         this.rewriteRules = rewriteRules;
         return this;
     }
 
     /**
-     * Get the provisioningState property: Provisioning state of the rewrite
-     * rule set resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the rewrite rule set resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.provisioningState;
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

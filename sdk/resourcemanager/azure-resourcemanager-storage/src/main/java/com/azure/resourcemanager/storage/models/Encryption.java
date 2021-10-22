@@ -5,19 +5,14 @@
 package com.azure.resourcemanager.storage.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * The encryption settings on the storage account.
- */
+/** The encryption settings on the storage account. */
 @Fluent
 public final class Encryption {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(Encryption.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(Encryption.class);
 
     /*
      * List of services which support encryption.
@@ -45,9 +40,15 @@ public final class Encryption {
     @JsonProperty(value = "keyvaultproperties")
     private KeyVaultProperties keyVaultProperties;
 
+    /*
+     * The identity to be used with service-side encryption at rest.
+     */
+    @JsonProperty(value = "identity")
+    private EncryptionIdentity encryptionIdentity;
+
     /**
      * Get the services property: List of services which support encryption.
-     * 
+     *
      * @return the services value.
      */
     public EncryptionServices services() {
@@ -56,7 +57,7 @@ public final class Encryption {
 
     /**
      * Set the services property: List of services which support encryption.
-     * 
+     *
      * @param services the services value to set.
      * @return the Encryption object itself.
      */
@@ -66,10 +67,9 @@ public final class Encryption {
     }
 
     /**
-     * Get the keySource property: The encryption keySource (provider).
-     * Possible values (case-insensitive):  Microsoft.Storage,
-     * Microsoft.Keyvault.
-     * 
+     * Get the keySource property: The encryption keySource (provider). Possible values (case-insensitive):
+     * Microsoft.Storage, Microsoft.Keyvault.
+     *
      * @return the keySource value.
      */
     public KeySource keySource() {
@@ -77,10 +77,9 @@ public final class Encryption {
     }
 
     /**
-     * Set the keySource property: The encryption keySource (provider).
-     * Possible values (case-insensitive):  Microsoft.Storage,
-     * Microsoft.Keyvault.
-     * 
+     * Set the keySource property: The encryption keySource (provider). Possible values (case-insensitive):
+     * Microsoft.Storage, Microsoft.Keyvault.
+     *
      * @param keySource the keySource value to set.
      * @return the Encryption object itself.
      */
@@ -90,10 +89,9 @@ public final class Encryption {
     }
 
     /**
-     * Get the requireInfrastructureEncryption property: A boolean indicating
-     * whether or not the service applies a secondary layer of encryption with
-     * platform managed keys for data at rest.
-     * 
+     * Get the requireInfrastructureEncryption property: A boolean indicating whether or not the service applies a
+     * secondary layer of encryption with platform managed keys for data at rest.
+     *
      * @return the requireInfrastructureEncryption value.
      */
     public Boolean requireInfrastructureEncryption() {
@@ -101,12 +99,10 @@ public final class Encryption {
     }
 
     /**
-     * Set the requireInfrastructureEncryption property: A boolean indicating
-     * whether or not the service applies a secondary layer of encryption with
-     * platform managed keys for data at rest.
-     * 
-     * @param requireInfrastructureEncryption the
-     * requireInfrastructureEncryption value to set.
+     * Set the requireInfrastructureEncryption property: A boolean indicating whether or not the service applies a
+     * secondary layer of encryption with platform managed keys for data at rest.
+     *
+     * @param requireInfrastructureEncryption the requireInfrastructureEncryption value to set.
      * @return the Encryption object itself.
      */
     public Encryption withRequireInfrastructureEncryption(Boolean requireInfrastructureEncryption) {
@@ -116,7 +112,7 @@ public final class Encryption {
 
     /**
      * Get the keyVaultProperties property: Properties provided by key vault.
-     * 
+     *
      * @return the keyVaultProperties value.
      */
     public KeyVaultProperties keyVaultProperties() {
@@ -125,7 +121,7 @@ public final class Encryption {
 
     /**
      * Set the keyVaultProperties property: Properties provided by key vault.
-     * 
+     *
      * @param keyVaultProperties the keyVaultProperties value to set.
      * @return the Encryption object itself.
      */
@@ -135,8 +131,28 @@ public final class Encryption {
     }
 
     /**
+     * Get the encryptionIdentity property: The identity to be used with service-side encryption at rest.
+     *
+     * @return the encryptionIdentity value.
+     */
+    public EncryptionIdentity encryptionIdentity() {
+        return this.encryptionIdentity;
+    }
+
+    /**
+     * Set the encryptionIdentity property: The identity to be used with service-side encryption at rest.
+     *
+     * @param encryptionIdentity the encryptionIdentity value to set.
+     * @return the Encryption object itself.
+     */
+    public Encryption withEncryptionIdentity(EncryptionIdentity encryptionIdentity) {
+        this.encryptionIdentity = encryptionIdentity;
+        return this;
+    }
+
+    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
@@ -144,10 +160,15 @@ public final class Encryption {
             services().validate();
         }
         if (keySource() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property keySource in model Encryption"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException("Missing required property keySource in model Encryption"));
         }
         if (keyVaultProperties() != null) {
             keyVaultProperties().validate();
+        }
+        if (encryptionIdentity() != null) {
+            encryptionIdentity().validate();
         }
     }
 }

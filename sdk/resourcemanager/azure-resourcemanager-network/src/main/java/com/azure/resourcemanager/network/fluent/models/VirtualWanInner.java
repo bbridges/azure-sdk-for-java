@@ -5,36 +5,29 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.Resource;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.OfficeTrafficCategory;
 import com.azure.resourcemanager.network.models.ProvisioningState;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
 
-/**
- * VirtualWAN Resource.
- */
+/** VirtualWAN Resource. */
 @Fluent
 public final class VirtualWanInner extends Resource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(VirtualWanInner.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(VirtualWanInner.class);
 
     /*
-     * Parameters for VirtualWAN
+     * Properties of the virtual WAN.
      */
     @JsonProperty(value = "properties")
     private VirtualWanProperties innerProperties;
 
     /*
-     * Gets a unique read-only string that changes whenever the resource is
-     * updated.
+     * A unique read-only string that changes whenever the resource is updated.
      */
     @JsonProperty(value = "etag", access = JsonProperty.Access.WRITE_ONLY)
     private String etag;
@@ -46,8 +39,8 @@ public final class VirtualWanInner extends Resource {
     private String id;
 
     /**
-     * Get the innerProperties property: Parameters for VirtualWAN.
-     * 
+     * Get the innerProperties property: Properties of the virtual WAN.
+     *
      * @return the innerProperties value.
      */
     private VirtualWanProperties innerProperties() {
@@ -55,9 +48,8 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Get the etag property: Gets a unique read-only string that changes
-     * whenever the resource is updated.
-     * 
+     * Get the etag property: A unique read-only string that changes whenever the resource is updated.
+     *
      * @return the etag value.
      */
     public String etag() {
@@ -66,7 +58,7 @@ public final class VirtualWanInner extends Resource {
 
     /**
      * Get the id property: Resource ID.
-     * 
+     *
      * @return the id value.
      */
     public String id() {
@@ -75,7 +67,7 @@ public final class VirtualWanInner extends Resource {
 
     /**
      * Set the id property: Resource ID.
-     * 
+     *
      * @param id the id value to set.
      * @return the VirtualWanInner object itself.
      */
@@ -84,18 +76,14 @@ public final class VirtualWanInner extends Resource {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public VirtualWanInner withLocation(String location) {
         super.withLocation(location);
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public VirtualWanInner withTags(Map<String, String> tags) {
         super.withTags(tags);
@@ -103,9 +91,8 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Get the disableVpnEncryption property: Vpn encryption to be disabled or
-     * not.
-     * 
+     * Get the disableVpnEncryption property: Vpn encryption to be disabled or not.
+     *
      * @return the disableVpnEncryption value.
      */
     public Boolean disableVpnEncryption() {
@@ -113,9 +100,8 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Set the disableVpnEncryption property: Vpn encryption to be disabled or
-     * not.
-     * 
+     * Set the disableVpnEncryption property: Vpn encryption to be disabled or not.
+     *
      * @param disableVpnEncryption the disableVpnEncryption value to set.
      * @return the VirtualWanInner object itself.
      */
@@ -129,7 +115,7 @@ public final class VirtualWanInner extends Resource {
 
     /**
      * Get the virtualHubs property: List of VirtualHubs in the VirtualWAN.
-     * 
+     *
      * @return the virtualHubs value.
      */
     public List<SubResource> virtualHubs() {
@@ -137,8 +123,8 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Get the vpnSites property: The vpnSites property.
-     * 
+     * Get the vpnSites property: List of VpnSites in the VirtualWAN.
+     *
      * @return the vpnSites value.
      */
     public List<SubResource> vpnSites() {
@@ -146,32 +132,8 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Get the securityProviderName property: The Security Provider name.
-     * 
-     * @return the securityProviderName value.
-     */
-    public String securityProviderName() {
-        return this.innerProperties() == null ? null : this.innerProperties().securityProviderName();
-    }
-
-    /**
-     * Set the securityProviderName property: The Security Provider name.
-     * 
-     * @param securityProviderName the securityProviderName value to set.
-     * @return the VirtualWanInner object itself.
-     */
-    public VirtualWanInner withSecurityProviderName(String securityProviderName) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new VirtualWanProperties();
-        }
-        this.innerProperties().withSecurityProviderName(securityProviderName);
-        return this;
-    }
-
-    /**
-     * Get the allowBranchToBranchTraffic property: True if branch to branch
-     * traffic is allowed.
-     * 
+     * Get the allowBranchToBranchTraffic property: True if branch to branch traffic is allowed.
+     *
      * @return the allowBranchToBranchTraffic value.
      */
     public Boolean allowBranchToBranchTraffic() {
@@ -179,11 +141,9 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Set the allowBranchToBranchTraffic property: True if branch to branch
-     * traffic is allowed.
-     * 
-     * @param allowBranchToBranchTraffic the allowBranchToBranchTraffic value
-     * to set.
+     * Set the allowBranchToBranchTraffic property: True if branch to branch traffic is allowed.
+     *
+     * @param allowBranchToBranchTraffic the allowBranchToBranchTraffic value to set.
      * @return the VirtualWanInner object itself.
      */
     public VirtualWanInner withAllowBranchToBranchTraffic(Boolean allowBranchToBranchTraffic) {
@@ -195,9 +155,8 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Get the allowVnetToVnetTraffic property: True if Vnet to Vnet traffic is
-     * allowed.
-     * 
+     * Get the allowVnetToVnetTraffic property: True if Vnet to Vnet traffic is allowed.
+     *
      * @return the allowVnetToVnetTraffic value.
      */
     public Boolean allowVnetToVnetTraffic() {
@@ -205,9 +164,8 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Set the allowVnetToVnetTraffic property: True if Vnet to Vnet traffic is
-     * allowed.
-     * 
+     * Set the allowVnetToVnetTraffic property: True if Vnet to Vnet traffic is allowed.
+     *
      * @param allowVnetToVnetTraffic the allowVnetToVnetTraffic value to set.
      * @return the VirtualWanInner object itself.
      */
@@ -220,9 +178,8 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Get the office365LocalBreakoutCategory property: The office local
-     * breakout category.
-     * 
+     * Get the office365LocalBreakoutCategory property: The office local breakout category.
+     *
      * @return the office365LocalBreakoutCategory value.
      */
     public OfficeTrafficCategory office365LocalBreakoutCategory() {
@@ -230,35 +187,8 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Get the p2SVpnServerConfigurations property: list of all
-     * P2SVpnServerConfigurations associated with the virtual wan.
-     * 
-     * @return the p2SVpnServerConfigurations value.
-     */
-    public List<P2SVpnServerConfigurationInner> p2SVpnServerConfigurations() {
-        return this.innerProperties() == null ? null : this.innerProperties().p2SVpnServerConfigurations();
-    }
-
-    /**
-     * Set the p2SVpnServerConfigurations property: list of all
-     * P2SVpnServerConfigurations associated with the virtual wan.
-     * 
-     * @param p2SVpnServerConfigurations the p2SVpnServerConfigurations value
-     * to set.
-     * @return the VirtualWanInner object itself.
-     */
-    public VirtualWanInner withP2SVpnServerConfigurations(List<P2SVpnServerConfigurationInner> p2SVpnServerConfigurations) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new VirtualWanProperties();
-        }
-        this.innerProperties().withP2SVpnServerConfigurations(p2SVpnServerConfigurations);
-        return this;
-    }
-
-    /**
-     * Get the provisioningState property: The provisioning state of the
-     * resource.
-     * 
+     * Get the provisioningState property: The provisioning state of the virtual WAN resource.
+     *
      * @return the provisioningState value.
      */
     public ProvisioningState provisioningState() {
@@ -266,23 +196,31 @@ public final class VirtualWanInner extends Resource {
     }
 
     /**
-     * Set the provisioningState property: The provisioning state of the
-     * resource.
-     * 
-     * @param provisioningState the provisioningState value to set.
+     * Get the type property: The type of the VirtualWAN.
+     *
+     * @return the type value.
+     */
+    public String typePropertiesType() {
+        return this.innerProperties() == null ? null : this.innerProperties().type();
+    }
+
+    /**
+     * Set the type property: The type of the VirtualWAN.
+     *
+     * @param type the type value to set.
      * @return the VirtualWanInner object itself.
      */
-    public VirtualWanInner withProvisioningState(ProvisioningState provisioningState) {
+    public VirtualWanInner withTypePropertiesType(String type) {
         if (this.innerProperties() == null) {
             this.innerProperties = new VirtualWanProperties();
         }
-        this.innerProperties().withProvisioningState(provisioningState);
+        this.innerProperties().withType(type);
         return this;
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

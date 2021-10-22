@@ -5,20 +5,16 @@
 package com.azure.resourcemanager.compute.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * The disks sku name. Can be Standard_LRS, Premium_LRS, StandardSSD_LRS, or
- * UltraSSD_LRS.
+ * The disks sku name. Can be Standard_LRS, Premium_LRS, StandardSSD_LRS, UltraSSD_LRS, Premium_ZRS, or StandardSSD_ZRS.
  */
 @Fluent
 public final class DiskSku {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(DiskSku.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(DiskSku.class);
 
     /*
      * The sku name.
@@ -34,7 +30,7 @@ public final class DiskSku {
 
     /**
      * Get the name property: The sku name.
-     * 
+     *
      * @return the name value.
      */
     public DiskStorageAccountTypes name() {
@@ -43,7 +39,7 @@ public final class DiskSku {
 
     /**
      * Set the name property: The sku name.
-     * 
+     *
      * @param name the name value to set.
      * @return the DiskSku object itself.
      */
@@ -54,7 +50,7 @@ public final class DiskSku {
 
     /**
      * Get the tier property: The sku tier.
-     * 
+     *
      * @return the tier value.
      */
     public String tier() {
@@ -63,7 +59,7 @@ public final class DiskSku {
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

@@ -5,33 +5,30 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.AddressSpace;
 import com.azure.resourcemanager.network.models.BgpSettings;
 import com.azure.resourcemanager.network.models.DeviceProperties;
+import com.azure.resourcemanager.network.models.O365PolicyProperties;
 import com.azure.resourcemanager.network.models.ProvisioningState;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
-/**
- * Parameters for VpnSite.
- */
+/** Parameters for VpnSite. */
 @Fluent
 public final class VpnSiteProperties {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(VpnSiteProperties.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(VpnSiteProperties.class);
 
     /*
-     * The VirtualWAN to which the vpnSite belongs
+     * The VirtualWAN to which the vpnSite belongs.
      */
     @JsonProperty(value = "virtualWan")
     private SubResource virtualWan;
 
     /*
-     * The device properties
+     * The device properties.
      */
     @JsonProperty(value = "deviceProperties")
     private DeviceProperties deviceProperties;
@@ -61,21 +58,32 @@ public final class VpnSiteProperties {
     private BgpSettings bgpProperties;
 
     /*
-     * The provisioning state of the resource.
+     * The provisioning state of the VPN site resource.
      */
-    @JsonProperty(value = "provisioningState")
+    @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
     private ProvisioningState provisioningState;
 
     /*
-     * IsSecuritySite flag
+     * IsSecuritySite flag.
      */
     @JsonProperty(value = "isSecuritySite")
     private Boolean isSecuritySite;
 
+    /*
+     * List of all vpn site links.
+     */
+    @JsonProperty(value = "vpnSiteLinks")
+    private List<VpnSiteLinkInner> vpnSiteLinks;
+
+    /*
+     * Office365 Policy.
+     */
+    @JsonProperty(value = "o365Policy")
+    private O365PolicyProperties o365Policy;
+
     /**
-     * Get the virtualWan property: The VirtualWAN to which the vpnSite
-     * belongs.
-     * 
+     * Get the virtualWan property: The VirtualWAN to which the vpnSite belongs.
+     *
      * @return the virtualWan value.
      */
     public SubResource virtualWan() {
@@ -83,9 +91,8 @@ public final class VpnSiteProperties {
     }
 
     /**
-     * Set the virtualWan property: The VirtualWAN to which the vpnSite
-     * belongs.
-     * 
+     * Set the virtualWan property: The VirtualWAN to which the vpnSite belongs.
+     *
      * @param virtualWan the virtualWan value to set.
      * @return the VpnSiteProperties object itself.
      */
@@ -96,7 +103,7 @@ public final class VpnSiteProperties {
 
     /**
      * Get the deviceProperties property: The device properties.
-     * 
+     *
      * @return the deviceProperties value.
      */
     public DeviceProperties deviceProperties() {
@@ -105,7 +112,7 @@ public final class VpnSiteProperties {
 
     /**
      * Set the deviceProperties property: The device properties.
-     * 
+     *
      * @param deviceProperties the deviceProperties value to set.
      * @return the VpnSiteProperties object itself.
      */
@@ -116,7 +123,7 @@ public final class VpnSiteProperties {
 
     /**
      * Get the ipAddress property: The ip-address for the vpn-site.
-     * 
+     *
      * @return the ipAddress value.
      */
     public String ipAddress() {
@@ -125,7 +132,7 @@ public final class VpnSiteProperties {
 
     /**
      * Set the ipAddress property: The ip-address for the vpn-site.
-     * 
+     *
      * @param ipAddress the ipAddress value to set.
      * @return the VpnSiteProperties object itself.
      */
@@ -135,9 +142,8 @@ public final class VpnSiteProperties {
     }
 
     /**
-     * Get the siteKey property: The key for vpn-site that can be used for
-     * connections.
-     * 
+     * Get the siteKey property: The key for vpn-site that can be used for connections.
+     *
      * @return the siteKey value.
      */
     public String siteKey() {
@@ -145,9 +151,8 @@ public final class VpnSiteProperties {
     }
 
     /**
-     * Set the siteKey property: The key for vpn-site that can be used for
-     * connections.
-     * 
+     * Set the siteKey property: The key for vpn-site that can be used for connections.
+     *
      * @param siteKey the siteKey value to set.
      * @return the VpnSiteProperties object itself.
      */
@@ -157,9 +162,8 @@ public final class VpnSiteProperties {
     }
 
     /**
-     * Get the addressSpace property: The AddressSpace that contains an array
-     * of IP address ranges.
-     * 
+     * Get the addressSpace property: The AddressSpace that contains an array of IP address ranges.
+     *
      * @return the addressSpace value.
      */
     public AddressSpace addressSpace() {
@@ -167,9 +171,8 @@ public final class VpnSiteProperties {
     }
 
     /**
-     * Set the addressSpace property: The AddressSpace that contains an array
-     * of IP address ranges.
-     * 
+     * Set the addressSpace property: The AddressSpace that contains an array of IP address ranges.
+     *
      * @param addressSpace the addressSpace value to set.
      * @return the VpnSiteProperties object itself.
      */
@@ -180,7 +183,7 @@ public final class VpnSiteProperties {
 
     /**
      * Get the bgpProperties property: The set of bgp properties.
-     * 
+     *
      * @return the bgpProperties value.
      */
     public BgpSettings bgpProperties() {
@@ -189,7 +192,7 @@ public final class VpnSiteProperties {
 
     /**
      * Set the bgpProperties property: The set of bgp properties.
-     * 
+     *
      * @param bgpProperties the bgpProperties value to set.
      * @return the VpnSiteProperties object itself.
      */
@@ -199,9 +202,8 @@ public final class VpnSiteProperties {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * resource.
-     * 
+     * Get the provisioningState property: The provisioning state of the VPN site resource.
+     *
      * @return the provisioningState value.
      */
     public ProvisioningState provisioningState() {
@@ -209,20 +211,8 @@ public final class VpnSiteProperties {
     }
 
     /**
-     * Set the provisioningState property: The provisioning state of the
-     * resource.
-     * 
-     * @param provisioningState the provisioningState value to set.
-     * @return the VpnSiteProperties object itself.
-     */
-    public VpnSiteProperties withProvisioningState(ProvisioningState provisioningState) {
-        this.provisioningState = provisioningState;
-        return this;
-    }
-
-    /**
      * Get the isSecuritySite property: IsSecuritySite flag.
-     * 
+     *
      * @return the isSecuritySite value.
      */
     public Boolean isSecuritySite() {
@@ -231,7 +221,7 @@ public final class VpnSiteProperties {
 
     /**
      * Set the isSecuritySite property: IsSecuritySite flag.
-     * 
+     *
      * @param isSecuritySite the isSecuritySite value to set.
      * @return the VpnSiteProperties object itself.
      */
@@ -241,8 +231,48 @@ public final class VpnSiteProperties {
     }
 
     /**
+     * Get the vpnSiteLinks property: List of all vpn site links.
+     *
+     * @return the vpnSiteLinks value.
+     */
+    public List<VpnSiteLinkInner> vpnSiteLinks() {
+        return this.vpnSiteLinks;
+    }
+
+    /**
+     * Set the vpnSiteLinks property: List of all vpn site links.
+     *
+     * @param vpnSiteLinks the vpnSiteLinks value to set.
+     * @return the VpnSiteProperties object itself.
+     */
+    public VpnSiteProperties withVpnSiteLinks(List<VpnSiteLinkInner> vpnSiteLinks) {
+        this.vpnSiteLinks = vpnSiteLinks;
+        return this;
+    }
+
+    /**
+     * Get the o365Policy property: Office365 Policy.
+     *
+     * @return the o365Policy value.
+     */
+    public O365PolicyProperties o365Policy() {
+        return this.o365Policy;
+    }
+
+    /**
+     * Set the o365Policy property: Office365 Policy.
+     *
+     * @param o365Policy the o365Policy value to set.
+     * @return the VpnSiteProperties object itself.
+     */
+    public VpnSiteProperties withO365Policy(O365PolicyProperties o365Policy) {
+        this.o365Policy = o365Policy;
+        return this;
+    }
+
+    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
@@ -254,6 +284,12 @@ public final class VpnSiteProperties {
         }
         if (bgpProperties() != null) {
             bgpProperties().validate();
+        }
+        if (vpnSiteLinks() != null) {
+            vpnSiteLinks().forEach(e -> e.validate());
+        }
+        if (o365Policy() != null) {
+            o365Policy().validate();
         }
     }
 }

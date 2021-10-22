@@ -56,6 +56,15 @@ public final class GeoRegionInner extends ProxyOnlyResource {
     }
 
     /**
+     * Get the orgDomain property: Display name for region.
+     *
+     * @return the orgDomain value.
+     */
+    public String orgDomain() {
+        return this.innerProperties() == null ? null : this.innerProperties().orgDomain();
+    }
+
+    /**
      * Validates the instance.
      *
      * @throws IllegalArgumentException thrown if the instance is not valid.

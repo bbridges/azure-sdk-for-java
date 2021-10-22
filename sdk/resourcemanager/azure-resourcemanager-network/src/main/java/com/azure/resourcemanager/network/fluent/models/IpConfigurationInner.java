@@ -5,24 +5,20 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.IpAllocationMethod;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * IP configuration.
- */
+/** IP configuration. */
 @Fluent
 public final class IpConfigurationInner extends SubResource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(IpConfigurationInner.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(IpConfigurationInner.class);
 
     /*
-     * Properties of the IP configuration
+     * Properties of the IP configuration.
      */
     @JsonProperty(value = "properties")
     private IpConfigurationPropertiesFormatInner innerProperties;
@@ -37,12 +33,12 @@ public final class IpConfigurationInner extends SubResource {
     /*
      * A unique read-only string that changes whenever the resource is updated.
      */
-    @JsonProperty(value = "etag")
+    @JsonProperty(value = "etag", access = JsonProperty.Access.WRITE_ONLY)
     private String etag;
 
     /**
      * Get the innerProperties property: Properties of the IP configuration.
-     * 
+     *
      * @return the innerProperties value.
      */
     private IpConfigurationPropertiesFormatInner innerProperties() {
@@ -50,9 +46,9 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Get the name property: The name of the resource that is unique within a
-     * resource group. This name can be used to access the resource.
-     * 
+     * Get the name property: The name of the resource that is unique within a resource group. This name can be used to
+     * access the resource.
+     *
      * @return the name value.
      */
     public String name() {
@@ -60,9 +56,9 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Set the name property: The name of the resource that is unique within a
-     * resource group. This name can be used to access the resource.
-     * 
+     * Set the name property: The name of the resource that is unique within a resource group. This name can be used to
+     * access the resource.
+     *
      * @param name the name value to set.
      * @return the IpConfigurationInner object itself.
      */
@@ -72,30 +68,15 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Get the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
+     * Get the etag property: A unique read-only string that changes whenever the resource is updated.
+     *
      * @return the etag value.
      */
     public String etag() {
         return this.etag;
     }
 
-    /**
-     * Set the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
-     * @param etag the etag value to set.
-     * @return the IpConfigurationInner object itself.
-     */
-    public IpConfigurationInner withEtag(String etag) {
-        this.etag = etag;
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public IpConfigurationInner withId(String id) {
         super.withId(id);
@@ -103,9 +84,8 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Get the privateIpAddress property: The private IP address of the IP
-     * configuration.
-     * 
+     * Get the privateIpAddress property: The private IP address of the IP configuration.
+     *
      * @return the privateIpAddress value.
      */
     public String privateIpAddress() {
@@ -113,9 +93,8 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Set the privateIpAddress property: The private IP address of the IP
-     * configuration.
-     * 
+     * Set the privateIpAddress property: The private IP address of the IP configuration.
+     *
      * @param privateIpAddress the privateIpAddress value to set.
      * @return the IpConfigurationInner object itself.
      */
@@ -128,9 +107,8 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Get the privateIpAllocationMethod property: The private IP allocation
-     * method. Possible values are 'Static' and 'Dynamic'.
-     * 
+     * Get the privateIpAllocationMethod property: The private IP address allocation method.
+     *
      * @return the privateIpAllocationMethod value.
      */
     public IpAllocationMethod privateIpAllocationMethod() {
@@ -138,11 +116,9 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Set the privateIpAllocationMethod property: The private IP allocation
-     * method. Possible values are 'Static' and 'Dynamic'.
-     * 
-     * @param privateIpAllocationMethod the privateIpAllocationMethod value to
-     * set.
+     * Set the privateIpAllocationMethod property: The private IP address allocation method.
+     *
+     * @param privateIpAllocationMethod the privateIpAllocationMethod value to set.
      * @return the IpConfigurationInner object itself.
      */
     public IpConfigurationInner withPrivateIpAllocationMethod(IpAllocationMethod privateIpAllocationMethod) {
@@ -154,8 +130,8 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Get the subnet property: The reference of the subnet resource.
-     * 
+     * Get the subnet property: The reference to the subnet resource.
+     *
      * @return the subnet value.
      */
     public SubnetInner subnet() {
@@ -163,8 +139,8 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Set the subnet property: The reference of the subnet resource.
-     * 
+     * Set the subnet property: The reference to the subnet resource.
+     *
      * @param subnet the subnet value to set.
      * @return the IpConfigurationInner object itself.
      */
@@ -177,9 +153,8 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Get the publicIpAddress property: The reference of the public IP
-     * resource.
-     * 
+     * Get the publicIpAddress property: The reference to the public IP resource.
+     *
      * @return the publicIpAddress value.
      */
     public PublicIpAddressInner publicIpAddress() {
@@ -187,9 +162,8 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Set the publicIpAddress property: The reference of the public IP
-     * resource.
-     * 
+     * Set the publicIpAddress property: The reference to the public IP resource.
+     *
      * @param publicIpAddress the publicIpAddress value to set.
      * @return the IpConfigurationInner object itself.
      */
@@ -202,35 +176,17 @@ public final class IpConfigurationInner extends SubResource {
     }
 
     /**
-     * Get the provisioningState property: Gets the provisioning state of the
-     * public IP resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the IP configuration resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.innerProperties() == null ? null : this.innerProperties().provisioningState();
     }
 
     /**
-     * Set the provisioningState property: Gets the provisioning state of the
-     * public IP resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
-     * @param provisioningState the provisioningState value to set.
-     * @return the IpConfigurationInner object itself.
-     */
-    public IpConfigurationInner withProvisioningState(String provisioningState) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new IpConfigurationPropertiesFormatInner();
-        }
-        this.innerProperties().withProvisioningState(provisioningState);
-        return this;
-    }
-
-    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

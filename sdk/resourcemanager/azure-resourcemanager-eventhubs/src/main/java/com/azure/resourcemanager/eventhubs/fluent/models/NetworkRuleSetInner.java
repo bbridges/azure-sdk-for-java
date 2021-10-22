@@ -5,117 +5,111 @@
 package com.azure.resourcemanager.eventhubs.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
+import com.azure.core.annotation.JsonFlatten;
 import com.azure.core.management.ProxyResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.eventhubs.models.DefaultAction;
 import com.azure.resourcemanager.eventhubs.models.NWRuleSetIpRules;
 import com.azure.resourcemanager.eventhubs.models.NWRuleSetVirtualNetworkRules;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * Description of NetworkRuleSet resource.
- */
+/** Description of NetworkRuleSet resource. */
+@JsonFlatten
 @Fluent
-public final class NetworkRuleSetInner extends ProxyResource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(NetworkRuleSetInner.class);
+public class NetworkRuleSetInner extends ProxyResource {
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(NetworkRuleSetInner.class);
 
     /*
-     * NetworkRuleSet properties
+     * Default Action for Network Rule Set
      */
-    @JsonProperty(value = "properties")
-    private NetworkRuleSetProperties innerProperties;
+    @JsonProperty(value = "properties.defaultAction")
+    private DefaultAction defaultAction;
 
-    /**
-     * Get the innerProperties property: NetworkRuleSet properties.
-     * 
-     * @return the innerProperties value.
+    /*
+     * List VirtualNetwork Rules
      */
-    private NetworkRuleSetProperties innerProperties() {
-        return this.innerProperties;
-    }
+    @JsonProperty(value = "properties.virtualNetworkRules")
+    private List<NWRuleSetVirtualNetworkRules> virtualNetworkRules;
+
+    /*
+     * List of IpRules
+     */
+    @JsonProperty(value = "properties.ipRules")
+    private List<NWRuleSetIpRules> ipRules;
 
     /**
      * Get the defaultAction property: Default Action for Network Rule Set.
-     * 
+     *
      * @return the defaultAction value.
      */
     public DefaultAction defaultAction() {
-        return this.innerProperties() == null ? null : this.innerProperties().defaultAction();
+        return this.defaultAction;
     }
 
     /**
      * Set the defaultAction property: Default Action for Network Rule Set.
-     * 
+     *
      * @param defaultAction the defaultAction value to set.
      * @return the NetworkRuleSetInner object itself.
      */
     public NetworkRuleSetInner withDefaultAction(DefaultAction defaultAction) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new NetworkRuleSetProperties();
-        }
-        this.innerProperties().withDefaultAction(defaultAction);
+        this.defaultAction = defaultAction;
         return this;
     }
 
     /**
      * Get the virtualNetworkRules property: List VirtualNetwork Rules.
-     * 
+     *
      * @return the virtualNetworkRules value.
      */
     public List<NWRuleSetVirtualNetworkRules> virtualNetworkRules() {
-        return this.innerProperties() == null ? null : this.innerProperties().virtualNetworkRules();
+        return this.virtualNetworkRules;
     }
 
     /**
      * Set the virtualNetworkRules property: List VirtualNetwork Rules.
-     * 
+     *
      * @param virtualNetworkRules the virtualNetworkRules value to set.
      * @return the NetworkRuleSetInner object itself.
      */
     public NetworkRuleSetInner withVirtualNetworkRules(List<NWRuleSetVirtualNetworkRules> virtualNetworkRules) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new NetworkRuleSetProperties();
-        }
-        this.innerProperties().withVirtualNetworkRules(virtualNetworkRules);
+        this.virtualNetworkRules = virtualNetworkRules;
         return this;
     }
 
     /**
      * Get the ipRules property: List of IpRules.
-     * 
+     *
      * @return the ipRules value.
      */
     public List<NWRuleSetIpRules> ipRules() {
-        return this.innerProperties() == null ? null : this.innerProperties().ipRules();
+        return this.ipRules;
     }
 
     /**
      * Set the ipRules property: List of IpRules.
-     * 
+     *
      * @param ipRules the ipRules value to set.
      * @return the NetworkRuleSetInner object itself.
      */
     public NetworkRuleSetInner withIpRules(List<NWRuleSetIpRules> ipRules) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new NetworkRuleSetProperties();
-        }
-        this.innerProperties().withIpRules(ipRules);
+        this.ipRules = ipRules;
         return this;
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
-        if (innerProperties() != null) {
-            innerProperties().validate();
+        if (virtualNetworkRules() != null) {
+            virtualNetworkRules().forEach(e -> e.validate());
+        }
+        if (ipRules() != null) {
+            ipRules().forEach(e -> e.validate());
         }
     }
 }

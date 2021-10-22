@@ -5,34 +5,35 @@
 package com.azure.resourcemanager.containerservice.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * The ManagedClusterPodIdentity model.
- */
+/** Details about the pod identity assigned to the Managed Cluster. */
 @Fluent
 public class ManagedClusterPodIdentity {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(ManagedClusterPodIdentity.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(ManagedClusterPodIdentity.class);
 
     /*
-     * Name of the pod identity.
+     * The name of the pod identity.
      */
     @JsonProperty(value = "name", required = true)
     private String name;
 
     /*
-     * Namespace of the pod identity.
+     * The namespace of the pod identity.
      */
     @JsonProperty(value = "namespace", required = true)
     private String namespace;
 
     /*
-     * Information of the user assigned identity.
+     * The binding selector to use for the AzureIdentityBinding resource.
+     */
+    @JsonProperty(value = "bindingSelector")
+    private String bindingSelector;
+
+    /*
+     * The user assigned identity details.
      */
     @JsonProperty(value = "identity", required = true)
     private UserAssignedIdentity identity;
@@ -50,8 +51,8 @@ public class ManagedClusterPodIdentity {
     private ManagedClusterPodIdentityProvisioningInfo provisioningInfo;
 
     /**
-     * Get the name property: Name of the pod identity.
-     * 
+     * Get the name property: The name of the pod identity.
+     *
      * @return the name value.
      */
     public String name() {
@@ -59,8 +60,8 @@ public class ManagedClusterPodIdentity {
     }
 
     /**
-     * Set the name property: Name of the pod identity.
-     * 
+     * Set the name property: The name of the pod identity.
+     *
      * @param name the name value to set.
      * @return the ManagedClusterPodIdentity object itself.
      */
@@ -70,8 +71,8 @@ public class ManagedClusterPodIdentity {
     }
 
     /**
-     * Get the namespace property: Namespace of the pod identity.
-     * 
+     * Get the namespace property: The namespace of the pod identity.
+     *
      * @return the namespace value.
      */
     public String namespace() {
@@ -79,8 +80,8 @@ public class ManagedClusterPodIdentity {
     }
 
     /**
-     * Set the namespace property: Namespace of the pod identity.
-     * 
+     * Set the namespace property: The namespace of the pod identity.
+     *
      * @param namespace the namespace value to set.
      * @return the ManagedClusterPodIdentity object itself.
      */
@@ -90,8 +91,28 @@ public class ManagedClusterPodIdentity {
     }
 
     /**
-     * Get the identity property: Information of the user assigned identity.
-     * 
+     * Get the bindingSelector property: The binding selector to use for the AzureIdentityBinding resource.
+     *
+     * @return the bindingSelector value.
+     */
+    public String bindingSelector() {
+        return this.bindingSelector;
+    }
+
+    /**
+     * Set the bindingSelector property: The binding selector to use for the AzureIdentityBinding resource.
+     *
+     * @param bindingSelector the bindingSelector value to set.
+     * @return the ManagedClusterPodIdentity object itself.
+     */
+    public ManagedClusterPodIdentity withBindingSelector(String bindingSelector) {
+        this.bindingSelector = bindingSelector;
+        return this;
+    }
+
+    /**
+     * Get the identity property: The user assigned identity details.
+     *
      * @return the identity value.
      */
     public UserAssignedIdentity identity() {
@@ -99,8 +120,8 @@ public class ManagedClusterPodIdentity {
     }
 
     /**
-     * Set the identity property: Information of the user assigned identity.
-     * 
+     * Set the identity property: The user assigned identity details.
+     *
      * @param identity the identity value to set.
      * @return the ManagedClusterPodIdentity object itself.
      */
@@ -110,9 +131,8 @@ public class ManagedClusterPodIdentity {
     }
 
     /**
-     * Get the provisioningState property: The current provisioning state of
-     * the pod identity.
-     * 
+     * Get the provisioningState property: The current provisioning state of the pod identity.
+     *
      * @return the provisioningState value.
      */
     public ManagedClusterPodIdentityProvisioningState provisioningState() {
@@ -121,7 +141,7 @@ public class ManagedClusterPodIdentity {
 
     /**
      * Get the provisioningInfo property: The provisioningInfo property.
-     * 
+     *
      * @return the provisioningInfo value.
      */
     public ManagedClusterPodIdentityProvisioningInfo provisioningInfo() {
@@ -130,18 +150,26 @@ public class ManagedClusterPodIdentity {
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
         if (name() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property name in model ManagedClusterPodIdentity"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException("Missing required property name in model ManagedClusterPodIdentity"));
         }
         if (namespace() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property namespace in model ManagedClusterPodIdentity"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException(
+                        "Missing required property namespace in model ManagedClusterPodIdentity"));
         }
         if (identity() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property identity in model ManagedClusterPodIdentity"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException(
+                        "Missing required property identity in model ManagedClusterPodIdentity"));
         } else {
             identity().validate();
         }

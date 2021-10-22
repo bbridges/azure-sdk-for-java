@@ -5,9 +5,9 @@
 package com.azure.resourcemanager.compute.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.compute.models.Disallowed;
+import com.azure.resourcemanager.compute.models.GalleryImageFeature;
 import com.azure.resourcemanager.compute.models.GalleryImageIdentifier;
 import com.azure.resourcemanager.compute.models.GalleryImagePropertiesProvisioningState;
 import com.azure.resourcemanager.compute.models.HyperVGeneration;
@@ -15,28 +15,25 @@ import com.azure.resourcemanager.compute.models.ImagePurchasePlan;
 import com.azure.resourcemanager.compute.models.OperatingSystemStateTypes;
 import com.azure.resourcemanager.compute.models.OperatingSystemTypes;
 import com.azure.resourcemanager.compute.models.RecommendedMachineConfiguration;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.OffsetDateTime;
+import java.util.List;
 
-/**
- * Describes the properties of a gallery Image Definition.
- */
+/** Describes the properties of a gallery image definition. */
 @Fluent
 public final class GalleryImageProperties {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(GalleryImageProperties.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(GalleryImageProperties.class);
 
     /*
-     * The description of this gallery Image Definition resource. This property
+     * The description of this gallery image definition resource. This property
      * is updatable.
      */
     @JsonProperty(value = "description")
     private String description;
 
     /*
-     * The Eula agreement for the gallery Image Definition.
+     * The Eula agreement for the gallery image definition.
      */
     @JsonProperty(value = "eula")
     private String eula;
@@ -76,14 +73,14 @@ public final class GalleryImageProperties {
     private HyperVGeneration hyperVGeneration;
 
     /*
-     * The end of life date of the gallery Image Definition. This property can
+     * The end of life date of the gallery image definition. This property can
      * be used for decommissioning purposes. This property is updatable.
      */
     @JsonProperty(value = "endOfLifeDate")
     private OffsetDateTime endOfLifeDate;
 
     /*
-     * This is the gallery Image Definition identifier.
+     * This is the gallery image definition identifier.
      */
     @JsonProperty(value = "identifier", required = true)
     private GalleryImageIdentifier identifier;
@@ -102,23 +99,29 @@ public final class GalleryImageProperties {
     private Disallowed disallowed;
 
     /*
-     * Describes the gallery Image Definition purchase plan. This is used by
+     * Describes the gallery image definition purchase plan. This is used by
      * marketplace images.
      */
     @JsonProperty(value = "purchasePlan")
     private ImagePurchasePlan purchasePlan;
 
     /*
-     * The current state of the gallery Image Definition. The provisioning
+     * The current state of the gallery image definition. The provisioning
      * state, which only appears in the response.
      */
     @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
     private GalleryImagePropertiesProvisioningState provisioningState;
 
+    /*
+     * A list of gallery image features.
+     */
+    @JsonProperty(value = "features")
+    private List<GalleryImageFeature> features;
+
     /**
-     * Get the description property: The description of this gallery Image
-     * Definition resource. This property is updatable.
-     * 
+     * Get the description property: The description of this gallery image definition resource. This property is
+     * updatable.
+     *
      * @return the description value.
      */
     public String description() {
@@ -126,9 +129,9 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Set the description property: The description of this gallery Image
-     * Definition resource. This property is updatable.
-     * 
+     * Set the description property: The description of this gallery image definition resource. This property is
+     * updatable.
+     *
      * @param description the description value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -138,9 +141,8 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Get the eula property: The Eula agreement for the gallery Image
-     * Definition.
-     * 
+     * Get the eula property: The Eula agreement for the gallery image definition.
+     *
      * @return the eula value.
      */
     public String eula() {
@@ -148,9 +150,8 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Set the eula property: The Eula agreement for the gallery Image
-     * Definition.
-     * 
+     * Set the eula property: The Eula agreement for the gallery image definition.
+     *
      * @param eula the eula value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -161,7 +162,7 @@ public final class GalleryImageProperties {
 
     /**
      * Get the privacyStatementUri property: The privacy statement uri.
-     * 
+     *
      * @return the privacyStatementUri value.
      */
     public String privacyStatementUri() {
@@ -170,7 +171,7 @@ public final class GalleryImageProperties {
 
     /**
      * Set the privacyStatementUri property: The privacy statement uri.
-     * 
+     *
      * @param privacyStatementUri the privacyStatementUri value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -181,7 +182,7 @@ public final class GalleryImageProperties {
 
     /**
      * Get the releaseNoteUri property: The release note uri.
-     * 
+     *
      * @return the releaseNoteUri value.
      */
     public String releaseNoteUri() {
@@ -190,7 +191,7 @@ public final class GalleryImageProperties {
 
     /**
      * Set the releaseNoteUri property: The release note uri.
-     * 
+     *
      * @param releaseNoteUri the releaseNoteUri value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -200,11 +201,10 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Get the osType property: This property allows you to specify the type of
-     * the OS that is included in the disk when creating a VM from a managed
-     * image. &lt;br&gt;&lt;br&gt; Possible values are: &lt;br&gt;&lt;br&gt;
-     * **Windows** &lt;br&gt;&lt;br&gt; **Linux**.
-     * 
+     * Get the osType property: This property allows you to specify the type of the OS that is included in the disk when
+     * creating a VM from a managed image. &lt;br&gt;&lt;br&gt; Possible values are: &lt;br&gt;&lt;br&gt; **Windows**
+     * &lt;br&gt;&lt;br&gt; **Linux**.
+     *
      * @return the osType value.
      */
     public OperatingSystemTypes osType() {
@@ -212,11 +212,10 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Set the osType property: This property allows you to specify the type of
-     * the OS that is included in the disk when creating a VM from a managed
-     * image. &lt;br&gt;&lt;br&gt; Possible values are: &lt;br&gt;&lt;br&gt;
-     * **Windows** &lt;br&gt;&lt;br&gt; **Linux**.
-     * 
+     * Set the osType property: This property allows you to specify the type of the OS that is included in the disk when
+     * creating a VM from a managed image. &lt;br&gt;&lt;br&gt; Possible values are: &lt;br&gt;&lt;br&gt; **Windows**
+     * &lt;br&gt;&lt;br&gt; **Linux**.
+     *
      * @param osType the osType value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -226,10 +225,9 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Get the osState property: This property allows the user to specify
-     * whether the virtual machines created under this image are 'Generalized'
-     * or 'Specialized'.
-     * 
+     * Get the osState property: This property allows the user to specify whether the virtual machines created under
+     * this image are 'Generalized' or 'Specialized'.
+     *
      * @return the osState value.
      */
     public OperatingSystemStateTypes osState() {
@@ -237,10 +235,9 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Set the osState property: This property allows the user to specify
-     * whether the virtual machines created under this image are 'Generalized'
-     * or 'Specialized'.
-     * 
+     * Set the osState property: This property allows the user to specify whether the virtual machines created under
+     * this image are 'Generalized' or 'Specialized'.
+     *
      * @param osState the osState value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -250,9 +247,8 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Get the hyperVGeneration property: The hypervisor generation of the
-     * Virtual Machine. Applicable to OS disks only.
-     * 
+     * Get the hyperVGeneration property: The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
+     *
      * @return the hyperVGeneration value.
      */
     public HyperVGeneration hyperVGeneration() {
@@ -260,9 +256,8 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Set the hyperVGeneration property: The hypervisor generation of the
-     * Virtual Machine. Applicable to OS disks only.
-     * 
+     * Set the hyperVGeneration property: The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
+     *
      * @param hyperVGeneration the hyperVGeneration value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -272,10 +267,9 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Get the endOfLifeDate property: The end of life date of the gallery
-     * Image Definition. This property can be used for decommissioning
-     * purposes. This property is updatable.
-     * 
+     * Get the endOfLifeDate property: The end of life date of the gallery image definition. This property can be used
+     * for decommissioning purposes. This property is updatable.
+     *
      * @return the endOfLifeDate value.
      */
     public OffsetDateTime endOfLifeDate() {
@@ -283,10 +277,9 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Set the endOfLifeDate property: The end of life date of the gallery
-     * Image Definition. This property can be used for decommissioning
-     * purposes. This property is updatable.
-     * 
+     * Set the endOfLifeDate property: The end of life date of the gallery image definition. This property can be used
+     * for decommissioning purposes. This property is updatable.
+     *
      * @param endOfLifeDate the endOfLifeDate value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -296,9 +289,8 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Get the identifier property: This is the gallery Image Definition
-     * identifier.
-     * 
+     * Get the identifier property: This is the gallery image definition identifier.
+     *
      * @return the identifier value.
      */
     public GalleryImageIdentifier identifier() {
@@ -306,9 +298,8 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Set the identifier property: This is the gallery Image Definition
-     * identifier.
-     * 
+     * Set the identifier property: This is the gallery image definition identifier.
+     *
      * @param identifier the identifier value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -318,10 +309,9 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Get the recommended property: The properties describe the recommended
-     * machine configuration for this Image Definition. These properties are
-     * updatable.
-     * 
+     * Get the recommended property: The properties describe the recommended machine configuration for this Image
+     * Definition. These properties are updatable.
+     *
      * @return the recommended value.
      */
     public RecommendedMachineConfiguration recommended() {
@@ -329,10 +319,9 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Set the recommended property: The properties describe the recommended
-     * machine configuration for this Image Definition. These properties are
-     * updatable.
-     * 
+     * Set the recommended property: The properties describe the recommended machine configuration for this Image
+     * Definition. These properties are updatable.
+     *
      * @param recommended the recommended value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -343,7 +332,7 @@ public final class GalleryImageProperties {
 
     /**
      * Get the disallowed property: Describes the disallowed disk types.
-     * 
+     *
      * @return the disallowed value.
      */
     public Disallowed disallowed() {
@@ -352,7 +341,7 @@ public final class GalleryImageProperties {
 
     /**
      * Set the disallowed property: Describes the disallowed disk types.
-     * 
+     *
      * @param disallowed the disallowed value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -362,9 +351,9 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Get the purchasePlan property: Describes the gallery Image Definition
-     * purchase plan. This is used by marketplace images.
-     * 
+     * Get the purchasePlan property: Describes the gallery image definition purchase plan. This is used by marketplace
+     * images.
+     *
      * @return the purchasePlan value.
      */
     public ImagePurchasePlan purchasePlan() {
@@ -372,9 +361,9 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Set the purchasePlan property: Describes the gallery Image Definition
-     * purchase plan. This is used by marketplace images.
-     * 
+     * Set the purchasePlan property: Describes the gallery image definition purchase plan. This is used by marketplace
+     * images.
+     *
      * @param purchasePlan the purchasePlan value to set.
      * @return the GalleryImageProperties object itself.
      */
@@ -384,10 +373,9 @@ public final class GalleryImageProperties {
     }
 
     /**
-     * Get the provisioningState property: The current state of the gallery
-     * Image Definition. The provisioning state, which only appears in the
-     * response.
-     * 
+     * Get the provisioningState property: The current state of the gallery image definition. The provisioning state,
+     * which only appears in the response.
+     *
      * @return the provisioningState value.
      */
     public GalleryImagePropertiesProvisioningState provisioningState() {
@@ -395,19 +383,46 @@ public final class GalleryImageProperties {
     }
 
     /**
+     * Get the features property: A list of gallery image features.
+     *
+     * @return the features value.
+     */
+    public List<GalleryImageFeature> features() {
+        return this.features;
+    }
+
+    /**
+     * Set the features property: A list of gallery image features.
+     *
+     * @param features the features value to set.
+     * @return the GalleryImageProperties object itself.
+     */
+    public GalleryImageProperties withFeatures(List<GalleryImageFeature> features) {
+        this.features = features;
+        return this;
+    }
+
+    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
         if (osType() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property osType in model GalleryImageProperties"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException("Missing required property osType in model GalleryImageProperties"));
         }
         if (osState() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property osState in model GalleryImageProperties"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException("Missing required property osState in model GalleryImageProperties"));
         }
         if (identifier() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property identifier in model GalleryImageProperties"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException(
+                        "Missing required property identifier in model GalleryImageProperties"));
         } else {
             identifier().validate();
         }
@@ -419,6 +434,9 @@ public final class GalleryImageProperties {
         }
         if (purchasePlan() != null) {
             purchasePlan().validate();
+        }
+        if (features() != null) {
+            features().forEach(e -> e.validate());
         }
     }
 }

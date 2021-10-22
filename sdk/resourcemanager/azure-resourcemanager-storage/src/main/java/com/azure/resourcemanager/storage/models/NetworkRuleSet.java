@@ -5,20 +5,15 @@
 package com.azure.resourcemanager.storage.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * Network rule set.
- */
+/** Network rule set. */
 @Fluent
 public final class NetworkRuleSet {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(NetworkRuleSet.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(NetworkRuleSet.class);
 
     /*
      * Specifies whether traffic is bypassed for Logging/Metrics/AzureServices.
@@ -28,6 +23,12 @@ public final class NetworkRuleSet {
      */
     @JsonProperty(value = "bypass")
     private Bypass bypass;
+
+    /*
+     * Sets the resource access rules
+     */
+    @JsonProperty(value = "resourceAccessRules")
+    private List<ResourceAccessRule> resourceAccessRules;
 
     /*
      * Sets the virtual network rules
@@ -48,11 +49,10 @@ public final class NetworkRuleSet {
     private DefaultAction defaultAction;
 
     /**
-     * Get the bypass property: Specifies whether traffic is bypassed for
-     * Logging/Metrics/AzureServices. Possible values are any combination of
-     * Logging|Metrics|AzureServices (For example, "Logging, Metrics"), or None
-     * to bypass none of those traffics.
-     * 
+     * Get the bypass property: Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Possible values
+     * are any combination of Logging|Metrics|AzureServices (For example, "Logging, Metrics"), or None to bypass none of
+     * those traffics.
+     *
      * @return the bypass value.
      */
     public Bypass bypass() {
@@ -60,11 +60,10 @@ public final class NetworkRuleSet {
     }
 
     /**
-     * Set the bypass property: Specifies whether traffic is bypassed for
-     * Logging/Metrics/AzureServices. Possible values are any combination of
-     * Logging|Metrics|AzureServices (For example, "Logging, Metrics"), or None
-     * to bypass none of those traffics.
-     * 
+     * Set the bypass property: Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Possible values
+     * are any combination of Logging|Metrics|AzureServices (For example, "Logging, Metrics"), or None to bypass none of
+     * those traffics.
+     *
      * @param bypass the bypass value to set.
      * @return the NetworkRuleSet object itself.
      */
@@ -74,8 +73,28 @@ public final class NetworkRuleSet {
     }
 
     /**
+     * Get the resourceAccessRules property: Sets the resource access rules.
+     *
+     * @return the resourceAccessRules value.
+     */
+    public List<ResourceAccessRule> resourceAccessRules() {
+        return this.resourceAccessRules;
+    }
+
+    /**
+     * Set the resourceAccessRules property: Sets the resource access rules.
+     *
+     * @param resourceAccessRules the resourceAccessRules value to set.
+     * @return the NetworkRuleSet object itself.
+     */
+    public NetworkRuleSet withResourceAccessRules(List<ResourceAccessRule> resourceAccessRules) {
+        this.resourceAccessRules = resourceAccessRules;
+        return this;
+    }
+
+    /**
      * Get the virtualNetworkRules property: Sets the virtual network rules.
-     * 
+     *
      * @return the virtualNetworkRules value.
      */
     public List<VirtualNetworkRule> virtualNetworkRules() {
@@ -84,7 +103,7 @@ public final class NetworkRuleSet {
 
     /**
      * Set the virtualNetworkRules property: Sets the virtual network rules.
-     * 
+     *
      * @param virtualNetworkRules the virtualNetworkRules value to set.
      * @return the NetworkRuleSet object itself.
      */
@@ -95,7 +114,7 @@ public final class NetworkRuleSet {
 
     /**
      * Get the ipRules property: Sets the IP ACL rules.
-     * 
+     *
      * @return the ipRules value.
      */
     public List<IpRule> ipRules() {
@@ -104,7 +123,7 @@ public final class NetworkRuleSet {
 
     /**
      * Set the ipRules property: Sets the IP ACL rules.
-     * 
+     *
      * @param ipRules the ipRules value to set.
      * @return the NetworkRuleSet object itself.
      */
@@ -114,9 +133,8 @@ public final class NetworkRuleSet {
     }
 
     /**
-     * Get the defaultAction property: Specifies the default action of allow or
-     * deny when no other rules match.
-     * 
+     * Get the defaultAction property: Specifies the default action of allow or deny when no other rules match.
+     *
      * @return the defaultAction value.
      */
     public DefaultAction defaultAction() {
@@ -124,9 +142,8 @@ public final class NetworkRuleSet {
     }
 
     /**
-     * Set the defaultAction property: Specifies the default action of allow or
-     * deny when no other rules match.
-     * 
+     * Set the defaultAction property: Specifies the default action of allow or deny when no other rules match.
+     *
      * @param defaultAction the defaultAction value to set.
      * @return the NetworkRuleSet object itself.
      */
@@ -137,10 +154,13 @@ public final class NetworkRuleSet {
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
+        if (resourceAccessRules() != null) {
+            resourceAccessRules().forEach(e -> e.validate());
+        }
         if (virtualNetworkRules() != null) {
             virtualNetworkRules().forEach(e -> e.validate());
         }
@@ -148,7 +168,9 @@ public final class NetworkRuleSet {
             ipRules().forEach(e -> e.validate());
         }
         if (defaultAction() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property defaultAction in model NetworkRuleSet"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException("Missing required property defaultAction in model NetworkRuleSet"));
         }
     }
 }

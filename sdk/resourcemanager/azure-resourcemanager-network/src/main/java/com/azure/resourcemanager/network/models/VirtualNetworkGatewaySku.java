@@ -5,19 +5,14 @@
 package com.azure.resourcemanager.network.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * VirtualNetworkGatewaySku details.
- */
+/** VirtualNetworkGatewaySku details. */
 @Fluent
 public final class VirtualNetworkGatewaySku {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(VirtualNetworkGatewaySku.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(VirtualNetworkGatewaySku.class);
 
     /*
      * Gateway SKU name.
@@ -34,12 +29,12 @@ public final class VirtualNetworkGatewaySku {
     /*
      * The capacity.
      */
-    @JsonProperty(value = "capacity")
+    @JsonProperty(value = "capacity", access = JsonProperty.Access.WRITE_ONLY)
     private Integer capacity;
 
     /**
      * Get the name property: Gateway SKU name.
-     * 
+     *
      * @return the name value.
      */
     public VirtualNetworkGatewaySkuName name() {
@@ -48,7 +43,7 @@ public final class VirtualNetworkGatewaySku {
 
     /**
      * Set the name property: Gateway SKU name.
-     * 
+     *
      * @param name the name value to set.
      * @return the VirtualNetworkGatewaySku object itself.
      */
@@ -59,7 +54,7 @@ public final class VirtualNetworkGatewaySku {
 
     /**
      * Get the tier property: Gateway SKU tier.
-     * 
+     *
      * @return the tier value.
      */
     public VirtualNetworkGatewaySkuTier tier() {
@@ -68,7 +63,7 @@ public final class VirtualNetworkGatewaySku {
 
     /**
      * Set the tier property: Gateway SKU tier.
-     * 
+     *
      * @param tier the tier value to set.
      * @return the VirtualNetworkGatewaySku object itself.
      */
@@ -79,7 +74,7 @@ public final class VirtualNetworkGatewaySku {
 
     /**
      * Get the capacity property: The capacity.
-     * 
+     *
      * @return the capacity value.
      */
     public Integer capacity() {
@@ -87,19 +82,8 @@ public final class VirtualNetworkGatewaySku {
     }
 
     /**
-     * Set the capacity property: The capacity.
-     * 
-     * @param capacity the capacity value to set.
-     * @return the VirtualNetworkGatewaySku object itself.
-     */
-    public VirtualNetworkGatewaySku withCapacity(Integer capacity) {
-        this.capacity = capacity;
-        return this;
-    }
-
-    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

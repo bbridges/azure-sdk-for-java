@@ -5,19 +5,17 @@
 package com.azure.resourcemanager.containerservice.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * OS configurations of Linux agent nodes.
+ * OS configurations of Linux agent nodes. See [AKS custom node
+ * configuration](https://docs.microsoft.com/azure/aks/custom-node-configuration) for more details.
  */
 @Fluent
 public final class LinuxOSConfig {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(LinuxOSConfig.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(LinuxOSConfig.class);
 
     /*
      * Sysctl settings for Linux agent nodes.
@@ -26,27 +24,33 @@ public final class LinuxOSConfig {
     private SysctlConfig sysctls;
 
     /*
-     * Transparent Huge Page enabled configuration.
+     * Whether transparent hugepages are enabled. Valid values are 'always',
+     * 'madvise', and 'never'. The default is 'always'. For more information
+     * see [Transparent
+     * Hugepages](https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html#admin-guide-transhuge).
      */
     @JsonProperty(value = "transparentHugePageEnabled")
     private String transparentHugePageEnabled;
 
     /*
-     * Transparent Huge Page defrag configuration.
+     * Whether the kernel should make aggressive use of memory compaction to
+     * make more hugepages available. Valid values are 'always', 'defer',
+     * 'defer+madvise', 'madvise' and 'never'. The default is 'madvise'. For
+     * more information see [Transparent
+     * Hugepages](https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html#admin-guide-transhuge).
      */
     @JsonProperty(value = "transparentHugePageDefrag")
     private String transparentHugePageDefrag;
 
     /*
-     * SwapFileSizeMB specifies size in MB of a swap file will be created on
-     * each node.
+     * The size in MB of a swap file that will be created on each node.
      */
     @JsonProperty(value = "swapFileSizeMB")
     private Integer swapFileSizeMB;
 
     /**
      * Get the sysctls property: Sysctl settings for Linux agent nodes.
-     * 
+     *
      * @return the sysctls value.
      */
     public SysctlConfig sysctls() {
@@ -55,7 +59,7 @@ public final class LinuxOSConfig {
 
     /**
      * Set the sysctls property: Sysctl settings for Linux agent nodes.
-     * 
+     *
      * @param sysctls the sysctls value to set.
      * @return the LinuxOSConfig object itself.
      */
@@ -65,9 +69,10 @@ public final class LinuxOSConfig {
     }
 
     /**
-     * Get the transparentHugePageEnabled property: Transparent Huge Page
-     * enabled configuration.
-     * 
+     * Get the transparentHugePageEnabled property: Whether transparent hugepages are enabled. Valid values are
+     * 'always', 'madvise', and 'never'. The default is 'always'. For more information see [Transparent
+     * Hugepages](https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html#admin-guide-transhuge).
+     *
      * @return the transparentHugePageEnabled value.
      */
     public String transparentHugePageEnabled() {
@@ -75,11 +80,11 @@ public final class LinuxOSConfig {
     }
 
     /**
-     * Set the transparentHugePageEnabled property: Transparent Huge Page
-     * enabled configuration.
-     * 
-     * @param transparentHugePageEnabled the transparentHugePageEnabled value
-     * to set.
+     * Set the transparentHugePageEnabled property: Whether transparent hugepages are enabled. Valid values are
+     * 'always', 'madvise', and 'never'. The default is 'always'. For more information see [Transparent
+     * Hugepages](https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html#admin-guide-transhuge).
+     *
+     * @param transparentHugePageEnabled the transparentHugePageEnabled value to set.
      * @return the LinuxOSConfig object itself.
      */
     public LinuxOSConfig withTransparentHugePageEnabled(String transparentHugePageEnabled) {
@@ -88,9 +93,11 @@ public final class LinuxOSConfig {
     }
 
     /**
-     * Get the transparentHugePageDefrag property: Transparent Huge Page defrag
-     * configuration.
-     * 
+     * Get the transparentHugePageDefrag property: Whether the kernel should make aggressive use of memory compaction to
+     * make more hugepages available. Valid values are 'always', 'defer', 'defer+madvise', 'madvise' and 'never'. The
+     * default is 'madvise'. For more information see [Transparent
+     * Hugepages](https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html#admin-guide-transhuge).
+     *
      * @return the transparentHugePageDefrag value.
      */
     public String transparentHugePageDefrag() {
@@ -98,11 +105,12 @@ public final class LinuxOSConfig {
     }
 
     /**
-     * Set the transparentHugePageDefrag property: Transparent Huge Page defrag
-     * configuration.
-     * 
-     * @param transparentHugePageDefrag the transparentHugePageDefrag value to
-     * set.
+     * Set the transparentHugePageDefrag property: Whether the kernel should make aggressive use of memory compaction to
+     * make more hugepages available. Valid values are 'always', 'defer', 'defer+madvise', 'madvise' and 'never'. The
+     * default is 'madvise'. For more information see [Transparent
+     * Hugepages](https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html#admin-guide-transhuge).
+     *
+     * @param transparentHugePageDefrag the transparentHugePageDefrag value to set.
      * @return the LinuxOSConfig object itself.
      */
     public LinuxOSConfig withTransparentHugePageDefrag(String transparentHugePageDefrag) {
@@ -111,9 +119,8 @@ public final class LinuxOSConfig {
     }
 
     /**
-     * Get the swapFileSizeMB property: SwapFileSizeMB specifies size in MB of
-     * a swap file will be created on each node.
-     * 
+     * Get the swapFileSizeMB property: The size in MB of a swap file that will be created on each node.
+     *
      * @return the swapFileSizeMB value.
      */
     public Integer swapFileSizeMB() {
@@ -121,9 +128,8 @@ public final class LinuxOSConfig {
     }
 
     /**
-     * Set the swapFileSizeMB property: SwapFileSizeMB specifies size in MB of
-     * a swap file will be created on each node.
-     * 
+     * Set the swapFileSizeMB property: The size in MB of a swap file that will be created on each node.
+     *
      * @param swapFileSizeMB the swapFileSizeMB value to set.
      * @return the LinuxOSConfig object itself.
      */
@@ -134,7 +140,7 @@ public final class LinuxOSConfig {
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

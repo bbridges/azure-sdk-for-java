@@ -5,24 +5,18 @@
 package com.azure.resourcemanager.network.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * Network configuration diagnostic result corresponded provided traffic query.
- */
+/** Network configuration diagnostic result corresponded provided traffic query. */
 @Fluent
 public final class NetworkSecurityGroupResult {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(NetworkSecurityGroupResult.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(NetworkSecurityGroupResult.class);
 
     /*
-     * The network traffic is allowed or denied. Possible values are 'Allow'
-     * and 'Deny'.
+     * The network traffic is allowed or denied.
      */
     @JsonProperty(value = "securityRuleAccessResult")
     private SecurityRuleAccess securityRuleAccessResult;
@@ -34,9 +28,8 @@ public final class NetworkSecurityGroupResult {
     private List<EvaluatedNetworkSecurityGroup> evaluatedNetworkSecurityGroups;
 
     /**
-     * Get the securityRuleAccessResult property: The network traffic is
-     * allowed or denied. Possible values are 'Allow' and 'Deny'.
-     * 
+     * Get the securityRuleAccessResult property: The network traffic is allowed or denied.
+     *
      * @return the securityRuleAccessResult value.
      */
     public SecurityRuleAccess securityRuleAccessResult() {
@@ -44,11 +37,9 @@ public final class NetworkSecurityGroupResult {
     }
 
     /**
-     * Set the securityRuleAccessResult property: The network traffic is
-     * allowed or denied. Possible values are 'Allow' and 'Deny'.
-     * 
-     * @param securityRuleAccessResult the securityRuleAccessResult value to
-     * set.
+     * Set the securityRuleAccessResult property: The network traffic is allowed or denied.
+     *
+     * @param securityRuleAccessResult the securityRuleAccessResult value to set.
      * @return the NetworkSecurityGroupResult object itself.
      */
     public NetworkSecurityGroupResult withSecurityRuleAccessResult(SecurityRuleAccess securityRuleAccessResult) {
@@ -57,9 +48,8 @@ public final class NetworkSecurityGroupResult {
     }
 
     /**
-     * Get the evaluatedNetworkSecurityGroups property: List of results network
-     * security groups diagnostic.
-     * 
+     * Get the evaluatedNetworkSecurityGroups property: List of results network security groups diagnostic.
+     *
      * @return the evaluatedNetworkSecurityGroups value.
      */
     public List<EvaluatedNetworkSecurityGroup> evaluatedNetworkSecurityGroups() {
@@ -68,7 +58,7 @@ public final class NetworkSecurityGroupResult {
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

@@ -7,6 +7,8 @@ import com.azure.resourcemanager.resources.models.Location;
 import com.azure.core.management.Region;
 import com.azure.resourcemanager.resources.fluentcore.model.implementation.IndexableWrapperImpl;
 import com.azure.resourcemanager.resources.fluent.models.LocationInner;
+import com.azure.resourcemanager.resources.models.RegionCategory;
+import com.azure.resourcemanager.resources.models.RegionType;
 
 /**
  * The implementation of {@link Location}.
@@ -36,12 +38,32 @@ final class LocationImpl extends
 
     @Override
     public String latitude() {
-        return this.innerModel().latitude();
+        return this.innerModel().metadata() == null ? null : this.innerModel().metadata().latitude();
     }
 
     @Override
     public String longitude() {
-        return this.innerModel().longitude();
+        return this.innerModel().metadata() == null ? null : this.innerModel().metadata().longitude();
+    }
+
+    @Override
+    public RegionType regionType() {
+        return this.innerModel().metadata() == null ? null : this.innerModel().metadata().regionType();
+    }
+
+    @Override
+    public RegionCategory regionCategory() {
+        return this.innerModel().metadata() == null ? null : this.innerModel().metadata().regionCategory();
+    }
+
+    @Override
+    public String geographyGroup() {
+        return this.innerModel().metadata() == null ? null : this.innerModel().metadata().geographyGroup();
+    }
+
+    @Override
+    public String physicalLocation() {
+        return this.innerModel().metadata() == null ? null : this.innerModel().metadata().physicalLocation();
     }
 
     @Override

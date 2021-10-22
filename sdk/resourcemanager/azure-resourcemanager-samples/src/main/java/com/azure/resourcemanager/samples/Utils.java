@@ -146,6 +146,7 @@ import com.azure.resourcemanager.network.models.NetworkWatcher;
 import com.azure.resourcemanager.network.models.NextHop;
 import com.azure.resourcemanager.network.models.PacketCapture;
 import com.azure.resourcemanager.network.models.PacketCaptureFilter;
+import com.azure.resourcemanager.network.models.PrivateEndpoint;
 import com.azure.resourcemanager.network.models.PublicIpAddress;
 import com.azure.resourcemanager.network.models.RouteTable;
 import com.azure.resourcemanager.network.models.SecurityGroupNetworkInterface;
@@ -2571,7 +2572,6 @@ public final class Utils {
                 .append("\n\tName: ").append(user.name())
                 .append("\n\tMail: ").append(user.mail())
                 .append("\n\tMail Nickname: ").append(user.mailNickname())
-                .append("\n\tSign In Name: ").append(user.signInName())
                 .append("\n\tUser Principal Name: ").append(user.userPrincipalName());
 
         System.out.println(builder.toString());

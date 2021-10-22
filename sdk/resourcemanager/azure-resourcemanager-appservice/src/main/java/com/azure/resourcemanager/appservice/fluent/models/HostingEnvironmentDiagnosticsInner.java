@@ -23,8 +23,8 @@ public final class HostingEnvironmentDiagnosticsInner {
     /*
      * Diagnostics output.
      */
-    @JsonProperty(value = "diagnosicsOutput")
-    private String diagnosicsOutput;
+    @JsonProperty(value = "diagnosticsOutput")
+    private String diagnosticsOutput;
 
     /**
      * Get the name property: Name/identifier of the diagnostics.
@@ -47,22 +47,22 @@ public final class HostingEnvironmentDiagnosticsInner {
     }
 
     /**
-     * Get the diagnosicsOutput property: Diagnostics output.
+     * Get the diagnosticsOutput property: Diagnostics output.
      *
-     * @return the diagnosicsOutput value.
+     * @return the diagnosticsOutput value.
      */
-    public String diagnosicsOutput() {
-        return this.diagnosicsOutput;
+    public String diagnosticsOutput() {
+        return this.diagnosticsOutput;
     }
 
     /**
-     * Set the diagnosicsOutput property: Diagnostics output.
+     * Set the diagnosticsOutput property: Diagnostics output.
      *
-     * @param diagnosicsOutput the diagnosicsOutput value to set.
+     * @param diagnosticsOutput the diagnosticsOutput value to set.
      * @return the HostingEnvironmentDiagnosticsInner object itself.
      */
-    public HostingEnvironmentDiagnosticsInner withDiagnosicsOutput(String diagnosicsOutput) {
-        this.diagnosicsOutput = diagnosicsOutput;
+    public HostingEnvironmentDiagnosticsInner withDiagnosticsOutput(String diagnosticsOutput) {
+        this.diagnosticsOutput = diagnosticsOutput;
         return this;
     }
 

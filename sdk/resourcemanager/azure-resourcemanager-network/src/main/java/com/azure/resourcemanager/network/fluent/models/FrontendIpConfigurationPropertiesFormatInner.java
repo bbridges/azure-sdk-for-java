@@ -5,43 +5,42 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.IpAllocationMethod;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.IpVersion;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * Properties of Frontend IP Configuration of the load balancer.
- */
+/** Properties of Frontend IP Configuration of the load balancer. */
 @Fluent
 public final class FrontendIpConfigurationPropertiesFormatInner {
     @JsonIgnore
     private final ClientLogger logger = new ClientLogger(FrontendIpConfigurationPropertiesFormatInner.class);
 
     /*
-     * Read only. Inbound rules URIs that use this frontend IP.
+     * An array of references to inbound rules that use this frontend IP.
      */
     @JsonProperty(value = "inboundNatRules", access = JsonProperty.Access.WRITE_ONLY)
     private List<SubResource> inboundNatRules;
 
     /*
-     * Read only. Inbound pools URIs that use this frontend IP.
+     * An array of references to inbound pools that use this frontend IP.
      */
     @JsonProperty(value = "inboundNatPools", access = JsonProperty.Access.WRITE_ONLY)
     private List<SubResource> inboundNatPools;
 
     /*
-     * Read only. Outbound rules URIs that use this frontend IP.
+     * An array of references to outbound rules that use this frontend IP.
      */
     @JsonProperty(value = "outboundRules", access = JsonProperty.Access.WRITE_ONLY)
     private List<SubResource> outboundRules;
 
     /*
-     * Gets load balancing rules URIs that use this frontend IP.
+     * An array of references to load balancing rules that use this frontend
+     * IP.
      */
     @JsonProperty(value = "loadBalancingRules", access = JsonProperty.Access.WRITE_ONLY)
     private List<SubResource> loadBalancingRules;
@@ -53,41 +52,51 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     private String privateIpAddress;
 
     /*
-     * The Private IP allocation method. Possible values are: 'Static' and
-     * 'Dynamic'.
+     * The Private IP allocation method.
      */
     @JsonProperty(value = "privateIPAllocationMethod")
     private IpAllocationMethod privateIpAllocationMethod;
 
     /*
-     * The reference of the subnet resource.
+     * Whether the specific ipconfiguration is IPv4 or IPv6. Default is taken
+     * as IPv4.
+     */
+    @JsonProperty(value = "privateIPAddressVersion")
+    private IpVersion privateIpAddressVersion;
+
+    /*
+     * The reference to the subnet resource.
      */
     @JsonProperty(value = "subnet")
     private SubnetInner subnet;
 
     /*
-     * The reference of the Public IP resource.
+     * The reference to the Public IP resource.
      */
     @JsonProperty(value = "publicIPAddress")
     private PublicIpAddressInner publicIpAddress;
 
     /*
-     * The reference of the Public IP Prefix resource.
+     * The reference to the Public IP Prefix resource.
      */
     @JsonProperty(value = "publicIPPrefix")
     private SubResource publicIpPrefix;
 
     /*
-     * Gets the provisioning state of the public IP resource. Possible values
-     * are: 'Updating', 'Deleting', and 'Failed'.
+     * The reference to gateway load balancer frontend IP.
      */
-    @JsonProperty(value = "provisioningState")
-    private String provisioningState;
+    @JsonProperty(value = "gatewayLoadBalancer")
+    private SubResource gatewayLoadBalancer;
+
+    /*
+     * The provisioning state of the frontend IP configuration resource.
+     */
+    @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
+    private ProvisioningState provisioningState;
 
     /**
-     * Get the inboundNatRules property: Read only. Inbound rules URIs that use
-     * this frontend IP.
-     * 
+     * Get the inboundNatRules property: An array of references to inbound rules that use this frontend IP.
+     *
      * @return the inboundNatRules value.
      */
     public List<SubResource> inboundNatRules() {
@@ -95,9 +104,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Get the inboundNatPools property: Read only. Inbound pools URIs that use
-     * this frontend IP.
-     * 
+     * Get the inboundNatPools property: An array of references to inbound pools that use this frontend IP.
+     *
      * @return the inboundNatPools value.
      */
     public List<SubResource> inboundNatPools() {
@@ -105,9 +113,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Get the outboundRules property: Read only. Outbound rules URIs that use
-     * this frontend IP.
-     * 
+     * Get the outboundRules property: An array of references to outbound rules that use this frontend IP.
+     *
      * @return the outboundRules value.
      */
     public List<SubResource> outboundRules() {
@@ -115,9 +122,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Get the loadBalancingRules property: Gets load balancing rules URIs that
-     * use this frontend IP.
-     * 
+     * Get the loadBalancingRules property: An array of references to load balancing rules that use this frontend IP.
+     *
      * @return the loadBalancingRules value.
      */
     public List<SubResource> loadBalancingRules() {
@@ -125,9 +131,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Get the privateIpAddress property: The private IP address of the IP
-     * configuration.
-     * 
+     * Get the privateIpAddress property: The private IP address of the IP configuration.
+     *
      * @return the privateIpAddress value.
      */
     public String privateIpAddress() {
@@ -135,9 +140,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Set the privateIpAddress property: The private IP address of the IP
-     * configuration.
-     * 
+     * Set the privateIpAddress property: The private IP address of the IP configuration.
+     *
      * @param privateIpAddress the privateIpAddress value to set.
      * @return the FrontendIpConfigurationPropertiesFormatInner object itself.
      */
@@ -147,9 +151,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Get the privateIpAllocationMethod property: The Private IP allocation
-     * method. Possible values are: 'Static' and 'Dynamic'.
-     * 
+     * Get the privateIpAllocationMethod property: The Private IP allocation method.
+     *
      * @return the privateIpAllocationMethod value.
      */
     public IpAllocationMethod privateIpAllocationMethod() {
@@ -157,21 +160,42 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Set the privateIpAllocationMethod property: The Private IP allocation
-     * method. Possible values are: 'Static' and 'Dynamic'.
-     * 
-     * @param privateIpAllocationMethod the privateIpAllocationMethod value to
-     * set.
+     * Set the privateIpAllocationMethod property: The Private IP allocation method.
+     *
+     * @param privateIpAllocationMethod the privateIpAllocationMethod value to set.
      * @return the FrontendIpConfigurationPropertiesFormatInner object itself.
      */
-    public FrontendIpConfigurationPropertiesFormatInner withPrivateIpAllocationMethod(IpAllocationMethod privateIpAllocationMethod) {
+    public FrontendIpConfigurationPropertiesFormatInner withPrivateIpAllocationMethod(
+        IpAllocationMethod privateIpAllocationMethod) {
         this.privateIpAllocationMethod = privateIpAllocationMethod;
         return this;
     }
 
     /**
-     * Get the subnet property: The reference of the subnet resource.
-     * 
+     * Get the privateIpAddressVersion property: Whether the specific ipconfiguration is IPv4 or IPv6. Default is taken
+     * as IPv4.
+     *
+     * @return the privateIpAddressVersion value.
+     */
+    public IpVersion privateIpAddressVersion() {
+        return this.privateIpAddressVersion;
+    }
+
+    /**
+     * Set the privateIpAddressVersion property: Whether the specific ipconfiguration is IPv4 or IPv6. Default is taken
+     * as IPv4.
+     *
+     * @param privateIpAddressVersion the privateIpAddressVersion value to set.
+     * @return the FrontendIpConfigurationPropertiesFormatInner object itself.
+     */
+    public FrontendIpConfigurationPropertiesFormatInner withPrivateIpAddressVersion(IpVersion privateIpAddressVersion) {
+        this.privateIpAddressVersion = privateIpAddressVersion;
+        return this;
+    }
+
+    /**
+     * Get the subnet property: The reference to the subnet resource.
+     *
      * @return the subnet value.
      */
     public SubnetInner subnet() {
@@ -179,8 +203,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Set the subnet property: The reference of the subnet resource.
-     * 
+     * Set the subnet property: The reference to the subnet resource.
+     *
      * @param subnet the subnet value to set.
      * @return the FrontendIpConfigurationPropertiesFormatInner object itself.
      */
@@ -190,9 +214,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Get the publicIpAddress property: The reference of the Public IP
-     * resource.
-     * 
+     * Get the publicIpAddress property: The reference to the Public IP resource.
+     *
      * @return the publicIpAddress value.
      */
     public PublicIpAddressInner publicIpAddress() {
@@ -200,9 +223,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Set the publicIpAddress property: The reference of the Public IP
-     * resource.
-     * 
+     * Set the publicIpAddress property: The reference to the Public IP resource.
+     *
      * @param publicIpAddress the publicIpAddress value to set.
      * @return the FrontendIpConfigurationPropertiesFormatInner object itself.
      */
@@ -212,9 +234,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Get the publicIpPrefix property: The reference of the Public IP Prefix
-     * resource.
-     * 
+     * Get the publicIpPrefix property: The reference to the Public IP Prefix resource.
+     *
      * @return the publicIpPrefix value.
      */
     public SubResource publicIpPrefix() {
@@ -222,9 +243,8 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Set the publicIpPrefix property: The reference of the Public IP Prefix
-     * resource.
-     * 
+     * Set the publicIpPrefix property: The reference to the Public IP Prefix resource.
+     *
      * @param publicIpPrefix the publicIpPrefix value to set.
      * @return the FrontendIpConfigurationPropertiesFormatInner object itself.
      */
@@ -234,32 +254,37 @@ public final class FrontendIpConfigurationPropertiesFormatInner {
     }
 
     /**
-     * Get the provisioningState property: Gets the provisioning state of the
-     * public IP resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
-     * @return the provisioningState value.
+     * Get the gatewayLoadBalancer property: The reference to gateway load balancer frontend IP.
+     *
+     * @return the gatewayLoadBalancer value.
      */
-    public String provisioningState() {
-        return this.provisioningState;
+    public SubResource gatewayLoadBalancer() {
+        return this.gatewayLoadBalancer;
     }
 
     /**
-     * Set the provisioningState property: Gets the provisioning state of the
-     * public IP resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
-     * @param provisioningState the provisioningState value to set.
+     * Set the gatewayLoadBalancer property: The reference to gateway load balancer frontend IP.
+     *
+     * @param gatewayLoadBalancer the gatewayLoadBalancer value to set.
      * @return the FrontendIpConfigurationPropertiesFormatInner object itself.
      */
-    public FrontendIpConfigurationPropertiesFormatInner withProvisioningState(String provisioningState) {
-        this.provisioningState = provisioningState;
+    public FrontendIpConfigurationPropertiesFormatInner withGatewayLoadBalancer(SubResource gatewayLoadBalancer) {
+        this.gatewayLoadBalancer = gatewayLoadBalancer;
         return this;
     }
 
     /**
+     * Get the provisioningState property: The provisioning state of the frontend IP configuration resource.
+     *
+     * @return the provisioningState value.
+     */
+    public ProvisioningState provisioningState() {
+        return this.provisioningState;
+    }
+
+    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

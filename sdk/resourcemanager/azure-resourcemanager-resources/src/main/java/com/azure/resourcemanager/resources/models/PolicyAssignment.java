@@ -47,9 +47,19 @@ public interface PolicyAssignment extends
     String type();
 
     /**
+     * @return the excluded scopes of the policy assignment
+     */
+    List<String> excludedScopes();
+
+    /**
+     * @return the enforcement mode of the policy assignment
+     */
+    EnforcementMode enforcementMode();
+
+    /**
      * @return the parameters of the policy assignment
      */
-    Object parameters();
+    Map<String, ParameterValuesValue> parameters();
 
     /**
      * Container interface for all the definitions that need to be implemented.
@@ -134,16 +144,43 @@ public interface PolicyAssignment extends
         }
 
         /**
+         * A policy assignment allowing the excluded scopes to be set.
+         */
+        interface WithExcludedScopes {
+            /**
+             * Specifies the excluded scope of the policy assignment.
+             *
+             * @param scope the scope to be excluded from the policy assignment
+             * @return the next stage of policy assignment
+             */
+            WithCreate withExcludedScope(String scope);
+        }
+
+        /**
          * A policy assignment allowing the parameters to be set.
          */
         interface WithParameters {
             /**
-             * Specifies the parameters of the policy assignment.
+             * Specifies the parameter of the policy assignment.
              *
-             * @param parameters the parameters of the policy assignment
+             * @param name the name of the parameter
+             * @param value the value of the parameter
              * @return the next stage of policy assignment
              */
-            WithCreate withParameters(Object parameters);
+            WithCreate withParameter(String name, Object value);
+        }
+
+        /**
+         * A policy assignment allowing the enforcement mode to be set.
+         */
+        interface WithEnforcementMode {
+            /**
+             * Specifies the enforcement mode of the policy assignment.
+             *
+             * @param mode the enforcement mode of the policy assignment
+             * @return the next stage of policy assignment
+             */
+            WithCreate withEnforcementMode(EnforcementMode mode);
         }
 
         /**
@@ -154,7 +191,9 @@ public interface PolicyAssignment extends
         interface WithCreate extends
                 Creatable<PolicyAssignment>,
                 DefinitionStages.WithDisplayName,
-                DefinitionStages.WithParameters {
+                DefinitionStages.WithExcludedScopes,
+                DefinitionStages.WithParameters,
+                DefinitionStages.WithEnforcementMode {
         }
     }
 }

@@ -6,17 +6,17 @@ package com.azure.resourcemanager.authorization.implementation;
 import com.azure.core.http.rest.PagedFlux;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.resourcemanager.authorization.AuthorizationManager;
+import com.azure.resourcemanager.authorization.fluent.GroupsGroupsClient;
+import com.azure.resourcemanager.authorization.fluent.models.MicrosoftGraphGroupInner;
 import com.azure.resourcemanager.authorization.models.ActiveDirectoryGroup;
 import com.azure.resourcemanager.authorization.models.ActiveDirectoryGroups;
-import com.azure.resourcemanager.authorization.fluent.models.ADGroupInner;
-import com.azure.resourcemanager.authorization.fluent.GroupsClient;
 import com.azure.resourcemanager.resources.fluentcore.arm.collection.implementation.CreatableWrappersImpl;
 import reactor.core.publisher.Mono;
 import com.azure.resourcemanager.resources.fluentcore.utils.PagedConverter;
 
 /** The implementation of Users and its parent interfaces. */
 public class ActiveDirectoryGroupsImpl
-    extends CreatableWrappersImpl<ActiveDirectoryGroup, ActiveDirectoryGroupImpl, ADGroupInner>
+    extends CreatableWrappersImpl<ActiveDirectoryGroup, ActiveDirectoryGroupImpl, MicrosoftGraphGroupInner>
     implements ActiveDirectoryGroups {
     private final AuthorizationManager manager;
 
@@ -26,11 +26,11 @@ public class ActiveDirectoryGroupsImpl
 
     @Override
     public PagedIterable<ActiveDirectoryGroup> list() {
-        return wrapList(this.manager.serviceClient().getGroups().list(this.manager.tenantId()));
+        return new PagedIterable<>(listAsync());
     }
 
     @Override
-    protected ActiveDirectoryGroupImpl wrapModel(ADGroupInner groupInner) {
+    protected ActiveDirectoryGroupImpl wrapModel(MicrosoftGraphGroupInner groupInner) {
         if (groupInner == null) {
             return null;
         }
@@ -44,26 +44,19 @@ public class ActiveDirectoryGroupsImpl
 
     @Override
     public Mono<ActiveDirectoryGroup> getByIdAsync(String id) {
-        return manager
-            .serviceClient()
-            .getGroups()
-            .getAsync(id, this.manager.tenantId())
+        return inner().getGroupAsync(id)
             .map(groupInner -> new ActiveDirectoryGroupImpl(groupInner, manager()));
     }
 
     @Override
     public PagedFlux<ActiveDirectoryGroup> listAsync() {
-        return wrapPageAsync(manager().serviceClient().getGroups().listAsync(this.manager.tenantId(), null));
+        return wrapPageAsync(inner().listGroupAsync());
     }
 
     @Override
     public Mono<ActiveDirectoryGroup> getByNameAsync(String name) {
-        return manager()
-            .serviceClient()
-            .getGroups()
-            .listAsync(this.manager.tenantId(), String.format("displayName eq '%s'", name))
-            .singleOrEmpty()
-            .map(adGroupInner -> new ActiveDirectoryGroupImpl(adGroupInner, manager()));
+        return listByFilterAsync(String.format("displayName eq '%s'", name))
+            .singleOrEmpty();
     }
 
     @Override
@@ -78,12 +71,12 @@ public class ActiveDirectoryGroupsImpl
 
     @Override
     protected ActiveDirectoryGroupImpl wrapModel(String name) {
-        return wrapModel(new ADGroupInner().withDisplayName(name));
+        return wrapModel(new MicrosoftGraphGroupInner().withDisplayName(name));
     }
 
     @Override
     public Mono<Void> deleteByIdAsync(String id) {
-        return manager().serviceClient().getGroups().deleteAsync(id, this.manager.tenantId());
+        return inner().deleteGroupAsync(id);
     }
 
     @Override
@@ -91,8 +84,8 @@ public class ActiveDirectoryGroupsImpl
         return this.manager;
     }
 
-    public GroupsClient inner() {
-        return manager().serviceClient().getGroups();
+    public GroupsGroupsClient inner() {
+        return manager().serviceClient().getGroupsGroups();
     }
 
     @Override
@@ -102,6 +95,7 @@ public class ActiveDirectoryGroupsImpl
 
     @Override
     public PagedFlux<ActiveDirectoryGroup> listByFilterAsync(String filter) {
-        return inner().listAsync(this.manager.tenantId(), filter).mapPage(this::wrapModel);
+        return PagedConverter.mapPage(inner().listGroupAsync(null, null, null, null, filter, null, null, null, null),
+            this::wrapModel);
     }
 }

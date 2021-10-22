@@ -5,17 +5,13 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.ProvisioningState;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Properties of IP configuration of an Azure Firewall.
- */
+/** Properties of IP configuration of an Azure Firewall. */
 @Fluent
 public final class AzureFirewallIpConfigurationPropertiesFormat {
     @JsonIgnore
@@ -29,29 +25,29 @@ public final class AzureFirewallIpConfigurationPropertiesFormat {
     private String privateIpAddress;
 
     /*
-     * Reference of the subnet resource. This resource must be named
-     * 'AzureFirewallSubnet'.
+     * Reference to the subnet resource. This resource must be named
+     * 'AzureFirewallSubnet' or 'AzureFirewallManagementSubnet'.
      */
     @JsonProperty(value = "subnet")
     private SubResource subnet;
 
     /*
-     * Reference of the PublicIP resource. This field is a mandatory input if
+     * Reference to the PublicIP resource. This field is a mandatory input if
      * subnet is not null.
      */
     @JsonProperty(value = "publicIPAddress")
     private SubResource publicIpAddress;
 
     /*
-     * The provisioning state of the resource.
+     * The provisioning state of the Azure firewall IP configuration resource.
      */
-    @JsonProperty(value = "provisioningState")
+    @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
     private ProvisioningState provisioningState;
 
     /**
-     * Get the privateIpAddress property: The Firewall Internal Load Balancer
-     * IP to be used as the next hop in User Defined Routes.
-     * 
+     * Get the privateIpAddress property: The Firewall Internal Load Balancer IP to be used as the next hop in User
+     * Defined Routes.
+     *
      * @return the privateIpAddress value.
      */
     public String privateIpAddress() {
@@ -59,9 +55,9 @@ public final class AzureFirewallIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Get the subnet property: Reference of the subnet resource. This resource
-     * must be named 'AzureFirewallSubnet'.
-     * 
+     * Get the subnet property: Reference to the subnet resource. This resource must be named 'AzureFirewallSubnet' or
+     * 'AzureFirewallManagementSubnet'.
+     *
      * @return the subnet value.
      */
     public SubResource subnet() {
@@ -69,9 +65,9 @@ public final class AzureFirewallIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Set the subnet property: Reference of the subnet resource. This resource
-     * must be named 'AzureFirewallSubnet'.
-     * 
+     * Set the subnet property: Reference to the subnet resource. This resource must be named 'AzureFirewallSubnet' or
+     * 'AzureFirewallManagementSubnet'.
+     *
      * @param subnet the subnet value to set.
      * @return the AzureFirewallIpConfigurationPropertiesFormat object itself.
      */
@@ -81,9 +77,9 @@ public final class AzureFirewallIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Get the publicIpAddress property: Reference of the PublicIP resource.
-     * This field is a mandatory input if subnet is not null.
-     * 
+     * Get the publicIpAddress property: Reference to the PublicIP resource. This field is a mandatory input if subnet
+     * is not null.
+     *
      * @return the publicIpAddress value.
      */
     public SubResource publicIpAddress() {
@@ -91,9 +87,9 @@ public final class AzureFirewallIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Set the publicIpAddress property: Reference of the PublicIP resource.
-     * This field is a mandatory input if subnet is not null.
-     * 
+     * Set the publicIpAddress property: Reference to the PublicIP resource. This field is a mandatory input if subnet
+     * is not null.
+     *
      * @param publicIpAddress the publicIpAddress value to set.
      * @return the AzureFirewallIpConfigurationPropertiesFormat object itself.
      */
@@ -103,9 +99,8 @@ public final class AzureFirewallIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * resource.
-     * 
+     * Get the provisioningState property: The provisioning state of the Azure firewall IP configuration resource.
+     *
      * @return the provisioningState value.
      */
     public ProvisioningState provisioningState() {
@@ -113,20 +108,8 @@ public final class AzureFirewallIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Set the provisioningState property: The provisioning state of the
-     * resource.
-     * 
-     * @param provisioningState the provisioningState value to set.
-     * @return the AzureFirewallIpConfigurationPropertiesFormat object itself.
-     */
-    public AzureFirewallIpConfigurationPropertiesFormat withProvisioningState(ProvisioningState provisioningState) {
-        this.provisioningState = provisioningState;
-        return this;
-    }
-
-    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

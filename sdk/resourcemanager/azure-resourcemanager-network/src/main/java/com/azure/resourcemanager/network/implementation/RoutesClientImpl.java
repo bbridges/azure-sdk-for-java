@@ -35,31 +35,23 @@ import com.azure.core.util.polling.SyncPoller;
 import com.azure.resourcemanager.network.fluent.RoutesClient;
 import com.azure.resourcemanager.network.fluent.models.RouteInner;
 import com.azure.resourcemanager.network.models.RouteListResult;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.nio.ByteBuffer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-/**
- * An instance of this class provides access to all the operations defined in
- * RoutesClient.
- */
+/** An instance of this class provides access to all the operations defined in RoutesClient. */
 public final class RoutesClientImpl implements RoutesClient {
     private final ClientLogger logger = new ClientLogger(RoutesClientImpl.class);
 
-    /**
-     * The proxy service used to perform REST calls.
-     */
+    /** The proxy service used to perform REST calls. */
     private final RoutesService service;
 
-    /**
-     * The service client containing this operation class.
-     */
+    /** The service client containing this operation class. */
     private final NetworkManagementClientImpl client;
 
     /**
      * Initializes an instance of RoutesClientImpl.
-     * 
+     *
      * @param client the instance of the service client containing this operation class.
      */
     RoutesClientImpl(NetworkManagementClientImpl client) {
@@ -68,47 +60,90 @@ public final class RoutesClientImpl implements RoutesClient {
     }
 
     /**
-     * The interface defining all the services for
-     * NetworkManagementClientRoutes to be used by the proxy service to perform
-     * REST calls.
+     * The interface defining all the services for NetworkManagementClientRoutes to be used by the proxy service to
+     * perform REST calls.
      */
     @Host("{$host}")
     @ServiceInterface(name = "NetworkManagementCli")
     private interface RoutesService {
-        @Headers({ "Accept: application/json;q=0.9", "Content-Type: application/json" })
-        @Delete("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/routeTables/{routeTableName}/routes/{routeName}")
+        @Headers({"Content-Type: application/json"})
+        @Delete(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/routeTables"
+                + "/{routeTableName}/routes/{routeName}")
         @ExpectedResponses({200, 202, 204})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<Flux<ByteBuffer>>> delete(@HostParam("$host") String endpoint, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("routeTableName") String routeTableName, @PathParam("routeName") String routeName, @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId, Context context);
+        Mono<Response<Flux<ByteBuffer>>> delete(
+            @HostParam("$host") String endpoint,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("routeTableName") String routeTableName,
+            @PathParam("routeName") String routeName,
+            @QueryParam("api-version") String apiVersion,
+            @PathParam("subscriptionId") String subscriptionId,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
-        @Get("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/routeTables/{routeTableName}/routes/{routeName}")
+        @Headers({"Content-Type: application/json"})
+        @Get(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/routeTables"
+                + "/{routeTableName}/routes/{routeName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<RouteInner>> get(@HostParam("$host") String endpoint, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("routeTableName") String routeTableName, @PathParam("routeName") String routeName, @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<RouteInner>> get(
+            @HostParam("$host") String endpoint,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("routeTableName") String routeTableName,
+            @PathParam("routeName") String routeName,
+            @QueryParam("api-version") String apiVersion,
+            @PathParam("subscriptionId") String subscriptionId,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
-        @Put("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/routeTables/{routeTableName}/routes/{routeName}")
+        @Headers({"Content-Type: application/json"})
+        @Put(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/routeTables"
+                + "/{routeTableName}/routes/{routeName}")
         @ExpectedResponses({200, 201})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<Flux<ByteBuffer>>> createOrUpdate(@HostParam("$host") String endpoint, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("routeTableName") String routeTableName, @PathParam("routeName") String routeName, @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId, @BodyParam("application/json") RouteInner routeParameters, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<Flux<ByteBuffer>>> createOrUpdate(
+            @HostParam("$host") String endpoint,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("routeTableName") String routeTableName,
+            @PathParam("routeName") String routeName,
+            @QueryParam("api-version") String apiVersion,
+            @PathParam("subscriptionId") String subscriptionId,
+            @BodyParam("application/json") RouteInner routeParameters,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
-        @Get("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/routeTables/{routeTableName}/routes")
+        @Headers({"Content-Type: application/json"})
+        @Get(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/routeTables"
+                + "/{routeTableName}/routes")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<RouteListResult>> list(@HostParam("$host") String endpoint, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("routeTableName") String routeTableName, @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<RouteListResult>> list(
+            @HostParam("$host") String endpoint,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("routeTableName") String routeTableName,
+            @QueryParam("api-version") String apiVersion,
+            @PathParam("subscriptionId") String subscriptionId,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Get("{nextLink}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<RouteListResult>> listNext(@PathParam(value = "nextLink", encoded = true) String nextLink, @HostParam("$host") String endpoint, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<RouteListResult>> listNext(
+            @PathParam(value = "nextLink", encoded = true) String nextLink,
+            @HostParam("$host") String endpoint,
+            @HeaderParam("Accept") String accept,
+            Context context);
     }
 
     /**
      * Deletes the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -118,12 +153,17 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<Flux<ByteBuffer>>> deleteWithResponseAsync(String resourceGroupName, String routeTableName, String routeName) {
+    public Mono<Response<Flux<ByteBuffer>>> deleteWithResponseAsync(
+        String resourceGroupName, String routeTableName, String routeName) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (routeTableName == null) {
             return Mono.error(new IllegalArgumentException("Parameter routeTableName is required and cannot be null."));
@@ -132,16 +172,32 @@ public final class RoutesClientImpl implements RoutesClient {
             return Mono.error(new IllegalArgumentException("Parameter routeName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String apiVersion = "2018-11-01";
-        return FluxUtil.withContext(context -> service.delete(this.client.getEndpoint(), resourceGroupName, routeTableName, routeName, apiVersion, this.client.getSubscriptionId(), context))
+        final String apiVersion = "2021-03-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .delete(
+                            this.client.getEndpoint(),
+                            resourceGroupName,
+                            routeTableName,
+                            routeName,
+                            apiVersion,
+                            this.client.getSubscriptionId(),
+                            accept,
+                            context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Deletes the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -152,12 +208,17 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<Flux<ByteBuffer>>> deleteWithResponseAsync(String resourceGroupName, String routeTableName, String routeName, Context context) {
+    private Mono<Response<Flux<ByteBuffer>>> deleteWithResponseAsync(
+        String resourceGroupName, String routeTableName, String routeName, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (routeTableName == null) {
             return Mono.error(new IllegalArgumentException("Parameter routeTableName is required and cannot be null."));
@@ -166,16 +227,29 @@ public final class RoutesClientImpl implements RoutesClient {
             return Mono.error(new IllegalArgumentException("Parameter routeName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String apiVersion = "2018-11-01";
+        final String apiVersion = "2021-03-01";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.delete(this.client.getEndpoint(), resourceGroupName, routeTableName, routeName, apiVersion, this.client.getSubscriptionId(), context);
+        return service
+            .delete(
+                this.client.getEndpoint(),
+                resourceGroupName,
+                routeTableName,
+                routeName,
+                apiVersion,
+                this.client.getSubscriptionId(),
+                accept,
+                context);
     }
 
     /**
      * Deletes the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -185,14 +259,17 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public PollerFlux<PollResult<Void>, Void> beginDeleteAsync(String resourceGroupName, String routeTableName, String routeName) {
+    public PollerFlux<PollResult<Void>, Void> beginDeleteAsync(
+        String resourceGroupName, String routeTableName, String routeName) {
         Mono<Response<Flux<ByteBuffer>>> mono = deleteWithResponseAsync(resourceGroupName, routeTableName, routeName);
-        return this.client.<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, Context.NONE);
+        return this
+            .client
+            .<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, Context.NONE);
     }
 
     /**
      * Deletes the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -203,15 +280,19 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private PollerFlux<PollResult<Void>, Void> beginDeleteAsync(String resourceGroupName, String routeTableName, String routeName, Context context) {
+    private PollerFlux<PollResult<Void>, Void> beginDeleteAsync(
+        String resourceGroupName, String routeTableName, String routeName, Context context) {
         context = this.client.mergeContext(context);
-        Mono<Response<Flux<ByteBuffer>>> mono = deleteWithResponseAsync(resourceGroupName, routeTableName, routeName, context);
-        return this.client.<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, context);
+        Mono<Response<Flux<ByteBuffer>>> mono =
+            deleteWithResponseAsync(resourceGroupName, routeTableName, routeName, context);
+        return this
+            .client
+            .<Void, Void>getLroResult(mono, this.client.getHttpPipeline(), Void.class, Void.class, context);
     }
 
     /**
      * Deletes the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -221,13 +302,14 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<Void>, Void> beginDelete(String resourceGroupName, String routeTableName, String routeName) {
-        return beginDeleteAsync(resourceGroupName, routeTableName, routeName)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<Void>, Void> beginDelete(
+        String resourceGroupName, String routeTableName, String routeName) {
+        return beginDeleteAsync(resourceGroupName, routeTableName, routeName).getSyncPoller();
+    }
 
     /**
      * Deletes the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -238,13 +320,14 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<Void>, Void> beginDelete(String resourceGroupName, String routeTableName, String routeName, Context context) {
-        return beginDeleteAsync(resourceGroupName, routeTableName, routeName, context)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<Void>, Void> beginDelete(
+        String resourceGroupName, String routeTableName, String routeName, Context context) {
+        return beginDeleteAsync(resourceGroupName, routeTableName, routeName, context).getSyncPoller();
+    }
 
     /**
      * Deletes the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -262,7 +345,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Deletes the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -281,7 +364,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Deletes the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -296,7 +379,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Deletes the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -312,7 +395,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Gets the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -322,12 +405,17 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return the specified route from a route table.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<RouteInner>> getWithResponseAsync(String resourceGroupName, String routeTableName, String routeName) {
+    public Mono<Response<RouteInner>> getWithResponseAsync(
+        String resourceGroupName, String routeTableName, String routeName) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (routeTableName == null) {
             return Mono.error(new IllegalArgumentException("Parameter routeTableName is required and cannot be null."));
@@ -336,17 +424,32 @@ public final class RoutesClientImpl implements RoutesClient {
             return Mono.error(new IllegalArgumentException("Parameter routeName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String apiVersion = "2018-11-01";
+        final String apiVersion = "2021-03-01";
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.get(this.client.getEndpoint(), resourceGroupName, routeTableName, routeName, apiVersion, this.client.getSubscriptionId(), accept, context))
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .get(
+                            this.client.getEndpoint(),
+                            resourceGroupName,
+                            routeTableName,
+                            routeName,
+                            apiVersion,
+                            this.client.getSubscriptionId(),
+                            accept,
+                            context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Gets the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -357,12 +460,17 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return the specified route from a route table.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<RouteInner>> getWithResponseAsync(String resourceGroupName, String routeTableName, String routeName, Context context) {
+    private Mono<Response<RouteInner>> getWithResponseAsync(
+        String resourceGroupName, String routeTableName, String routeName, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (routeTableName == null) {
             return Mono.error(new IllegalArgumentException("Parameter routeTableName is required and cannot be null."));
@@ -371,17 +479,29 @@ public final class RoutesClientImpl implements RoutesClient {
             return Mono.error(new IllegalArgumentException("Parameter routeName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String apiVersion = "2018-11-01";
+        final String apiVersion = "2021-03-01";
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.get(this.client.getEndpoint(), resourceGroupName, routeTableName, routeName, apiVersion, this.client.getSubscriptionId(), accept, context);
+        return service
+            .get(
+                this.client.getEndpoint(),
+                resourceGroupName,
+                routeTableName,
+                routeName,
+                apiVersion,
+                this.client.getSubscriptionId(),
+                accept,
+                context);
     }
 
     /**
      * Gets the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -393,18 +513,19 @@ public final class RoutesClientImpl implements RoutesClient {
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<RouteInner> getAsync(String resourceGroupName, String routeTableName, String routeName) {
         return getWithResponseAsync(resourceGroupName, routeTableName, routeName)
-            .flatMap((Response<RouteInner> res) -> {
-                if (res.getValue() != null) {
-                    return Mono.just(res.getValue());
-                } else {
-                    return Mono.empty();
-                }
-            });
+            .flatMap(
+                (Response<RouteInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
      * Gets the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -420,7 +541,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Gets the specified route from a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -431,13 +552,14 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return the specified route from a route table.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<RouteInner> getWithResponse(String resourceGroupName, String routeTableName, String routeName, Context context) {
+    public Response<RouteInner> getWithResponse(
+        String resourceGroupName, String routeTableName, String routeName, Context context) {
         return getWithResponseAsync(resourceGroupName, routeTableName, routeName, context).block();
     }
 
     /**
      * Creates or updates a route in the specified route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -448,12 +570,17 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return route resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<Flux<ByteBuffer>>> createOrUpdateWithResponseAsync(String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters) {
+    public Mono<Response<Flux<ByteBuffer>>> createOrUpdateWithResponseAsync(
+        String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (routeTableName == null) {
             return Mono.error(new IllegalArgumentException("Parameter routeTableName is required and cannot be null."));
@@ -462,22 +589,39 @@ public final class RoutesClientImpl implements RoutesClient {
             return Mono.error(new IllegalArgumentException("Parameter routeName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (routeParameters == null) {
-            return Mono.error(new IllegalArgumentException("Parameter routeParameters is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter routeParameters is required and cannot be null."));
         } else {
             routeParameters.validate();
         }
-        final String apiVersion = "2018-11-01";
+        final String apiVersion = "2021-03-01";
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.createOrUpdate(this.client.getEndpoint(), resourceGroupName, routeTableName, routeName, apiVersion, this.client.getSubscriptionId(), routeParameters, accept, context))
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .createOrUpdate(
+                            this.client.getEndpoint(),
+                            resourceGroupName,
+                            routeTableName,
+                            routeName,
+                            apiVersion,
+                            this.client.getSubscriptionId(),
+                            routeParameters,
+                            accept,
+                            context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Creates or updates a route in the specified route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -489,12 +633,21 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return route resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<Flux<ByteBuffer>>> createOrUpdateWithResponseAsync(String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters, Context context) {
+    private Mono<Response<Flux<ByteBuffer>>> createOrUpdateWithResponseAsync(
+        String resourceGroupName,
+        String routeTableName,
+        String routeName,
+        RouteInner routeParameters,
+        Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (routeTableName == null) {
             return Mono.error(new IllegalArgumentException("Parameter routeTableName is required and cannot be null."));
@@ -503,22 +656,36 @@ public final class RoutesClientImpl implements RoutesClient {
             return Mono.error(new IllegalArgumentException("Parameter routeName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
         if (routeParameters == null) {
-            return Mono.error(new IllegalArgumentException("Parameter routeParameters is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter routeParameters is required and cannot be null."));
         } else {
             routeParameters.validate();
         }
-        final String apiVersion = "2018-11-01";
+        final String apiVersion = "2021-03-01";
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.createOrUpdate(this.client.getEndpoint(), resourceGroupName, routeTableName, routeName, apiVersion, this.client.getSubscriptionId(), routeParameters, accept, context);
+        return service
+            .createOrUpdate(
+                this.client.getEndpoint(),
+                resourceGroupName,
+                routeTableName,
+                routeName,
+                apiVersion,
+                this.client.getSubscriptionId(),
+                routeParameters,
+                accept,
+                context);
     }
 
     /**
      * Creates or updates a route in the specified route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -529,14 +696,19 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return route resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public PollerFlux<PollResult<RouteInner>, RouteInner> beginCreateOrUpdateAsync(String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters) {
-        Mono<Response<Flux<ByteBuffer>>> mono = createOrUpdateWithResponseAsync(resourceGroupName, routeTableName, routeName, routeParameters);
-        return this.client.<RouteInner, RouteInner>getLroResult(mono, this.client.getHttpPipeline(), RouteInner.class, RouteInner.class, Context.NONE);
+    public PollerFlux<PollResult<RouteInner>, RouteInner> beginCreateOrUpdateAsync(
+        String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters) {
+        Mono<Response<Flux<ByteBuffer>>> mono =
+            createOrUpdateWithResponseAsync(resourceGroupName, routeTableName, routeName, routeParameters);
+        return this
+            .client
+            .<RouteInner, RouteInner>getLroResult(
+                mono, this.client.getHttpPipeline(), RouteInner.class, RouteInner.class, Context.NONE);
     }
 
     /**
      * Creates or updates a route in the specified route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -548,15 +720,24 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return route resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private PollerFlux<PollResult<RouteInner>, RouteInner> beginCreateOrUpdateAsync(String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters, Context context) {
+    private PollerFlux<PollResult<RouteInner>, RouteInner> beginCreateOrUpdateAsync(
+        String resourceGroupName,
+        String routeTableName,
+        String routeName,
+        RouteInner routeParameters,
+        Context context) {
         context = this.client.mergeContext(context);
-        Mono<Response<Flux<ByteBuffer>>> mono = createOrUpdateWithResponseAsync(resourceGroupName, routeTableName, routeName, routeParameters, context);
-        return this.client.<RouteInner, RouteInner>getLroResult(mono, this.client.getHttpPipeline(), RouteInner.class, RouteInner.class, context);
+        Mono<Response<Flux<ByteBuffer>>> mono =
+            createOrUpdateWithResponseAsync(resourceGroupName, routeTableName, routeName, routeParameters, context);
+        return this
+            .client
+            .<RouteInner, RouteInner>getLroResult(
+                mono, this.client.getHttpPipeline(), RouteInner.class, RouteInner.class, context);
     }
 
     /**
      * Creates or updates a route in the specified route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -567,13 +748,14 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return route resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<RouteInner>, RouteInner> beginCreateOrUpdate(String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters) {
-        return beginCreateOrUpdateAsync(resourceGroupName, routeTableName, routeName, routeParameters)
-            .getSyncPoller();}
+    public SyncPoller<PollResult<RouteInner>, RouteInner> beginCreateOrUpdate(
+        String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters) {
+        return beginCreateOrUpdateAsync(resourceGroupName, routeTableName, routeName, routeParameters).getSyncPoller();
+    }
 
     /**
      * Creates or updates a route in the specified route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -585,13 +767,19 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return route resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public SyncPoller<PollResult<RouteInner>, RouteInner> beginCreateOrUpdate(String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters, Context context) {
+    public SyncPoller<PollResult<RouteInner>, RouteInner> beginCreateOrUpdate(
+        String resourceGroupName,
+        String routeTableName,
+        String routeName,
+        RouteInner routeParameters,
+        Context context) {
         return beginCreateOrUpdateAsync(resourceGroupName, routeTableName, routeName, routeParameters, context)
-            .getSyncPoller();}
+            .getSyncPoller();
+    }
 
     /**
      * Creates or updates a route in the specified route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -602,7 +790,8 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return route resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<RouteInner> createOrUpdateAsync(String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters) {
+    public Mono<RouteInner> createOrUpdateAsync(
+        String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters) {
         return beginCreateOrUpdateAsync(resourceGroupName, routeTableName, routeName, routeParameters)
             .last()
             .flatMap(this.client::getLroFinalResultOrError);
@@ -610,7 +799,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Creates or updates a route in the specified route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -622,7 +811,12 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return route resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<RouteInner> createOrUpdateAsync(String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters, Context context) {
+    private Mono<RouteInner> createOrUpdateAsync(
+        String resourceGroupName,
+        String routeTableName,
+        String routeName,
+        RouteInner routeParameters,
+        Context context) {
         return beginCreateOrUpdateAsync(resourceGroupName, routeTableName, routeName, routeParameters, context)
             .last()
             .flatMap(this.client::getLroFinalResultOrError);
@@ -630,7 +824,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Creates or updates a route in the specified route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -641,13 +835,14 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return route resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public RouteInner createOrUpdate(String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters) {
+    public RouteInner createOrUpdate(
+        String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters) {
         return createOrUpdateAsync(resourceGroupName, routeTableName, routeName, routeParameters).block();
     }
 
     /**
      * Creates or updates a route in the specified route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param routeName The name of the route.
@@ -659,13 +854,18 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return route resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public RouteInner createOrUpdate(String resourceGroupName, String routeTableName, String routeName, RouteInner routeParameters, Context context) {
+    public RouteInner createOrUpdate(
+        String resourceGroupName,
+        String routeTableName,
+        String routeName,
+        RouteInner routeParameters,
+        Context context) {
         return createOrUpdateAsync(resourceGroupName, routeTableName, routeName, routeParameters, context).block();
     }
 
     /**
      * Gets all routes in a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -676,33 +876,53 @@ public final class RoutesClientImpl implements RoutesClient {
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<RouteInner>> listSinglePageAsync(String resourceGroupName, String routeTableName) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (routeTableName == null) {
             return Mono.error(new IllegalArgumentException("Parameter routeTableName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String apiVersion = "2018-11-01";
+        final String apiVersion = "2021-03-01";
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.list(this.client.getEndpoint(), resourceGroupName, routeTableName, apiVersion, this.client.getSubscriptionId(), accept, context))
-            .<PagedResponse<RouteInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .list(
+                            this.client.getEndpoint(),
+                            resourceGroupName,
+                            routeTableName,
+                            apiVersion,
+                            this.client.getSubscriptionId(),
+                            accept,
+                            context))
+            .<PagedResponse<RouteInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Gets all routes in a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param context The context to associate with this operation.
@@ -712,35 +932,53 @@ public final class RoutesClientImpl implements RoutesClient {
      * @return all routes in a route table.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<RouteInner>> listSinglePageAsync(String resourceGroupName, String routeTableName, Context context) {
+    private Mono<PagedResponse<RouteInner>> listSinglePageAsync(
+        String resourceGroupName, String routeTableName, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (routeTableName == null) {
             return Mono.error(new IllegalArgumentException("Parameter routeTableName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String apiVersion = "2018-11-01";
+        final String apiVersion = "2021-03-01";
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.list(this.client.getEndpoint(), resourceGroupName, routeTableName, apiVersion, this.client.getSubscriptionId(), accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .list(
+                this.client.getEndpoint(),
+                resourceGroupName,
+                routeTableName,
+                apiVersion,
+                this.client.getSubscriptionId(),
+                accept,
+                context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 
     /**
      * Gets all routes in a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -757,7 +995,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Gets all routes in a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param context The context to associate with this operation.
@@ -775,7 +1013,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Gets all routes in a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -790,7 +1028,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Gets all routes in a route table.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param routeTableName The name of the route table.
      * @param context The context to associate with this operation.
@@ -806,7 +1044,7 @@ public final class RoutesClientImpl implements RoutesClient {
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -819,23 +1057,29 @@ public final class RoutesClientImpl implements RoutesClient {
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.listNext(nextLink, this.client.getEndpoint(), accept, context))
-            .<PagedResponse<RouteInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        return FluxUtil
+            .withContext(context -> service.listNext(nextLink, this.client.getEndpoint(), accept, context))
+            .<PagedResponse<RouteInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -849,17 +1093,23 @@ public final class RoutesClientImpl implements RoutesClient {
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.listNext(nextLink, this.client.getEndpoint(), accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .listNext(nextLink, this.client.getEndpoint(), accept, context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 }

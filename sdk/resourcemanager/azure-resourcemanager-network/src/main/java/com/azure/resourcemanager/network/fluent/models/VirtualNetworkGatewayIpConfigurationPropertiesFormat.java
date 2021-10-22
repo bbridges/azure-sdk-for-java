@@ -5,52 +5,53 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.IpAllocationMethod;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Properties of VirtualNetworkGatewayIPConfiguration.
- */
+/** Properties of VirtualNetworkGatewayIPConfiguration. */
 @Fluent
 public final class VirtualNetworkGatewayIpConfigurationPropertiesFormat {
     @JsonIgnore
     private final ClientLogger logger = new ClientLogger(VirtualNetworkGatewayIpConfigurationPropertiesFormat.class);
 
     /*
-     * The private IP allocation method. Possible values are: 'Static' and
-     * 'Dynamic'.
+     * The private IP address allocation method.
      */
     @JsonProperty(value = "privateIPAllocationMethod")
     private IpAllocationMethod privateIpAllocationMethod;
 
     /*
-     * The reference of the subnet resource.
+     * The reference to the subnet resource.
      */
     @JsonProperty(value = "subnet")
     private SubResource subnet;
 
     /*
-     * The reference of the public IP resource.
+     * The reference to the public IP resource.
      */
     @JsonProperty(value = "publicIPAddress")
     private SubResource publicIpAddress;
 
     /*
-     * The provisioning state of the public IP resource. Possible values are:
-     * 'Updating', 'Deleting', and 'Failed'.
+     * Private IP Address for this gateway.
+     */
+    @JsonProperty(value = "privateIPAddress", access = JsonProperty.Access.WRITE_ONLY)
+    private String privateIpAddress;
+
+    /*
+     * The provisioning state of the virtual network gateway IP configuration
+     * resource.
      */
     @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
-    private String provisioningState;
+    private ProvisioningState provisioningState;
 
     /**
-     * Get the privateIpAllocationMethod property: The private IP allocation
-     * method. Possible values are: 'Static' and 'Dynamic'.
-     * 
+     * Get the privateIpAllocationMethod property: The private IP address allocation method.
+     *
      * @return the privateIpAllocationMethod value.
      */
     public IpAllocationMethod privateIpAllocationMethod() {
@@ -58,22 +59,20 @@ public final class VirtualNetworkGatewayIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Set the privateIpAllocationMethod property: The private IP allocation
-     * method. Possible values are: 'Static' and 'Dynamic'.
-     * 
-     * @param privateIpAllocationMethod the privateIpAllocationMethod value to
-     * set.
-     * @return the VirtualNetworkGatewayIpConfigurationPropertiesFormat object
-     * itself.
+     * Set the privateIpAllocationMethod property: The private IP address allocation method.
+     *
+     * @param privateIpAllocationMethod the privateIpAllocationMethod value to set.
+     * @return the VirtualNetworkGatewayIpConfigurationPropertiesFormat object itself.
      */
-    public VirtualNetworkGatewayIpConfigurationPropertiesFormat withPrivateIpAllocationMethod(IpAllocationMethod privateIpAllocationMethod) {
+    public VirtualNetworkGatewayIpConfigurationPropertiesFormat withPrivateIpAllocationMethod(
+        IpAllocationMethod privateIpAllocationMethod) {
         this.privateIpAllocationMethod = privateIpAllocationMethod;
         return this;
     }
 
     /**
-     * Get the subnet property: The reference of the subnet resource.
-     * 
+     * Get the subnet property: The reference to the subnet resource.
+     *
      * @return the subnet value.
      */
     public SubResource subnet() {
@@ -81,11 +80,10 @@ public final class VirtualNetworkGatewayIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Set the subnet property: The reference of the subnet resource.
-     * 
+     * Set the subnet property: The reference to the subnet resource.
+     *
      * @param subnet the subnet value to set.
-     * @return the VirtualNetworkGatewayIpConfigurationPropertiesFormat object
-     * itself.
+     * @return the VirtualNetworkGatewayIpConfigurationPropertiesFormat object itself.
      */
     public VirtualNetworkGatewayIpConfigurationPropertiesFormat withSubnet(SubResource subnet) {
         this.subnet = subnet;
@@ -93,9 +91,8 @@ public final class VirtualNetworkGatewayIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Get the publicIpAddress property: The reference of the public IP
-     * resource.
-     * 
+     * Get the publicIpAddress property: The reference to the public IP resource.
+     *
      * @return the publicIpAddress value.
      */
     public SubResource publicIpAddress() {
@@ -103,12 +100,10 @@ public final class VirtualNetworkGatewayIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Set the publicIpAddress property: The reference of the public IP
-     * resource.
-     * 
+     * Set the publicIpAddress property: The reference to the public IP resource.
+     *
      * @param publicIpAddress the publicIpAddress value to set.
-     * @return the VirtualNetworkGatewayIpConfigurationPropertiesFormat object
-     * itself.
+     * @return the VirtualNetworkGatewayIpConfigurationPropertiesFormat object itself.
      */
     public VirtualNetworkGatewayIpConfigurationPropertiesFormat withPublicIpAddress(SubResource publicIpAddress) {
         this.publicIpAddress = publicIpAddress;
@@ -116,18 +111,27 @@ public final class VirtualNetworkGatewayIpConfigurationPropertiesFormat {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the public
-     * IP resource. Possible values are: 'Updating', 'Deleting', and 'Failed'.
-     * 
+     * Get the privateIpAddress property: Private IP Address for this gateway.
+     *
+     * @return the privateIpAddress value.
+     */
+    public String privateIpAddress() {
+        return this.privateIpAddress;
+    }
+
+    /**
+     * Get the provisioningState property: The provisioning state of the virtual network gateway IP configuration
+     * resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.provisioningState;
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

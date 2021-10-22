@@ -60,7 +60,7 @@ class VirtualMachineScaleSetVMsImpl
     @Override
     public Mono<Void> deleteInstancesAsync(Collection<String> instanceIds) {
         return this.scaleSet.manager().virtualMachineScaleSets()
-            .deleteInstancesAsync(this.scaleSet.resourceGroupName(), this.scaleSet.name(), instanceIds);
+            .deleteInstancesAsync(this.scaleSet.resourceGroupName(), this.scaleSet.name(), instanceIds, false);
     }
 
     @Override
@@ -74,8 +74,14 @@ class VirtualMachineScaleSetVMsImpl
     }
 
     @Override
-    public void deleteInstances(Collection<String> instanceIds) {
-        this.deleteInstancesAsync(instanceIds).block();
+    public Mono<Void> deleteInstancesAsync(Collection<String> instanceIds, boolean forceDeletion) {
+        return this.scaleSet.manager().virtualMachineScaleSets().deleteInstancesAsync(this.scaleSet.resourceGroupName(),
+            this.scaleSet.name(), instanceIds, forceDeletion);
+    }
+
+    @Override
+    public void deleteInstances(Collection<String> instanceIds, boolean forceDeletion) {
+        this.deleteInstancesAsync(instanceIds, forceDeletion).block();
     }
 
     @Override

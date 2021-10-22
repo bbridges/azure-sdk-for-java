@@ -4,67 +4,40 @@
 
 package com.azure.resourcemanager.storage.models;
 
+import com.azure.core.util.ExpandableStringEnum;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Collection;
 
-/**
- * Defines values for State.
- */
-public enum State {
-    /**
-     * Enum value provisioning.
-     */
-    PROVISIONING("provisioning"),
+/** Defines values for State. */
+public final class State extends ExpandableStringEnum<State> {
+    /** Static value Provisioning for State. */
+    public static final State PROVISIONING = fromString("Provisioning");
 
-    /**
-     * Enum value deprovisioning.
-     */
-    DEPROVISIONING("deprovisioning"),
+    /** Static value Deprovisioning for State. */
+    public static final State DEPROVISIONING = fromString("Deprovisioning");
 
-    /**
-     * Enum value succeeded.
-     */
-    SUCCEEDED("succeeded"),
+    /** Static value Succeeded for State. */
+    public static final State SUCCEEDED = fromString("Succeeded");
+
+    /** Static value Failed for State. */
+    public static final State FAILED = fromString("Failed");
+
+    /** Static value NetworkSourceDeleted for State. */
+    public static final State NETWORK_SOURCE_DELETED = fromString("NetworkSourceDeleted");
 
     /**
-     * Enum value failed.
-     */
-    FAILED("failed"),
-
-    /**
-     * Enum value networkSourceDeleted.
-     */
-    NETWORK_SOURCE_DELETED("networkSourceDeleted");
-
-    /**
-     * The actual serialized value for a State instance.
-     */
-    private final String value;
-
-    State(String value) {
-        this.value = value;
-    }
-
-    /**
-     * Parses a serialized value to a State instance.
-     * 
-     * @param value the serialized value to parse.
-     * @return the parsed State object, or null if unable to parse.
+     * Creates or finds a State from its string representation.
+     *
+     * @param name a name to look for.
+     * @return the corresponding State.
      */
     @JsonCreator
-    public static State fromString(String value) {
-        State[] items = State.values();
-        for (State item : items) {
-            if (item.toString().equalsIgnoreCase(value)) {
-                return item;
-            }
-        }
-        return null;
+    public static State fromString(String name) {
+        return fromString(name, State.class);
     }
 
-    @JsonValue
-    @Override
-    public String toString() {
-        return this.value;
+    /** @return known State values. */
+    public static Collection<State> values() {
+        return values(State.class);
     }
 }

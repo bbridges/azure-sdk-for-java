@@ -5,16 +5,13 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * Service Endpoint policy definition resource.
- */
+/** Service Endpoint policy definition resource. */
 @Fluent
 public final class ServiceEndpointPolicyDefinitionPropertiesFormat {
     @JsonIgnore
@@ -27,7 +24,7 @@ public final class ServiceEndpointPolicyDefinitionPropertiesFormat {
     private String description;
 
     /*
-     * service endpoint name.
+     * Service endpoint name.
      */
     @JsonProperty(value = "service")
     private String service;
@@ -39,16 +36,15 @@ public final class ServiceEndpointPolicyDefinitionPropertiesFormat {
     private List<String> serviceResources;
 
     /*
-     * The provisioning state of the service end point policy definition.
-     * Possible values are: 'Updating', 'Deleting', and 'Failed'.
+     * The provisioning state of the service endpoint policy definition
+     * resource.
      */
     @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
-    private String provisioningState;
+    private ProvisioningState provisioningState;
 
     /**
-     * Get the description property: A description for this rule. Restricted to
-     * 140 chars.
-     * 
+     * Get the description property: A description for this rule. Restricted to 140 chars.
+     *
      * @return the description value.
      */
     public String description() {
@@ -56,12 +52,10 @@ public final class ServiceEndpointPolicyDefinitionPropertiesFormat {
     }
 
     /**
-     * Set the description property: A description for this rule. Restricted to
-     * 140 chars.
-     * 
+     * Set the description property: A description for this rule. Restricted to 140 chars.
+     *
      * @param description the description value to set.
-     * @return the ServiceEndpointPolicyDefinitionPropertiesFormat object
-     * itself.
+     * @return the ServiceEndpointPolicyDefinitionPropertiesFormat object itself.
      */
     public ServiceEndpointPolicyDefinitionPropertiesFormat withDescription(String description) {
         this.description = description;
@@ -69,8 +63,8 @@ public final class ServiceEndpointPolicyDefinitionPropertiesFormat {
     }
 
     /**
-     * Get the service property: service endpoint name.
-     * 
+     * Get the service property: Service endpoint name.
+     *
      * @return the service value.
      */
     public String service() {
@@ -78,11 +72,10 @@ public final class ServiceEndpointPolicyDefinitionPropertiesFormat {
     }
 
     /**
-     * Set the service property: service endpoint name.
-     * 
+     * Set the service property: Service endpoint name.
+     *
      * @param service the service value to set.
-     * @return the ServiceEndpointPolicyDefinitionPropertiesFormat object
-     * itself.
+     * @return the ServiceEndpointPolicyDefinitionPropertiesFormat object itself.
      */
     public ServiceEndpointPolicyDefinitionPropertiesFormat withService(String service) {
         this.service = service;
@@ -91,7 +84,7 @@ public final class ServiceEndpointPolicyDefinitionPropertiesFormat {
 
     /**
      * Get the serviceResources property: A list of service resources.
-     * 
+     *
      * @return the serviceResources value.
      */
     public List<String> serviceResources() {
@@ -100,10 +93,9 @@ public final class ServiceEndpointPolicyDefinitionPropertiesFormat {
 
     /**
      * Set the serviceResources property: A list of service resources.
-     * 
+     *
      * @param serviceResources the serviceResources value to set.
-     * @return the ServiceEndpointPolicyDefinitionPropertiesFormat object
-     * itself.
+     * @return the ServiceEndpointPolicyDefinitionPropertiesFormat object itself.
      */
     public ServiceEndpointPolicyDefinitionPropertiesFormat withServiceResources(List<String> serviceResources) {
         this.serviceResources = serviceResources;
@@ -111,19 +103,17 @@ public final class ServiceEndpointPolicyDefinitionPropertiesFormat {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * service end point policy definition. Possible values are: 'Updating',
-     * 'Deleting', and 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the service endpoint policy definition resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.provisioningState;
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

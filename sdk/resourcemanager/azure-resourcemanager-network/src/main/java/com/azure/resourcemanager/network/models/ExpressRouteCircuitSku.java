@@ -5,19 +5,14 @@
 package com.azure.resourcemanager.network.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Contains SKU in an ExpressRouteCircuit.
- */
+/** Contains SKU in an ExpressRouteCircuit. */
 @Fluent
 public final class ExpressRouteCircuitSku {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(ExpressRouteCircuitSku.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(ExpressRouteCircuitSku.class);
 
     /*
      * The name of the SKU.
@@ -26,22 +21,20 @@ public final class ExpressRouteCircuitSku {
     private String name;
 
     /*
-     * The tier of the SKU. Possible values are 'Standard', 'Premium' or
-     * 'Basic'.
+     * The tier of the SKU.
      */
     @JsonProperty(value = "tier")
     private ExpressRouteCircuitSkuTier tier;
 
     /*
-     * The family of the SKU. Possible values are: 'UnlimitedData' and
-     * 'MeteredData'.
+     * The family of the SKU.
      */
     @JsonProperty(value = "family")
     private ExpressRouteCircuitSkuFamily family;
 
     /**
      * Get the name property: The name of the SKU.
-     * 
+     *
      * @return the name value.
      */
     public String name() {
@@ -50,7 +43,7 @@ public final class ExpressRouteCircuitSku {
 
     /**
      * Set the name property: The name of the SKU.
-     * 
+     *
      * @param name the name value to set.
      * @return the ExpressRouteCircuitSku object itself.
      */
@@ -60,9 +53,8 @@ public final class ExpressRouteCircuitSku {
     }
 
     /**
-     * Get the tier property: The tier of the SKU. Possible values are
-     * 'Standard', 'Premium' or 'Basic'.
-     * 
+     * Get the tier property: The tier of the SKU.
+     *
      * @return the tier value.
      */
     public ExpressRouteCircuitSkuTier tier() {
@@ -70,9 +62,8 @@ public final class ExpressRouteCircuitSku {
     }
 
     /**
-     * Set the tier property: The tier of the SKU. Possible values are
-     * 'Standard', 'Premium' or 'Basic'.
-     * 
+     * Set the tier property: The tier of the SKU.
+     *
      * @param tier the tier value to set.
      * @return the ExpressRouteCircuitSku object itself.
      */
@@ -82,9 +73,8 @@ public final class ExpressRouteCircuitSku {
     }
 
     /**
-     * Get the family property: The family of the SKU. Possible values are:
-     * 'UnlimitedData' and 'MeteredData'.
-     * 
+     * Get the family property: The family of the SKU.
+     *
      * @return the family value.
      */
     public ExpressRouteCircuitSkuFamily family() {
@@ -92,9 +82,8 @@ public final class ExpressRouteCircuitSku {
     }
 
     /**
-     * Set the family property: The family of the SKU. Possible values are:
-     * 'UnlimitedData' and 'MeteredData'.
-     * 
+     * Set the family property: The family of the SKU.
+     *
      * @param family the family value to set.
      * @return the ExpressRouteCircuitSku object itself.
      */
@@ -105,7 +94,7 @@ public final class ExpressRouteCircuitSku {
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

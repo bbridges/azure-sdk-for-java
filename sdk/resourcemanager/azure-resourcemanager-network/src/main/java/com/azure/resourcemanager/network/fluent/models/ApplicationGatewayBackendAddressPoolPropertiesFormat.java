@@ -5,17 +5,14 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.ApplicationGatewayBackendAddress;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * Properties of Backend Address Pool of an application gateway.
- */
+/** Properties of Backend Address Pool of an application gateway. */
 @Fluent
 public final class ApplicationGatewayBackendAddressPoolPropertiesFormat {
     @JsonIgnore
@@ -24,26 +21,24 @@ public final class ApplicationGatewayBackendAddressPoolPropertiesFormat {
     /*
      * Collection of references to IPs defined in network interfaces.
      */
-    @JsonProperty(value = "backendIPConfigurations")
+    @JsonProperty(value = "backendIPConfigurations", access = JsonProperty.Access.WRITE_ONLY)
     private List<NetworkInterfaceIpConfigurationInner> backendIpConfigurations;
 
     /*
-     * Backend addresses
+     * Backend addresses.
      */
     @JsonProperty(value = "backendAddresses")
     private List<ApplicationGatewayBackendAddress> backendAddresses;
 
     /*
-     * Provisioning state of the backend address pool resource. Possible values
-     * are: 'Updating', 'Deleting', and 'Failed'.
+     * The provisioning state of the backend address pool resource.
      */
-    @JsonProperty(value = "provisioningState")
-    private String provisioningState;
+    @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
+    private ProvisioningState provisioningState;
 
     /**
-     * Get the backendIpConfigurations property: Collection of references to
-     * IPs defined in network interfaces.
-     * 
+     * Get the backendIpConfigurations property: Collection of references to IPs defined in network interfaces.
+     *
      * @return the backendIpConfigurations value.
      */
     public List<NetworkInterfaceIpConfigurationInner> backendIpConfigurations() {
@@ -51,21 +46,8 @@ public final class ApplicationGatewayBackendAddressPoolPropertiesFormat {
     }
 
     /**
-     * Set the backendIpConfigurations property: Collection of references to
-     * IPs defined in network interfaces.
-     * 
-     * @param backendIpConfigurations the backendIpConfigurations value to set.
-     * @return the ApplicationGatewayBackendAddressPoolPropertiesFormat object
-     * itself.
-     */
-    public ApplicationGatewayBackendAddressPoolPropertiesFormat withBackendIpConfigurations(List<NetworkInterfaceIpConfigurationInner> backendIpConfigurations) {
-        this.backendIpConfigurations = backendIpConfigurations;
-        return this;
-    }
-
-    /**
      * Get the backendAddresses property: Backend addresses.
-     * 
+     *
      * @return the backendAddresses value.
      */
     public List<ApplicationGatewayBackendAddress> backendAddresses() {
@@ -74,44 +56,28 @@ public final class ApplicationGatewayBackendAddressPoolPropertiesFormat {
 
     /**
      * Set the backendAddresses property: Backend addresses.
-     * 
+     *
      * @param backendAddresses the backendAddresses value to set.
-     * @return the ApplicationGatewayBackendAddressPoolPropertiesFormat object
-     * itself.
+     * @return the ApplicationGatewayBackendAddressPoolPropertiesFormat object itself.
      */
-    public ApplicationGatewayBackendAddressPoolPropertiesFormat withBackendAddresses(List<ApplicationGatewayBackendAddress> backendAddresses) {
+    public ApplicationGatewayBackendAddressPoolPropertiesFormat withBackendAddresses(
+        List<ApplicationGatewayBackendAddress> backendAddresses) {
         this.backendAddresses = backendAddresses;
         return this;
     }
 
     /**
-     * Get the provisioningState property: Provisioning state of the backend
-     * address pool resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the backend address pool resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.provisioningState;
     }
 
     /**
-     * Set the provisioningState property: Provisioning state of the backend
-     * address pool resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
-     * @param provisioningState the provisioningState value to set.
-     * @return the ApplicationGatewayBackendAddressPoolPropertiesFormat object
-     * itself.
-     */
-    public ApplicationGatewayBackendAddressPoolPropertiesFormat withProvisioningState(String provisioningState) {
-        this.provisioningState = provisioningState;
-        return this;
-    }
-
-    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

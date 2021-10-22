@@ -65,7 +65,7 @@ public class LoadBalancerOutboundRuleImpl extends ChildResourceImpl<OutboundRule
 
     @Override
     public ProvisioningState provisioningState() {
-        return ProvisioningState.fromString(this.innerModel().provisioningState());
+        return this.innerModel().provisioningState();
     }
 
     @Override

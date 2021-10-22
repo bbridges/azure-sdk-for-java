@@ -5,19 +5,15 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Properties of ResourceNavigationLink.
- */
+/** Properties of ResourceNavigationLink. */
 @Fluent
 public final class ResourceNavigationLinkFormat {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(ResourceNavigationLinkFormat.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(ResourceNavigationLinkFormat.class);
 
     /*
      * Resource type of the linked resource.
@@ -26,21 +22,20 @@ public final class ResourceNavigationLinkFormat {
     private String linkedResourceType;
 
     /*
-     * Link to the external resource
+     * Link to the external resource.
      */
     @JsonProperty(value = "link")
     private String link;
 
     /*
-     * Provisioning state of the ResourceNavigationLink resource.
+     * The provisioning state of the resource navigation link resource.
      */
     @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
-    private String provisioningState;
+    private ProvisioningState provisioningState;
 
     /**
-     * Get the linkedResourceType property: Resource type of the linked
-     * resource.
-     * 
+     * Get the linkedResourceType property: Resource type of the linked resource.
+     *
      * @return the linkedResourceType value.
      */
     public String linkedResourceType() {
@@ -48,9 +43,8 @@ public final class ResourceNavigationLinkFormat {
     }
 
     /**
-     * Set the linkedResourceType property: Resource type of the linked
-     * resource.
-     * 
+     * Set the linkedResourceType property: Resource type of the linked resource.
+     *
      * @param linkedResourceType the linkedResourceType value to set.
      * @return the ResourceNavigationLinkFormat object itself.
      */
@@ -61,7 +55,7 @@ public final class ResourceNavigationLinkFormat {
 
     /**
      * Get the link property: Link to the external resource.
-     * 
+     *
      * @return the link value.
      */
     public String link() {
@@ -70,7 +64,7 @@ public final class ResourceNavigationLinkFormat {
 
     /**
      * Set the link property: Link to the external resource.
-     * 
+     *
      * @param link the link value to set.
      * @return the ResourceNavigationLinkFormat object itself.
      */
@@ -80,18 +74,17 @@ public final class ResourceNavigationLinkFormat {
     }
 
     /**
-     * Get the provisioningState property: Provisioning state of the
-     * ResourceNavigationLink resource.
-     * 
+     * Get the provisioningState property: The provisioning state of the resource navigation link resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.provisioningState;
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

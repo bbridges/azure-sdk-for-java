@@ -8,21 +8,15 @@ import com.azure.core.annotation.ReturnType;
 import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedFlux;
 import com.azure.core.http.rest.PagedIterable;
-import com.azure.core.http.rest.PagedResponse;
-import com.azure.core.http.rest.PagedResponseBase;
 import com.azure.core.util.Context;
 import com.azure.resourcemanager.authorization.fluent.models.PermissionInner;
-import reactor.core.publisher.Mono;
 
-/**
- * An instance of this class provides access to all the operations defined in
- * PermissionsClient.
- */
+/** An instance of this class provides access to all the operations defined in PermissionsClient. */
 public interface PermissionsClient {
     /**
      * Gets all permissions the caller has for a resource group.
-     * 
-     * @param resourceGroupName The name of the resource group. The name is case insensitive.
+     *
+     * @param resourceGroupName The name of the resource group.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -33,8 +27,8 @@ public interface PermissionsClient {
 
     /**
      * Gets all permissions the caller has for a resource group.
-     * 
-     * @param resourceGroupName The name of the resource group. The name is case insensitive.
+     *
+     * @param resourceGroupName The name of the resource group.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -45,8 +39,8 @@ public interface PermissionsClient {
 
     /**
      * Gets all permissions the caller has for a resource group.
-     * 
-     * @param resourceGroupName The name of the resource group. The name is case insensitive.
+     *
+     * @param resourceGroupName The name of the resource group.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
@@ -58,8 +52,8 @@ public interface PermissionsClient {
 
     /**
      * Gets all permissions the caller has for a resource.
-     * 
-     * @param resourceGroupName The name of the resource group. The name is case insensitive.
+     *
+     * @param resourceGroupName The name of the resource group.
      * @param resourceProviderNamespace The namespace of the resource provider.
      * @param parentResourcePath The parent resource identity.
      * @param resourceType The resource type of the resource.
@@ -70,12 +64,17 @@ public interface PermissionsClient {
      * @return all permissions the caller has for a resource.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<PermissionInner> listForResourceAsync(String resourceGroupName, String resourceProviderNamespace, String parentResourcePath, String resourceType, String resourceName);
+    PagedFlux<PermissionInner> listForResourceAsync(
+        String resourceGroupName,
+        String resourceProviderNamespace,
+        String parentResourcePath,
+        String resourceType,
+        String resourceName);
 
     /**
      * Gets all permissions the caller has for a resource.
-     * 
-     * @param resourceGroupName The name of the resource group. The name is case insensitive.
+     *
+     * @param resourceGroupName The name of the resource group.
      * @param resourceProviderNamespace The namespace of the resource provider.
      * @param parentResourcePath The parent resource identity.
      * @param resourceType The resource type of the resource.
@@ -86,12 +85,17 @@ public interface PermissionsClient {
      * @return all permissions the caller has for a resource.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<PermissionInner> listForResource(String resourceGroupName, String resourceProviderNamespace, String parentResourcePath, String resourceType, String resourceName);
+    PagedIterable<PermissionInner> listForResource(
+        String resourceGroupName,
+        String resourceProviderNamespace,
+        String parentResourcePath,
+        String resourceType,
+        String resourceName);
 
     /**
      * Gets all permissions the caller has for a resource.
-     * 
-     * @param resourceGroupName The name of the resource group. The name is case insensitive.
+     *
+     * @param resourceGroupName The name of the resource group.
      * @param resourceProviderNamespace The namespace of the resource provider.
      * @param parentResourcePath The parent resource identity.
      * @param resourceType The resource type of the resource.
@@ -103,5 +107,11 @@ public interface PermissionsClient {
      * @return all permissions the caller has for a resource.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<PermissionInner> listForResource(String resourceGroupName, String resourceProviderNamespace, String parentResourcePath, String resourceType, String resourceName, Context context);
+    PagedIterable<PermissionInner> listForResource(
+        String resourceGroupName,
+        String resourceProviderNamespace,
+        String parentResourcePath,
+        String resourceType,
+        String resourceName,
+        Context context);
 }

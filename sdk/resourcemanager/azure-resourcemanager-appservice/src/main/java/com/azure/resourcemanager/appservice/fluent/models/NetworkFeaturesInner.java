@@ -20,14 +20,14 @@ public final class NetworkFeaturesInner extends ProxyOnlyResource {
      * NetworkFeatures resource specific properties
      */
     @JsonProperty(value = "properties")
-    private NetworkFeaturesPropertiesInner innerProperties;
+    private NetworkFeaturesProperties innerProperties;
 
     /**
      * Get the innerProperties property: NetworkFeatures resource specific properties.
      *
      * @return the innerProperties value.
      */
-    private NetworkFeaturesPropertiesInner innerProperties() {
+    private NetworkFeaturesProperties innerProperties() {
         return this.innerProperties;
     }
 
@@ -52,7 +52,7 @@ public final class NetworkFeaturesInner extends ProxyOnlyResource {
      *
      * @return the virtualNetworkConnection value.
      */
-    public VnetInfoInner virtualNetworkConnection() {
+    public VnetInfo virtualNetworkConnection() {
         return this.innerProperties() == null ? null : this.innerProperties().virtualNetworkConnection();
     }
 

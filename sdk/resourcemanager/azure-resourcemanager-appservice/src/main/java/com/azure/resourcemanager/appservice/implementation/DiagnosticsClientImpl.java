@@ -28,7 +28,7 @@ import com.azure.core.util.FluxUtil;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.appservice.fluent.DiagnosticsClient;
 import com.azure.resourcemanager.appservice.fluent.models.AnalysisDefinitionInner;
-import com.azure.resourcemanager.appservice.fluent.models.DetectorDefinitionInner;
+import com.azure.resourcemanager.appservice.fluent.models.DetectorDefinitionResourceInner;
 import com.azure.resourcemanager.appservice.fluent.models.DetectorResponseInner;
 import com.azure.resourcemanager.appservice.fluent.models.DiagnosticAnalysisInner;
 import com.azure.resourcemanager.appservice.fluent.models.DiagnosticCategoryInner;
@@ -190,7 +190,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
                 + "/{siteName}/diagnostics/{diagnosticCategory}/analyses/{analysisName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
-        Mono<Response<DiagnosticAnalysisInner>> getSiteAnalysis(
+        Mono<Response<AnalysisDefinitionInner>> getSiteAnalysis(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("siteName") String siteName,
@@ -243,7 +243,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
                 + "/{siteName}/diagnostics/{diagnosticCategory}/detectors/{detectorName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
-        Mono<Response<DiagnosticDetectorCollection>> getSiteDetector(
+        Mono<Response<DetectorDefinitionResourceInner>> getSiteDetector(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("siteName") String siteName,
@@ -366,7 +366,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
                 + "/{siteName}/slots/{slot}/diagnostics/{diagnosticCategory}/analyses/{analysisName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
-        Mono<Response<DiagnosticAnalysisInner>> getSiteAnalysisSlot(
+        Mono<Response<AnalysisDefinitionInner>> getSiteAnalysisSlot(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("siteName") String siteName,
@@ -422,7 +422,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
                 + "/{siteName}/slots/{slot}/diagnostics/{diagnosticCategory}/detectors/{detectorName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
-        Mono<Response<DiagnosticDetectorCollection>> getSiteDetectorSlot(
+        Mono<Response<DetectorDefinitionResourceInner>> getSiteDetectorSlot(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("siteName") String siteName,
@@ -509,16 +509,6 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
         @Get("{nextLink}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
-        Mono<Response<DiagnosticDetectorCollection>> getSiteDetectorNext(
-            @PathParam(value = "nextLink", encoded = true) String nextLink,
-            @HostParam("$host") String endpoint,
-            @HeaderParam("Accept") String accept,
-            Context context);
-
-        @Headers({"Content-Type: application/json"})
-        @Get("{nextLink}")
-        @ExpectedResponses({200})
-        @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<DetectorResponseCollection>> listSiteDetectorResponsesSlotNext(
             @PathParam(value = "nextLink", encoded = true) String nextLink,
             @HostParam("$host") String endpoint,
@@ -554,20 +544,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
             @HostParam("$host") String endpoint,
             @HeaderParam("Accept") String accept,
             Context context);
-
-        @Headers({"Content-Type: application/json"})
-        @Get("{nextLink}")
-        @ExpectedResponses({200})
-        @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
-        Mono<Response<DiagnosticDetectorCollection>> getSiteDetectorSlotNext(
-            @PathParam(value = "nextLink", encoded = true) String nextLink,
-            @HostParam("$host") String endpoint,
-            @HeaderParam("Accept") String accept,
-            Context context);
     }
 
     /**
-     * List Hosting Environment Detector Responses.
+     * Description for List Hosting Environment Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Site Name.
@@ -624,7 +604,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Hosting Environment Detector Responses.
+     * Description for List Hosting Environment Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Site Name.
@@ -679,7 +659,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Hosting Environment Detector Responses.
+     * Description for List Hosting Environment Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Site Name.
@@ -697,7 +677,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Hosting Environment Detector Responses.
+     * Description for List Hosting Environment Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Site Name.
@@ -716,7 +696,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Hosting Environment Detector Responses.
+     * Description for List Hosting Environment Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Site Name.
@@ -732,7 +712,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Hosting Environment Detector Responses.
+     * Description for List Hosting Environment Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Site Name.
@@ -749,7 +729,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Hosting Environment Detector Response.
+     * Description for Get Hosting Environment Detector Response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name App Service Environment Name.
@@ -760,7 +740,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return hosting Environment Detector Response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<DetectorResponseInner>> getHostingEnvironmentDetectorResponseWithResponseAsync(
@@ -813,7 +793,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Hosting Environment Detector Response.
+     * Description for Get Hosting Environment Detector Response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name App Service Environment Name.
@@ -825,7 +805,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return hosting Environment Detector Response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<Response<DetectorResponseInner>> getHostingEnvironmentDetectorResponseWithResponseAsync(
@@ -876,7 +856,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Hosting Environment Detector Response.
+     * Description for Get Hosting Environment Detector Response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name App Service Environment Name.
@@ -887,7 +867,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return hosting Environment Detector Response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<DetectorResponseInner> getHostingEnvironmentDetectorResponseAsync(
@@ -910,7 +890,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Hosting Environment Detector Response.
+     * Description for Get Hosting Environment Detector Response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name App Service Environment Name.
@@ -918,7 +898,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return hosting Environment Detector Response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<DetectorResponseInner> getHostingEnvironmentDetectorResponseAsync(
@@ -939,7 +919,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Hosting Environment Detector Response.
+     * Description for Get Hosting Environment Detector Response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name App Service Environment Name.
@@ -947,7 +927,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return hosting Environment Detector Response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public DetectorResponseInner getHostingEnvironmentDetectorResponse(
@@ -961,7 +941,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Hosting Environment Detector Response.
+     * Description for Get Hosting Environment Detector Response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name App Service Environment Name.
@@ -973,7 +953,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return hosting Environment Detector Response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Response<DetectorResponseInner> getHostingEnvironmentDetectorResponseWithResponse(
@@ -990,7 +970,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1047,7 +1027,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1102,7 +1082,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1119,7 +1099,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1138,7 +1118,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1153,7 +1133,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1170,7 +1150,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1181,7 +1161,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<DetectorResponseInner>> getSiteDetectorResponseWithResponseAsync(
@@ -1234,7 +1214,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1246,7 +1226,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<Response<DetectorResponseInner>> getSiteDetectorResponseWithResponseAsync(
@@ -1297,7 +1277,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1308,7 +1288,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<DetectorResponseInner> getSiteDetectorResponseAsync(
@@ -1331,7 +1311,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1339,7 +1319,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<DetectorResponseInner> getSiteDetectorResponseAsync(
@@ -1360,7 +1340,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1368,7 +1348,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public DetectorResponseInner getSiteDetectorResponse(
@@ -1381,7 +1361,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1393,7 +1373,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Response<DetectorResponseInner> getSiteDetectorResponseWithResponse(
@@ -1410,14 +1390,14 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<DiagnosticCategoryInner>> listSiteDiagnosticCategoriesSinglePageAsync(
@@ -1467,7 +1447,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1475,7 +1455,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<DiagnosticCategoryInner>> listSiteDiagnosticCategoriesSinglePageAsync(
@@ -1522,14 +1502,14 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedFlux<DiagnosticCategoryInner> listSiteDiagnosticCategoriesAsync(
@@ -1540,7 +1520,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1548,7 +1528,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     private PagedFlux<DiagnosticCategoryInner> listSiteDiagnosticCategoriesAsync(
@@ -1559,14 +1539,14 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<DiagnosticCategoryInner> listSiteDiagnosticCategories(
@@ -1575,7 +1555,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1583,7 +1563,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<DiagnosticCategoryInner> listSiteDiagnosticCategories(
@@ -1592,7 +1572,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Category.
+     * Description for Get Diagnostics Category.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1600,7 +1580,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Category.
+     * @return class representing detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<DiagnosticCategoryInner>> getSiteDiagnosticCategoryWithResponseAsync(
@@ -1646,7 +1626,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Category.
+     * Description for Get Diagnostics Category.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1655,7 +1635,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Category.
+     * @return class representing detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<Response<DiagnosticCategoryInner>> getSiteDiagnosticCategoryWithResponseAsync(
@@ -1698,7 +1678,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Category.
+     * Description for Get Diagnostics Category.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1706,7 +1686,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Category.
+     * @return class representing detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<DiagnosticCategoryInner> getSiteDiagnosticCategoryAsync(
@@ -1723,7 +1703,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Category.
+     * Description for Get Diagnostics Category.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1731,7 +1711,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Category.
+     * @return class representing detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public DiagnosticCategoryInner getSiteDiagnosticCategory(
@@ -1740,7 +1720,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Category.
+     * Description for Get Diagnostics Category.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1749,7 +1729,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Category.
+     * @return class representing detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Response<DiagnosticCategoryInner> getSiteDiagnosticCategoryWithResponse(
@@ -1759,7 +1739,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1767,7 +1747,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<AnalysisDefinitionInner>> listSiteAnalysesSinglePageAsync(
@@ -1822,7 +1802,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1831,7 +1811,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<AnalysisDefinitionInner>> listSiteAnalysesSinglePageAsync(
@@ -1883,7 +1863,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1891,7 +1871,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedFlux<AnalysisDefinitionInner> listSiteAnalysesAsync(
@@ -1902,7 +1882,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1911,7 +1891,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     private PagedFlux<AnalysisDefinitionInner> listSiteAnalysesAsync(
@@ -1922,7 +1902,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1930,7 +1910,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<AnalysisDefinitionInner> listSiteAnalyses(
@@ -1939,7 +1919,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1948,7 +1928,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<AnalysisDefinitionInner> listSiteAnalyses(
@@ -1957,7 +1937,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analysis.
+     * Description for Get Site Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -1966,10 +1946,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analysis.
+     * @return definition of Analysis.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<DiagnosticAnalysisInner>> getSiteAnalysisWithResponseAsync(
+    public Mono<Response<AnalysisDefinitionInner>> getSiteAnalysisWithResponseAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String analysisName) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -2016,7 +1996,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analysis.
+     * Description for Get Site Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2026,10 +2006,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analysis.
+     * @return definition of Analysis.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<DiagnosticAnalysisInner>> getSiteAnalysisWithResponseAsync(
+    private Mono<Response<AnalysisDefinitionInner>> getSiteAnalysisWithResponseAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String analysisName, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -2073,7 +2053,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analysis.
+     * Description for Get Site Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2082,14 +2062,14 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analysis.
+     * @return definition of Analysis.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<DiagnosticAnalysisInner> getSiteAnalysisAsync(
+    public Mono<AnalysisDefinitionInner> getSiteAnalysisAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String analysisName) {
         return getSiteAnalysisWithResponseAsync(resourceGroupName, siteName, diagnosticCategory, analysisName)
             .flatMap(
-                (Response<DiagnosticAnalysisInner> res) -> {
+                (Response<AnalysisDefinitionInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -2099,7 +2079,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analysis.
+     * Description for Get Site Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2108,16 +2088,16 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analysis.
+     * @return definition of Analysis.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public DiagnosticAnalysisInner getSiteAnalysis(
+    public AnalysisDefinitionInner getSiteAnalysis(
         String resourceGroupName, String siteName, String diagnosticCategory, String analysisName) {
         return getSiteAnalysisAsync(resourceGroupName, siteName, diagnosticCategory, analysisName).block();
     }
 
     /**
-     * Get Site Analysis.
+     * Description for Get Site Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2127,17 +2107,17 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analysis.
+     * @return definition of Analysis.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<DiagnosticAnalysisInner> getSiteAnalysisWithResponse(
+    public Response<AnalysisDefinitionInner> getSiteAnalysisWithResponse(
         String resourceGroupName, String siteName, String diagnosticCategory, String analysisName, Context context) {
         return getSiteAnalysisWithResponseAsync(resourceGroupName, siteName, diagnosticCategory, analysisName, context)
             .block();
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2208,7 +2188,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2278,7 +2258,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2314,7 +2294,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2344,7 +2324,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2367,7 +2347,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2398,7 +2378,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2406,10 +2386,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> listSiteDetectorsSinglePageAsync(
+    private Mono<PagedResponse<DetectorDefinitionResourceInner>> listSiteDetectorsSinglePageAsync(
         String resourceGroupName, String siteName, String diagnosticCategory) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -2448,7 +2428,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
                             this.client.getApiVersion(),
                             accept,
                             context))
-            .<PagedResponse<DetectorDefinitionInner>>map(
+            .<PagedResponse<DetectorDefinitionResourceInner>>map(
                 res ->
                     new PagedResponseBase<>(
                         res.getRequest(),
@@ -2461,7 +2441,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2470,10 +2450,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> listSiteDetectorsSinglePageAsync(
+    private Mono<PagedResponse<DetectorDefinitionResourceInner>> listSiteDetectorsSinglePageAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -2522,7 +2502,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2530,10 +2510,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<DetectorDefinitionInner> listSiteDetectorsAsync(
+    public PagedFlux<DetectorDefinitionResourceInner> listSiteDetectorsAsync(
         String resourceGroupName, String siteName, String diagnosticCategory) {
         return new PagedFlux<>(
             () -> listSiteDetectorsSinglePageAsync(resourceGroupName, siteName, diagnosticCategory),
@@ -2541,7 +2521,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2550,10 +2530,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    private PagedFlux<DetectorDefinitionInner> listSiteDetectorsAsync(
+    private PagedFlux<DetectorDefinitionResourceInner> listSiteDetectorsAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, Context context) {
         return new PagedFlux<>(
             () -> listSiteDetectorsSinglePageAsync(resourceGroupName, siteName, diagnosticCategory, context),
@@ -2561,7 +2541,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2569,16 +2549,16 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<DetectorDefinitionInner> listSiteDetectors(
+    public PagedIterable<DetectorDefinitionResourceInner> listSiteDetectors(
         String resourceGroupName, String siteName, String diagnosticCategory) {
         return new PagedIterable<>(listSiteDetectorsAsync(resourceGroupName, siteName, diagnosticCategory));
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2587,16 +2567,16 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<DetectorDefinitionInner> listSiteDetectors(
+    public PagedIterable<DetectorDefinitionResourceInner> listSiteDetectors(
         String resourceGroupName, String siteName, String diagnosticCategory, Context context) {
         return new PagedIterable<>(listSiteDetectorsAsync(resourceGroupName, siteName, diagnosticCategory, context));
     }
 
     /**
-     * Get Detector.
+     * Description for Get Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2605,10 +2585,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
+     * @return aRM resource for a detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> getSiteDetectorSinglePageAsync(
+    public Mono<Response<DetectorDefinitionResourceInner>> getSiteDetectorWithResponseAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String detectorName) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -2651,20 +2631,11 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
                             this.client.getApiVersion(),
                             accept,
                             context))
-            .<PagedResponse<DetectorDefinitionInner>>map(
-                res ->
-                    new PagedResponseBase<>(
-                        res.getRequest(),
-                        res.getStatusCode(),
-                        res.getHeaders(),
-                        res.getValue().value(),
-                        res.getValue().nextLink(),
-                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Get Detector.
+     * Description for Get Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2674,10 +2645,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
+     * @return aRM resource for a detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> getSiteDetectorSinglePageAsync(
+    private Mono<Response<DetectorDefinitionResourceInner>> getSiteDetectorWithResponseAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String detectorName, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -2717,20 +2688,11 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
                 this.client.getSubscriptionId(),
                 this.client.getApiVersion(),
                 accept,
-                context)
-            .map(
-                res ->
-                    new PagedResponseBase<>(
-                        res.getRequest(),
-                        res.getStatusCode(),
-                        res.getHeaders(),
-                        res.getValue().value(),
-                        res.getValue().nextLink(),
-                        null));
+                context);
     }
 
     /**
-     * Get Detector.
+     * Description for Get Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2739,18 +2701,42 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
+     * @return aRM resource for a detector definition.
      */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<DetectorDefinitionInner> getSiteDetectorAsync(
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Mono<DetectorDefinitionResourceInner> getSiteDetectorAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String detectorName) {
-        return new PagedFlux<>(
-            () -> getSiteDetectorSinglePageAsync(resourceGroupName, siteName, diagnosticCategory, detectorName),
-            nextLink -> getSiteDetectorNextSinglePageAsync(nextLink));
+        return getSiteDetectorWithResponseAsync(resourceGroupName, siteName, diagnosticCategory, detectorName)
+            .flatMap(
+                (Response<DetectorDefinitionResourceInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
-     * Get Detector.
+     * Description for Get Detector.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param siteName Site Name.
+     * @param diagnosticCategory Diagnostic Category.
+     * @param detectorName Detector Name.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return aRM resource for a detector definition.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public DetectorDefinitionResourceInner getSiteDetector(
+        String resourceGroupName, String siteName, String diagnosticCategory, String detectorName) {
+        return getSiteDetectorAsync(resourceGroupName, siteName, diagnosticCategory, detectorName).block();
+    }
+
+    /**
+     * Description for Get Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2760,57 +2746,17 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
+     * @return aRM resource for a detector definition.
      */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    private PagedFlux<DetectorDefinitionInner> getSiteDetectorAsync(
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<DetectorDefinitionResourceInner> getSiteDetectorWithResponse(
         String resourceGroupName, String siteName, String diagnosticCategory, String detectorName, Context context) {
-        return new PagedFlux<>(
-            () ->
-                getSiteDetectorSinglePageAsync(resourceGroupName, siteName, diagnosticCategory, detectorName, context),
-            nextLink -> getSiteDetectorNextSinglePageAsync(nextLink, context));
+        return getSiteDetectorWithResponseAsync(resourceGroupName, siteName, diagnosticCategory, detectorName, context)
+            .block();
     }
 
     /**
-     * Get Detector.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param siteName Site Name.
-     * @param diagnosticCategory Diagnostic Category.
-     * @param detectorName Detector Name.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<DetectorDefinitionInner> getSiteDetector(
-        String resourceGroupName, String siteName, String diagnosticCategory, String detectorName) {
-        return new PagedIterable<>(getSiteDetectorAsync(resourceGroupName, siteName, diagnosticCategory, detectorName));
-    }
-
-    /**
-     * Get Detector.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param siteName Site Name.
-     * @param diagnosticCategory Diagnostic Category.
-     * @param detectorName Detector Name.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<DetectorDefinitionInner> getSiteDetector(
-        String resourceGroupName, String siteName, String diagnosticCategory, String detectorName, Context context) {
-        return new PagedIterable<>(
-            getSiteDetectorAsync(resourceGroupName, siteName, diagnosticCategory, detectorName, context));
-    }
-
-    /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2881,7 +2827,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2951,7 +2897,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -2987,7 +2933,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3017,7 +2963,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3040,7 +2986,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3071,7 +3017,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3133,7 +3079,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3193,7 +3139,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3212,7 +3158,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3232,7 +3178,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3249,7 +3195,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * List Site Detector Responses.
+     * Description for List Site Detector Responses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3267,7 +3213,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3279,7 +3225,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<DetectorResponseInner>> getSiteDetectorResponseSlotWithResponseAsync(
@@ -3337,7 +3283,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3350,7 +3296,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<Response<DetectorResponseInner>> getSiteDetectorResponseSlotWithResponseAsync(
@@ -3406,7 +3352,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3418,7 +3364,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<DetectorResponseInner> getSiteDetectorResponseSlotAsync(
@@ -3442,7 +3388,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3451,7 +3397,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<DetectorResponseInner> getSiteDetectorResponseSlotAsync(
@@ -3472,7 +3418,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3481,7 +3427,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public DetectorResponseInner getSiteDetectorResponseSlot(
@@ -3495,7 +3441,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get site detector response.
+     * Description for Get site detector response.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3508,7 +3454,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site detector response.
+     * @return class representing Response from Detector.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Response<DetectorResponseInner> getSiteDetectorResponseSlotWithResponse(
@@ -3526,7 +3472,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3534,7 +3480,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<DiagnosticCategoryInner>> listSiteDiagnosticCategoriesSlotSinglePageAsync(
@@ -3588,7 +3534,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3597,7 +3543,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<DiagnosticCategoryInner>> listSiteDiagnosticCategoriesSlotSinglePageAsync(
@@ -3648,7 +3594,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3656,7 +3602,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedFlux<DiagnosticCategoryInner> listSiteDiagnosticCategoriesSlotAsync(
@@ -3667,7 +3613,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3676,7 +3622,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     private PagedFlux<DiagnosticCategoryInner> listSiteDiagnosticCategoriesSlotAsync(
@@ -3687,7 +3633,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3695,7 +3641,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<DiagnosticCategoryInner> listSiteDiagnosticCategoriesSlot(
@@ -3704,7 +3650,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Categories.
+     * Description for Get Diagnostics Categories.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3713,7 +3659,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Categories.
+     * @return collection of Diagnostic Categories.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<DiagnosticCategoryInner> listSiteDiagnosticCategoriesSlot(
@@ -3722,7 +3668,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Category.
+     * Description for Get Diagnostics Category.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3731,7 +3677,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Category.
+     * @return class representing detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<DiagnosticCategoryInner>> getSiteDiagnosticCategorySlotWithResponseAsync(
@@ -3781,7 +3727,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Category.
+     * Description for Get Diagnostics Category.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3791,7 +3737,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Category.
+     * @return class representing detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<Response<DiagnosticCategoryInner>> getSiteDiagnosticCategorySlotWithResponseAsync(
@@ -3838,7 +3784,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Category.
+     * Description for Get Diagnostics Category.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3847,7 +3793,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Category.
+     * @return class representing detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<DiagnosticCategoryInner> getSiteDiagnosticCategorySlotAsync(
@@ -3864,7 +3810,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Category.
+     * Description for Get Diagnostics Category.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3873,7 +3819,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Category.
+     * @return class representing detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public DiagnosticCategoryInner getSiteDiagnosticCategorySlot(
@@ -3882,7 +3828,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Diagnostics Category.
+     * Description for Get Diagnostics Category.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3892,7 +3838,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostics Category.
+     * @return class representing detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Response<DiagnosticCategoryInner> getSiteDiagnosticCategorySlotWithResponse(
@@ -3903,7 +3849,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3912,7 +3858,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<AnalysisDefinitionInner>> listSiteAnalysesSlotSinglePageAsync(
@@ -3971,7 +3917,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -3981,7 +3927,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<AnalysisDefinitionInner>> listSiteAnalysesSlotSinglePageAsync(
@@ -4037,7 +3983,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4046,7 +3992,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedFlux<AnalysisDefinitionInner> listSiteAnalysesSlotAsync(
@@ -4057,7 +4003,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4067,7 +4013,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     private PagedFlux<AnalysisDefinitionInner> listSiteAnalysesSlotAsync(
@@ -4078,7 +4024,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4087,7 +4033,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<AnalysisDefinitionInner> listSiteAnalysesSlot(
@@ -4096,7 +4042,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analyses.
+     * Description for Get Site Analyses.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4106,7 +4052,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analyses.
+     * @return collection of Diagnostic Analyses.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<AnalysisDefinitionInner> listSiteAnalysesSlot(
@@ -4116,7 +4062,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analysis.
+     * Description for Get Site Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4126,10 +4072,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analysis.
+     * @return definition of Analysis.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<DiagnosticAnalysisInner>> getSiteAnalysisSlotWithResponseAsync(
+    public Mono<Response<AnalysisDefinitionInner>> getSiteAnalysisSlotWithResponseAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String analysisName, String slot) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -4180,7 +4126,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analysis.
+     * Description for Get Site Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4191,10 +4137,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analysis.
+     * @return definition of Analysis.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<DiagnosticAnalysisInner>> getSiteAnalysisSlotWithResponseAsync(
+    private Mono<Response<AnalysisDefinitionInner>> getSiteAnalysisSlotWithResponseAsync(
         String resourceGroupName,
         String siteName,
         String diagnosticCategory,
@@ -4247,7 +4193,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analysis.
+     * Description for Get Site Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4257,14 +4203,14 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analysis.
+     * @return definition of Analysis.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<DiagnosticAnalysisInner> getSiteAnalysisSlotAsync(
+    public Mono<AnalysisDefinitionInner> getSiteAnalysisSlotAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String analysisName, String slot) {
         return getSiteAnalysisSlotWithResponseAsync(resourceGroupName, siteName, diagnosticCategory, analysisName, slot)
             .flatMap(
-                (Response<DiagnosticAnalysisInner> res) -> {
+                (Response<AnalysisDefinitionInner> res) -> {
                     if (res.getValue() != null) {
                         return Mono.just(res.getValue());
                     } else {
@@ -4274,7 +4220,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Site Analysis.
+     * Description for Get Site Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4284,16 +4230,16 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analysis.
+     * @return definition of Analysis.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public DiagnosticAnalysisInner getSiteAnalysisSlot(
+    public AnalysisDefinitionInner getSiteAnalysisSlot(
         String resourceGroupName, String siteName, String diagnosticCategory, String analysisName, String slot) {
         return getSiteAnalysisSlotAsync(resourceGroupName, siteName, diagnosticCategory, analysisName, slot).block();
     }
 
     /**
-     * Get Site Analysis.
+     * Description for Get Site Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4304,10 +4250,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return site Analysis.
+     * @return definition of Analysis.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<DiagnosticAnalysisInner> getSiteAnalysisSlotWithResponse(
+    public Response<AnalysisDefinitionInner> getSiteAnalysisSlotWithResponse(
         String resourceGroupName,
         String siteName,
         String diagnosticCategory,
@@ -4320,7 +4266,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4397,7 +4343,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4473,7 +4419,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4511,7 +4457,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4542,7 +4488,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4566,7 +4512,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Analysis.
+     * Description for Execute Analysis.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4607,7 +4553,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4616,10 +4562,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> listSiteDetectorsSlotSinglePageAsync(
+    private Mono<PagedResponse<DetectorDefinitionResourceInner>> listSiteDetectorsSlotSinglePageAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String slot) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -4662,7 +4608,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
                             this.client.getApiVersion(),
                             accept,
                             context))
-            .<PagedResponse<DetectorDefinitionInner>>map(
+            .<PagedResponse<DetectorDefinitionResourceInner>>map(
                 res ->
                     new PagedResponseBase<>(
                         res.getRequest(),
@@ -4675,7 +4621,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4685,10 +4631,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> listSiteDetectorsSlotSinglePageAsync(
+    private Mono<PagedResponse<DetectorDefinitionResourceInner>> listSiteDetectorsSlotSinglePageAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String slot, Context context) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -4741,7 +4687,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4750,10 +4696,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<DetectorDefinitionInner> listSiteDetectorsSlotAsync(
+    public PagedFlux<DetectorDefinitionResourceInner> listSiteDetectorsSlotAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String slot) {
         return new PagedFlux<>(
             () -> listSiteDetectorsSlotSinglePageAsync(resourceGroupName, siteName, diagnosticCategory, slot),
@@ -4761,7 +4707,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4771,10 +4717,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    private PagedFlux<DetectorDefinitionInner> listSiteDetectorsSlotAsync(
+    private PagedFlux<DetectorDefinitionResourceInner> listSiteDetectorsSlotAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String slot, Context context) {
         return new PagedFlux<>(
             () -> listSiteDetectorsSlotSinglePageAsync(resourceGroupName, siteName, diagnosticCategory, slot, context),
@@ -4782,7 +4728,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4791,16 +4737,16 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<DetectorDefinitionInner> listSiteDetectorsSlot(
+    public PagedIterable<DetectorDefinitionResourceInner> listSiteDetectorsSlot(
         String resourceGroupName, String siteName, String diagnosticCategory, String slot) {
         return new PagedIterable<>(listSiteDetectorsSlotAsync(resourceGroupName, siteName, diagnosticCategory, slot));
     }
 
     /**
-     * Get Detectors.
+     * Description for Get Detectors.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4810,17 +4756,17 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detectors.
+     * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<DetectorDefinitionInner> listSiteDetectorsSlot(
+    public PagedIterable<DetectorDefinitionResourceInner> listSiteDetectorsSlot(
         String resourceGroupName, String siteName, String diagnosticCategory, String slot, Context context) {
         return new PagedIterable<>(
             listSiteDetectorsSlotAsync(resourceGroupName, siteName, diagnosticCategory, slot, context));
     }
 
     /**
-     * Get Detector.
+     * Description for Get Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4830,10 +4776,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
+     * @return aRM resource for a detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> getSiteDetectorSlotSinglePageAsync(
+    public Mono<Response<DetectorDefinitionResourceInner>> getSiteDetectorSlotWithResponseAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String detectorName, String slot) {
         if (this.client.getEndpoint() == null) {
             return Mono
@@ -4880,20 +4826,11 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
                             this.client.getApiVersion(),
                             accept,
                             context))
-            .<PagedResponse<DetectorDefinitionInner>>map(
-                res ->
-                    new PagedResponseBase<>(
-                        res.getRequest(),
-                        res.getStatusCode(),
-                        res.getHeaders(),
-                        res.getValue().value(),
-                        res.getValue().nextLink(),
-                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Get Detector.
+     * Description for Get Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4904,10 +4841,10 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
+     * @return aRM resource for a detector definition.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> getSiteDetectorSlotSinglePageAsync(
+    private Mono<Response<DetectorDefinitionResourceInner>> getSiteDetectorSlotWithResponseAsync(
         String resourceGroupName,
         String siteName,
         String diagnosticCategory,
@@ -4956,20 +4893,11 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
                 this.client.getSubscriptionId(),
                 this.client.getApiVersion(),
                 accept,
-                context)
-            .map(
-                res ->
-                    new PagedResponseBase<>(
-                        res.getRequest(),
-                        res.getStatusCode(),
-                        res.getHeaders(),
-                        res.getValue().value(),
-                        res.getValue().nextLink(),
-                        null));
+                context);
     }
 
     /**
-     * Get Detector.
+     * Description for Get Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -4979,19 +4907,43 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
+     * @return aRM resource for a detector definition.
      */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<DetectorDefinitionInner> getSiteDetectorSlotAsync(
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Mono<DetectorDefinitionResourceInner> getSiteDetectorSlotAsync(
         String resourceGroupName, String siteName, String diagnosticCategory, String detectorName, String slot) {
-        return new PagedFlux<>(
-            () ->
-                getSiteDetectorSlotSinglePageAsync(resourceGroupName, siteName, diagnosticCategory, detectorName, slot),
-            nextLink -> getSiteDetectorSlotNextSinglePageAsync(nextLink));
+        return getSiteDetectorSlotWithResponseAsync(resourceGroupName, siteName, diagnosticCategory, detectorName, slot)
+            .flatMap(
+                (Response<DetectorDefinitionResourceInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
-     * Get Detector.
+     * Description for Get Detector.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param siteName Site Name.
+     * @param diagnosticCategory Diagnostic Category.
+     * @param detectorName Detector Name.
+     * @param slot Slot Name.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return aRM resource for a detector definition.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public DetectorDefinitionResourceInner getSiteDetectorSlot(
+        String resourceGroupName, String siteName, String diagnosticCategory, String detectorName, String slot) {
+        return getSiteDetectorSlotAsync(resourceGroupName, siteName, diagnosticCategory, detectorName, slot).block();
+    }
+
+    /**
+     * Description for Get Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -5002,71 +4954,23 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
+     * @return aRM resource for a detector definition.
      */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    private PagedFlux<DetectorDefinitionInner> getSiteDetectorSlotAsync(
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<DetectorDefinitionResourceInner> getSiteDetectorSlotWithResponse(
         String resourceGroupName,
         String siteName,
         String diagnosticCategory,
         String detectorName,
         String slot,
         Context context) {
-        return new PagedFlux<>(
-            () ->
-                getSiteDetectorSlotSinglePageAsync(
-                    resourceGroupName, siteName, diagnosticCategory, detectorName, slot, context),
-            nextLink -> getSiteDetectorSlotNextSinglePageAsync(nextLink, context));
+        return getSiteDetectorSlotWithResponseAsync(
+                resourceGroupName, siteName, diagnosticCategory, detectorName, slot, context)
+            .block();
     }
 
     /**
-     * Get Detector.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param siteName Site Name.
-     * @param diagnosticCategory Diagnostic Category.
-     * @param detectorName Detector Name.
-     * @param slot Slot Name.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<DetectorDefinitionInner> getSiteDetectorSlot(
-        String resourceGroupName, String siteName, String diagnosticCategory, String detectorName, String slot) {
-        return new PagedIterable<>(
-            getSiteDetectorSlotAsync(resourceGroupName, siteName, diagnosticCategory, detectorName, slot));
-    }
-
-    /**
-     * Get Detector.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param siteName Site Name.
-     * @param diagnosticCategory Diagnostic Category.
-     * @param detectorName Detector Name.
-     * @param slot Slot Name.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return detector.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<DetectorDefinitionInner> getSiteDetectorSlot(
-        String resourceGroupName,
-        String siteName,
-        String diagnosticCategory,
-        String detectorName,
-        String slot,
-        Context context) {
-        return new PagedIterable<>(
-            getSiteDetectorSlotAsync(resourceGroupName, siteName, diagnosticCategory, detectorName, slot, context));
-    }
-
-    /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -5143,7 +5047,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -5219,7 +5123,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -5257,7 +5161,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -5288,7 +5192,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -5312,7 +5216,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
     }
 
     /**
-     * Execute Detector.
+     * Description for Execute Detector.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param siteName Site Name.
@@ -5659,7 +5563,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> listSiteDetectorsNextSinglePageAsync(String nextLink) {
+    private Mono<PagedResponse<DetectorDefinitionResourceInner>> listSiteDetectorsNextSinglePageAsync(String nextLink) {
         if (nextLink == null) {
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
@@ -5672,7 +5576,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
         final String accept = "application/json";
         return FluxUtil
             .withContext(context -> service.listSiteDetectorsNext(nextLink, this.client.getEndpoint(), accept, context))
-            .<PagedResponse<DetectorDefinitionInner>>map(
+            .<PagedResponse<DetectorDefinitionResourceInner>>map(
                 res ->
                     new PagedResponseBase<>(
                         res.getRequest(),
@@ -5695,7 +5599,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> listSiteDetectorsNextSinglePageAsync(
+    private Mono<PagedResponse<DetectorDefinitionResourceInner>> listSiteDetectorsNextSinglePageAsync(
         String nextLink, Context context) {
         if (nextLink == null) {
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
@@ -5710,78 +5614,6 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
         context = this.client.mergeContext(context);
         return service
             .listSiteDetectorsNext(nextLink, this.client.getEndpoint(), accept, context)
-            .map(
-                res ->
-                    new PagedResponseBase<>(
-                        res.getRequest(),
-                        res.getStatusCode(),
-                        res.getHeaders(),
-                        res.getValue().value(),
-                        res.getValue().nextLink(),
-                        null));
-    }
-
-    /**
-     * Get the next page of items.
-     *
-     * @param nextLink The nextLink parameter.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return collection of Diagnostic Detectors.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> getSiteDetectorNextSinglePageAsync(String nextLink) {
-        if (nextLink == null) {
-            return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
-        }
-        if (this.client.getEndpoint() == null) {
-            return Mono
-                .error(
-                    new IllegalArgumentException(
-                        "Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        final String accept = "application/json";
-        return FluxUtil
-            .withContext(context -> service.getSiteDetectorNext(nextLink, this.client.getEndpoint(), accept, context))
-            .<PagedResponse<DetectorDefinitionInner>>map(
-                res ->
-                    new PagedResponseBase<>(
-                        res.getRequest(),
-                        res.getStatusCode(),
-                        res.getHeaders(),
-                        res.getValue().value(),
-                        res.getValue().nextLink(),
-                        null))
-            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
-    }
-
-    /**
-     * Get the next page of items.
-     *
-     * @param nextLink The nextLink parameter.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return collection of Diagnostic Detectors.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> getSiteDetectorNextSinglePageAsync(
-        String nextLink, Context context) {
-        if (nextLink == null) {
-            return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
-        }
-        if (this.client.getEndpoint() == null) {
-            return Mono
-                .error(
-                    new IllegalArgumentException(
-                        "Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        final String accept = "application/json";
-        context = this.client.mergeContext(context);
-        return service
-            .getSiteDetectorNext(nextLink, this.client.getEndpoint(), accept, context)
             .map(
                 res ->
                     new PagedResponseBase<>(
@@ -6026,7 +5858,8 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> listSiteDetectorsSlotNextSinglePageAsync(String nextLink) {
+    private Mono<PagedResponse<DetectorDefinitionResourceInner>> listSiteDetectorsSlotNextSinglePageAsync(
+        String nextLink) {
         if (nextLink == null) {
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
@@ -6040,7 +5873,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
         return FluxUtil
             .withContext(
                 context -> service.listSiteDetectorsSlotNext(nextLink, this.client.getEndpoint(), accept, context))
-            .<PagedResponse<DetectorDefinitionInner>>map(
+            .<PagedResponse<DetectorDefinitionResourceInner>>map(
                 res ->
                     new PagedResponseBase<>(
                         res.getRequest(),
@@ -6063,7 +5896,7 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
      * @return collection of Diagnostic Detectors.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> listSiteDetectorsSlotNextSinglePageAsync(
+    private Mono<PagedResponse<DetectorDefinitionResourceInner>> listSiteDetectorsSlotNextSinglePageAsync(
         String nextLink, Context context) {
         if (nextLink == null) {
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
@@ -6078,79 +5911,6 @@ public final class DiagnosticsClientImpl implements DiagnosticsClient {
         context = this.client.mergeContext(context);
         return service
             .listSiteDetectorsSlotNext(nextLink, this.client.getEndpoint(), accept, context)
-            .map(
-                res ->
-                    new PagedResponseBase<>(
-                        res.getRequest(),
-                        res.getStatusCode(),
-                        res.getHeaders(),
-                        res.getValue().value(),
-                        res.getValue().nextLink(),
-                        null));
-    }
-
-    /**
-     * Get the next page of items.
-     *
-     * @param nextLink The nextLink parameter.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return collection of Diagnostic Detectors.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> getSiteDetectorSlotNextSinglePageAsync(String nextLink) {
-        if (nextLink == null) {
-            return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
-        }
-        if (this.client.getEndpoint() == null) {
-            return Mono
-                .error(
-                    new IllegalArgumentException(
-                        "Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        final String accept = "application/json";
-        return FluxUtil
-            .withContext(
-                context -> service.getSiteDetectorSlotNext(nextLink, this.client.getEndpoint(), accept, context))
-            .<PagedResponse<DetectorDefinitionInner>>map(
-                res ->
-                    new PagedResponseBase<>(
-                        res.getRequest(),
-                        res.getStatusCode(),
-                        res.getHeaders(),
-                        res.getValue().value(),
-                        res.getValue().nextLink(),
-                        null))
-            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
-    }
-
-    /**
-     * Get the next page of items.
-     *
-     * @param nextLink The nextLink parameter.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return collection of Diagnostic Detectors.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<DetectorDefinitionInner>> getSiteDetectorSlotNextSinglePageAsync(
-        String nextLink, Context context) {
-        if (nextLink == null) {
-            return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
-        }
-        if (this.client.getEndpoint() == null) {
-            return Mono
-                .error(
-                    new IllegalArgumentException(
-                        "Parameter this.client.getEndpoint() is required and cannot be null."));
-        }
-        final String accept = "application/json";
-        context = this.client.mergeContext(context);
-        return service
-            .getSiteDetectorSlotNext(nextLink, this.client.getEndpoint(), accept, context)
             .map(
                 res ->
                     new PagedResponseBase<>(

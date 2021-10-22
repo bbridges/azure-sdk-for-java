@@ -7,6 +7,7 @@ package com.azure.resourcemanager.appservice.fluent.models;
 import com.azure.core.annotation.Fluent;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.appservice.models.AbnormalTimePeriod;
+import com.azure.resourcemanager.appservice.models.AnalysisData;
 import com.azure.resourcemanager.appservice.models.ProxyOnlyResource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -114,7 +115,7 @@ public final class DiagnosticAnalysisInner extends ProxyOnlyResource {
      *
      * @return the payload value.
      */
-    public List<AnalysisDataInner> payload() {
+    public List<AnalysisData> payload() {
         return this.innerProperties() == null ? null : this.innerProperties().payload();
     }
 
@@ -124,7 +125,7 @@ public final class DiagnosticAnalysisInner extends ProxyOnlyResource {
      * @param payload the payload value to set.
      * @return the DiagnosticAnalysisInner object itself.
      */
-    public DiagnosticAnalysisInner withPayload(List<AnalysisDataInner> payload) {
+    public DiagnosticAnalysisInner withPayload(List<AnalysisData> payload) {
         if (this.innerProperties() == null) {
             this.innerProperties = new DiagnosticAnalysisProperties();
         }
@@ -137,7 +138,7 @@ public final class DiagnosticAnalysisInner extends ProxyOnlyResource {
      *
      * @return the nonCorrelatedDetectors value.
      */
-    public List<DetectorDefinitionInner> nonCorrelatedDetectors() {
+    public List<DetectorDefinition> nonCorrelatedDetectors() {
         return this.innerProperties() == null ? null : this.innerProperties().nonCorrelatedDetectors();
     }
 
@@ -147,7 +148,7 @@ public final class DiagnosticAnalysisInner extends ProxyOnlyResource {
      * @param nonCorrelatedDetectors the nonCorrelatedDetectors value to set.
      * @return the DiagnosticAnalysisInner object itself.
      */
-    public DiagnosticAnalysisInner withNonCorrelatedDetectors(List<DetectorDefinitionInner> nonCorrelatedDetectors) {
+    public DiagnosticAnalysisInner withNonCorrelatedDetectors(List<DetectorDefinition> nonCorrelatedDetectors) {
         if (this.innerProperties() == null) {
             this.innerProperties = new DiagnosticAnalysisProperties();
         }

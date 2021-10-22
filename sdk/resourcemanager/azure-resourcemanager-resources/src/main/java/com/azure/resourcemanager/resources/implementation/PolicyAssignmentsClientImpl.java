@@ -36,118 +36,224 @@ import com.azure.resourcemanager.resources.fluentcore.collection.InnerSupportsLi
 import com.azure.resourcemanager.resources.models.PolicyAssignmentListResult;
 import reactor.core.publisher.Mono;
 
-/**
- * An instance of this class provides access to all the operations defined in
- * PolicyAssignmentsClient.
- */
-public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<PolicyAssignmentInner>, InnerSupportsDelete<PolicyAssignmentInner>, PolicyAssignmentsClient {
+/** An instance of this class provides access to all the operations defined in PolicyAssignmentsClient. */
+public final class PolicyAssignmentsClientImpl
+    implements InnerSupportsListing<PolicyAssignmentInner>,
+        InnerSupportsDelete<PolicyAssignmentInner>,
+        PolicyAssignmentsClient {
     private final ClientLogger logger = new ClientLogger(PolicyAssignmentsClientImpl.class);
 
-    /**
-     * The proxy service used to perform REST calls.
-     */
+    /** The proxy service used to perform REST calls. */
     private final PolicyAssignmentsService service;
 
-    /**
-     * The service client containing this operation class.
-     */
+    /** The service client containing this operation class. */
     private final PolicyClientImpl client;
 
     /**
      * Initializes an instance of PolicyAssignmentsClientImpl.
-     * 
+     *
      * @param client the instance of the service client containing this operation class.
      */
     PolicyAssignmentsClientImpl(PolicyClientImpl client) {
-        this.service = RestProxy.create(PolicyAssignmentsService.class, client.getHttpPipeline(), client.getSerializerAdapter());
+        this.service =
+            RestProxy.create(PolicyAssignmentsService.class, client.getHttpPipeline(), client.getSerializerAdapter());
         this.client = client;
     }
 
     /**
-     * The interface defining all the services for
-     * PolicyClientPolicyAssignments to be used by the proxy service to perform
-     * REST calls.
+     * The interface defining all the services for PolicyClientPolicyAssignments to be used by the proxy service to
+     * perform REST calls.
      */
     @Host("{$host}")
     @ServiceInterface(name = "PolicyClientPolicyAs")
     private interface PolicyAssignmentsService {
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Delete("/{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}")
         @ExpectedResponses({200, 204})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentInner>> delete(@HostParam("$host") String endpoint, @PathParam(value = "scope", encoded = true) String scope, @PathParam("policyAssignmentName") String policyAssignmentName, @QueryParam("api-version") String apiVersion, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentInner>> delete(
+            @HostParam("$host") String endpoint,
+            @PathParam(value = "scope", encoded = true) String scope,
+            @PathParam("policyAssignmentName") String policyAssignmentName,
+            @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Put("/{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}")
         @ExpectedResponses({201})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentInner>> create(@HostParam("$host") String endpoint, @PathParam(value = "scope", encoded = true) String scope, @PathParam("policyAssignmentName") String policyAssignmentName, @QueryParam("api-version") String apiVersion, @BodyParam("application/json") PolicyAssignmentInner parameters, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentInner>> create(
+            @HostParam("$host") String endpoint,
+            @PathParam(value = "scope", encoded = true) String scope,
+            @PathParam("policyAssignmentName") String policyAssignmentName,
+            @QueryParam("api-version") String apiVersion,
+            @BodyParam("application/json") PolicyAssignmentInner parameters,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Get("/{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentInner>> get(@HostParam("$host") String endpoint, @PathParam(value = "scope", encoded = true) String scope, @PathParam("policyAssignmentName") String policyAssignmentName, @QueryParam("api-version") String apiVersion, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentInner>> get(
+            @HostParam("$host") String endpoint,
+            @PathParam(value = "scope", encoded = true) String scope,
+            @PathParam("policyAssignmentName") String policyAssignmentName,
+            @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
-        @Get("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Authorization/policyAssignments")
+        @Headers({"Content-Type: application/json"})
+        @Get(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Authorization"
+                + "/policyAssignments")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentListResult>> listByResourceGroup(@HostParam("$host") String endpoint, @PathParam("resourceGroupName") String resourceGroupName, @QueryParam(value = "$filter", encoded = true) String filter, @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentListResult>> listByResourceGroup(
+            @HostParam("$host") String endpoint,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @QueryParam(value = "$filter", encoded = true) String filter,
+            @QueryParam("$top") Integer top,
+            @QueryParam("api-version") String apiVersion,
+            @PathParam("subscriptionId") String subscriptionId,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
-        @Get("/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourcePath}/{resourceType}/{resourceName}/providers/Microsoft.Authorization/policyAssignments")
+        @Headers({"Content-Type: application/json"})
+        @Get(
+            "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}"
+                + "/{parentResourcePath}/{resourceType}/{resourceName}/providers/Microsoft.Authorization"
+                + "/policyAssignments")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentListResult>> listForResource(@HostParam("$host") String endpoint, @PathParam("resourceGroupName") String resourceGroupName, @PathParam("resourceProviderNamespace") String resourceProviderNamespace, @PathParam(value = "parentResourcePath", encoded = true) String parentResourcePath, @PathParam(value = "resourceType", encoded = true) String resourceType, @PathParam("resourceName") String resourceName, @QueryParam("$filter") String filter, @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentListResult>> listForResource(
+            @HostParam("$host") String endpoint,
+            @PathParam("resourceGroupName") String resourceGroupName,
+            @PathParam("resourceProviderNamespace") String resourceProviderNamespace,
+            @PathParam(value = "parentResourcePath", encoded = true) String parentResourcePath,
+            @PathParam(value = "resourceType", encoded = true) String resourceType,
+            @PathParam("resourceName") String resourceName,
+            @QueryParam(value = "$filter", encoded = true) String filter,
+            @QueryParam("$top") Integer top,
+            @QueryParam("api-version") String apiVersion,
+            @PathParam("subscriptionId") String subscriptionId,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
+        @Get(
+            "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Authorization"
+                + "/policyAssignments")
+        @ExpectedResponses({200})
+        @UnexpectedResponseExceptionType(ManagementException.class)
+        Mono<Response<PolicyAssignmentListResult>> listForManagementGroup(
+            @HostParam("$host") String endpoint,
+            @PathParam("managementGroupId") String managementGroupId,
+            @QueryParam(value = "$filter", encoded = true) String filter,
+            @QueryParam("$top") Integer top,
+            @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
+            Context context);
+
+        @Headers({"Content-Type: application/json"})
         @Get("/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/policyAssignments")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentListResult>> list(@HostParam("$host") String endpoint, @QueryParam("$filter") String filter, @QueryParam("api-version") String apiVersion, @PathParam("subscriptionId") String subscriptionId, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentListResult>> list(
+            @HostParam("$host") String endpoint,
+            @QueryParam(value = "$filter", encoded = true) String filter,
+            @QueryParam("$top") Integer top,
+            @QueryParam("api-version") String apiVersion,
+            @PathParam("subscriptionId") String subscriptionId,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Delete("/{policyAssignmentId}")
-        @ExpectedResponses({200})
+        @ExpectedResponses({200, 204})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentInner>> deleteById(@HostParam("$host") String endpoint, @PathParam(value = "policyAssignmentId", encoded = true) String policyAssignmentId, @QueryParam("api-version") String apiVersion, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentInner>> deleteById(
+            @HostParam("$host") String endpoint,
+            @PathParam(value = "policyAssignmentId", encoded = true) String policyAssignmentId,
+            @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Put("/{policyAssignmentId}")
         @ExpectedResponses({201})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentInner>> createById(@HostParam("$host") String endpoint, @PathParam(value = "policyAssignmentId", encoded = true) String policyAssignmentId, @QueryParam("api-version") String apiVersion, @BodyParam("application/json") PolicyAssignmentInner parameters, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentInner>> createById(
+            @HostParam("$host") String endpoint,
+            @PathParam(value = "policyAssignmentId", encoded = true) String policyAssignmentId,
+            @QueryParam("api-version") String apiVersion,
+            @BodyParam("application/json") PolicyAssignmentInner parameters,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Get("/{policyAssignmentId}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentInner>> getById(@HostParam("$host") String endpoint, @PathParam(value = "policyAssignmentId", encoded = true) String policyAssignmentId, @QueryParam("api-version") String apiVersion, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentInner>> getById(
+            @HostParam("$host") String endpoint,
+            @PathParam(value = "policyAssignmentId", encoded = true) String policyAssignmentId,
+            @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Get("{nextLink}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentListResult>> listForResourceGroupNext(@PathParam(value = "nextLink", encoded = true) String nextLink, @HostParam("$host") String endpoint, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentListResult>> listForResourceGroupNext(
+            @PathParam(value = "nextLink", encoded = true) String nextLink,
+            @HostParam("$host") String endpoint,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Get("{nextLink}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentListResult>> listForResourceNext(@PathParam(value = "nextLink", encoded = true) String nextLink, @HostParam("$host") String endpoint, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentListResult>> listForResourceNext(
+            @PathParam(value = "nextLink", encoded = true) String nextLink,
+            @HostParam("$host") String endpoint,
+            @HeaderParam("Accept") String accept,
+            Context context);
 
-        @Headers({ "Content-Type: application/json" })
+        @Headers({"Content-Type: application/json"})
         @Get("{nextLink}")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(ManagementException.class)
-        Mono<Response<PolicyAssignmentListResult>> listNext(@PathParam(value = "nextLink", encoded = true) String nextLink, @HostParam("$host") String endpoint, @HeaderParam("Accept") String accept, Context context);
+        Mono<Response<PolicyAssignmentListResult>> listForManagementGroupNext(
+            @PathParam(value = "nextLink", encoded = true) String nextLink,
+            @HostParam("$host") String endpoint,
+            @HeaderParam("Accept") String accept,
+            Context context);
+
+        @Headers({"Content-Type: application/json"})
+        @Get("{nextLink}")
+        @ExpectedResponses({200})
+        @UnexpectedResponseExceptionType(ManagementException.class)
+        Mono<Response<PolicyAssignmentListResult>> listNext(
+            @PathParam(value = "nextLink", encoded = true) String nextLink,
+            @HostParam("$host") String endpoint,
+            @HeaderParam("Accept") String accept,
+            Context context);
     }
 
     /**
-     * Deletes a policy assignment.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation deletes a policy assignment, given its name and the scope it was created in. The scope of a policy
+     * assignment is the part of its ID preceding
+     * '/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment to delete.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -157,23 +263,37 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<PolicyAssignmentInner>> deleteWithResponseAsync(String scope, String policyAssignmentName) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (scope == null) {
             return Mono.error(new IllegalArgumentException("Parameter scope is required and cannot be null."));
         }
         if (policyAssignmentName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.delete(this.client.getEndpoint(), scope, policyAssignmentName, this.client.getApiVersion(), accept, context))
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service.delete(this.client.getEndpoint(), scope, policyAssignmentName, apiVersion, accept, context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Deletes a policy assignment.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation deletes a policy assignment, given its name and the scope it was created in. The scope of a policy
+     * assignment is the part of its ID preceding
+     * '/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment to delete.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -182,25 +302,37 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<PolicyAssignmentInner>> deleteWithResponseAsync(String scope, String policyAssignmentName, Context context) {
+    private Mono<Response<PolicyAssignmentInner>> deleteWithResponseAsync(
+        String scope, String policyAssignmentName, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (scope == null) {
             return Mono.error(new IllegalArgumentException("Parameter scope is required and cannot be null."));
         }
         if (policyAssignmentName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.delete(this.client.getEndpoint(), scope, policyAssignmentName, this.client.getApiVersion(), accept, context);
+        return service.delete(this.client.getEndpoint(), scope, policyAssignmentName, apiVersion, accept, context);
     }
 
     /**
-     * Deletes a policy assignment.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation deletes a policy assignment, given its name and the scope it was created in. The scope of a policy
+     * assignment is the part of its ID preceding
+     * '/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment to delete.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -210,19 +342,26 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<PolicyAssignmentInner> deleteAsync(String scope, String policyAssignmentName) {
         return deleteWithResponseAsync(scope, policyAssignmentName)
-            .flatMap((Response<PolicyAssignmentInner> res) -> {
-                if (res.getValue() != null) {
-                    return Mono.just(res.getValue());
-                } else {
-                    return Mono.empty();
-                }
-            });
+            .flatMap(
+                (Response<PolicyAssignmentInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
-     * Deletes a policy assignment.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation deletes a policy assignment, given its name and the scope it was created in. The scope of a policy
+     * assignment is the part of its ID preceding
+     * '/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment to delete.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -235,9 +374,15 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     }
 
     /**
-     * Deletes a policy assignment.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation deletes a policy assignment, given its name and the scope it was created in. The scope of a policy
+     * assignment is the part of its ID preceding
+     * '/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment to delete.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -246,14 +391,21 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<PolicyAssignmentInner> deleteWithResponse(String scope, String policyAssignmentName, Context context) {
+    public Response<PolicyAssignmentInner> deleteWithResponse(
+        String scope, String policyAssignmentName, Context context) {
         return deleteWithResponseAsync(scope, policyAssignmentName, context).block();
     }
 
     /**
-     * Policy assignments are inherited by child resources. For example, when you apply a policy to a resource group that policy is assigned to all resources in the group.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation creates or updates a policy assignment with the given scope and name. Policy assignments apply to
+     * all resources contained within their scope. For example, when you assign a policy at resource group scope, that
+     * policy applies to all resources in the group.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment.
      * @param parameters Parameters for the policy assignment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -262,30 +414,53 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<PolicyAssignmentInner>> createWithResponseAsync(String scope, String policyAssignmentName, PolicyAssignmentInner parameters) {
+    public Mono<Response<PolicyAssignmentInner>> createWithResponseAsync(
+        String scope, String policyAssignmentName, PolicyAssignmentInner parameters) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (scope == null) {
             return Mono.error(new IllegalArgumentException("Parameter scope is required and cannot be null."));
         }
         if (policyAssignmentName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
         }
         if (parameters == null) {
             return Mono.error(new IllegalArgumentException("Parameter parameters is required and cannot be null."));
         } else {
             parameters.validate();
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.create(this.client.getEndpoint(), scope, policyAssignmentName, this.client.getApiVersion(), parameters, accept, context))
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .create(
+                            this.client.getEndpoint(),
+                            scope,
+                            policyAssignmentName,
+                            apiVersion,
+                            parameters,
+                            accept,
+                            context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Policy assignments are inherited by child resources. For example, when you apply a policy to a resource group that policy is assigned to all resources in the group.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation creates or updates a policy assignment with the given scope and name. Policy assignments apply to
+     * all resources contained within their scope. For example, when you assign a policy at resource group scope, that
+     * policy applies to all resources in the group.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment.
      * @param parameters Parameters for the policy assignment.
      * @param context The context to associate with this operation.
@@ -295,30 +470,43 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<PolicyAssignmentInner>> createWithResponseAsync(String scope, String policyAssignmentName, PolicyAssignmentInner parameters, Context context) {
+    private Mono<Response<PolicyAssignmentInner>> createWithResponseAsync(
+        String scope, String policyAssignmentName, PolicyAssignmentInner parameters, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (scope == null) {
             return Mono.error(new IllegalArgumentException("Parameter scope is required and cannot be null."));
         }
         if (policyAssignmentName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
         }
         if (parameters == null) {
             return Mono.error(new IllegalArgumentException("Parameter parameters is required and cannot be null."));
         } else {
             parameters.validate();
         }
-        final String accept = "application/json, text/json";
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.create(this.client.getEndpoint(), scope, policyAssignmentName, this.client.getApiVersion(), parameters, accept, context);
+        return service
+            .create(this.client.getEndpoint(), scope, policyAssignmentName, apiVersion, parameters, accept, context);
     }
 
     /**
-     * Policy assignments are inherited by child resources. For example, when you apply a policy to a resource group that policy is assigned to all resources in the group.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation creates or updates a policy assignment with the given scope and name. Policy assignments apply to
+     * all resources contained within their scope. For example, when you assign a policy at resource group scope, that
+     * policy applies to all resources in the group.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment.
      * @param parameters Parameters for the policy assignment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -327,21 +515,29 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<PolicyAssignmentInner> createAsync(String scope, String policyAssignmentName, PolicyAssignmentInner parameters) {
+    public Mono<PolicyAssignmentInner> createAsync(
+        String scope, String policyAssignmentName, PolicyAssignmentInner parameters) {
         return createWithResponseAsync(scope, policyAssignmentName, parameters)
-            .flatMap((Response<PolicyAssignmentInner> res) -> {
-                if (res.getValue() != null) {
-                    return Mono.just(res.getValue());
-                } else {
-                    return Mono.empty();
-                }
-            });
+            .flatMap(
+                (Response<PolicyAssignmentInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
-     * Policy assignments are inherited by child resources. For example, when you apply a policy to a resource group that policy is assigned to all resources in the group.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation creates or updates a policy assignment with the given scope and name. Policy assignments apply to
+     * all resources contained within their scope. For example, when you assign a policy at resource group scope, that
+     * policy applies to all resources in the group.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment.
      * @param parameters Parameters for the policy assignment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -355,9 +551,15 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     }
 
     /**
-     * Policy assignments are inherited by child resources. For example, when you apply a policy to a resource group that policy is assigned to all resources in the group.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation creates or updates a policy assignment with the given scope and name. Policy assignments apply to
+     * all resources contained within their scope. For example, when you assign a policy at resource group scope, that
+     * policy applies to all resources in the group.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment.
      * @param parameters Parameters for the policy assignment.
      * @param context The context to associate with this operation.
@@ -367,94 +569,126 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<PolicyAssignmentInner> createWithResponse(String scope, String policyAssignmentName, PolicyAssignmentInner parameters, Context context) {
+    public Response<PolicyAssignmentInner> createWithResponse(
+        String scope, String policyAssignmentName, PolicyAssignmentInner parameters, Context context) {
         return createWithResponseAsync(scope, policyAssignmentName, parameters, context).block();
     }
 
     /**
-     * Gets a policy assignment.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation retrieves a single policy assignment, given its name and the scope it was created at.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment to get.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a policy assignment.
+     * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<PolicyAssignmentInner>> getWithResponseAsync(String scope, String policyAssignmentName) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (scope == null) {
             return Mono.error(new IllegalArgumentException("Parameter scope is required and cannot be null."));
         }
         if (policyAssignmentName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.get(this.client.getEndpoint(), scope, policyAssignmentName, this.client.getApiVersion(), accept, context))
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service.get(this.client.getEndpoint(), scope, policyAssignmentName, apiVersion, accept, context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Gets a policy assignment.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation retrieves a single policy assignment, given its name and the scope it was created at.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment to get.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a policy assignment.
+     * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<PolicyAssignmentInner>> getWithResponseAsync(String scope, String policyAssignmentName, Context context) {
+    private Mono<Response<PolicyAssignmentInner>> getWithResponseAsync(
+        String scope, String policyAssignmentName, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (scope == null) {
             return Mono.error(new IllegalArgumentException("Parameter scope is required and cannot be null."));
         }
         if (policyAssignmentName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentName is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.get(this.client.getEndpoint(), scope, policyAssignmentName, this.client.getApiVersion(), accept, context);
+        return service.get(this.client.getEndpoint(), scope, policyAssignmentName, apiVersion, accept, context);
     }
 
     /**
-     * Gets a policy assignment.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation retrieves a single policy assignment, given its name and the scope it was created at.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment to get.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a policy assignment.
+     * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<PolicyAssignmentInner> getAsync(String scope, String policyAssignmentName) {
         return getWithResponseAsync(scope, policyAssignmentName)
-            .flatMap((Response<PolicyAssignmentInner> res) -> {
-                if (res.getValue() != null) {
-                    return Mono.just(res.getValue());
-                } else {
-                    return Mono.empty();
-                }
-            });
+            .flatMap(
+                (Response<PolicyAssignmentInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
-     * Gets a policy assignment.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation retrieves a single policy assignment, given its name and the scope it was created at.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment to get.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a policy assignment.
+     * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public PolicyAssignmentInner get(String scope, String policyAssignmentName) {
@@ -462,15 +696,19 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     }
 
     /**
-     * Gets a policy assignment.
-     * 
-     * @param scope The scope of the policy assignment.
+     * This operation retrieves a single policy assignment, given its name and the scope it was created at.
+     *
+     * @param scope The scope of the policy assignment. Valid scopes are: management group (format:
+     *     '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription (format:
+     *     '/subscriptions/{subscriptionId}'), resource group (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     *     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
      * @param policyAssignmentName The name of the policy assignment to get.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a policy assignment.
+     * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Response<PolicyAssignmentInner> getWithResponse(String scope, String policyAssignmentName, Context context) {
@@ -478,182 +716,370 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     }
 
     /**
-     * Gets policy assignments for the resource group.
-     * 
+     * This operation retrieves the list of all policy assignments associated with the given resource group in the given
+     * subscription that match the optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     * or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes all policy
+     * assignments associated with the resource group, including those that apply directly or apply from containing
+     * scopes, as well as any applied to resources contained within the resource group. If $filter=atScope() is
+     * provided, the returned list includes all policy assignments that apply to the resource group, which is everything
+     * in the unfiltered list except those applied to resources contained within the resource group. If
+     * $filter=atExactScope() is provided, the returned list only includes all policy assignments that at the resource
+     * group. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments
+     * of the policy definition whose id is {value} that apply to the resource group.
+     *
      * @param resourceGroupName The name of the resource group that contains policy assignments.
-     * @param filter The filter to apply on the operation.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for the resource group.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<PolicyAssignmentInner>> listByResourceGroupSinglePageAsync(String resourceGroupName, String filter) {
+    private Mono<PagedResponse<PolicyAssignmentInner>> listByResourceGroupSinglePageAsync(
+        String resourceGroupName, String filter, Integer top) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.listByResourceGroup(this.client.getEndpoint(), resourceGroupName, filter, this.client.getApiVersion(), this.client.getSubscriptionId(), accept, context))
-            .<PagedResponse<PolicyAssignmentInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .listByResourceGroup(
+                            this.client.getEndpoint(),
+                            resourceGroupName,
+                            filter,
+                            top,
+                            apiVersion,
+                            this.client.getSubscriptionId(),
+                            accept,
+                            context))
+            .<PagedResponse<PolicyAssignmentInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Gets policy assignments for the resource group.
-     * 
+     * This operation retrieves the list of all policy assignments associated with the given resource group in the given
+     * subscription that match the optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     * or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes all policy
+     * assignments associated with the resource group, including those that apply directly or apply from containing
+     * scopes, as well as any applied to resources contained within the resource group. If $filter=atScope() is
+     * provided, the returned list includes all policy assignments that apply to the resource group, which is everything
+     * in the unfiltered list except those applied to resources contained within the resource group. If
+     * $filter=atExactScope() is provided, the returned list only includes all policy assignments that at the resource
+     * group. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments
+     * of the policy definition whose id is {value} that apply to the resource group.
+     *
      * @param resourceGroupName The name of the resource group that contains policy assignments.
-     * @param filter The filter to apply on the operation.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for the resource group.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<PolicyAssignmentInner>> listByResourceGroupSinglePageAsync(String resourceGroupName, String filter, Context context) {
+    private Mono<PagedResponse<PolicyAssignmentInner>> listByResourceGroupSinglePageAsync(
+        String resourceGroupName, String filter, Integer top, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.listByResourceGroup(this.client.getEndpoint(), resourceGroupName, filter, this.client.getApiVersion(), this.client.getSubscriptionId(), accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .listByResourceGroup(
+                this.client.getEndpoint(),
+                resourceGroupName,
+                filter,
+                top,
+                apiVersion,
+                this.client.getSubscriptionId(),
+                accept,
+                context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 
     /**
-     * Gets policy assignments for the resource group.
-     * 
+     * This operation retrieves the list of all policy assignments associated with the given resource group in the given
+     * subscription that match the optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     * or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes all policy
+     * assignments associated with the resource group, including those that apply directly or apply from containing
+     * scopes, as well as any applied to resources contained within the resource group. If $filter=atScope() is
+     * provided, the returned list includes all policy assignments that apply to the resource group, which is everything
+     * in the unfiltered list except those applied to resources contained within the resource group. If
+     * $filter=atExactScope() is provided, the returned list only includes all policy assignments that at the resource
+     * group. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments
+     * of the policy definition whose id is {value} that apply to the resource group.
+     *
      * @param resourceGroupName The name of the resource group that contains policy assignments.
-     * @param filter The filter to apply on the operation.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for the resource group.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<PolicyAssignmentInner> listByResourceGroupAsync(String resourceGroupName, String filter) {
+    public PagedFlux<PolicyAssignmentInner> listByResourceGroupAsync(
+        String resourceGroupName, String filter, Integer top) {
         return new PagedFlux<>(
-            () -> listByResourceGroupSinglePageAsync(resourceGroupName, filter),
+            () -> listByResourceGroupSinglePageAsync(resourceGroupName, filter, top),
             nextLink -> listForResourceGroupNextSinglePageAsync(nextLink));
     }
 
     /**
-     * Gets policy assignments for the resource group.
-     * 
+     * This operation retrieves the list of all policy assignments associated with the given resource group in the given
+     * subscription that match the optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     * or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes all policy
+     * assignments associated with the resource group, including those that apply directly or apply from containing
+     * scopes, as well as any applied to resources contained within the resource group. If $filter=atScope() is
+     * provided, the returned list includes all policy assignments that apply to the resource group, which is everything
+     * in the unfiltered list except those applied to resources contained within the resource group. If
+     * $filter=atExactScope() is provided, the returned list only includes all policy assignments that at the resource
+     * group. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments
+     * of the policy definition whose id is {value} that apply to the resource group.
+     *
      * @param resourceGroupName The name of the resource group that contains policy assignments.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for the resource group.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedFlux<PolicyAssignmentInner> listByResourceGroupAsync(String resourceGroupName) {
         final String filter = null;
+        final Integer top = null;
         return new PagedFlux<>(
-            () -> listByResourceGroupSinglePageAsync(resourceGroupName, filter),
+            () -> listByResourceGroupSinglePageAsync(resourceGroupName, filter, top),
             nextLink -> listForResourceGroupNextSinglePageAsync(nextLink));
     }
 
     /**
-     * Gets policy assignments for the resource group.
-     * 
+     * This operation retrieves the list of all policy assignments associated with the given resource group in the given
+     * subscription that match the optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     * or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes all policy
+     * assignments associated with the resource group, including those that apply directly or apply from containing
+     * scopes, as well as any applied to resources contained within the resource group. If $filter=atScope() is
+     * provided, the returned list includes all policy assignments that apply to the resource group, which is everything
+     * in the unfiltered list except those applied to resources contained within the resource group. If
+     * $filter=atExactScope() is provided, the returned list only includes all policy assignments that at the resource
+     * group. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments
+     * of the policy definition whose id is {value} that apply to the resource group.
+     *
      * @param resourceGroupName The name of the resource group that contains policy assignments.
-     * @param filter The filter to apply on the operation.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for the resource group.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    private PagedFlux<PolicyAssignmentInner> listByResourceGroupAsync(String resourceGroupName, String filter, Context context) {
+    private PagedFlux<PolicyAssignmentInner> listByResourceGroupAsync(
+        String resourceGroupName, String filter, Integer top, Context context) {
         return new PagedFlux<>(
-            () -> listByResourceGroupSinglePageAsync(resourceGroupName, filter, context),
+            () -> listByResourceGroupSinglePageAsync(resourceGroupName, filter, top, context),
             nextLink -> listForResourceGroupNextSinglePageAsync(nextLink, context));
     }
 
     /**
-     * Gets policy assignments for the resource group.
-     * 
+     * This operation retrieves the list of all policy assignments associated with the given resource group in the given
+     * subscription that match the optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     * or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes all policy
+     * assignments associated with the resource group, including those that apply directly or apply from containing
+     * scopes, as well as any applied to resources contained within the resource group. If $filter=atScope() is
+     * provided, the returned list includes all policy assignments that apply to the resource group, which is everything
+     * in the unfiltered list except those applied to resources contained within the resource group. If
+     * $filter=atExactScope() is provided, the returned list only includes all policy assignments that at the resource
+     * group. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments
+     * of the policy definition whose id is {value} that apply to the resource group.
+     *
      * @param resourceGroupName The name of the resource group that contains policy assignments.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for the resource group.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<PolicyAssignmentInner> listByResourceGroup(String resourceGroupName) {
         final String filter = null;
-        return new PagedIterable<>(listByResourceGroupAsync(resourceGroupName, filter));
+        final Integer top = null;
+        return new PagedIterable<>(listByResourceGroupAsync(resourceGroupName, filter, top));
     }
 
     /**
-     * Gets policy assignments for the resource group.
-     * 
+     * This operation retrieves the list of all policy assignments associated with the given resource group in the given
+     * subscription that match the optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     * or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes all policy
+     * assignments associated with the resource group, including those that apply directly or apply from containing
+     * scopes, as well as any applied to resources contained within the resource group. If $filter=atScope() is
+     * provided, the returned list includes all policy assignments that apply to the resource group, which is everything
+     * in the unfiltered list except those applied to resources contained within the resource group. If
+     * $filter=atExactScope() is provided, the returned list only includes all policy assignments that at the resource
+     * group. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments
+     * of the policy definition whose id is {value} that apply to the resource group.
+     *
      * @param resourceGroupName The name of the resource group that contains policy assignments.
-     * @param filter The filter to apply on the operation.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for the resource group.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<PolicyAssignmentInner> listByResourceGroup(String resourceGroupName, String filter, Context context) {
-        return new PagedIterable<>(listByResourceGroupAsync(resourceGroupName, filter, context));
+    public PagedIterable<PolicyAssignmentInner> listByResourceGroup(
+        String resourceGroupName, String filter, Integer top, Context context) {
+        return new PagedIterable<>(listByResourceGroupAsync(resourceGroupName, filter, top, context));
     }
 
     /**
-     * Gets policy assignments for a resource.
-     * 
-     * @param resourceGroupName The name of the resource group containing the resource. The name is case insensitive.
-     * @param resourceProviderNamespace The namespace of the resource provider.
-     * @param parentResourcePath The parent resource path.
-     * @param resourceType The resource type.
-     * @param resourceName The name of the resource with policy assignments.
-     * @param filter The filter to apply on the operation.
+     * This operation retrieves the list of all policy assignments associated with the specified resource in the given
+     * resource group and subscription that match the optional given $filter. Valid values for $filter are: 'atScope()',
+     * 'atExactScope()' or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes
+     * all policy assignments associated with the resource, including those that apply directly or from all containing
+     * scopes, as well as any applied to resources contained within the resource. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the resource, which is everything in the unfiltered
+     * list except those applied to resources contained within the resource. If $filter=atExactScope() is provided, the
+     * returned list only includes all policy assignments that at the resource level. If $filter=policyDefinitionId eq
+     * '{value}' is provided, the returned list includes all policy assignments of the policy definition whose id is
+     * {value} that apply to the resource. Three parameters plus the resource name are used to identify a specific
+     * resource. If the resource is not part of a parent resource (the more common case), the parent resource path
+     * should not be provided (or provided as ''). For example a web app could be specified as
+     * ({resourceProviderNamespace} == 'Microsoft.Web', {parentResourcePath} == '', {resourceType} == 'sites',
+     * {resourceName} == 'MyWebApp'). If the resource is part of a parent resource, then all parameters should be
+     * provided. For example a virtual machine DNS name could be specified as ({resourceProviderNamespace} ==
+     * 'Microsoft.Compute', {parentResourcePath} == 'virtualMachines/MyVirtualMachine', {resourceType} == 'domainNames',
+     * {resourceName} == 'MyComputerName'). A convenient alternative to providing the namespace and type name separately
+     * is to provide both in the {resourceType} parameter, format: ({resourceProviderNamespace} == '',
+     * {parentResourcePath} == '', {resourceType} == 'Microsoft.Web/sites', {resourceName} == 'MyWebApp').
+     *
+     * @param resourceGroupName The name of the resource group containing the resource.
+     * @param resourceProviderNamespace The namespace of the resource provider. For example, the namespace of a virtual
+     *     machine is Microsoft.Compute (from Microsoft.Compute/virtualMachines).
+     * @param parentResourcePath The parent resource path. Use empty string if there is none.
+     * @param resourceType The resource type name. For example the type name of a web app is 'sites' (from
+     *     Microsoft.Web/sites).
+     * @param resourceName The name of the resource.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for a resource.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<PolicyAssignmentInner>> listForResourceSinglePageAsync(String resourceGroupName, String resourceProviderNamespace, String parentResourcePath, String resourceType, String resourceName, String filter) {
+    private Mono<PagedResponse<PolicyAssignmentInner>> listForResourceSinglePageAsync(
+        String resourceGroupName,
+        String resourceProviderNamespace,
+        String parentResourcePath,
+        String resourceType,
+        String resourceName,
+        String filter,
+        Integer top) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (resourceProviderNamespace == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceProviderNamespace is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter resourceProviderNamespace is required and cannot be null."));
         }
         if (parentResourcePath == null) {
-            return Mono.error(new IllegalArgumentException("Parameter parentResourcePath is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter parentResourcePath is required and cannot be null."));
         }
         if (resourceType == null) {
             return Mono.error(new IllegalArgumentException("Parameter resourceType is required and cannot be null."));
@@ -662,48 +1088,113 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
             return Mono.error(new IllegalArgumentException("Parameter resourceName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.listForResource(this.client.getEndpoint(), resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName, filter, this.client.getApiVersion(), this.client.getSubscriptionId(), accept, context))
-            .<PagedResponse<PolicyAssignmentInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .listForResource(
+                            this.client.getEndpoint(),
+                            resourceGroupName,
+                            resourceProviderNamespace,
+                            parentResourcePath,
+                            resourceType,
+                            resourceName,
+                            filter,
+                            top,
+                            apiVersion,
+                            this.client.getSubscriptionId(),
+                            accept,
+                            context))
+            .<PagedResponse<PolicyAssignmentInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Gets policy assignments for a resource.
-     * 
-     * @param resourceGroupName The name of the resource group containing the resource. The name is case insensitive.
-     * @param resourceProviderNamespace The namespace of the resource provider.
-     * @param parentResourcePath The parent resource path.
-     * @param resourceType The resource type.
-     * @param resourceName The name of the resource with policy assignments.
-     * @param filter The filter to apply on the operation.
+     * This operation retrieves the list of all policy assignments associated with the specified resource in the given
+     * resource group and subscription that match the optional given $filter. Valid values for $filter are: 'atScope()',
+     * 'atExactScope()' or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes
+     * all policy assignments associated with the resource, including those that apply directly or from all containing
+     * scopes, as well as any applied to resources contained within the resource. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the resource, which is everything in the unfiltered
+     * list except those applied to resources contained within the resource. If $filter=atExactScope() is provided, the
+     * returned list only includes all policy assignments that at the resource level. If $filter=policyDefinitionId eq
+     * '{value}' is provided, the returned list includes all policy assignments of the policy definition whose id is
+     * {value} that apply to the resource. Three parameters plus the resource name are used to identify a specific
+     * resource. If the resource is not part of a parent resource (the more common case), the parent resource path
+     * should not be provided (or provided as ''). For example a web app could be specified as
+     * ({resourceProviderNamespace} == 'Microsoft.Web', {parentResourcePath} == '', {resourceType} == 'sites',
+     * {resourceName} == 'MyWebApp'). If the resource is part of a parent resource, then all parameters should be
+     * provided. For example a virtual machine DNS name could be specified as ({resourceProviderNamespace} ==
+     * 'Microsoft.Compute', {parentResourcePath} == 'virtualMachines/MyVirtualMachine', {resourceType} == 'domainNames',
+     * {resourceName} == 'MyComputerName'). A convenient alternative to providing the namespace and type name separately
+     * is to provide both in the {resourceType} parameter, format: ({resourceProviderNamespace} == '',
+     * {parentResourcePath} == '', {resourceType} == 'Microsoft.Web/sites', {resourceName} == 'MyWebApp').
+     *
+     * @param resourceGroupName The name of the resource group containing the resource.
+     * @param resourceProviderNamespace The namespace of the resource provider. For example, the namespace of a virtual
+     *     machine is Microsoft.Compute (from Microsoft.Compute/virtualMachines).
+     * @param parentResourcePath The parent resource path. Use empty string if there is none.
+     * @param resourceType The resource type name. For example the type name of a web app is 'sites' (from
+     *     Microsoft.Web/sites).
+     * @param resourceName The name of the resource.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for a resource.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<PolicyAssignmentInner>> listForResourceSinglePageAsync(String resourceGroupName, String resourceProviderNamespace, String parentResourcePath, String resourceType, String resourceName, String filter, Context context) {
+    private Mono<PagedResponse<PolicyAssignmentInner>> listForResourceSinglePageAsync(
+        String resourceGroupName,
+        String resourceProviderNamespace,
+        String parentResourcePath,
+        String resourceType,
+        String resourceName,
+        String filter,
+        Integer top,
+        Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (resourceGroupName == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter resourceGroupName is required and cannot be null."));
         }
         if (resourceProviderNamespace == null) {
-            return Mono.error(new IllegalArgumentException("Parameter resourceProviderNamespace is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter resourceProviderNamespace is required and cannot be null."));
         }
         if (parentResourcePath == null) {
-            return Mono.error(new IllegalArgumentException("Parameter parentResourcePath is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter parentResourcePath is required and cannot be null."));
         }
         if (resourceType == null) {
             return Mono.error(new IllegalArgumentException("Parameter resourceType is required and cannot be null."));
@@ -712,262 +1203,861 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
             return Mono.error(new IllegalArgumentException("Parameter resourceName is required and cannot be null."));
         }
         if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.listForResource(this.client.getEndpoint(), resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName, filter, this.client.getApiVersion(), this.client.getSubscriptionId(), accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .listForResource(
+                this.client.getEndpoint(),
+                resourceGroupName,
+                resourceProviderNamespace,
+                parentResourcePath,
+                resourceType,
+                resourceName,
+                filter,
+                top,
+                apiVersion,
+                this.client.getSubscriptionId(),
+                accept,
+                context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 
     /**
-     * Gets policy assignments for a resource.
-     * 
-     * @param resourceGroupName The name of the resource group containing the resource. The name is case insensitive.
-     * @param resourceProviderNamespace The namespace of the resource provider.
-     * @param parentResourcePath The parent resource path.
-     * @param resourceType The resource type.
-     * @param resourceName The name of the resource with policy assignments.
-     * @param filter The filter to apply on the operation.
+     * This operation retrieves the list of all policy assignments associated with the specified resource in the given
+     * resource group and subscription that match the optional given $filter. Valid values for $filter are: 'atScope()',
+     * 'atExactScope()' or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes
+     * all policy assignments associated with the resource, including those that apply directly or from all containing
+     * scopes, as well as any applied to resources contained within the resource. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the resource, which is everything in the unfiltered
+     * list except those applied to resources contained within the resource. If $filter=atExactScope() is provided, the
+     * returned list only includes all policy assignments that at the resource level. If $filter=policyDefinitionId eq
+     * '{value}' is provided, the returned list includes all policy assignments of the policy definition whose id is
+     * {value} that apply to the resource. Three parameters plus the resource name are used to identify a specific
+     * resource. If the resource is not part of a parent resource (the more common case), the parent resource path
+     * should not be provided (or provided as ''). For example a web app could be specified as
+     * ({resourceProviderNamespace} == 'Microsoft.Web', {parentResourcePath} == '', {resourceType} == 'sites',
+     * {resourceName} == 'MyWebApp'). If the resource is part of a parent resource, then all parameters should be
+     * provided. For example a virtual machine DNS name could be specified as ({resourceProviderNamespace} ==
+     * 'Microsoft.Compute', {parentResourcePath} == 'virtualMachines/MyVirtualMachine', {resourceType} == 'domainNames',
+     * {resourceName} == 'MyComputerName'). A convenient alternative to providing the namespace and type name separately
+     * is to provide both in the {resourceType} parameter, format: ({resourceProviderNamespace} == '',
+     * {parentResourcePath} == '', {resourceType} == 'Microsoft.Web/sites', {resourceName} == 'MyWebApp').
+     *
+     * @param resourceGroupName The name of the resource group containing the resource.
+     * @param resourceProviderNamespace The namespace of the resource provider. For example, the namespace of a virtual
+     *     machine is Microsoft.Compute (from Microsoft.Compute/virtualMachines).
+     * @param parentResourcePath The parent resource path. Use empty string if there is none.
+     * @param resourceType The resource type name. For example the type name of a web app is 'sites' (from
+     *     Microsoft.Web/sites).
+     * @param resourceName The name of the resource.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for a resource.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<PolicyAssignmentInner> listForResourceAsync(String resourceGroupName, String resourceProviderNamespace, String parentResourcePath, String resourceType, String resourceName, String filter) {
+    public PagedFlux<PolicyAssignmentInner> listForResourceAsync(
+        String resourceGroupName,
+        String resourceProviderNamespace,
+        String parentResourcePath,
+        String resourceType,
+        String resourceName,
+        String filter,
+        Integer top) {
         return new PagedFlux<>(
-            () -> listForResourceSinglePageAsync(resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName, filter),
+            () ->
+                listForResourceSinglePageAsync(
+                    resourceGroupName,
+                    resourceProviderNamespace,
+                    parentResourcePath,
+                    resourceType,
+                    resourceName,
+                    filter,
+                    top),
             nextLink -> listForResourceNextSinglePageAsync(nextLink));
     }
 
     /**
-     * Gets policy assignments for a resource.
-     * 
-     * @param resourceGroupName The name of the resource group containing the resource. The name is case insensitive.
-     * @param resourceProviderNamespace The namespace of the resource provider.
-     * @param parentResourcePath The parent resource path.
-     * @param resourceType The resource type.
-     * @param resourceName The name of the resource with policy assignments.
+     * This operation retrieves the list of all policy assignments associated with the specified resource in the given
+     * resource group and subscription that match the optional given $filter. Valid values for $filter are: 'atScope()',
+     * 'atExactScope()' or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes
+     * all policy assignments associated with the resource, including those that apply directly or from all containing
+     * scopes, as well as any applied to resources contained within the resource. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the resource, which is everything in the unfiltered
+     * list except those applied to resources contained within the resource. If $filter=atExactScope() is provided, the
+     * returned list only includes all policy assignments that at the resource level. If $filter=policyDefinitionId eq
+     * '{value}' is provided, the returned list includes all policy assignments of the policy definition whose id is
+     * {value} that apply to the resource. Three parameters plus the resource name are used to identify a specific
+     * resource. If the resource is not part of a parent resource (the more common case), the parent resource path
+     * should not be provided (or provided as ''). For example a web app could be specified as
+     * ({resourceProviderNamespace} == 'Microsoft.Web', {parentResourcePath} == '', {resourceType} == 'sites',
+     * {resourceName} == 'MyWebApp'). If the resource is part of a parent resource, then all parameters should be
+     * provided. For example a virtual machine DNS name could be specified as ({resourceProviderNamespace} ==
+     * 'Microsoft.Compute', {parentResourcePath} == 'virtualMachines/MyVirtualMachine', {resourceType} == 'domainNames',
+     * {resourceName} == 'MyComputerName'). A convenient alternative to providing the namespace and type name separately
+     * is to provide both in the {resourceType} parameter, format: ({resourceProviderNamespace} == '',
+     * {parentResourcePath} == '', {resourceType} == 'Microsoft.Web/sites', {resourceName} == 'MyWebApp').
+     *
+     * @param resourceGroupName The name of the resource group containing the resource.
+     * @param resourceProviderNamespace The namespace of the resource provider. For example, the namespace of a virtual
+     *     machine is Microsoft.Compute (from Microsoft.Compute/virtualMachines).
+     * @param parentResourcePath The parent resource path. Use empty string if there is none.
+     * @param resourceType The resource type name. For example the type name of a web app is 'sites' (from
+     *     Microsoft.Web/sites).
+     * @param resourceName The name of the resource.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for a resource.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<PolicyAssignmentInner> listForResourceAsync(String resourceGroupName, String resourceProviderNamespace, String parentResourcePath, String resourceType, String resourceName) {
+    public PagedFlux<PolicyAssignmentInner> listForResourceAsync(
+        String resourceGroupName,
+        String resourceProviderNamespace,
+        String parentResourcePath,
+        String resourceType,
+        String resourceName) {
         final String filter = null;
+        final Integer top = null;
         return new PagedFlux<>(
-            () -> listForResourceSinglePageAsync(resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName, filter),
+            () ->
+                listForResourceSinglePageAsync(
+                    resourceGroupName,
+                    resourceProviderNamespace,
+                    parentResourcePath,
+                    resourceType,
+                    resourceName,
+                    filter,
+                    top),
             nextLink -> listForResourceNextSinglePageAsync(nextLink));
     }
 
     /**
-     * Gets policy assignments for a resource.
-     * 
-     * @param resourceGroupName The name of the resource group containing the resource. The name is case insensitive.
-     * @param resourceProviderNamespace The namespace of the resource provider.
-     * @param parentResourcePath The parent resource path.
-     * @param resourceType The resource type.
-     * @param resourceName The name of the resource with policy assignments.
-     * @param filter The filter to apply on the operation.
+     * This operation retrieves the list of all policy assignments associated with the specified resource in the given
+     * resource group and subscription that match the optional given $filter. Valid values for $filter are: 'atScope()',
+     * 'atExactScope()' or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes
+     * all policy assignments associated with the resource, including those that apply directly or from all containing
+     * scopes, as well as any applied to resources contained within the resource. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the resource, which is everything in the unfiltered
+     * list except those applied to resources contained within the resource. If $filter=atExactScope() is provided, the
+     * returned list only includes all policy assignments that at the resource level. If $filter=policyDefinitionId eq
+     * '{value}' is provided, the returned list includes all policy assignments of the policy definition whose id is
+     * {value} that apply to the resource. Three parameters plus the resource name are used to identify a specific
+     * resource. If the resource is not part of a parent resource (the more common case), the parent resource path
+     * should not be provided (or provided as ''). For example a web app could be specified as
+     * ({resourceProviderNamespace} == 'Microsoft.Web', {parentResourcePath} == '', {resourceType} == 'sites',
+     * {resourceName} == 'MyWebApp'). If the resource is part of a parent resource, then all parameters should be
+     * provided. For example a virtual machine DNS name could be specified as ({resourceProviderNamespace} ==
+     * 'Microsoft.Compute', {parentResourcePath} == 'virtualMachines/MyVirtualMachine', {resourceType} == 'domainNames',
+     * {resourceName} == 'MyComputerName'). A convenient alternative to providing the namespace and type name separately
+     * is to provide both in the {resourceType} parameter, format: ({resourceProviderNamespace} == '',
+     * {parentResourcePath} == '', {resourceType} == 'Microsoft.Web/sites', {resourceName} == 'MyWebApp').
+     *
+     * @param resourceGroupName The name of the resource group containing the resource.
+     * @param resourceProviderNamespace The namespace of the resource provider. For example, the namespace of a virtual
+     *     machine is Microsoft.Compute (from Microsoft.Compute/virtualMachines).
+     * @param parentResourcePath The parent resource path. Use empty string if there is none.
+     * @param resourceType The resource type name. For example the type name of a web app is 'sites' (from
+     *     Microsoft.Web/sites).
+     * @param resourceName The name of the resource.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for a resource.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    private PagedFlux<PolicyAssignmentInner> listForResourceAsync(String resourceGroupName, String resourceProviderNamespace, String parentResourcePath, String resourceType, String resourceName, String filter, Context context) {
+    private PagedFlux<PolicyAssignmentInner> listForResourceAsync(
+        String resourceGroupName,
+        String resourceProviderNamespace,
+        String parentResourcePath,
+        String resourceType,
+        String resourceName,
+        String filter,
+        Integer top,
+        Context context) {
         return new PagedFlux<>(
-            () -> listForResourceSinglePageAsync(resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName, filter, context),
+            () ->
+                listForResourceSinglePageAsync(
+                    resourceGroupName,
+                    resourceProviderNamespace,
+                    parentResourcePath,
+                    resourceType,
+                    resourceName,
+                    filter,
+                    top,
+                    context),
             nextLink -> listForResourceNextSinglePageAsync(nextLink, context));
     }
 
     /**
-     * Gets policy assignments for a resource.
-     * 
-     * @param resourceGroupName The name of the resource group containing the resource. The name is case insensitive.
-     * @param resourceProviderNamespace The namespace of the resource provider.
-     * @param parentResourcePath The parent resource path.
-     * @param resourceType The resource type.
-     * @param resourceName The name of the resource with policy assignments.
+     * This operation retrieves the list of all policy assignments associated with the specified resource in the given
+     * resource group and subscription that match the optional given $filter. Valid values for $filter are: 'atScope()',
+     * 'atExactScope()' or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes
+     * all policy assignments associated with the resource, including those that apply directly or from all containing
+     * scopes, as well as any applied to resources contained within the resource. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the resource, which is everything in the unfiltered
+     * list except those applied to resources contained within the resource. If $filter=atExactScope() is provided, the
+     * returned list only includes all policy assignments that at the resource level. If $filter=policyDefinitionId eq
+     * '{value}' is provided, the returned list includes all policy assignments of the policy definition whose id is
+     * {value} that apply to the resource. Three parameters plus the resource name are used to identify a specific
+     * resource. If the resource is not part of a parent resource (the more common case), the parent resource path
+     * should not be provided (or provided as ''). For example a web app could be specified as
+     * ({resourceProviderNamespace} == 'Microsoft.Web', {parentResourcePath} == '', {resourceType} == 'sites',
+     * {resourceName} == 'MyWebApp'). If the resource is part of a parent resource, then all parameters should be
+     * provided. For example a virtual machine DNS name could be specified as ({resourceProviderNamespace} ==
+     * 'Microsoft.Compute', {parentResourcePath} == 'virtualMachines/MyVirtualMachine', {resourceType} == 'domainNames',
+     * {resourceName} == 'MyComputerName'). A convenient alternative to providing the namespace and type name separately
+     * is to provide both in the {resourceType} parameter, format: ({resourceProviderNamespace} == '',
+     * {parentResourcePath} == '', {resourceType} == 'Microsoft.Web/sites', {resourceName} == 'MyWebApp').
+     *
+     * @param resourceGroupName The name of the resource group containing the resource.
+     * @param resourceProviderNamespace The namespace of the resource provider. For example, the namespace of a virtual
+     *     machine is Microsoft.Compute (from Microsoft.Compute/virtualMachines).
+     * @param parentResourcePath The parent resource path. Use empty string if there is none.
+     * @param resourceType The resource type name. For example the type name of a web app is 'sites' (from
+     *     Microsoft.Web/sites).
+     * @param resourceName The name of the resource.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for a resource.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<PolicyAssignmentInner> listForResource(String resourceGroupName, String resourceProviderNamespace, String parentResourcePath, String resourceType, String resourceName) {
+    public PagedIterable<PolicyAssignmentInner> listForResource(
+        String resourceGroupName,
+        String resourceProviderNamespace,
+        String parentResourcePath,
+        String resourceType,
+        String resourceName) {
         final String filter = null;
-        return new PagedIterable<>(listForResourceAsync(resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName, filter));
+        final Integer top = null;
+        return new PagedIterable<>(
+            listForResourceAsync(
+                resourceGroupName,
+                resourceProviderNamespace,
+                parentResourcePath,
+                resourceType,
+                resourceName,
+                filter,
+                top));
     }
 
     /**
-     * Gets policy assignments for a resource.
-     * 
-     * @param resourceGroupName The name of the resource group containing the resource. The name is case insensitive.
-     * @param resourceProviderNamespace The namespace of the resource provider.
-     * @param parentResourcePath The parent resource path.
-     * @param resourceType The resource type.
-     * @param resourceName The name of the resource with policy assignments.
-     * @param filter The filter to apply on the operation.
+     * This operation retrieves the list of all policy assignments associated with the specified resource in the given
+     * resource group and subscription that match the optional given $filter. Valid values for $filter are: 'atScope()',
+     * 'atExactScope()' or 'policyDefinitionId eq '{value}''. If $filter is not provided, the unfiltered list includes
+     * all policy assignments associated with the resource, including those that apply directly or from all containing
+     * scopes, as well as any applied to resources contained within the resource. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the resource, which is everything in the unfiltered
+     * list except those applied to resources contained within the resource. If $filter=atExactScope() is provided, the
+     * returned list only includes all policy assignments that at the resource level. If $filter=policyDefinitionId eq
+     * '{value}' is provided, the returned list includes all policy assignments of the policy definition whose id is
+     * {value} that apply to the resource. Three parameters plus the resource name are used to identify a specific
+     * resource. If the resource is not part of a parent resource (the more common case), the parent resource path
+     * should not be provided (or provided as ''). For example a web app could be specified as
+     * ({resourceProviderNamespace} == 'Microsoft.Web', {parentResourcePath} == '', {resourceType} == 'sites',
+     * {resourceName} == 'MyWebApp'). If the resource is part of a parent resource, then all parameters should be
+     * provided. For example a virtual machine DNS name could be specified as ({resourceProviderNamespace} ==
+     * 'Microsoft.Compute', {parentResourcePath} == 'virtualMachines/MyVirtualMachine', {resourceType} == 'domainNames',
+     * {resourceName} == 'MyComputerName'). A convenient alternative to providing the namespace and type name separately
+     * is to provide both in the {resourceType} parameter, format: ({resourceProviderNamespace} == '',
+     * {parentResourcePath} == '', {resourceType} == 'Microsoft.Web/sites', {resourceName} == 'MyWebApp').
+     *
+     * @param resourceGroupName The name of the resource group containing the resource.
+     * @param resourceProviderNamespace The namespace of the resource provider. For example, the namespace of a virtual
+     *     machine is Microsoft.Compute (from Microsoft.Compute/virtualMachines).
+     * @param parentResourcePath The parent resource path. Use empty string if there is none.
+     * @param resourceType The resource type name. For example the type name of a web app is 'sites' (from
+     *     Microsoft.Web/sites).
+     * @param resourceName The name of the resource.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return policy assignments for a resource.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<PolicyAssignmentInner> listForResource(String resourceGroupName, String resourceProviderNamespace, String parentResourcePath, String resourceType, String resourceName, String filter, Context context) {
-        return new PagedIterable<>(listForResourceAsync(resourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType, resourceName, filter, context));
+    public PagedIterable<PolicyAssignmentInner> listForResource(
+        String resourceGroupName,
+        String resourceProviderNamespace,
+        String parentResourcePath,
+        String resourceType,
+        String resourceName,
+        String filter,
+        Integer top,
+        Context context) {
+        return new PagedIterable<>(
+            listForResourceAsync(
+                resourceGroupName,
+                resourceProviderNamespace,
+                parentResourcePath,
+                resourceType,
+                resourceName,
+                filter,
+                top,
+                context));
     }
 
     /**
-     * Gets all the policy assignments for a subscription.
-     * 
-     * @param filter The filter to apply on the operation.
+     * This operation retrieves the list of all policy assignments applicable to the management group that match the
+     * given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq '{value}''.
+     * If $filter=atScope() is provided, the returned list includes all policy assignments that are assigned to the
+     * management group or the management group's ancestors. If $filter=atExactScope() is provided, the returned list
+     * only includes all policy assignments that at the management group. If $filter=policyDefinitionId eq '{value}' is
+     * provided, the returned list includes all policy assignments of the policy definition whose id is {value} that
+     * apply to the management group.
+     *
+     * @param managementGroupId The ID of the management group.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all the policy assignments for a subscription.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<PolicyAssignmentInner>> listSinglePageAsync(String filter) {
+    private Mono<PagedResponse<PolicyAssignmentInner>> listForManagementGroupSinglePageAsync(
+        String managementGroupId, String filter, Integer top) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
-        if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+        if (managementGroupId == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementGroupId is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.list(this.client.getEndpoint(), filter, this.client.getApiVersion(), this.client.getSubscriptionId(), accept, context))
-            .<PagedResponse<PolicyAssignmentInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .listForManagementGroup(
+                            this.client.getEndpoint(), managementGroupId, filter, top, apiVersion, accept, context))
+            .<PagedResponse<PolicyAssignmentInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Gets all the policy assignments for a subscription.
-     * 
-     * @param filter The filter to apply on the operation.
+     * This operation retrieves the list of all policy assignments applicable to the management group that match the
+     * given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq '{value}''.
+     * If $filter=atScope() is provided, the returned list includes all policy assignments that are assigned to the
+     * management group or the management group's ancestors. If $filter=atExactScope() is provided, the returned list
+     * only includes all policy assignments that at the management group. If $filter=policyDefinitionId eq '{value}' is
+     * provided, the returned list includes all policy assignments of the policy definition whose id is {value} that
+     * apply to the management group.
+     *
+     * @param managementGroupId The ID of the management group.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all the policy assignments for a subscription.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<PolicyAssignmentInner>> listSinglePageAsync(String filter, Context context) {
+    private Mono<PagedResponse<PolicyAssignmentInner>> listForManagementGroupSinglePageAsync(
+        String managementGroupId, String filter, Integer top, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
-        if (this.client.getSubscriptionId() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getSubscriptionId() is required and cannot be null."));
+        if (managementGroupId == null) {
+            return Mono
+                .error(new IllegalArgumentException("Parameter managementGroupId is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.list(this.client.getEndpoint(), filter, this.client.getApiVersion(), this.client.getSubscriptionId(), accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .listForManagementGroup(
+                this.client.getEndpoint(), managementGroupId, filter, top, apiVersion, accept, context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 
     /**
-     * Gets all the policy assignments for a subscription.
-     * 
-     * @param filter The filter to apply on the operation.
+     * This operation retrieves the list of all policy assignments applicable to the management group that match the
+     * given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq '{value}''.
+     * If $filter=atScope() is provided, the returned list includes all policy assignments that are assigned to the
+     * management group or the management group's ancestors. If $filter=atExactScope() is provided, the returned list
+     * only includes all policy assignments that at the management group. If $filter=policyDefinitionId eq '{value}' is
+     * provided, the returned list includes all policy assignments of the policy definition whose id is {value} that
+     * apply to the management group.
+     *
+     * @param managementGroupId The ID of the management group.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all the policy assignments for a subscription.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<PolicyAssignmentInner> listAsync(String filter) {
+    public PagedFlux<PolicyAssignmentInner> listForManagementGroupAsync(
+        String managementGroupId, String filter, Integer top) {
         return new PagedFlux<>(
-            () -> listSinglePageAsync(filter),
-            nextLink -> listNextSinglePageAsync(nextLink));
+            () -> listForManagementGroupSinglePageAsync(managementGroupId, filter, top),
+            nextLink -> listForManagementGroupNextSinglePageAsync(nextLink));
     }
 
     /**
-     * Gets all the policy assignments for a subscription.
-     * 
+     * This operation retrieves the list of all policy assignments applicable to the management group that match the
+     * given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq '{value}''.
+     * If $filter=atScope() is provided, the returned list includes all policy assignments that are assigned to the
+     * management group or the management group's ancestors. If $filter=atExactScope() is provided, the returned list
+     * only includes all policy assignments that at the management group. If $filter=policyDefinitionId eq '{value}' is
+     * provided, the returned list includes all policy assignments of the policy definition whose id is {value} that
+     * apply to the management group.
+     *
+     * @param managementGroupId The ID of the management group.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all the policy assignments for a subscription.
+     * @return list of policy assignments.
+     */
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    public PagedFlux<PolicyAssignmentInner> listForManagementGroupAsync(String managementGroupId) {
+        final String filter = null;
+        final Integer top = null;
+        return new PagedFlux<>(
+            () -> listForManagementGroupSinglePageAsync(managementGroupId, filter, top),
+            nextLink -> listForManagementGroupNextSinglePageAsync(nextLink));
+    }
+
+    /**
+     * This operation retrieves the list of all policy assignments applicable to the management group that match the
+     * given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq '{value}''.
+     * If $filter=atScope() is provided, the returned list includes all policy assignments that are assigned to the
+     * management group or the management group's ancestors. If $filter=atExactScope() is provided, the returned list
+     * only includes all policy assignments that at the management group. If $filter=policyDefinitionId eq '{value}' is
+     * provided, the returned list includes all policy assignments of the policy definition whose id is {value} that
+     * apply to the management group.
+     *
+     * @param managementGroupId The ID of the management group.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list of policy assignments.
+     */
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    private PagedFlux<PolicyAssignmentInner> listForManagementGroupAsync(
+        String managementGroupId, String filter, Integer top, Context context) {
+        return new PagedFlux<>(
+            () -> listForManagementGroupSinglePageAsync(managementGroupId, filter, top, context),
+            nextLink -> listForManagementGroupNextSinglePageAsync(nextLink, context));
+    }
+
+    /**
+     * This operation retrieves the list of all policy assignments applicable to the management group that match the
+     * given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq '{value}''.
+     * If $filter=atScope() is provided, the returned list includes all policy assignments that are assigned to the
+     * management group or the management group's ancestors. If $filter=atExactScope() is provided, the returned list
+     * only includes all policy assignments that at the management group. If $filter=policyDefinitionId eq '{value}' is
+     * provided, the returned list includes all policy assignments of the policy definition whose id is {value} that
+     * apply to the management group.
+     *
+     * @param managementGroupId The ID of the management group.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list of policy assignments.
+     */
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    public PagedIterable<PolicyAssignmentInner> listForManagementGroup(String managementGroupId) {
+        final String filter = null;
+        final Integer top = null;
+        return new PagedIterable<>(listForManagementGroupAsync(managementGroupId, filter, top));
+    }
+
+    /**
+     * This operation retrieves the list of all policy assignments applicable to the management group that match the
+     * given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq '{value}''.
+     * If $filter=atScope() is provided, the returned list includes all policy assignments that are assigned to the
+     * management group or the management group's ancestors. If $filter=atExactScope() is provided, the returned list
+     * only includes all policy assignments that at the management group. If $filter=policyDefinitionId eq '{value}' is
+     * provided, the returned list includes all policy assignments of the policy definition whose id is {value} that
+     * apply to the management group.
+     *
+     * @param managementGroupId The ID of the management group.
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list of policy assignments.
+     */
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    public PagedIterable<PolicyAssignmentInner> listForManagementGroup(
+        String managementGroupId, String filter, Integer top, Context context) {
+        return new PagedIterable<>(listForManagementGroupAsync(managementGroupId, filter, top, context));
+    }
+
+    /**
+     * This operation retrieves the list of all policy assignments associated with the given subscription that match the
+     * optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq
+     * '{value}''. If $filter is not provided, the unfiltered list includes all policy assignments associated with the
+     * subscription, including those that apply directly or from management groups that contain the given subscription,
+     * as well as any applied to objects contained within the subscription. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the subscription, which is everything in the
+     * unfiltered list except those applied to objects contained within the subscription. If $filter=atExactScope() is
+     * provided, the returned list only includes all policy assignments that at the subscription. If
+     * $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments of the
+     * policy definition whose id is {value}.
+     *
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list of policy assignments.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<PagedResponse<PolicyAssignmentInner>> listSinglePageAsync(String filter, Integer top) {
+        if (this.client.getEndpoint() == null) {
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        if (this.client.getSubscriptionId() == null) {
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
+        }
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .list(
+                            this.client.getEndpoint(),
+                            filter,
+                            top,
+                            apiVersion,
+                            this.client.getSubscriptionId(),
+                            accept,
+                            context))
+            .<PagedResponse<PolicyAssignmentInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
+            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
+    }
+
+    /**
+     * This operation retrieves the list of all policy assignments associated with the given subscription that match the
+     * optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq
+     * '{value}''. If $filter is not provided, the unfiltered list includes all policy assignments associated with the
+     * subscription, including those that apply directly or from management groups that contain the given subscription,
+     * as well as any applied to objects contained within the subscription. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the subscription, which is everything in the
+     * unfiltered list except those applied to objects contained within the subscription. If $filter=atExactScope() is
+     * provided, the returned list only includes all policy assignments that at the subscription. If
+     * $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments of the
+     * policy definition whose id is {value}.
+     *
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list of policy assignments.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<PagedResponse<PolicyAssignmentInner>> listSinglePageAsync(
+        String filter, Integer top, Context context) {
+        if (this.client.getEndpoint() == null) {
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        if (this.client.getSubscriptionId() == null) {
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getSubscriptionId() is required and cannot be null."));
+        }
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        context = this.client.mergeContext(context);
+        return service
+            .list(this.client.getEndpoint(), filter, top, apiVersion, this.client.getSubscriptionId(), accept, context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
+    }
+
+    /**
+     * This operation retrieves the list of all policy assignments associated with the given subscription that match the
+     * optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq
+     * '{value}''. If $filter is not provided, the unfiltered list includes all policy assignments associated with the
+     * subscription, including those that apply directly or from management groups that contain the given subscription,
+     * as well as any applied to objects contained within the subscription. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the subscription, which is everything in the
+     * unfiltered list except those applied to objects contained within the subscription. If $filter=atExactScope() is
+     * provided, the returned list only includes all policy assignments that at the subscription. If
+     * $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments of the
+     * policy definition whose id is {value}.
+     *
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list of policy assignments.
+     */
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    public PagedFlux<PolicyAssignmentInner> listAsync(String filter, Integer top) {
+        return new PagedFlux<>(() -> listSinglePageAsync(filter, top), nextLink -> listNextSinglePageAsync(nextLink));
+    }
+
+    /**
+     * This operation retrieves the list of all policy assignments associated with the given subscription that match the
+     * optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq
+     * '{value}''. If $filter is not provided, the unfiltered list includes all policy assignments associated with the
+     * subscription, including those that apply directly or from management groups that contain the given subscription,
+     * as well as any applied to objects contained within the subscription. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the subscription, which is everything in the
+     * unfiltered list except those applied to objects contained within the subscription. If $filter=atExactScope() is
+     * provided, the returned list only includes all policy assignments that at the subscription. If
+     * $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments of the
+     * policy definition whose id is {value}.
+     *
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedFlux<PolicyAssignmentInner> listAsync() {
         final String filter = null;
-        return new PagedFlux<>(
-            () -> listSinglePageAsync(filter),
-            nextLink -> listNextSinglePageAsync(nextLink));
+        final Integer top = null;
+        return new PagedFlux<>(() -> listSinglePageAsync(filter, top), nextLink -> listNextSinglePageAsync(nextLink));
     }
 
     /**
-     * Gets all the policy assignments for a subscription.
-     * 
-     * @param filter The filter to apply on the operation.
+     * This operation retrieves the list of all policy assignments associated with the given subscription that match the
+     * optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq
+     * '{value}''. If $filter is not provided, the unfiltered list includes all policy assignments associated with the
+     * subscription, including those that apply directly or from management groups that contain the given subscription,
+     * as well as any applied to objects contained within the subscription. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the subscription, which is everything in the
+     * unfiltered list except those applied to objects contained within the subscription. If $filter=atExactScope() is
+     * provided, the returned list only includes all policy assignments that at the subscription. If
+     * $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments of the
+     * policy definition whose id is {value}.
+     *
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all the policy assignments for a subscription.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    private PagedFlux<PolicyAssignmentInner> listAsync(String filter, Context context) {
+    private PagedFlux<PolicyAssignmentInner> listAsync(String filter, Integer top, Context context) {
         return new PagedFlux<>(
-            () -> listSinglePageAsync(filter, context),
-            nextLink -> listNextSinglePageAsync(nextLink, context));
+            () -> listSinglePageAsync(filter, top, context), nextLink -> listNextSinglePageAsync(nextLink, context));
     }
 
     /**
-     * Gets all the policy assignments for a subscription.
-     * 
+     * This operation retrieves the list of all policy assignments associated with the given subscription that match the
+     * optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq
+     * '{value}''. If $filter is not provided, the unfiltered list includes all policy assignments associated with the
+     * subscription, including those that apply directly or from management groups that contain the given subscription,
+     * as well as any applied to objects contained within the subscription. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the subscription, which is everything in the
+     * unfiltered list except those applied to objects contained within the subscription. If $filter=atExactScope() is
+     * provided, the returned list only includes all policy assignments that at the subscription. If
+     * $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments of the
+     * policy definition whose id is {value}.
+     *
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all the policy assignments for a subscription.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<PolicyAssignmentInner> list() {
         final String filter = null;
-        return new PagedIterable<>(listAsync(filter));
+        final Integer top = null;
+        return new PagedIterable<>(listAsync(filter, top));
     }
 
     /**
-     * Gets all the policy assignments for a subscription.
-     * 
-     * @param filter The filter to apply on the operation.
+     * This operation retrieves the list of all policy assignments associated with the given subscription that match the
+     * optional given $filter. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId eq
+     * '{value}''. If $filter is not provided, the unfiltered list includes all policy assignments associated with the
+     * subscription, including those that apply directly or from management groups that contain the given subscription,
+     * as well as any applied to objects contained within the subscription. If $filter=atScope() is provided, the
+     * returned list includes all policy assignments that apply to the subscription, which is everything in the
+     * unfiltered list except those applied to objects contained within the subscription. If $filter=atExactScope() is
+     * provided, the returned list only includes all policy assignments that at the subscription. If
+     * $filter=policyDefinitionId eq '{value}' is provided, the returned list includes all policy assignments of the
+     * policy definition whose id is {value}.
+     *
+     * @param filter The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()'
+     *     or 'policyDefinitionId eq '{value}''. If $filter is not provided, no filtering is performed. If
+     *     $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the
+     *     scope, which is everything in the unfiltered list except those applied to sub scopes contained within the
+     *     given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments
+     *     that at the given scope. If $filter=policyDefinitionId eq '{value}' is provided, the returned list includes
+     *     all policy assignments of the policy definition whose id is {value}.
+     * @param top Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all the policy assignments for a subscription.
+     * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<PolicyAssignmentInner> list(String filter, Context context) {
-        return new PagedIterable<>(listAsync(filter, context));
+    public PagedIterable<PolicyAssignmentInner> list(String filter, Integer top, Context context) {
+        return new PagedIterable<>(listAsync(filter, top, context));
     }
 
     /**
-     * When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to delete. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * This operation deletes the policy with the given ID. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid formats for {scope}
+     * are: '/providers/Microsoft.Management/managementGroups/{managementGroup}' (management group),
+     * '/subscriptions/{subscriptionId}' (subscription),
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' (resource group), or
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'
+     * (resource).
+     *
+     * @param policyAssignmentId The ID of the policy assignment to delete. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -976,20 +2066,35 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<PolicyAssignmentInner>> deleteByIdWithResponseAsync(String policyAssignmentId) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (policyAssignmentId == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.deleteById(this.client.getEndpoint(), policyAssignmentId, this.client.getApiVersion(), accept, context))
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service.deleteById(this.client.getEndpoint(), policyAssignmentId, apiVersion, accept, context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to delete. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * This operation deletes the policy with the given ID. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid formats for {scope}
+     * are: '/providers/Microsoft.Management/managementGroups/{managementGroup}' (management group),
+     * '/subscriptions/{subscriptionId}' (subscription),
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' (resource group), or
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'
+     * (resource).
+     *
+     * @param policyAssignmentId The ID of the policy assignment to delete. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -997,22 +2102,35 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<PolicyAssignmentInner>> deleteByIdWithResponseAsync(String policyAssignmentId, Context context) {
+    private Mono<Response<PolicyAssignmentInner>> deleteByIdWithResponseAsync(
+        String policyAssignmentId, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (policyAssignmentId == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.deleteById(this.client.getEndpoint(), policyAssignmentId, this.client.getApiVersion(), accept, context);
+        return service.deleteById(this.client.getEndpoint(), policyAssignmentId, apiVersion, accept, context);
     }
 
     /**
-     * When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to delete. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * This operation deletes the policy with the given ID. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid formats for {scope}
+     * are: '/providers/Microsoft.Management/managementGroups/{managementGroup}' (management group),
+     * '/subscriptions/{subscriptionId}' (subscription),
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' (resource group), or
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'
+     * (resource).
+     *
+     * @param policyAssignmentId The ID of the policy assignment to delete. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -1021,19 +2139,27 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<PolicyAssignmentInner> deleteByIdAsync(String policyAssignmentId) {
         return deleteByIdWithResponseAsync(policyAssignmentId)
-            .flatMap((Response<PolicyAssignmentInner> res) -> {
-                if (res.getValue() != null) {
-                    return Mono.just(res.getValue());
-                } else {
-                    return Mono.empty();
-                }
-            });
+            .flatMap(
+                (Response<PolicyAssignmentInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
-     * When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to delete. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * This operation deletes the policy with the given ID. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid formats for {scope}
+     * are: '/providers/Microsoft.Management/managementGroups/{managementGroup}' (management group),
+     * '/subscriptions/{subscriptionId}' (subscription),
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' (resource group), or
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'
+     * (resource).
+     *
+     * @param policyAssignmentId The ID of the policy assignment to delete. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -1045,9 +2171,16 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     }
 
     /**
-     * When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to delete. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * This operation deletes the policy with the given ID. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid formats for {scope}
+     * are: '/providers/Microsoft.Management/managementGroups/{managementGroup}' (management group),
+     * '/subscriptions/{subscriptionId}' (subscription),
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' (resource group), or
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'
+     * (resource).
+     *
+     * @param policyAssignmentId The ID of the policy assignment to delete. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1060,9 +2193,17 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     }
 
     /**
-     * Policy assignments are inherited by child resources. For example, when you apply a policy to a resource group that policy is assigned to all resources in the group. When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to create. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * This operation creates or updates the policy assignment with the given ID. Policy assignments made on a scope
+     * apply to all resources contained in that scope. For example, when you assign a policy to a resource group that
+     * policy applies to all resources in the group. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid scopes are:
+     * management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription
+     * (format: '/subscriptions/{subscriptionId}'), resource group (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
+     *
+     * @param policyAssignmentId The ID of the policy assignment to create. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @param parameters Parameters for policy assignment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1070,27 +2211,46 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Mono<Response<PolicyAssignmentInner>> createByIdWithResponseAsync(String policyAssignmentId, PolicyAssignmentInner parameters) {
+    public Mono<Response<PolicyAssignmentInner>> createByIdWithResponseAsync(
+        String policyAssignmentId, PolicyAssignmentInner parameters) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (policyAssignmentId == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
         }
         if (parameters == null) {
             return Mono.error(new IllegalArgumentException("Parameter parameters is required and cannot be null."));
         } else {
             parameters.validate();
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.createById(this.client.getEndpoint(), policyAssignmentId, this.client.getApiVersion(), parameters, accept, context))
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context ->
+                    service
+                        .createById(
+                            this.client.getEndpoint(), policyAssignmentId, apiVersion, parameters, accept, context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Policy assignments are inherited by child resources. For example, when you apply a policy to a resource group that policy is assigned to all resources in the group. When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to create. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * This operation creates or updates the policy assignment with the given ID. Policy assignments made on a scope
+     * apply to all resources contained in that scope. For example, when you assign a policy to a resource group that
+     * policy applies to all resources in the group. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid scopes are:
+     * management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription
+     * (format: '/subscriptions/{subscriptionId}'), resource group (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
+     *
+     * @param policyAssignmentId The ID of the policy assignment to create. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @param parameters Parameters for policy assignment.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1099,27 +2259,42 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<Response<PolicyAssignmentInner>> createByIdWithResponseAsync(String policyAssignmentId, PolicyAssignmentInner parameters, Context context) {
+    private Mono<Response<PolicyAssignmentInner>> createByIdWithResponseAsync(
+        String policyAssignmentId, PolicyAssignmentInner parameters, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (policyAssignmentId == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
         }
         if (parameters == null) {
             return Mono.error(new IllegalArgumentException("Parameter parameters is required and cannot be null."));
         } else {
             parameters.validate();
         }
-        final String accept = "application/json, text/json";
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.createById(this.client.getEndpoint(), policyAssignmentId, this.client.getApiVersion(), parameters, accept, context);
+        return service
+            .createById(this.client.getEndpoint(), policyAssignmentId, apiVersion, parameters, accept, context);
     }
 
     /**
-     * Policy assignments are inherited by child resources. For example, when you apply a policy to a resource group that policy is assigned to all resources in the group. When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to create. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * This operation creates or updates the policy assignment with the given ID. Policy assignments made on a scope
+     * apply to all resources contained in that scope. For example, when you assign a policy to a resource group that
+     * policy applies to all resources in the group. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid scopes are:
+     * management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription
+     * (format: '/subscriptions/{subscriptionId}'), resource group (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
+     *
+     * @param policyAssignmentId The ID of the policy assignment to create. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @param parameters Parameters for policy assignment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1129,19 +2304,28 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<PolicyAssignmentInner> createByIdAsync(String policyAssignmentId, PolicyAssignmentInner parameters) {
         return createByIdWithResponseAsync(policyAssignmentId, parameters)
-            .flatMap((Response<PolicyAssignmentInner> res) -> {
-                if (res.getValue() != null) {
-                    return Mono.just(res.getValue());
-                } else {
-                    return Mono.empty();
-                }
-            });
+            .flatMap(
+                (Response<PolicyAssignmentInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
-     * Policy assignments are inherited by child resources. For example, when you apply a policy to a resource group that policy is assigned to all resources in the group. When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to create. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * This operation creates or updates the policy assignment with the given ID. Policy assignments made on a scope
+     * apply to all resources contained in that scope. For example, when you assign a policy to a resource group that
+     * policy applies to all resources in the group. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid scopes are:
+     * management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription
+     * (format: '/subscriptions/{subscriptionId}'), resource group (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
+     *
+     * @param policyAssignmentId The ID of the policy assignment to create. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @param parameters Parameters for policy assignment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1154,9 +2338,17 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     }
 
     /**
-     * Policy assignments are inherited by child resources. For example, when you apply a policy to a resource group that policy is assigned to all resources in the group. When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to create. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * This operation creates or updates the policy assignment with the given ID. Policy assignments made on a scope
+     * apply to all resources contained in that scope. For example, when you assign a policy to a resource group that
+     * policy applies to all resources in the group. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid scopes are:
+     * management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription
+     * (format: '/subscriptions/{subscriptionId}'), resource group (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
+     *
+     * @param policyAssignmentId The ID of the policy assignment to create. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @param parameters Parameters for policy assignment.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1165,14 +2357,21 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return the policy assignment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    public Response<PolicyAssignmentInner> createByIdWithResponse(String policyAssignmentId, PolicyAssignmentInner parameters, Context context) {
+    public Response<PolicyAssignmentInner> createByIdWithResponse(
+        String policyAssignmentId, PolicyAssignmentInner parameters, Context context) {
         return createByIdWithResponseAsync(policyAssignmentId, parameters, context).block();
     }
 
     /**
-     * When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to get. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * The operation retrieves the policy assignment with the given ID. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid scopes are:
+     * management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription
+     * (format: '/subscriptions/{subscriptionId}'), resource group (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
+     *
+     * @param policyAssignmentId The ID of the policy assignment to get. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -1181,20 +2380,33 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<PolicyAssignmentInner>> getByIdWithResponseAsync(String policyAssignmentId) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (policyAssignmentId == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.getById(this.client.getEndpoint(), policyAssignmentId, this.client.getApiVersion(), accept, context))
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context -> service.getById(this.client.getEndpoint(), policyAssignmentId, apiVersion, accept, context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to get. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * The operation retrieves the policy assignment with the given ID. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid scopes are:
+     * management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription
+     * (format: '/subscriptions/{subscriptionId}'), resource group (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
+     *
+     * @param policyAssignmentId The ID of the policy assignment to get. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1204,20 +2416,31 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<Response<PolicyAssignmentInner>> getByIdWithResponseAsync(String policyAssignmentId, Context context) {
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
         if (policyAssignmentId == null) {
-            return Mono.error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
+            return Mono
+                .error(new IllegalArgumentException("Parameter policyAssignmentId is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
+        final String apiVersion = "2020-09-01";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.getById(this.client.getEndpoint(), policyAssignmentId, this.client.getApiVersion(), accept, context);
+        return service.getById(this.client.getEndpoint(), policyAssignmentId, apiVersion, accept, context);
     }
 
     /**
-     * When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to get. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * The operation retrieves the policy assignment with the given ID. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid scopes are:
+     * management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription
+     * (format: '/subscriptions/{subscriptionId}'), resource group (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
+     *
+     * @param policyAssignmentId The ID of the policy assignment to get. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -1226,19 +2449,26 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<PolicyAssignmentInner> getByIdAsync(String policyAssignmentId) {
         return getByIdWithResponseAsync(policyAssignmentId)
-            .flatMap((Response<PolicyAssignmentInner> res) -> {
-                if (res.getValue() != null) {
-                    return Mono.just(res.getValue());
-                } else {
-                    return Mono.empty();
-                }
-            });
+            .flatMap(
+                (Response<PolicyAssignmentInner> res) -> {
+                    if (res.getValue() != null) {
+                        return Mono.just(res.getValue());
+                    } else {
+                        return Mono.empty();
+                    }
+                });
     }
 
     /**
-     * When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to get. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * The operation retrieves the policy assignment with the given ID. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid scopes are:
+     * management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription
+     * (format: '/subscriptions/{subscriptionId}'), resource group (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
+     *
+     * @param policyAssignmentId The ID of the policy assignment to get. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -1250,9 +2480,15 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
     }
 
     /**
-     * When providing a scope for the assignment, use '/subscriptions/{subscription-id}/' for subscriptions, '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for resource groups, and '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider-namespace}/{resource-type}/{resource-name}' for resources.
-     * 
-     * @param policyAssignmentId The ID of the policy assignment to get. Use the format '/{scope}/providers/Microsoft.Authorization/policyAssignments/{policy-assignment-name}'.
+     * The operation retrieves the policy assignment with the given ID. Policy assignment IDs have this format:
+     * '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'. Valid scopes are:
+     * management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroup}'), subscription
+     * (format: '/subscriptions/{subscriptionId}'), resource group (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+     * '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'.
+     *
+     * @param policyAssignmentId The ID of the policy assignment to get. Use the format
+     *     '{scope}/providers/Microsoft.Authorization/policyAssignments/{policyAssignmentName}'.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1266,7 +2502,7 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1279,23 +2515,30 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.listForResourceGroupNext(nextLink, this.client.getEndpoint(), accept, context))
-            .<PagedResponse<PolicyAssignmentInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context -> service.listForResourceGroupNext(nextLink, this.client.getEndpoint(), accept, context))
+            .<PagedResponse<PolicyAssignmentInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1304,28 +2547,35 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<PolicyAssignmentInner>> listForResourceGroupNextSinglePageAsync(String nextLink, Context context) {
+    private Mono<PagedResponse<PolicyAssignmentInner>> listForResourceGroupNextSinglePageAsync(
+        String nextLink, Context context) {
         if (nextLink == null) {
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.listForResourceGroupNext(nextLink, this.client.getEndpoint(), accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .listForResourceGroupNext(nextLink, this.client.getEndpoint(), accept, context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1338,23 +2588,29 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.listForResourceNext(nextLink, this.client.getEndpoint(), accept, context))
-            .<PagedResponse<PolicyAssignmentInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(context -> service.listForResourceNext(nextLink, this.client.getEndpoint(), accept, context))
+            .<PagedResponse<PolicyAssignmentInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1363,28 +2619,108 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
      * @return list of policy assignments.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<PolicyAssignmentInner>> listForResourceNextSinglePageAsync(String nextLink, Context context) {
+    private Mono<PagedResponse<PolicyAssignmentInner>> listForResourceNextSinglePageAsync(
+        String nextLink, Context context) {
         if (nextLink == null) {
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.listForResourceNext(nextLink, this.client.getEndpoint(), accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .listForResourceNext(nextLink, this.client.getEndpoint(), accept, context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 
     /**
      * Get the next page of items.
-     * 
+     *
+     * @param nextLink The nextLink parameter.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list of policy assignments.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<PagedResponse<PolicyAssignmentInner>> listForManagementGroupNextSinglePageAsync(String nextLink) {
+        if (nextLink == null) {
+            return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
+        }
+        if (this.client.getEndpoint() == null) {
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(
+                context -> service.listForManagementGroupNext(nextLink, this.client.getEndpoint(), accept, context))
+            .<PagedResponse<PolicyAssignmentInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
+            .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
+    }
+
+    /**
+     * Get the next page of items.
+     *
+     * @param nextLink The nextLink parameter.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return list of policy assignments.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    private Mono<PagedResponse<PolicyAssignmentInner>> listForManagementGroupNextSinglePageAsync(
+        String nextLink, Context context) {
+        if (nextLink == null) {
+            return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
+        }
+        if (this.client.getEndpoint() == null) {
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
+        }
+        final String accept = "application/json";
+        context = this.client.mergeContext(context);
+        return service
+            .listForManagementGroupNext(nextLink, this.client.getEndpoint(), accept, context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
+    }
+
+    /**
+     * Get the next page of items.
+     *
      * @param nextLink The nextLink parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws ManagementException thrown if the request is rejected by server.
@@ -1397,23 +2733,29 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
-        return FluxUtil.withContext(context -> service.listNext(nextLink, this.client.getEndpoint(), accept, context))
-            .<PagedResponse<PolicyAssignmentInner>>map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null))
+        final String accept = "application/json";
+        return FluxUtil
+            .withContext(context -> service.listNext(nextLink, this.client.getEndpoint(), accept, context))
+            .<PagedResponse<PolicyAssignmentInner>>map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
      * Get the next page of items.
-     * 
+     *
      * @param nextLink The nextLink parameter.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -1427,17 +2769,23 @@ public final class PolicyAssignmentsClientImpl implements InnerSupportsListing<P
             return Mono.error(new IllegalArgumentException("Parameter nextLink is required and cannot be null."));
         }
         if (this.client.getEndpoint() == null) {
-            return Mono.error(new IllegalArgumentException("Parameter this.client.getEndpoint() is required and cannot be null."));
+            return Mono
+                .error(
+                    new IllegalArgumentException(
+                        "Parameter this.client.getEndpoint() is required and cannot be null."));
         }
-        final String accept = "application/json, text/json";
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
-        return service.listNext(nextLink, this.client.getEndpoint(), accept, context)
-            .map(res -> new PagedResponseBase<>(
-                res.getRequest(),
-                res.getStatusCode(),
-                res.getHeaders(),
-                res.getValue().value(),
-                res.getValue().nextLink(),
-                null));
+        return service
+            .listNext(nextLink, this.client.getEndpoint(), accept, context)
+            .map(
+                res ->
+                    new PagedResponseBase<>(
+                        res.getRequest(),
+                        res.getStatusCode(),
+                        res.getHeaders(),
+                        res.getValue().value(),
+                        res.getValue().nextLink(),
+                        null));
     }
 }

@@ -23,4 +23,14 @@ class PermissionImpl extends WrapperImpl<PermissionInner> implements Permission 
     public List<String> notActions() {
         return innerModel().notActions();
     }
+
+    @Override
+    public List<String> dataActions() {
+        return innerModel().dataActions();
+    }
+
+    @Override
+    public List<String> notDataActions() {
+        return innerModel().notDataActions();
+    }
 }

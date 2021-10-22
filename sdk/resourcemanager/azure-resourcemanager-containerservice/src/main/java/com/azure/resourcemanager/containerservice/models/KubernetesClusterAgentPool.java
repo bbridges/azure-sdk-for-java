@@ -84,6 +84,12 @@ public interface KubernetesClusterAgentPool
      */
     OSDiskType osDiskType();
 
+    /**
+     * @return the disk type for the placement of emptyDir volumes, container runtime data root,
+     * and Kubelet ephemeral storage
+     */
+    KubeletDiskType kubeletDiskType();
+
     // Fluent interfaces
 
     /**
@@ -363,6 +369,16 @@ public interface KubernetesClusterAgentPool
              * @return the next stage of the definition
              */
             WithAttach<ParentT> withOSDiskType(OSDiskType osDiskType);
+
+            /**
+             * The disk type for the placement of emptyDir volumes, container runtime data root,
+             * and Kubelet ephemeral storage.
+             *
+             * @param kubeletDiskType the disk type for the placement of emptyDir volumes, container runtime data root,
+             *                        and Kubelet ephemeral storage.
+             * @return the next stage of the definition
+             */
+            WithAttach<ParentT> withKubeletDiskType(KubeletDiskType kubeletDiskType);
         }
 
         /**
@@ -395,7 +411,8 @@ public interface KubernetesClusterAgentPool
         extends Settable<ParentT>,
             UpdateStages.WithAgentPoolVirtualMachineCount<ParentT>,
             UpdateStages.WithAutoScaling<ParentT>,
-            UpdateStages.WithAgentPoolMode<ParentT>
+            UpdateStages.WithAgentPoolMode<ParentT>,
+            UpdateStages.WithDiskType<ParentT>
     {
     }
 
@@ -456,6 +473,23 @@ public interface KubernetesClusterAgentPool
              * @return the next stage of the update
              */
             Update<ParentT> withoutAutoScaling();
+        }
+
+        /**
+         * The stage of a container service agent pool update allowing to specify the agent pool disk type.
+         *
+         * @param <ParentT> the stage of the container service definition to return to after attaching this definition
+         */
+        interface WithDiskType<ParentT> {
+            /**
+             * The disk type for the placement of emptyDir volumes, container runtime data root,
+             * and Kubelet ephemeral storage.
+             *
+             * @param kubeletDiskType the disk type for the placement of emptyDir volumes, container runtime data root,
+             *                        and Kubelet ephemeral storage.
+             * @return the next stage of the update
+             */
+            Update<ParentT> withKubeletDiskType(KubeletDiskType kubeletDiskType);
         }
     }
 }

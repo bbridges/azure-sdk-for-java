@@ -51,7 +51,7 @@ public interface PolicyDefinition extends
     /**
      * @return the parameters of the policy definition
      */
-    Object parameters();
+    Map<String, ParameterDefinitionsValue> parameters();
 
     /**
      * Container interface for all the definitions that need to be implemented.
@@ -138,10 +138,21 @@ public interface PolicyDefinition extends
             /**
              * Specifies the parameters of the policy.
              *
-             * @param parameters  the parameters of the policy
+             * @param name the name of the parameter
+             * @param definition the definition of the parameter
              * @return the next stage of policy definition
              */
-            WithCreate withParameters(Object parameters);
+            WithCreate withParameter(String name, ParameterDefinitionsValue definition);
+
+            /**
+             * Specifies the parameters of the policy.
+             *
+             * @param name the name of the parameter
+             * @param parameterType the type of the parameter
+             * @param defaultValue the default value of the parameter
+             * @return the next stage of policy definition
+             */
+            WithCreate withParameter(String name, ParameterType parameterType, Object defaultValue);
         }
 
         /**

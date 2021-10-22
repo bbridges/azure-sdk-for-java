@@ -7,11 +7,9 @@ package com.azure.resourcemanager.appservice.fluent.models;
 import com.azure.core.annotation.Fluent;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.appservice.models.HostingEnvironmentStatus;
-import com.azure.resourcemanager.appservice.models.InternalLoadBalancingMode;
+import com.azure.resourcemanager.appservice.models.LoadBalancingMode;
 import com.azure.resourcemanager.appservice.models.NameValuePair;
-import com.azure.resourcemanager.appservice.models.NetworkAccessControlEntry;
 import com.azure.resourcemanager.appservice.models.ProvisioningState;
-import com.azure.resourcemanager.appservice.models.VirtualIpMapping;
 import com.azure.resourcemanager.appservice.models.VirtualNetworkProfile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,18 +19,6 @@ import java.util.List;
 @Fluent
 public final class AppServiceEnvironment {
     @JsonIgnore private final ClientLogger logger = new ClientLogger(AppServiceEnvironment.class);
-
-    /*
-     * Name of the App Service Environment.
-     */
-    @JsonProperty(value = "name", required = true)
-    private String name;
-
-    /*
-     * Location of the App Service Environment, e.g. "West US".
-     */
-    @JsonProperty(value = "location", required = true)
-    private String location;
 
     /*
      * Provisioning state of the App Service Environment.
@@ -47,24 +33,6 @@ public final class AppServiceEnvironment {
     private HostingEnvironmentStatus status;
 
     /*
-     * Name of the Virtual Network for the App Service Environment.
-     */
-    @JsonProperty(value = "vnetName")
-    private String vnetName;
-
-    /*
-     * Resource group of the Virtual Network.
-     */
-    @JsonProperty(value = "vnetResourceGroupName")
-    private String vnetResourceGroupName;
-
-    /*
-     * Subnet of the Virtual Network.
-     */
-    @JsonProperty(value = "vnetSubnetName")
-    private String vnetSubnetName;
-
-    /*
      * Description of the Virtual Network.
      */
     @JsonProperty(value = "virtualNetwork", required = true)
@@ -75,7 +43,7 @@ public final class AppServiceEnvironment {
      * the App Service Environment.
      */
     @JsonProperty(value = "internalLoadBalancingMode")
-    private InternalLoadBalancingMode internalLoadBalancingMode;
+    private LoadBalancingMode internalLoadBalancingMode;
 
     /*
      * Front-end VM size, e.g. "Medium", "Large".
@@ -86,15 +54,8 @@ public final class AppServiceEnvironment {
     /*
      * Number of front-end instances.
      */
-    @JsonProperty(value = "multiRoleCount")
+    @JsonProperty(value = "multiRoleCount", access = JsonProperty.Access.WRITE_ONLY)
     private Integer multiRoleCount;
-
-    /*
-     * Description of worker pools with worker size IDs, VM sizes, and number
-     * of workers in each pool.
-     */
-    @JsonProperty(value = "workerPools", required = true)
-    private List<WorkerPool> workerPools;
 
     /*
      * Number of IP SSL addresses reserved for the App Service Environment.
@@ -103,62 +64,10 @@ public final class AppServiceEnvironment {
     private Integer ipsslAddressCount;
 
     /*
-     * Edition of the metadata database for the App Service Environment, e.g.
-     * "Standard".
-     */
-    @JsonProperty(value = "databaseEdition", access = JsonProperty.Access.WRITE_ONLY)
-    private String databaseEdition;
-
-    /*
-     * Service objective of the metadata database for the App Service
-     * Environment, e.g. "S0".
-     */
-    @JsonProperty(value = "databaseServiceObjective", access = JsonProperty.Access.WRITE_ONLY)
-    private String databaseServiceObjective;
-
-    /*
-     * Number of upgrade domains of the App Service Environment.
-     */
-    @JsonProperty(value = "upgradeDomains", access = JsonProperty.Access.WRITE_ONLY)
-    private Integer upgradeDomains;
-
-    /*
-     * Subscription of the App Service Environment.
-     */
-    @JsonProperty(value = "subscriptionId", access = JsonProperty.Access.WRITE_ONLY)
-    private String subscriptionId;
-
-    /*
      * DNS suffix of the App Service Environment.
      */
     @JsonProperty(value = "dnsSuffix")
     private String dnsSuffix;
-
-    /*
-     * Last deployment action on the App Service Environment.
-     */
-    @JsonProperty(value = "lastAction", access = JsonProperty.Access.WRITE_ONLY)
-    private String lastAction;
-
-    /*
-     * Result of the last deployment action on the App Service Environment.
-     */
-    @JsonProperty(value = "lastActionResult", access = JsonProperty.Access.WRITE_ONLY)
-    private String lastActionResult;
-
-    /*
-     * List of comma separated strings describing which VM sizes are allowed
-     * for front-ends.
-     */
-    @JsonProperty(value = "allowedMultiSizes", access = JsonProperty.Access.WRITE_ONLY)
-    private String allowedMultiSizes;
-
-    /*
-     * List of comma separated strings describing which VM sizes are allowed
-     * for workers.
-     */
-    @JsonProperty(value = "allowedWorkerSizes", access = JsonProperty.Access.WRITE_ONLY)
-    private String allowedWorkerSizes;
 
     /*
      * Maximum number of VMs in the App Service Environment.
@@ -167,60 +76,10 @@ public final class AppServiceEnvironment {
     private Integer maximumNumberOfMachines;
 
     /*
-     * Description of IP SSL mapping for the App Service Environment.
-     */
-    @JsonProperty(value = "vipMappings", access = JsonProperty.Access.WRITE_ONLY)
-    private List<VirtualIpMapping> vipMappings;
-
-    /*
-     * Current total, used, and available worker capacities.
-     */
-    @JsonProperty(value = "environmentCapacities", access = JsonProperty.Access.WRITE_ONLY)
-    private List<StampCapacityInner> environmentCapacities;
-
-    /*
-     * Access control list for controlling traffic to the App Service
-     * Environment.
-     */
-    @JsonProperty(value = "networkAccessControlList")
-    private List<NetworkAccessControlEntry> networkAccessControlList;
-
-    /*
-     * True/false indicating whether the App Service Environment is healthy.
-     */
-    @JsonProperty(value = "environmentIsHealthy", access = JsonProperty.Access.WRITE_ONLY)
-    private Boolean environmentIsHealthy;
-
-    /*
-     * Detailed message about with results of the last check of the App Service
-     * Environment.
-     */
-    @JsonProperty(value = "environmentStatus", access = JsonProperty.Access.WRITE_ONLY)
-    private String environmentStatus;
-
-    /*
-     * Resource group of the App Service Environment.
-     */
-    @JsonProperty(value = "resourceGroup", access = JsonProperty.Access.WRITE_ONLY)
-    private String resourceGroup;
-
-    /*
      * Scale factor for front-ends.
      */
     @JsonProperty(value = "frontEndScaleFactor")
     private Integer frontEndScaleFactor;
-
-    /*
-     * Default Scale Factor for FrontEnds.
-     */
-    @JsonProperty(value = "defaultFrontEndScaleFactor", access = JsonProperty.Access.WRITE_ONLY)
-    private Integer defaultFrontEndScaleFactor;
-
-    /*
-     * API Management Account associated with the App Service Environment.
-     */
-    @JsonProperty(value = "apiManagementAccountId")
-    private String apiManagementAccountId;
 
     /*
      * <code>true</code> if the App Service Environment is suspended;
@@ -228,17 +87,8 @@ public final class AppServiceEnvironment {
      * when the management endpoint is no longer available
      * (most likely because NSG blocked the incoming traffic).
      */
-    @JsonProperty(value = "suspended")
+    @JsonProperty(value = "suspended", access = JsonProperty.Access.WRITE_ONLY)
     private Boolean suspended;
-
-    /*
-     * True/false indicating whether the App Service Environment is suspended.
-     * The environment can be suspended e.g. when the management endpoint is no
-     * longer available
-     * (most likely because NSG blocked the incoming traffic).
-     */
-    @JsonProperty(value = "dynamicCacheEnabled")
-    private Boolean dynamicCacheEnabled;
 
     /*
      * Custom settings for changing the behavior of the App Service
@@ -256,61 +106,20 @@ public final class AppServiceEnvironment {
     /*
      * Flag that displays whether an ASE has linux workers or not
      */
-    @JsonProperty(value = "hasLinuxWorkers")
+    @JsonProperty(value = "hasLinuxWorkers", access = JsonProperty.Access.WRITE_ONLY)
     private Boolean hasLinuxWorkers;
 
     /*
-     * Key Vault ID for ILB App Service Environment default SSL certificate
+     * Dedicated Host Count
      */
-    @JsonProperty(value = "sslCertKeyVaultId")
-    private String sslCertKeyVaultId;
+    @JsonProperty(value = "dedicatedHostCount")
+    private Integer dedicatedHostCount;
 
     /*
-     * Key Vault Secret Name for ILB App Service Environment default SSL
-     * certificate
+     * Whether or not this App Service Environment is zone-redundant.
      */
-    @JsonProperty(value = "sslCertKeyVaultSecretName")
-    private String sslCertKeyVaultSecretName;
-
-    /**
-     * Get the name property: Name of the App Service Environment.
-     *
-     * @return the name value.
-     */
-    public String name() {
-        return this.name;
-    }
-
-    /**
-     * Set the name property: Name of the App Service Environment.
-     *
-     * @param name the name value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    /**
-     * Get the location property: Location of the App Service Environment, e.g. "West US".
-     *
-     * @return the location value.
-     */
-    public String location() {
-        return this.location;
-    }
-
-    /**
-     * Set the location property: Location of the App Service Environment, e.g. "West US".
-     *
-     * @param location the location value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withLocation(String location) {
-        this.location = location;
-        return this;
-    }
+    @JsonProperty(value = "zoneRedundant")
+    private Boolean zoneRedundant;
 
     /**
      * Get the provisioningState property: Provisioning state of the App Service Environment.
@@ -328,66 +137,6 @@ public final class AppServiceEnvironment {
      */
     public HostingEnvironmentStatus status() {
         return this.status;
-    }
-
-    /**
-     * Get the vnetName property: Name of the Virtual Network for the App Service Environment.
-     *
-     * @return the vnetName value.
-     */
-    public String vnetName() {
-        return this.vnetName;
-    }
-
-    /**
-     * Set the vnetName property: Name of the Virtual Network for the App Service Environment.
-     *
-     * @param vnetName the vnetName value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withVnetName(String vnetName) {
-        this.vnetName = vnetName;
-        return this;
-    }
-
-    /**
-     * Get the vnetResourceGroupName property: Resource group of the Virtual Network.
-     *
-     * @return the vnetResourceGroupName value.
-     */
-    public String vnetResourceGroupName() {
-        return this.vnetResourceGroupName;
-    }
-
-    /**
-     * Set the vnetResourceGroupName property: Resource group of the Virtual Network.
-     *
-     * @param vnetResourceGroupName the vnetResourceGroupName value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withVnetResourceGroupName(String vnetResourceGroupName) {
-        this.vnetResourceGroupName = vnetResourceGroupName;
-        return this;
-    }
-
-    /**
-     * Get the vnetSubnetName property: Subnet of the Virtual Network.
-     *
-     * @return the vnetSubnetName value.
-     */
-    public String vnetSubnetName() {
-        return this.vnetSubnetName;
-    }
-
-    /**
-     * Set the vnetSubnetName property: Subnet of the Virtual Network.
-     *
-     * @param vnetSubnetName the vnetSubnetName value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withVnetSubnetName(String vnetSubnetName) {
-        this.vnetSubnetName = vnetSubnetName;
-        return this;
     }
 
     /**
@@ -416,7 +165,7 @@ public final class AppServiceEnvironment {
      *
      * @return the internalLoadBalancingMode value.
      */
-    public InternalLoadBalancingMode internalLoadBalancingMode() {
+    public LoadBalancingMode internalLoadBalancingMode() {
         return this.internalLoadBalancingMode;
     }
 
@@ -427,7 +176,7 @@ public final class AppServiceEnvironment {
      * @param internalLoadBalancingMode the internalLoadBalancingMode value to set.
      * @return the AppServiceEnvironment object itself.
      */
-    public AppServiceEnvironment withInternalLoadBalancingMode(InternalLoadBalancingMode internalLoadBalancingMode) {
+    public AppServiceEnvironment withInternalLoadBalancingMode(LoadBalancingMode internalLoadBalancingMode) {
         this.internalLoadBalancingMode = internalLoadBalancingMode;
         return this;
     }
@@ -462,39 +211,6 @@ public final class AppServiceEnvironment {
     }
 
     /**
-     * Set the multiRoleCount property: Number of front-end instances.
-     *
-     * @param multiRoleCount the multiRoleCount value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withMultiRoleCount(Integer multiRoleCount) {
-        this.multiRoleCount = multiRoleCount;
-        return this;
-    }
-
-    /**
-     * Get the workerPools property: Description of worker pools with worker size IDs, VM sizes, and number of workers
-     * in each pool.
-     *
-     * @return the workerPools value.
-     */
-    public List<WorkerPool> workerPools() {
-        return this.workerPools;
-    }
-
-    /**
-     * Set the workerPools property: Description of worker pools with worker size IDs, VM sizes, and number of workers
-     * in each pool.
-     *
-     * @param workerPools the workerPools value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withWorkerPools(List<WorkerPool> workerPools) {
-        this.workerPools = workerPools;
-        return this;
-    }
-
-    /**
      * Get the ipsslAddressCount property: Number of IP SSL addresses reserved for the App Service Environment.
      *
      * @return the ipsslAddressCount value.
@@ -512,44 +228,6 @@ public final class AppServiceEnvironment {
     public AppServiceEnvironment withIpsslAddressCount(Integer ipsslAddressCount) {
         this.ipsslAddressCount = ipsslAddressCount;
         return this;
-    }
-
-    /**
-     * Get the databaseEdition property: Edition of the metadata database for the App Service Environment, e.g.
-     * "Standard".
-     *
-     * @return the databaseEdition value.
-     */
-    public String databaseEdition() {
-        return this.databaseEdition;
-    }
-
-    /**
-     * Get the databaseServiceObjective property: Service objective of the metadata database for the App Service
-     * Environment, e.g. "S0".
-     *
-     * @return the databaseServiceObjective value.
-     */
-    public String databaseServiceObjective() {
-        return this.databaseServiceObjective;
-    }
-
-    /**
-     * Get the upgradeDomains property: Number of upgrade domains of the App Service Environment.
-     *
-     * @return the upgradeDomains value.
-     */
-    public Integer upgradeDomains() {
-        return this.upgradeDomains;
-    }
-
-    /**
-     * Get the subscriptionId property: Subscription of the App Service Environment.
-     *
-     * @return the subscriptionId value.
-     */
-    public String subscriptionId() {
-        return this.subscriptionId;
     }
 
     /**
@@ -573,119 +251,12 @@ public final class AppServiceEnvironment {
     }
 
     /**
-     * Get the lastAction property: Last deployment action on the App Service Environment.
-     *
-     * @return the lastAction value.
-     */
-    public String lastAction() {
-        return this.lastAction;
-    }
-
-    /**
-     * Get the lastActionResult property: Result of the last deployment action on the App Service Environment.
-     *
-     * @return the lastActionResult value.
-     */
-    public String lastActionResult() {
-        return this.lastActionResult;
-    }
-
-    /**
-     * Get the allowedMultiSizes property: List of comma separated strings describing which VM sizes are allowed for
-     * front-ends.
-     *
-     * @return the allowedMultiSizes value.
-     */
-    public String allowedMultiSizes() {
-        return this.allowedMultiSizes;
-    }
-
-    /**
-     * Get the allowedWorkerSizes property: List of comma separated strings describing which VM sizes are allowed for
-     * workers.
-     *
-     * @return the allowedWorkerSizes value.
-     */
-    public String allowedWorkerSizes() {
-        return this.allowedWorkerSizes;
-    }
-
-    /**
      * Get the maximumNumberOfMachines property: Maximum number of VMs in the App Service Environment.
      *
      * @return the maximumNumberOfMachines value.
      */
     public Integer maximumNumberOfMachines() {
         return this.maximumNumberOfMachines;
-    }
-
-    /**
-     * Get the vipMappings property: Description of IP SSL mapping for the App Service Environment.
-     *
-     * @return the vipMappings value.
-     */
-    public List<VirtualIpMapping> vipMappings() {
-        return this.vipMappings;
-    }
-
-    /**
-     * Get the environmentCapacities property: Current total, used, and available worker capacities.
-     *
-     * @return the environmentCapacities value.
-     */
-    public List<StampCapacityInner> environmentCapacities() {
-        return this.environmentCapacities;
-    }
-
-    /**
-     * Get the networkAccessControlList property: Access control list for controlling traffic to the App Service
-     * Environment.
-     *
-     * @return the networkAccessControlList value.
-     */
-    public List<NetworkAccessControlEntry> networkAccessControlList() {
-        return this.networkAccessControlList;
-    }
-
-    /**
-     * Set the networkAccessControlList property: Access control list for controlling traffic to the App Service
-     * Environment.
-     *
-     * @param networkAccessControlList the networkAccessControlList value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withNetworkAccessControlList(
-        List<NetworkAccessControlEntry> networkAccessControlList) {
-        this.networkAccessControlList = networkAccessControlList;
-        return this;
-    }
-
-    /**
-     * Get the environmentIsHealthy property: True/false indicating whether the App Service Environment is healthy.
-     *
-     * @return the environmentIsHealthy value.
-     */
-    public Boolean environmentIsHealthy() {
-        return this.environmentIsHealthy;
-    }
-
-    /**
-     * Get the environmentStatus property: Detailed message about with results of the last check of the App Service
-     * Environment.
-     *
-     * @return the environmentStatus value.
-     */
-    public String environmentStatus() {
-        return this.environmentStatus;
-    }
-
-    /**
-     * Get the resourceGroup property: Resource group of the App Service Environment.
-     *
-     * @return the resourceGroup value.
-     */
-    public String resourceGroup() {
-        return this.resourceGroup;
     }
 
     /**
@@ -709,35 +280,6 @@ public final class AppServiceEnvironment {
     }
 
     /**
-     * Get the defaultFrontEndScaleFactor property: Default Scale Factor for FrontEnds.
-     *
-     * @return the defaultFrontEndScaleFactor value.
-     */
-    public Integer defaultFrontEndScaleFactor() {
-        return this.defaultFrontEndScaleFactor;
-    }
-
-    /**
-     * Get the apiManagementAccountId property: API Management Account associated with the App Service Environment.
-     *
-     * @return the apiManagementAccountId value.
-     */
-    public String apiManagementAccountId() {
-        return this.apiManagementAccountId;
-    }
-
-    /**
-     * Set the apiManagementAccountId property: API Management Account associated with the App Service Environment.
-     *
-     * @param apiManagementAccountId the apiManagementAccountId value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withApiManagementAccountId(String apiManagementAccountId) {
-        this.apiManagementAccountId = apiManagementAccountId;
-        return this;
-    }
-
-    /**
      * Get the suspended property: &lt;code&gt;true&lt;/code&gt; if the App Service Environment is suspended; otherwise,
      * &lt;code&gt;false&lt;/code&gt;. The environment can be suspended, e.g. when the management endpoint is no longer
      * available (most likely because NSG blocked the incoming traffic).
@@ -746,43 +288,6 @@ public final class AppServiceEnvironment {
      */
     public Boolean suspended() {
         return this.suspended;
-    }
-
-    /**
-     * Set the suspended property: &lt;code&gt;true&lt;/code&gt; if the App Service Environment is suspended; otherwise,
-     * &lt;code&gt;false&lt;/code&gt;. The environment can be suspended, e.g. when the management endpoint is no longer
-     * available (most likely because NSG blocked the incoming traffic).
-     *
-     * @param suspended the suspended value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withSuspended(Boolean suspended) {
-        this.suspended = suspended;
-        return this;
-    }
-
-    /**
-     * Get the dynamicCacheEnabled property: True/false indicating whether the App Service Environment is suspended. The
-     * environment can be suspended e.g. when the management endpoint is no longer available (most likely because NSG
-     * blocked the incoming traffic).
-     *
-     * @return the dynamicCacheEnabled value.
-     */
-    public Boolean dynamicCacheEnabled() {
-        return this.dynamicCacheEnabled;
-    }
-
-    /**
-     * Set the dynamicCacheEnabled property: True/false indicating whether the App Service Environment is suspended. The
-     * environment can be suspended e.g. when the management endpoint is no longer available (most likely because NSG
-     * blocked the incoming traffic).
-     *
-     * @param dynamicCacheEnabled the dynamicCacheEnabled value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withDynamicCacheEnabled(Boolean dynamicCacheEnabled) {
-        this.dynamicCacheEnabled = dynamicCacheEnabled;
-        return this;
     }
 
     /**
@@ -835,55 +340,42 @@ public final class AppServiceEnvironment {
     }
 
     /**
-     * Set the hasLinuxWorkers property: Flag that displays whether an ASE has linux workers or not.
+     * Get the dedicatedHostCount property: Dedicated Host Count.
      *
-     * @param hasLinuxWorkers the hasLinuxWorkers value to set.
+     * @return the dedicatedHostCount value.
+     */
+    public Integer dedicatedHostCount() {
+        return this.dedicatedHostCount;
+    }
+
+    /**
+     * Set the dedicatedHostCount property: Dedicated Host Count.
+     *
+     * @param dedicatedHostCount the dedicatedHostCount value to set.
      * @return the AppServiceEnvironment object itself.
      */
-    public AppServiceEnvironment withHasLinuxWorkers(Boolean hasLinuxWorkers) {
-        this.hasLinuxWorkers = hasLinuxWorkers;
+    public AppServiceEnvironment withDedicatedHostCount(Integer dedicatedHostCount) {
+        this.dedicatedHostCount = dedicatedHostCount;
         return this;
     }
 
     /**
-     * Get the sslCertKeyVaultId property: Key Vault ID for ILB App Service Environment default SSL certificate.
+     * Get the zoneRedundant property: Whether or not this App Service Environment is zone-redundant.
      *
-     * @return the sslCertKeyVaultId value.
+     * @return the zoneRedundant value.
      */
-    public String sslCertKeyVaultId() {
-        return this.sslCertKeyVaultId;
+    public Boolean zoneRedundant() {
+        return this.zoneRedundant;
     }
 
     /**
-     * Set the sslCertKeyVaultId property: Key Vault ID for ILB App Service Environment default SSL certificate.
+     * Set the zoneRedundant property: Whether or not this App Service Environment is zone-redundant.
      *
-     * @param sslCertKeyVaultId the sslCertKeyVaultId value to set.
+     * @param zoneRedundant the zoneRedundant value to set.
      * @return the AppServiceEnvironment object itself.
      */
-    public AppServiceEnvironment withSslCertKeyVaultId(String sslCertKeyVaultId) {
-        this.sslCertKeyVaultId = sslCertKeyVaultId;
-        return this;
-    }
-
-    /**
-     * Get the sslCertKeyVaultSecretName property: Key Vault Secret Name for ILB App Service Environment default SSL
-     * certificate.
-     *
-     * @return the sslCertKeyVaultSecretName value.
-     */
-    public String sslCertKeyVaultSecretName() {
-        return this.sslCertKeyVaultSecretName;
-    }
-
-    /**
-     * Set the sslCertKeyVaultSecretName property: Key Vault Secret Name for ILB App Service Environment default SSL
-     * certificate.
-     *
-     * @param sslCertKeyVaultSecretName the sslCertKeyVaultSecretName value to set.
-     * @return the AppServiceEnvironment object itself.
-     */
-    public AppServiceEnvironment withSslCertKeyVaultSecretName(String sslCertKeyVaultSecretName) {
-        this.sslCertKeyVaultSecretName = sslCertKeyVaultSecretName;
+    public AppServiceEnvironment withZoneRedundant(Boolean zoneRedundant) {
+        this.zoneRedundant = zoneRedundant;
         return this;
     }
 
@@ -893,16 +385,6 @@ public final class AppServiceEnvironment {
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
-        if (name() == null) {
-            throw logger
-                .logExceptionAsError(
-                    new IllegalArgumentException("Missing required property name in model AppServiceEnvironment"));
-        }
-        if (location() == null) {
-            throw logger
-                .logExceptionAsError(
-                    new IllegalArgumentException("Missing required property location in model AppServiceEnvironment"));
-        }
         if (virtualNetwork() == null) {
             throw logger
                 .logExceptionAsError(
@@ -910,23 +392,6 @@ public final class AppServiceEnvironment {
                         "Missing required property virtualNetwork in model AppServiceEnvironment"));
         } else {
             virtualNetwork().validate();
-        }
-        if (workerPools() == null) {
-            throw logger
-                .logExceptionAsError(
-                    new IllegalArgumentException(
-                        "Missing required property workerPools in model AppServiceEnvironment"));
-        } else {
-            workerPools().forEach(e -> e.validate());
-        }
-        if (vipMappings() != null) {
-            vipMappings().forEach(e -> e.validate());
-        }
-        if (environmentCapacities() != null) {
-            environmentCapacities().forEach(e -> e.validate());
-        }
-        if (networkAccessControlList() != null) {
-            networkAccessControlList().forEach(e -> e.validate());
         }
         if (clusterSettings() != null) {
             clusterSettings().forEach(e -> e.validate());

@@ -5,37 +5,32 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.Resource;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.AddressSpace;
 import com.azure.resourcemanager.network.models.BgpSettings;
 import com.azure.resourcemanager.network.models.DeviceProperties;
+import com.azure.resourcemanager.network.models.O365PolicyProperties;
 import com.azure.resourcemanager.network.models.ProvisioningState;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import java.util.Map;
 
-/**
- * VpnSite Resource.
- */
+/** VpnSite Resource. */
 @Fluent
 public final class VpnSiteInner extends Resource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(VpnSiteInner.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(VpnSiteInner.class);
 
     /*
-     * Parameters for VpnSite
+     * Properties of the VPN site.
      */
     @JsonProperty(value = "properties")
     private VpnSiteProperties innerProperties;
 
     /*
-     * Gets a unique read-only string that changes whenever the resource is
-     * updated.
+     * A unique read-only string that changes whenever the resource is updated.
      */
     @JsonProperty(value = "etag", access = JsonProperty.Access.WRITE_ONLY)
     private String etag;
@@ -47,8 +42,8 @@ public final class VpnSiteInner extends Resource {
     private String id;
 
     /**
-     * Get the innerProperties property: Parameters for VpnSite.
-     * 
+     * Get the innerProperties property: Properties of the VPN site.
+     *
      * @return the innerProperties value.
      */
     private VpnSiteProperties innerProperties() {
@@ -56,9 +51,8 @@ public final class VpnSiteInner extends Resource {
     }
 
     /**
-     * Get the etag property: Gets a unique read-only string that changes
-     * whenever the resource is updated.
-     * 
+     * Get the etag property: A unique read-only string that changes whenever the resource is updated.
+     *
      * @return the etag value.
      */
     public String etag() {
@@ -67,7 +61,7 @@ public final class VpnSiteInner extends Resource {
 
     /**
      * Get the id property: Resource ID.
-     * 
+     *
      * @return the id value.
      */
     public String id() {
@@ -76,7 +70,7 @@ public final class VpnSiteInner extends Resource {
 
     /**
      * Set the id property: Resource ID.
-     * 
+     *
      * @param id the id value to set.
      * @return the VpnSiteInner object itself.
      */
@@ -85,18 +79,14 @@ public final class VpnSiteInner extends Resource {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public VpnSiteInner withLocation(String location) {
         super.withLocation(location);
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public VpnSiteInner withTags(Map<String, String> tags) {
         super.withTags(tags);
@@ -104,9 +94,8 @@ public final class VpnSiteInner extends Resource {
     }
 
     /**
-     * Get the virtualWan property: The VirtualWAN to which the vpnSite
-     * belongs.
-     * 
+     * Get the virtualWan property: The VirtualWAN to which the vpnSite belongs.
+     *
      * @return the virtualWan value.
      */
     public SubResource virtualWan() {
@@ -114,9 +103,8 @@ public final class VpnSiteInner extends Resource {
     }
 
     /**
-     * Set the virtualWan property: The VirtualWAN to which the vpnSite
-     * belongs.
-     * 
+     * Set the virtualWan property: The VirtualWAN to which the vpnSite belongs.
+     *
      * @param virtualWan the virtualWan value to set.
      * @return the VpnSiteInner object itself.
      */
@@ -130,7 +118,7 @@ public final class VpnSiteInner extends Resource {
 
     /**
      * Get the deviceProperties property: The device properties.
-     * 
+     *
      * @return the deviceProperties value.
      */
     public DeviceProperties deviceProperties() {
@@ -139,7 +127,7 @@ public final class VpnSiteInner extends Resource {
 
     /**
      * Set the deviceProperties property: The device properties.
-     * 
+     *
      * @param deviceProperties the deviceProperties value to set.
      * @return the VpnSiteInner object itself.
      */
@@ -153,7 +141,7 @@ public final class VpnSiteInner extends Resource {
 
     /**
      * Get the ipAddress property: The ip-address for the vpn-site.
-     * 
+     *
      * @return the ipAddress value.
      */
     public String ipAddress() {
@@ -162,7 +150,7 @@ public final class VpnSiteInner extends Resource {
 
     /**
      * Set the ipAddress property: The ip-address for the vpn-site.
-     * 
+     *
      * @param ipAddress the ipAddress value to set.
      * @return the VpnSiteInner object itself.
      */
@@ -175,9 +163,8 @@ public final class VpnSiteInner extends Resource {
     }
 
     /**
-     * Get the siteKey property: The key for vpn-site that can be used for
-     * connections.
-     * 
+     * Get the siteKey property: The key for vpn-site that can be used for connections.
+     *
      * @return the siteKey value.
      */
     public String siteKey() {
@@ -185,9 +172,8 @@ public final class VpnSiteInner extends Resource {
     }
 
     /**
-     * Set the siteKey property: The key for vpn-site that can be used for
-     * connections.
-     * 
+     * Set the siteKey property: The key for vpn-site that can be used for connections.
+     *
      * @param siteKey the siteKey value to set.
      * @return the VpnSiteInner object itself.
      */
@@ -200,9 +186,8 @@ public final class VpnSiteInner extends Resource {
     }
 
     /**
-     * Get the addressSpace property: The AddressSpace that contains an array
-     * of IP address ranges.
-     * 
+     * Get the addressSpace property: The AddressSpace that contains an array of IP address ranges.
+     *
      * @return the addressSpace value.
      */
     public AddressSpace addressSpace() {
@@ -210,9 +195,8 @@ public final class VpnSiteInner extends Resource {
     }
 
     /**
-     * Set the addressSpace property: The AddressSpace that contains an array
-     * of IP address ranges.
-     * 
+     * Set the addressSpace property: The AddressSpace that contains an array of IP address ranges.
+     *
      * @param addressSpace the addressSpace value to set.
      * @return the VpnSiteInner object itself.
      */
@@ -226,7 +210,7 @@ public final class VpnSiteInner extends Resource {
 
     /**
      * Get the bgpProperties property: The set of bgp properties.
-     * 
+     *
      * @return the bgpProperties value.
      */
     public BgpSettings bgpProperties() {
@@ -235,7 +219,7 @@ public final class VpnSiteInner extends Resource {
 
     /**
      * Set the bgpProperties property: The set of bgp properties.
-     * 
+     *
      * @param bgpProperties the bgpProperties value to set.
      * @return the VpnSiteInner object itself.
      */
@@ -248,9 +232,8 @@ public final class VpnSiteInner extends Resource {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * resource.
-     * 
+     * Get the provisioningState property: The provisioning state of the VPN site resource.
+     *
      * @return the provisioningState value.
      */
     public ProvisioningState provisioningState() {
@@ -258,23 +241,8 @@ public final class VpnSiteInner extends Resource {
     }
 
     /**
-     * Set the provisioningState property: The provisioning state of the
-     * resource.
-     * 
-     * @param provisioningState the provisioningState value to set.
-     * @return the VpnSiteInner object itself.
-     */
-    public VpnSiteInner withProvisioningState(ProvisioningState provisioningState) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new VpnSiteProperties();
-        }
-        this.innerProperties().withProvisioningState(provisioningState);
-        return this;
-    }
-
-    /**
      * Get the isSecuritySite property: IsSecuritySite flag.
-     * 
+     *
      * @return the isSecuritySite value.
      */
     public Boolean isSecuritySite() {
@@ -283,7 +251,7 @@ public final class VpnSiteInner extends Resource {
 
     /**
      * Set the isSecuritySite property: IsSecuritySite flag.
-     * 
+     *
      * @param isSecuritySite the isSecuritySite value to set.
      * @return the VpnSiteInner object itself.
      */
@@ -296,8 +264,54 @@ public final class VpnSiteInner extends Resource {
     }
 
     /**
+     * Get the vpnSiteLinks property: List of all vpn site links.
+     *
+     * @return the vpnSiteLinks value.
+     */
+    public List<VpnSiteLinkInner> vpnSiteLinks() {
+        return this.innerProperties() == null ? null : this.innerProperties().vpnSiteLinks();
+    }
+
+    /**
+     * Set the vpnSiteLinks property: List of all vpn site links.
+     *
+     * @param vpnSiteLinks the vpnSiteLinks value to set.
+     * @return the VpnSiteInner object itself.
+     */
+    public VpnSiteInner withVpnSiteLinks(List<VpnSiteLinkInner> vpnSiteLinks) {
+        if (this.innerProperties() == null) {
+            this.innerProperties = new VpnSiteProperties();
+        }
+        this.innerProperties().withVpnSiteLinks(vpnSiteLinks);
+        return this;
+    }
+
+    /**
+     * Get the o365Policy property: Office365 Policy.
+     *
+     * @return the o365Policy value.
+     */
+    public O365PolicyProperties o365Policy() {
+        return this.innerProperties() == null ? null : this.innerProperties().o365Policy();
+    }
+
+    /**
+     * Set the o365Policy property: Office365 Policy.
+     *
+     * @param o365Policy the o365Policy value to set.
+     * @return the VpnSiteInner object itself.
+     */
+    public VpnSiteInner withO365Policy(O365PolicyProperties o365Policy) {
+        if (this.innerProperties() == null) {
+            this.innerProperties = new VpnSiteProperties();
+        }
+        this.innerProperties().withO365Policy(o365Policy);
+        return this;
+    }
+
+    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

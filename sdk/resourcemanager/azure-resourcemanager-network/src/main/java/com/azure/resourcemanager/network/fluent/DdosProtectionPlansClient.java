@@ -8,8 +8,6 @@ import com.azure.core.annotation.ReturnType;
 import com.azure.core.annotation.ServiceMethod;
 import com.azure.core.http.rest.PagedFlux;
 import com.azure.core.http.rest.PagedIterable;
-import com.azure.core.http.rest.PagedResponse;
-import com.azure.core.http.rest.PagedResponseBase;
 import com.azure.core.http.rest.Response;
 import com.azure.core.management.polling.PollResult;
 import com.azure.core.util.Context;
@@ -20,19 +18,18 @@ import com.azure.resourcemanager.network.models.TagsObject;
 import com.azure.resourcemanager.resources.fluentcore.collection.InnerSupportsDelete;
 import com.azure.resourcemanager.resources.fluentcore.collection.InnerSupportsGet;
 import com.azure.resourcemanager.resources.fluentcore.collection.InnerSupportsListing;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.nio.ByteBuffer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-/**
- * An instance of this class provides access to all the operations defined in
- * DdosProtectionPlansClient.
- */
-public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtectionPlanInner>, InnerSupportsListing<DdosProtectionPlanInner>, InnerSupportsDelete<Void> {
+/** An instance of this class provides access to all the operations defined in DdosProtectionPlansClient. */
+public interface DdosProtectionPlansClient
+    extends InnerSupportsGet<DdosProtectionPlanInner>,
+        InnerSupportsListing<DdosProtectionPlanInner>,
+        InnerSupportsDelete<Void> {
     /**
      * Deletes the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -45,7 +42,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Deletes the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -58,7 +55,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Deletes the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -71,7 +68,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Deletes the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @param context The context to associate with this operation.
@@ -81,11 +78,12 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    SyncPoller<PollResult<Void>, Void> beginDelete(String resourceGroupName, String ddosProtectionPlanName, Context context);
+    SyncPoller<PollResult<Void>, Void> beginDelete(
+        String resourceGroupName, String ddosProtectionPlanName, Context context);
 
     /**
      * Deletes the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -98,7 +96,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Deletes the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -110,7 +108,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Deletes the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @param context The context to associate with this operation.
@@ -123,7 +121,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Gets information about the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -132,11 +130,12 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
      * @return information about the specified DDoS protection plan.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<Response<DdosProtectionPlanInner>> getByResourceGroupWithResponseAsync(String resourceGroupName, String ddosProtectionPlanName);
+    Mono<Response<DdosProtectionPlanInner>> getByResourceGroupWithResponseAsync(
+        String resourceGroupName, String ddosProtectionPlanName);
 
     /**
      * Gets information about the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -149,7 +148,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Gets information about the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -162,7 +161,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Gets information about the specified DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @param context The context to associate with this operation.
@@ -172,11 +171,12 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
      * @return information about the specified DDoS protection plan.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Response<DdosProtectionPlanInner> getByResourceGroupWithResponse(String resourceGroupName, String ddosProtectionPlanName, Context context);
+    Response<DdosProtectionPlanInner> getByResourceGroupWithResponse(
+        String resourceGroupName, String ddosProtectionPlanName, Context context);
 
     /**
      * Creates or updates a DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @param parameters Parameters supplied to the create or update operation.
@@ -186,11 +186,12 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
      * @return a DDoS protection plan in a resource group.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<Response<Flux<ByteBuffer>>> createOrUpdateWithResponseAsync(String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters);
+    Mono<Response<Flux<ByteBuffer>>> createOrUpdateWithResponseAsync(
+        String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters);
 
     /**
      * Creates or updates a DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @param parameters Parameters supplied to the create or update operation.
@@ -200,11 +201,12 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
      * @return a DDoS protection plan in a resource group.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    PollerFlux<PollResult<DdosProtectionPlanInner>, DdosProtectionPlanInner> beginCreateOrUpdateAsync(String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters);
+    PollerFlux<PollResult<DdosProtectionPlanInner>, DdosProtectionPlanInner> beginCreateOrUpdateAsync(
+        String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters);
 
     /**
      * Creates or updates a DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @param parameters Parameters supplied to the create or update operation.
@@ -214,54 +216,12 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
      * @return a DDoS protection plan in a resource group.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    SyncPoller<PollResult<DdosProtectionPlanInner>, DdosProtectionPlanInner> beginCreateOrUpdate(String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters);
+    SyncPoller<PollResult<DdosProtectionPlanInner>, DdosProtectionPlanInner> beginCreateOrUpdate(
+        String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters);
 
     /**
      * Creates or updates a DDoS protection plan.
-     * 
-     * @param resourceGroupName The name of the resource group.
-     * @param ddosProtectionPlanName The name of the DDoS protection plan.
-     * @param parameters Parameters supplied to the create or update operation.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a DDoS protection plan in a resource group.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    SyncPoller<PollResult<DdosProtectionPlanInner>, DdosProtectionPlanInner> beginCreateOrUpdate(String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters, Context context);
-
-    /**
-     * Creates or updates a DDoS protection plan.
-     * 
-     * @param resourceGroupName The name of the resource group.
-     * @param ddosProtectionPlanName The name of the DDoS protection plan.
-     * @param parameters Parameters supplied to the create or update operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a DDoS protection plan in a resource group.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<DdosProtectionPlanInner> createOrUpdateAsync(String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters);
-
-    /**
-     * Creates or updates a DDoS protection plan.
-     * 
-     * @param resourceGroupName The name of the resource group.
-     * @param ddosProtectionPlanName The name of the DDoS protection plan.
-     * @param parameters Parameters supplied to the create or update operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a DDoS protection plan in a resource group.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    DdosProtectionPlanInner createOrUpdate(String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters);
-
-    /**
-     * Creates or updates a DDoS protection plan.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @param parameters Parameters supplied to the create or update operation.
@@ -272,56 +232,45 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
      * @return a DDoS protection plan in a resource group.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    DdosProtectionPlanInner createOrUpdate(String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters, Context context);
+    SyncPoller<PollResult<DdosProtectionPlanInner>, DdosProtectionPlanInner> beginCreateOrUpdate(
+        String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters, Context context);
 
     /**
-     * Update a DDoS protection plan tags.
-     * 
+     * Creates or updates a DDoS protection plan.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
-     * @param parameters Parameters supplied to the update DDoS protection plan resource tags.
+     * @param parameters Parameters supplied to the create or update operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return a DDoS protection plan in a resource group.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<Response<Flux<ByteBuffer>>> updateTagsWithResponseAsync(String resourceGroupName, String ddosProtectionPlanName, TagsObject parameters);
+    Mono<DdosProtectionPlanInner> createOrUpdateAsync(
+        String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters);
 
     /**
-     * Update a DDoS protection plan tags.
-     * 
+     * Creates or updates a DDoS protection plan.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
-     * @param parameters Parameters supplied to the update DDoS protection plan resource tags.
+     * @param parameters Parameters supplied to the create or update operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return a DDoS protection plan in a resource group.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    PollerFlux<PollResult<DdosProtectionPlanInner>, DdosProtectionPlanInner> beginUpdateTagsAsync(String resourceGroupName, String ddosProtectionPlanName, TagsObject parameters);
+    DdosProtectionPlanInner createOrUpdate(
+        String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters);
 
     /**
-     * Update a DDoS protection plan tags.
-     * 
+     * Creates or updates a DDoS protection plan.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
-     * @param parameters Parameters supplied to the update DDoS protection plan resource tags.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a DDoS protection plan in a resource group.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    SyncPoller<PollResult<DdosProtectionPlanInner>, DdosProtectionPlanInner> beginUpdateTags(String resourceGroupName, String ddosProtectionPlanName, TagsObject parameters);
-
-    /**
-     * Update a DDoS protection plan tags.
-     * 
-     * @param resourceGroupName The name of the resource group.
-     * @param ddosProtectionPlanName The name of the DDoS protection plan.
-     * @param parameters Parameters supplied to the update DDoS protection plan resource tags.
+     * @param parameters Parameters supplied to the create or update operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
@@ -329,11 +278,12 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
      * @return a DDoS protection plan in a resource group.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    SyncPoller<PollResult<DdosProtectionPlanInner>, DdosProtectionPlanInner> beginUpdateTags(String resourceGroupName, String ddosProtectionPlanName, TagsObject parameters, Context context);
+    DdosProtectionPlanInner createOrUpdate(
+        String resourceGroupName, String ddosProtectionPlanName, DdosProtectionPlanInner parameters, Context context);
 
     /**
      * Update a DDoS protection plan tags.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @param parameters Parameters supplied to the update DDoS protection plan resource tags.
@@ -343,11 +293,27 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
      * @return a DDoS protection plan in a resource group.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<DdosProtectionPlanInner> updateTagsAsync(String resourceGroupName, String ddosProtectionPlanName, TagsObject parameters);
+    Mono<Response<DdosProtectionPlanInner>> updateTagsWithResponseAsync(
+        String resourceGroupName, String ddosProtectionPlanName, TagsObject parameters);
 
     /**
      * Update a DDoS protection plan tags.
-     * 
+     *
+     * @param resourceGroupName The name of the resource group.
+     * @param ddosProtectionPlanName The name of the DDoS protection plan.
+     * @param parameters Parameters supplied to the update DDoS protection plan resource tags.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a DDoS protection plan in a resource group.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<DdosProtectionPlanInner> updateTagsAsync(
+        String resourceGroupName, String ddosProtectionPlanName, TagsObject parameters);
+
+    /**
+     * Update a DDoS protection plan tags.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @param parameters Parameters supplied to the update DDoS protection plan resource tags.
@@ -361,7 +327,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Update a DDoS protection plan tags.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param ddosProtectionPlanName The name of the DDoS protection plan.
      * @param parameters Parameters supplied to the update DDoS protection plan resource tags.
@@ -372,11 +338,12 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
      * @return a DDoS protection plan in a resource group.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    DdosProtectionPlanInner updateTags(String resourceGroupName, String ddosProtectionPlanName, TagsObject parameters, Context context);
+    Response<DdosProtectionPlanInner> updateTagsWithResponse(
+        String resourceGroupName, String ddosProtectionPlanName, TagsObject parameters, Context context);
 
     /**
      * Gets all DDoS protection plans in a subscription.
-     * 
+     *
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return all DDoS protection plans in a subscription.
@@ -386,7 +353,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Gets all DDoS protection plans in a subscription.
-     * 
+     *
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return all DDoS protection plans in a subscription.
@@ -396,7 +363,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Gets all DDoS protection plans in a subscription.
-     * 
+     *
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
@@ -408,7 +375,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Gets all the DDoS protection plans in a resource group.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
@@ -420,7 +387,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Gets all the DDoS protection plans in a resource group.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
@@ -432,7 +399,7 @@ public interface DdosProtectionPlansClient extends InnerSupportsGet<DdosProtecti
 
     /**
      * Gets all the DDoS protection plans in a resource group.
-     * 
+     *
      * @param resourceGroupName The name of the resource group.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.

@@ -14,7 +14,8 @@ import com.azure.resourcemanager.appservice.fluent.models.CsmOperationDescriptio
 /** An instance of this class provides access to all the operations defined in DomainRegistrationProvidersClient. */
 public interface DomainRegistrationProvidersClient {
     /**
-     * Implements Csm operations Api to exposes the list of available Csm Apis under the resource provider.
+     * Description for Implements Csm operations Api to exposes the list of available Csm Apis under the resource
+     * provider.
      *
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
@@ -25,7 +26,8 @@ public interface DomainRegistrationProvidersClient {
     PagedFlux<CsmOperationDescriptionInner> listOperationsAsync();
 
     /**
-     * Implements Csm operations Api to exposes the list of available Csm Apis under the resource provider.
+     * Description for Implements Csm operations Api to exposes the list of available Csm Apis under the resource
+     * provider.
      *
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
@@ -36,7 +38,8 @@ public interface DomainRegistrationProvidersClient {
     PagedIterable<CsmOperationDescriptionInner> listOperations();
 
     /**
-     * Implements Csm operations Api to exposes the list of available Csm Apis under the resource provider.
+     * Description for Implements Csm operations Api to exposes the list of available Csm Apis under the resource
+     * provider.
      *
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.

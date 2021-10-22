@@ -4,6 +4,7 @@ package com.azure.resourcemanager.dns.implementation;
 
 import com.azure.resourcemanager.dns.models.ARecord;
 import com.azure.resourcemanager.dns.models.AaaaRecord;
+import com.azure.resourcemanager.dns.models.CaaRecord;
 import com.azure.resourcemanager.dns.models.CnameRecord;
 import com.azure.resourcemanager.dns.models.DnsRecordSet;
 import com.azure.resourcemanager.dns.models.DnsZone;
@@ -41,6 +42,7 @@ class DnsRecordSetImpl extends ExternalChildResourceImpl<DnsRecordSet, RecordSet
             new RecordSetInner()
                 .withARecords(new ArrayList<>())
                 .withAaaaRecords(new ArrayList<>())
+                .withCaaRecords(new ArrayList<>())
                 .withCnameRecord(new CnameRecord())
                 .withMxRecords(new ArrayList<>())
                 .withNsRecords(new ArrayList<>())
@@ -153,6 +155,18 @@ class DnsRecordSetImpl extends ExternalChildResourceImpl<DnsRecordSet, RecordSet
     @Override
     public DnsRecordSetImpl withoutTargetDomainName(String targetDomainName) {
         this.recordSetRemoveInfo.ptrRecords().add(new PtrRecord().withPtrdname(targetDomainName));
+        return this;
+    }
+
+    @Override
+    public DnsRecordSetImpl withRecord(int flags, String tag, String value) {
+        this.innerModel().caaRecords().add(new CaaRecord().withFlags(flags).withTag(tag).withValue(value));
+        return this;
+    }
+
+    @Override
+    public DnsRecordSetImpl withoutRecord(int flags, String tag, String value) {
+        this.recordSetRemoveInfo.caaRecords().add(new CaaRecord().withFlags(flags).withTag(tag).withValue(value));
         return this;
     }
 

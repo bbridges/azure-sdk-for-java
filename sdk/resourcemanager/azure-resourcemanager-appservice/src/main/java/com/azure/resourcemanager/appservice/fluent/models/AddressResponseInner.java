@@ -6,6 +6,7 @@ package com.azure.resourcemanager.appservice.fluent.models;
 
 import com.azure.core.annotation.Fluent;
 import com.azure.core.util.logging.ClientLogger;
+import com.azure.resourcemanager.appservice.models.ProxyOnlyResource;
 import com.azure.resourcemanager.appservice.models.VirtualIpMapping;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,33 +14,30 @@ import java.util.List;
 
 /** Describes main public IP address and any extra virtual IPs. */
 @Fluent
-public final class AddressResponseInner {
+public final class AddressResponseInner extends ProxyOnlyResource {
     @JsonIgnore private final ClientLogger logger = new ClientLogger(AddressResponseInner.class);
 
     /*
-     * Main public virtual IP.
+     * AddressResponse resource specific properties
      */
-    @JsonProperty(value = "serviceIpAddress")
-    private String serviceIpAddress;
+    @JsonProperty(value = "properties")
+    private AddressResponseProperties innerProperties;
 
-    /*
-     * Virtual Network internal IP address of the App Service Environment if it
-     * is in internal load-balancing mode.
+    /**
+     * Get the innerProperties property: AddressResponse resource specific properties.
+     *
+     * @return the innerProperties value.
      */
-    @JsonProperty(value = "internalIpAddress")
-    private String internalIpAddress;
+    private AddressResponseProperties innerProperties() {
+        return this.innerProperties;
+    }
 
-    /*
-     * IP addresses appearing on outbound connections.
-     */
-    @JsonProperty(value = "outboundIpAddresses")
-    private List<String> outboundIpAddresses;
-
-    /*
-     * Additional virtual IPs.
-     */
-    @JsonProperty(value = "vipMappings")
-    private List<VirtualIpMapping> vipMappings;
+    /** {@inheritDoc} */
+    @Override
+    public AddressResponseInner withKind(String kind) {
+        super.withKind(kind);
+        return this;
+    }
 
     /**
      * Get the serviceIpAddress property: Main public virtual IP.
@@ -47,7 +45,7 @@ public final class AddressResponseInner {
      * @return the serviceIpAddress value.
      */
     public String serviceIpAddress() {
-        return this.serviceIpAddress;
+        return this.innerProperties() == null ? null : this.innerProperties().serviceIpAddress();
     }
 
     /**
@@ -57,7 +55,10 @@ public final class AddressResponseInner {
      * @return the AddressResponseInner object itself.
      */
     public AddressResponseInner withServiceIpAddress(String serviceIpAddress) {
-        this.serviceIpAddress = serviceIpAddress;
+        if (this.innerProperties() == null) {
+            this.innerProperties = new AddressResponseProperties();
+        }
+        this.innerProperties().withServiceIpAddress(serviceIpAddress);
         return this;
     }
 
@@ -68,7 +69,7 @@ public final class AddressResponseInner {
      * @return the internalIpAddress value.
      */
     public String internalIpAddress() {
-        return this.internalIpAddress;
+        return this.innerProperties() == null ? null : this.innerProperties().internalIpAddress();
     }
 
     /**
@@ -79,7 +80,10 @@ public final class AddressResponseInner {
      * @return the AddressResponseInner object itself.
      */
     public AddressResponseInner withInternalIpAddress(String internalIpAddress) {
-        this.internalIpAddress = internalIpAddress;
+        if (this.innerProperties() == null) {
+            this.innerProperties = new AddressResponseProperties();
+        }
+        this.innerProperties().withInternalIpAddress(internalIpAddress);
         return this;
     }
 
@@ -89,7 +93,7 @@ public final class AddressResponseInner {
      * @return the outboundIpAddresses value.
      */
     public List<String> outboundIpAddresses() {
-        return this.outboundIpAddresses;
+        return this.innerProperties() == null ? null : this.innerProperties().outboundIpAddresses();
     }
 
     /**
@@ -99,7 +103,10 @@ public final class AddressResponseInner {
      * @return the AddressResponseInner object itself.
      */
     public AddressResponseInner withOutboundIpAddresses(List<String> outboundIpAddresses) {
-        this.outboundIpAddresses = outboundIpAddresses;
+        if (this.innerProperties() == null) {
+            this.innerProperties = new AddressResponseProperties();
+        }
+        this.innerProperties().withOutboundIpAddresses(outboundIpAddresses);
         return this;
     }
 
@@ -109,7 +116,7 @@ public final class AddressResponseInner {
      * @return the vipMappings value.
      */
     public List<VirtualIpMapping> vipMappings() {
-        return this.vipMappings;
+        return this.innerProperties() == null ? null : this.innerProperties().vipMappings();
     }
 
     /**
@@ -119,7 +126,10 @@ public final class AddressResponseInner {
      * @return the AddressResponseInner object itself.
      */
     public AddressResponseInner withVipMappings(List<VirtualIpMapping> vipMappings) {
-        this.vipMappings = vipMappings;
+        if (this.innerProperties() == null) {
+            this.innerProperties = new AddressResponseProperties();
+        }
+        this.innerProperties().withVipMappings(vipMappings);
         return this;
     }
 
@@ -128,9 +138,11 @@ public final class AddressResponseInner {
      *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
+    @Override
     public void validate() {
-        if (vipMappings() != null) {
-            vipMappings().forEach(e -> e.validate());
+        super.validate();
+        if (innerProperties() != null) {
+            innerProperties().validate();
         }
     }
 }

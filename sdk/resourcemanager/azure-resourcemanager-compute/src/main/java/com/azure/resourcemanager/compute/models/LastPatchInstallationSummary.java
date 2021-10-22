@@ -4,26 +4,21 @@
 
 package com.azure.resourcemanager.compute.models;
 
-import com.azure.core.annotation.Fluent;
 import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.OffsetDateTime;
 
-/**
- * Describes the properties of the last installed patch summary.
- */
+/** Describes the properties of the last installed patch summary. */
 @Immutable
 public final class LastPatchInstallationSummary {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(LastPatchInstallationSummary.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(LastPatchInstallationSummary.class);
 
     /*
      * The overall success or failure status of the operation. It remains
      * "InProgress" until the operation completes. At that point it will become
-     * "Failed", "Succeeded", or "CompletedWithWarnings."
+     * "Unknown", "Failed", "Succeeded", or "CompletedWithWarnings."
      */
     @JsonProperty(value = "status", access = JsonProperty.Access.WRITE_ONLY)
     private PatchOperationStatus status;
@@ -41,18 +36,6 @@ public final class LastPatchInstallationSummary {
      */
     @JsonProperty(value = "maintenanceWindowExceeded", access = JsonProperty.Access.WRITE_ONLY)
     private Boolean maintenanceWindowExceeded;
-
-    /*
-     * The reboot status of the machine after the patch operation. It will be
-     * in "NotNeeded" status if reboot is not needed after the patch operation.
-     * "Required" will be the status once the patch is applied and machine is
-     * required to reboot. "Started" will be the reboot status when the machine
-     * has started to reboot. "Failed" will be the status if the machine is
-     * failed to reboot. "Completed" will be the status once the machine is
-     * rebooted successfully
-     */
-    @JsonProperty(value = "rebootStatus", access = JsonProperty.Access.WRITE_ONLY)
-    private RebootStatus rebootStatus;
 
     /*
      * The number of all available patches but not going to be installed
@@ -100,12 +83,6 @@ public final class LastPatchInstallationSummary {
     private OffsetDateTime lastModifiedTime;
 
     /*
-     * The person or system account that started the operation
-     */
-    @JsonProperty(value = "startedBy", access = JsonProperty.Access.WRITE_ONLY)
-    private String startedBy;
-
-    /*
      * The errors that were encountered during execution of the operation. The
      * details array contains the list of them.
      */
@@ -113,11 +90,10 @@ public final class LastPatchInstallationSummary {
     private ApiError error;
 
     /**
-     * Get the status property: The overall success or failure status of the
-     * operation. It remains "InProgress" until the operation completes. At
-     * that point it will become "Failed", "Succeeded", or
+     * Get the status property: The overall success or failure status of the operation. It remains "InProgress" until
+     * the operation completes. At that point it will become "Unknown", "Failed", "Succeeded", or
      * "CompletedWithWarnings.".
-     * 
+     *
      * @return the status value.
      */
     public PatchOperationStatus status() {
@@ -125,10 +101,9 @@ public final class LastPatchInstallationSummary {
     }
 
     /**
-     * Get the installationActivityId property: The activity ID of the
-     * operation that produced this result. It is used to correlate across CRP
-     * and extension logs.
-     * 
+     * Get the installationActivityId property: The activity ID of the operation that produced this result. It is used
+     * to correlate across CRP and extension logs.
+     *
      * @return the installationActivityId value.
      */
     public String installationActivityId() {
@@ -136,9 +111,9 @@ public final class LastPatchInstallationSummary {
     }
 
     /**
-     * Get the maintenanceWindowExceeded property: Describes whether the
-     * operation ran out of time before it completed all its intended actions.
-     * 
+     * Get the maintenanceWindowExceeded property: Describes whether the operation ran out of time before it completed
+     * all its intended actions.
+     *
      * @return the maintenanceWindowExceeded value.
      */
     public Boolean maintenanceWindowExceeded() {
@@ -146,25 +121,9 @@ public final class LastPatchInstallationSummary {
     }
 
     /**
-     * Get the rebootStatus property: The reboot status of the machine after
-     * the patch operation. It will be in "NotNeeded" status if reboot is not
-     * needed after the patch operation. "Required" will be the status once the
-     * patch is applied and machine is required to reboot. "Started" will be
-     * the reboot status when the machine has started to reboot. "Failed" will
-     * be the status if the machine is failed to reboot. "Completed" will be
-     * the status once the machine is rebooted successfully.
-     * 
-     * @return the rebootStatus value.
-     */
-    public RebootStatus rebootStatus() {
-        return this.rebootStatus;
-    }
-
-    /**
-     * Get the notSelectedPatchCount property: The number of all available
-     * patches but not going to be installed because it didn't match a
-     * classification or inclusion list entry.
-     * 
+     * Get the notSelectedPatchCount property: The number of all available patches but not going to be installed because
+     * it didn't match a classification or inclusion list entry.
+     *
      * @return the notSelectedPatchCount value.
      */
     public Integer notSelectedPatchCount() {
@@ -172,9 +131,9 @@ public final class LastPatchInstallationSummary {
     }
 
     /**
-     * Get the excludedPatchCount property: The number of all available patches
-     * but excluded explicitly by a customer-specified exclusion list match.
-     * 
+     * Get the excludedPatchCount property: The number of all available patches but excluded explicitly by a
+     * customer-specified exclusion list match.
+     *
      * @return the excludedPatchCount value.
      */
     public Integer excludedPatchCount() {
@@ -182,10 +141,9 @@ public final class LastPatchInstallationSummary {
     }
 
     /**
-     * Get the pendingPatchCount property: The number of all available patches
-     * expected to be installed over the course of the patch installation
-     * operation.
-     * 
+     * Get the pendingPatchCount property: The number of all available patches expected to be installed over the course
+     * of the patch installation operation.
+     *
      * @return the pendingPatchCount value.
      */
     public Integer pendingPatchCount() {
@@ -193,9 +151,8 @@ public final class LastPatchInstallationSummary {
     }
 
     /**
-     * Get the installedPatchCount property: The count of patches that
-     * successfully installed.
-     * 
+     * Get the installedPatchCount property: The count of patches that successfully installed.
+     *
      * @return the installedPatchCount value.
      */
     public Integer installedPatchCount() {
@@ -203,9 +160,8 @@ public final class LastPatchInstallationSummary {
     }
 
     /**
-     * Get the failedPatchCount property: The count of patches that failed
-     * installation.
-     * 
+     * Get the failedPatchCount property: The count of patches that failed installation.
+     *
      * @return the failedPatchCount value.
      */
     public Integer failedPatchCount() {
@@ -214,7 +170,7 @@ public final class LastPatchInstallationSummary {
 
     /**
      * Get the startTime property: The UTC timestamp when the operation began.
-     * 
+     *
      * @return the startTime value.
      */
     public OffsetDateTime startTime() {
@@ -222,9 +178,8 @@ public final class LastPatchInstallationSummary {
     }
 
     /**
-     * Get the lastModifiedTime property: The UTC timestamp when the operation
-     * began.
-     * 
+     * Get the lastModifiedTime property: The UTC timestamp when the operation began.
+     *
      * @return the lastModifiedTime value.
      */
     public OffsetDateTime lastModifiedTime() {
@@ -232,19 +187,9 @@ public final class LastPatchInstallationSummary {
     }
 
     /**
-     * Get the startedBy property: The person or system account that started
-     * the operation.
-     * 
-     * @return the startedBy value.
-     */
-    public String startedBy() {
-        return this.startedBy;
-    }
-
-    /**
-     * Get the error property: The errors that were encountered during
-     * execution of the operation. The details array contains the list of them.
-     * 
+     * Get the error property: The errors that were encountered during execution of the operation. The details array
+     * contains the list of them.
+     *
      * @return the error value.
      */
     public ApiError error() {
@@ -253,7 +198,7 @@ public final class LastPatchInstallationSummary {
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

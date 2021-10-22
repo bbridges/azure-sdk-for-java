@@ -3,7 +3,6 @@
 package com.azure.resourcemanager.network.implementation;
 
 import com.azure.core.management.SubResource;
-import com.azure.resourcemanager.network.fluent.models.RouteFilterInner;
 import com.azure.resourcemanager.network.models.ExpressRouteCircuitPeeringConfig;
 import com.azure.resourcemanager.network.models.ExpressRouteCrossConnectionPeering;
 import com.azure.resourcemanager.network.models.Ipv6ExpressRouteCircuitPeeringConfig;
@@ -62,7 +61,7 @@ class Ipv6PeeringConfigImpl extends IndexableWrapperImpl<Ipv6ExpressRouteCircuit
 
     @Override
     public Ipv6PeeringConfigImpl withRouteFilter(String routeFilterId) {
-        innerModel().withRouteFilter(new RouteFilterInner().withId(routeFilterId));
+        innerModel().withRouteFilter(new SubResource().withId(routeFilterId));
         return this;
     }
 

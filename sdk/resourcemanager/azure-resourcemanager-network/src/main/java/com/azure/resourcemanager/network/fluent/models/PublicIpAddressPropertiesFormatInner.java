@@ -5,36 +5,33 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.DdosSettings;
+import com.azure.resourcemanager.network.models.DeleteOptions;
 import com.azure.resourcemanager.network.models.IpAllocationMethod;
 import com.azure.resourcemanager.network.models.IpTag;
 import com.azure.resourcemanager.network.models.IpVersion;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.azure.resourcemanager.network.models.PublicIpAddressDnsSettings;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.PublicIpAddressMigrationPhase;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * Public IP address properties.
- */
+/** Public IP address properties. */
 @Fluent
 public final class PublicIpAddressPropertiesFormatInner {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(PublicIpAddressPropertiesFormatInner.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(PublicIpAddressPropertiesFormatInner.class);
 
     /*
-     * The public IP allocation method. Possible values are: 'Static' and
-     * 'Dynamic'.
+     * The public IP address allocation method.
      */
     @JsonProperty(value = "publicIPAllocationMethod")
     private IpAllocationMethod publicIpAllocationMethod;
 
     /*
-     * The public IP address version. Possible values are: 'IPv4' and 'IPv6'.
+     * The public IP address version.
      */
     @JsonProperty(value = "publicIPAddressVersion")
     private IpVersion publicIpAddressVersion;
@@ -82,22 +79,51 @@ public final class PublicIpAddressPropertiesFormatInner {
     private Integer idleTimeoutInMinutes;
 
     /*
-     * The resource GUID property of the public IP resource.
+     * The resource GUID property of the public IP address resource.
      */
-    @JsonProperty(value = "resourceGuid")
+    @JsonProperty(value = "resourceGuid", access = JsonProperty.Access.WRITE_ONLY)
     private String resourceGuid;
 
     /*
-     * The provisioning state of the PublicIP resource. Possible values are:
-     * 'Updating', 'Deleting', and 'Failed'.
+     * The provisioning state of the public IP address resource.
      */
-    @JsonProperty(value = "provisioningState")
-    private String provisioningState;
+    @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
+    private ProvisioningState provisioningState;
+
+    /*
+     * The service public IP address of the public IP address resource.
+     */
+    @JsonProperty(value = "servicePublicIPAddress")
+    private PublicIpAddressInner servicePublicIpAddress;
+
+    /*
+     * The NatGateway for the Public IP address.
+     */
+    @JsonProperty(value = "natGateway")
+    private NatGatewayInner natGateway;
+
+    /*
+     * Migration phase of Public IP Address.
+     */
+    @JsonProperty(value = "migrationPhase")
+    private PublicIpAddressMigrationPhase migrationPhase;
+
+    /*
+     * The linked public IP address of the public IP address resource.
+     */
+    @JsonProperty(value = "linkedPublicIPAddress")
+    private PublicIpAddressInner linkedPublicIpAddress;
+
+    /*
+     * Specify what happens to the public IP address when the VM using it is
+     * deleted
+     */
+    @JsonProperty(value = "deleteOption")
+    private DeleteOptions deleteOption;
 
     /**
-     * Get the publicIpAllocationMethod property: The public IP allocation
-     * method. Possible values are: 'Static' and 'Dynamic'.
-     * 
+     * Get the publicIpAllocationMethod property: The public IP address allocation method.
+     *
      * @return the publicIpAllocationMethod value.
      */
     public IpAllocationMethod publicIpAllocationMethod() {
@@ -105,22 +131,20 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Set the publicIpAllocationMethod property: The public IP allocation
-     * method. Possible values are: 'Static' and 'Dynamic'.
-     * 
-     * @param publicIpAllocationMethod the publicIpAllocationMethod value to
-     * set.
+     * Set the publicIpAllocationMethod property: The public IP address allocation method.
+     *
+     * @param publicIpAllocationMethod the publicIpAllocationMethod value to set.
      * @return the PublicIpAddressPropertiesFormatInner object itself.
      */
-    public PublicIpAddressPropertiesFormatInner withPublicIpAllocationMethod(IpAllocationMethod publicIpAllocationMethod) {
+    public PublicIpAddressPropertiesFormatInner withPublicIpAllocationMethod(
+        IpAllocationMethod publicIpAllocationMethod) {
         this.publicIpAllocationMethod = publicIpAllocationMethod;
         return this;
     }
 
     /**
      * Get the publicIpAddressVersion property: The public IP address version.
-     * Possible values are: 'IPv4' and 'IPv6'.
-     * 
+     *
      * @return the publicIpAddressVersion value.
      */
     public IpVersion publicIpAddressVersion() {
@@ -129,8 +153,7 @@ public final class PublicIpAddressPropertiesFormatInner {
 
     /**
      * Set the publicIpAddressVersion property: The public IP address version.
-     * Possible values are: 'IPv4' and 'IPv6'.
-     * 
+     *
      * @param publicIpAddressVersion the publicIpAddressVersion value to set.
      * @return the PublicIpAddressPropertiesFormatInner object itself.
      */
@@ -140,9 +163,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Get the ipConfiguration property: The IP configuration associated with
-     * the public IP address.
-     * 
+     * Get the ipConfiguration property: The IP configuration associated with the public IP address.
+     *
      * @return the ipConfiguration value.
      */
     public IpConfigurationInner ipConfiguration() {
@@ -150,9 +172,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Get the dnsSettings property: The FQDN of the DNS record associated with
-     * the public IP address.
-     * 
+     * Get the dnsSettings property: The FQDN of the DNS record associated with the public IP address.
+     *
      * @return the dnsSettings value.
      */
     public PublicIpAddressDnsSettings dnsSettings() {
@@ -160,9 +181,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Set the dnsSettings property: The FQDN of the DNS record associated with
-     * the public IP address.
-     * 
+     * Set the dnsSettings property: The FQDN of the DNS record associated with the public IP address.
+     *
      * @param dnsSettings the dnsSettings value to set.
      * @return the PublicIpAddressPropertiesFormatInner object itself.
      */
@@ -172,9 +192,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Get the ddosSettings property: The DDoS protection custom policy
-     * associated with the public IP address.
-     * 
+     * Get the ddosSettings property: The DDoS protection custom policy associated with the public IP address.
+     *
      * @return the ddosSettings value.
      */
     public DdosSettings ddosSettings() {
@@ -182,9 +201,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Set the ddosSettings property: The DDoS protection custom policy
-     * associated with the public IP address.
-     * 
+     * Set the ddosSettings property: The DDoS protection custom policy associated with the public IP address.
+     *
      * @param ddosSettings the ddosSettings value to set.
      * @return the PublicIpAddressPropertiesFormatInner object itself.
      */
@@ -194,9 +212,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Get the ipTags property: The list of tags associated with the public IP
-     * address.
-     * 
+     * Get the ipTags property: The list of tags associated with the public IP address.
+     *
      * @return the ipTags value.
      */
     public List<IpTag> ipTags() {
@@ -204,9 +221,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Set the ipTags property: The list of tags associated with the public IP
-     * address.
-     * 
+     * Set the ipTags property: The list of tags associated with the public IP address.
+     *
      * @param ipTags the ipTags value to set.
      * @return the PublicIpAddressPropertiesFormatInner object itself.
      */
@@ -216,9 +232,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Get the ipAddress property: The IP address associated with the public IP
-     * address resource.
-     * 
+     * Get the ipAddress property: The IP address associated with the public IP address resource.
+     *
      * @return the ipAddress value.
      */
     public String ipAddress() {
@@ -226,9 +241,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Set the ipAddress property: The IP address associated with the public IP
-     * address resource.
-     * 
+     * Set the ipAddress property: The IP address associated with the public IP address resource.
+     *
      * @param ipAddress the ipAddress value to set.
      * @return the PublicIpAddressPropertiesFormatInner object itself.
      */
@@ -238,9 +252,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Get the publicIpPrefix property: The Public IP Prefix this Public IP
-     * Address should be allocated from.
-     * 
+     * Get the publicIpPrefix property: The Public IP Prefix this Public IP Address should be allocated from.
+     *
      * @return the publicIpPrefix value.
      */
     public SubResource publicIpPrefix() {
@@ -248,9 +261,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Set the publicIpPrefix property: The Public IP Prefix this Public IP
-     * Address should be allocated from.
-     * 
+     * Set the publicIpPrefix property: The Public IP Prefix this Public IP Address should be allocated from.
+     *
      * @param publicIpPrefix the publicIpPrefix value to set.
      * @return the PublicIpAddressPropertiesFormatInner object itself.
      */
@@ -260,9 +272,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Get the idleTimeoutInMinutes property: The idle timeout of the public IP
-     * address.
-     * 
+     * Get the idleTimeoutInMinutes property: The idle timeout of the public IP address.
+     *
      * @return the idleTimeoutInMinutes value.
      */
     public Integer idleTimeoutInMinutes() {
@@ -270,9 +281,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Set the idleTimeoutInMinutes property: The idle timeout of the public IP
-     * address.
-     * 
+     * Set the idleTimeoutInMinutes property: The idle timeout of the public IP address.
+     *
      * @param idleTimeoutInMinutes the idleTimeoutInMinutes value to set.
      * @return the PublicIpAddressPropertiesFormatInner object itself.
      */
@@ -282,9 +292,8 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Get the resourceGuid property: The resource GUID property of the public
-     * IP resource.
-     * 
+     * Get the resourceGuid property: The resource GUID property of the public IP address resource.
+     *
      * @return the resourceGuid value.
      */
     public String resourceGuid() {
@@ -292,44 +301,118 @@ public final class PublicIpAddressPropertiesFormatInner {
     }
 
     /**
-     * Set the resourceGuid property: The resource GUID property of the public
-     * IP resource.
-     * 
-     * @param resourceGuid the resourceGuid value to set.
-     * @return the PublicIpAddressPropertiesFormatInner object itself.
-     */
-    public PublicIpAddressPropertiesFormatInner withResourceGuid(String resourceGuid) {
-        this.resourceGuid = resourceGuid;
-        return this;
-    }
-
-    /**
-     * Get the provisioningState property: The provisioning state of the
-     * PublicIP resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the public IP address resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.provisioningState;
     }
 
     /**
-     * Set the provisioningState property: The provisioning state of the
-     * PublicIP resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
-     * @param provisioningState the provisioningState value to set.
+     * Get the servicePublicIpAddress property: The service public IP address of the public IP address resource.
+     *
+     * @return the servicePublicIpAddress value.
+     */
+    public PublicIpAddressInner servicePublicIpAddress() {
+        return this.servicePublicIpAddress;
+    }
+
+    /**
+     * Set the servicePublicIpAddress property: The service public IP address of the public IP address resource.
+     *
+     * @param servicePublicIpAddress the servicePublicIpAddress value to set.
      * @return the PublicIpAddressPropertiesFormatInner object itself.
      */
-    public PublicIpAddressPropertiesFormatInner withProvisioningState(String provisioningState) {
-        this.provisioningState = provisioningState;
+    public PublicIpAddressPropertiesFormatInner withServicePublicIpAddress(
+        PublicIpAddressInner servicePublicIpAddress) {
+        this.servicePublicIpAddress = servicePublicIpAddress;
+        return this;
+    }
+
+    /**
+     * Get the natGateway property: The NatGateway for the Public IP address.
+     *
+     * @return the natGateway value.
+     */
+    public NatGatewayInner natGateway() {
+        return this.natGateway;
+    }
+
+    /**
+     * Set the natGateway property: The NatGateway for the Public IP address.
+     *
+     * @param natGateway the natGateway value to set.
+     * @return the PublicIpAddressPropertiesFormatInner object itself.
+     */
+    public PublicIpAddressPropertiesFormatInner withNatGateway(NatGatewayInner natGateway) {
+        this.natGateway = natGateway;
+        return this;
+    }
+
+    /**
+     * Get the migrationPhase property: Migration phase of Public IP Address.
+     *
+     * @return the migrationPhase value.
+     */
+    public PublicIpAddressMigrationPhase migrationPhase() {
+        return this.migrationPhase;
+    }
+
+    /**
+     * Set the migrationPhase property: Migration phase of Public IP Address.
+     *
+     * @param migrationPhase the migrationPhase value to set.
+     * @return the PublicIpAddressPropertiesFormatInner object itself.
+     */
+    public PublicIpAddressPropertiesFormatInner withMigrationPhase(PublicIpAddressMigrationPhase migrationPhase) {
+        this.migrationPhase = migrationPhase;
+        return this;
+    }
+
+    /**
+     * Get the linkedPublicIpAddress property: The linked public IP address of the public IP address resource.
+     *
+     * @return the linkedPublicIpAddress value.
+     */
+    public PublicIpAddressInner linkedPublicIpAddress() {
+        return this.linkedPublicIpAddress;
+    }
+
+    /**
+     * Set the linkedPublicIpAddress property: The linked public IP address of the public IP address resource.
+     *
+     * @param linkedPublicIpAddress the linkedPublicIpAddress value to set.
+     * @return the PublicIpAddressPropertiesFormatInner object itself.
+     */
+    public PublicIpAddressPropertiesFormatInner withLinkedPublicIpAddress(PublicIpAddressInner linkedPublicIpAddress) {
+        this.linkedPublicIpAddress = linkedPublicIpAddress;
+        return this;
+    }
+
+    /**
+     * Get the deleteOption property: Specify what happens to the public IP address when the VM using it is deleted.
+     *
+     * @return the deleteOption value.
+     */
+    public DeleteOptions deleteOption() {
+        return this.deleteOption;
+    }
+
+    /**
+     * Set the deleteOption property: Specify what happens to the public IP address when the VM using it is deleted.
+     *
+     * @param deleteOption the deleteOption value to set.
+     * @return the PublicIpAddressPropertiesFormatInner object itself.
+     */
+    public PublicIpAddressPropertiesFormatInner withDeleteOption(DeleteOptions deleteOption) {
+        this.deleteOption = deleteOption;
         return this;
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
@@ -344,6 +427,15 @@ public final class PublicIpAddressPropertiesFormatInner {
         }
         if (ipTags() != null) {
             ipTags().forEach(e -> e.validate());
+        }
+        if (servicePublicIpAddress() != null) {
+            servicePublicIpAddress().validate();
+        }
+        if (natGateway() != null) {
+            natGateway().validate();
+        }
+        if (linkedPublicIpAddress() != null) {
+            linkedPublicIpAddress().validate();
         }
     }
 }

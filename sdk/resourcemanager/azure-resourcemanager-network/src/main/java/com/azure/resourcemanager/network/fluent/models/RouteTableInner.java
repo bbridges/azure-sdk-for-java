@@ -5,23 +5,18 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.Resource;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Route table resource.
- */
+/** Route table resource. */
 @Fluent
 public final class RouteTableInner extends Resource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(RouteTableInner.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(RouteTableInner.class);
 
     /*
      * Properties of the route table.
@@ -30,10 +25,9 @@ public final class RouteTableInner extends Resource {
     private RouteTablePropertiesFormat innerProperties;
 
     /*
-     * Gets a unique read-only string that changes whenever the resource is
-     * updated.
+     * A unique read-only string that changes whenever the resource is updated.
      */
-    @JsonProperty(value = "etag")
+    @JsonProperty(value = "etag", access = JsonProperty.Access.WRITE_ONLY)
     private String etag;
 
     /*
@@ -44,7 +38,7 @@ public final class RouteTableInner extends Resource {
 
     /**
      * Get the innerProperties property: Properties of the route table.
-     * 
+     *
      * @return the innerProperties value.
      */
     private RouteTablePropertiesFormat innerProperties() {
@@ -52,9 +46,8 @@ public final class RouteTableInner extends Resource {
     }
 
     /**
-     * Get the etag property: Gets a unique read-only string that changes
-     * whenever the resource is updated.
-     * 
+     * Get the etag property: A unique read-only string that changes whenever the resource is updated.
+     *
      * @return the etag value.
      */
     public String etag() {
@@ -62,20 +55,8 @@ public final class RouteTableInner extends Resource {
     }
 
     /**
-     * Set the etag property: Gets a unique read-only string that changes
-     * whenever the resource is updated.
-     * 
-     * @param etag the etag value to set.
-     * @return the RouteTableInner object itself.
-     */
-    public RouteTableInner withEtag(String etag) {
-        this.etag = etag;
-        return this;
-    }
-
-    /**
      * Get the id property: Resource ID.
-     * 
+     *
      * @return the id value.
      */
     public String id() {
@@ -84,7 +65,7 @@ public final class RouteTableInner extends Resource {
 
     /**
      * Set the id property: Resource ID.
-     * 
+     *
      * @param id the id value to set.
      * @return the RouteTableInner object itself.
      */
@@ -93,18 +74,14 @@ public final class RouteTableInner extends Resource {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public RouteTableInner withLocation(String location) {
         super.withLocation(location);
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public RouteTableInner withTags(Map<String, String> tags) {
         super.withTags(tags);
@@ -112,9 +89,8 @@ public final class RouteTableInner extends Resource {
     }
 
     /**
-     * Get the routes property: Collection of routes contained within a route
-     * table.
-     * 
+     * Get the routes property: Collection of routes contained within a route table.
+     *
      * @return the routes value.
      */
     public List<RouteInner> routes() {
@@ -122,9 +98,8 @@ public final class RouteTableInner extends Resource {
     }
 
     /**
-     * Set the routes property: Collection of routes contained within a route
-     * table.
-     * 
+     * Set the routes property: Collection of routes contained within a route table.
+     *
      * @param routes the routes value to set.
      * @return the RouteTableInner object itself.
      */
@@ -138,7 +113,7 @@ public final class RouteTableInner extends Resource {
 
     /**
      * Get the subnets property: A collection of references to subnets.
-     * 
+     *
      * @return the subnets value.
      */
     public List<SubnetInner> subnets() {
@@ -146,10 +121,9 @@ public final class RouteTableInner extends Resource {
     }
 
     /**
-     * Get the disableBgpRoutePropagation property: Gets or sets whether to
-     * disable the routes learned by BGP on that route table. True means
-     * disable.
-     * 
+     * Get the disableBgpRoutePropagation property: Whether to disable the routes learned by BGP on that route table.
+     * True means disable.
+     *
      * @return the disableBgpRoutePropagation value.
      */
     public Boolean disableBgpRoutePropagation() {
@@ -157,12 +131,10 @@ public final class RouteTableInner extends Resource {
     }
 
     /**
-     * Set the disableBgpRoutePropagation property: Gets or sets whether to
-     * disable the routes learned by BGP on that route table. True means
-     * disable.
-     * 
-     * @param disableBgpRoutePropagation the disableBgpRoutePropagation value
-     * to set.
+     * Set the disableBgpRoutePropagation property: Whether to disable the routes learned by BGP on that route table.
+     * True means disable.
+     *
+     * @param disableBgpRoutePropagation the disableBgpRoutePropagation value to set.
      * @return the RouteTableInner object itself.
      */
     public RouteTableInner withDisableBgpRoutePropagation(Boolean disableBgpRoutePropagation) {
@@ -174,33 +146,26 @@ public final class RouteTableInner extends Resource {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * resource. Possible values are: 'Updating', 'Deleting', and 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the route table resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.innerProperties() == null ? null : this.innerProperties().provisioningState();
     }
 
     /**
-     * Set the provisioningState property: The provisioning state of the
-     * resource. Possible values are: 'Updating', 'Deleting', and 'Failed'.
-     * 
-     * @param provisioningState the provisioningState value to set.
-     * @return the RouteTableInner object itself.
+     * Get the resourceGuid property: The resource GUID property of the route table.
+     *
+     * @return the resourceGuid value.
      */
-    public RouteTableInner withProvisioningState(String provisioningState) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new RouteTablePropertiesFormat();
-        }
-        this.innerProperties().withProvisioningState(provisioningState);
-        return this;
+    public String resourceGuid() {
+        return this.innerProperties() == null ? null : this.innerProperties().resourceGuid();
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

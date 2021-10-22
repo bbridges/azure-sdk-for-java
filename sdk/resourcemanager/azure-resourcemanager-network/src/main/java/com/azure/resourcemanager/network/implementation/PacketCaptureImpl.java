@@ -97,13 +97,13 @@ public class PacketCaptureImpl
 
     @Override
     public PacketCaptureImpl withBytesToCapturePerPacket(long bytesToCapturePerPacket) {
-        createParameters.withBytesToCapturePerPacket((int) bytesToCapturePerPacket);
+        createParameters.withBytesToCapturePerPacket(bytesToCapturePerPacket);
         return this;
     }
 
     @Override
     public PacketCaptureImpl withTotalBytesPerSession(long totalBytesPerSession) {
-        createParameters.withTotalBytesPerSession((int) totalBytesPerSession);
+        createParameters.withTotalBytesPerSession(totalBytesPerSession);
         return this;
     }
 
@@ -150,12 +150,12 @@ public class PacketCaptureImpl
 
     @Override
     public long bytesToCapturePerPacket() {
-        return ResourceManagerUtils.toPrimitiveInt(innerModel().bytesToCapturePerPacket());
+        return ResourceManagerUtils.toPrimitiveLong(innerModel().bytesToCapturePerPacket());
     }
 
     @Override
     public long totalBytesPerSession() {
-        return ResourceManagerUtils.toPrimitiveInt(innerModel().totalBytesPerSession());
+        return ResourceManagerUtils.toPrimitiveLong(innerModel().totalBytesPerSession());
     }
 
     @Override

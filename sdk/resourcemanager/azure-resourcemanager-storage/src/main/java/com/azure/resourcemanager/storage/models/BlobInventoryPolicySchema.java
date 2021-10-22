@@ -5,33 +5,21 @@
 package com.azure.resourcemanager.storage.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * The storage account blob inventory policy rules.
- */
+/** The storage account blob inventory policy rules. */
 @Fluent
 public final class BlobInventoryPolicySchema {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(BlobInventoryPolicySchema.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(BlobInventoryPolicySchema.class);
 
     /*
      * Policy is enabled if set to true.
      */
     @JsonProperty(value = "enabled", required = true)
     private boolean enabled;
-
-    /*
-     * Container name where blob inventory files are stored. Must be
-     * pre-created.
-     */
-    @JsonProperty(value = "destination", required = true)
-    private String destination;
 
     /*
      * The valid value is Inventory
@@ -48,7 +36,7 @@ public final class BlobInventoryPolicySchema {
 
     /**
      * Get the enabled property: Policy is enabled if set to true.
-     * 
+     *
      * @return the enabled value.
      */
     public boolean enabled() {
@@ -57,7 +45,7 @@ public final class BlobInventoryPolicySchema {
 
     /**
      * Set the enabled property: Policy is enabled if set to true.
-     * 
+     *
      * @param enabled the enabled value to set.
      * @return the BlobInventoryPolicySchema object itself.
      */
@@ -67,30 +55,8 @@ public final class BlobInventoryPolicySchema {
     }
 
     /**
-     * Get the destination property: Container name where blob inventory files
-     * are stored. Must be pre-created.
-     * 
-     * @return the destination value.
-     */
-    public String destination() {
-        return this.destination;
-    }
-
-    /**
-     * Set the destination property: Container name where blob inventory files
-     * are stored. Must be pre-created.
-     * 
-     * @param destination the destination value to set.
-     * @return the BlobInventoryPolicySchema object itself.
-     */
-    public BlobInventoryPolicySchema withDestination(String destination) {
-        this.destination = destination;
-        return this;
-    }
-
-    /**
      * Get the type property: The valid value is Inventory.
-     * 
+     *
      * @return the type value.
      */
     public InventoryRuleType type() {
@@ -99,7 +65,7 @@ public final class BlobInventoryPolicySchema {
 
     /**
      * Set the type property: The valid value is Inventory.
-     * 
+     *
      * @param type the type value to set.
      * @return the BlobInventoryPolicySchema object itself.
      */
@@ -109,9 +75,8 @@ public final class BlobInventoryPolicySchema {
     }
 
     /**
-     * Get the rules property: The storage account blob inventory policy rules.
-     * The rule is applied when it is enabled.
-     * 
+     * Get the rules property: The storage account blob inventory policy rules. The rule is applied when it is enabled.
+     *
      * @return the rules value.
      */
     public List<BlobInventoryPolicyRule> rules() {
@@ -119,9 +84,8 @@ public final class BlobInventoryPolicySchema {
     }
 
     /**
-     * Set the rules property: The storage account blob inventory policy rules.
-     * The rule is applied when it is enabled.
-     * 
+     * Set the rules property: The storage account blob inventory policy rules. The rule is applied when it is enabled.
+     *
      * @param rules the rules value to set.
      * @return the BlobInventoryPolicySchema object itself.
      */
@@ -132,18 +96,19 @@ public final class BlobInventoryPolicySchema {
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
-        if (destination() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property destination in model BlobInventoryPolicySchema"));
-        }
         if (type() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property type in model BlobInventoryPolicySchema"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException("Missing required property type in model BlobInventoryPolicySchema"));
         }
         if (rules() == null) {
-            throw logger.logExceptionAsError(new IllegalArgumentException("Missing required property rules in model BlobInventoryPolicySchema"));
+            throw logger
+                .logExceptionAsError(
+                    new IllegalArgumentException("Missing required property rules in model BlobInventoryPolicySchema"));
         } else {
             rules().forEach(e -> e.validate());
         }

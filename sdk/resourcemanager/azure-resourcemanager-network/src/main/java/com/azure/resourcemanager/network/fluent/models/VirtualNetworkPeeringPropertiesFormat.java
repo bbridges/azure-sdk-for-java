@@ -5,33 +5,31 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.AddressSpace;
+import com.azure.resourcemanager.network.models.ProvisioningState;
+import com.azure.resourcemanager.network.models.VirtualNetworkBgpCommunities;
+import com.azure.resourcemanager.network.models.VirtualNetworkPeeringLevel;
 import com.azure.resourcemanager.network.models.VirtualNetworkPeeringState;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Properties of the virtual network peering.
- */
+/** Properties of the virtual network peering. */
 @Fluent
 public final class VirtualNetworkPeeringPropertiesFormat {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(VirtualNetworkPeeringPropertiesFormat.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(VirtualNetworkPeeringPropertiesFormat.class);
 
     /*
-     * Whether the VMs in the linked virtual network space would be able to
-     * access all the VMs in local Virtual network space.
+     * Whether the VMs in the local virtual network space would be able to
+     * access the VMs in remote virtual network space.
      */
     @JsonProperty(value = "allowVirtualNetworkAccess")
     private Boolean allowVirtualNetworkAccess;
 
     /*
-     * Whether the forwarded traffic from the VMs in the remote virtual network
-     * will be allowed/disallowed.
+     * Whether the forwarded traffic from the VMs in the local virtual network
+     * will be allowed/disallowed in remote virtual network.
      */
     @JsonProperty(value = "allowForwardedTraffic")
     private Boolean allowForwardedTraffic;
@@ -54,7 +52,7 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     private Boolean useRemoteGateways;
 
     /*
-     * The reference of the remote virtual network. The remote virtual network
+     * The reference to the remote virtual network. The remote virtual network
      * can be in the same or different region (preview). See here to register
      * for the preview and learn more
      * (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-create-peering).
@@ -63,29 +61,59 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     private SubResource remoteVirtualNetwork;
 
     /*
-     * The reference of the remote virtual network address space.
+     * The reference to the address space peered with the remote virtual
+     * network.
      */
     @JsonProperty(value = "remoteAddressSpace")
     private AddressSpace remoteAddressSpace;
 
     /*
-     * The status of the virtual network peering. Possible values are
-     * 'Initiated', 'Connected', and 'Disconnected'.
+     * The reference to the current address space of the remote virtual
+     * network.
+     */
+    @JsonProperty(value = "remoteVirtualNetworkAddressSpace")
+    private AddressSpace remoteVirtualNetworkAddressSpace;
+
+    /*
+     * The reference to the remote virtual network's Bgp Communities.
+     */
+    @JsonProperty(value = "remoteBgpCommunities")
+    private VirtualNetworkBgpCommunities remoteBgpCommunities;
+
+    /*
+     * The status of the virtual network peering.
      */
     @JsonProperty(value = "peeringState")
     private VirtualNetworkPeeringState peeringState;
 
     /*
-     * The provisioning state of the resource.
+     * The peering sync status of the virtual network peering.
      */
-    @JsonProperty(value = "provisioningState")
-    private String provisioningState;
+    @JsonProperty(value = "peeringSyncLevel")
+    private VirtualNetworkPeeringLevel peeringSyncLevel;
+
+    /*
+     * The provisioning state of the virtual network peering resource.
+     */
+    @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
+    private ProvisioningState provisioningState;
+
+    /*
+     * If we need to verify the provisioning state of the remote gateway.
+     */
+    @JsonProperty(value = "doNotVerifyRemoteGateways")
+    private Boolean doNotVerifyRemoteGateways;
+
+    /*
+     * The resourceGuid property of the Virtual Network peering resource.
+     */
+    @JsonProperty(value = "resourceGuid", access = JsonProperty.Access.WRITE_ONLY)
+    private String resourceGuid;
 
     /**
-     * Get the allowVirtualNetworkAccess property: Whether the VMs in the
-     * linked virtual network space would be able to access all the VMs in
-     * local Virtual network space.
-     * 
+     * Get the allowVirtualNetworkAccess property: Whether the VMs in the local virtual network space would be able to
+     * access the VMs in remote virtual network space.
+     *
      * @return the allowVirtualNetworkAccess value.
      */
     public Boolean allowVirtualNetworkAccess() {
@@ -93,12 +121,10 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Set the allowVirtualNetworkAccess property: Whether the VMs in the
-     * linked virtual network space would be able to access all the VMs in
-     * local Virtual network space.
-     * 
-     * @param allowVirtualNetworkAccess the allowVirtualNetworkAccess value to
-     * set.
+     * Set the allowVirtualNetworkAccess property: Whether the VMs in the local virtual network space would be able to
+     * access the VMs in remote virtual network space.
+     *
+     * @param allowVirtualNetworkAccess the allowVirtualNetworkAccess value to set.
      * @return the VirtualNetworkPeeringPropertiesFormat object itself.
      */
     public VirtualNetworkPeeringPropertiesFormat withAllowVirtualNetworkAccess(Boolean allowVirtualNetworkAccess) {
@@ -107,9 +133,9 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Get the allowForwardedTraffic property: Whether the forwarded traffic
-     * from the VMs in the remote virtual network will be allowed/disallowed.
-     * 
+     * Get the allowForwardedTraffic property: Whether the forwarded traffic from the VMs in the local virtual network
+     * will be allowed/disallowed in remote virtual network.
+     *
      * @return the allowForwardedTraffic value.
      */
     public Boolean allowForwardedTraffic() {
@@ -117,9 +143,9 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Set the allowForwardedTraffic property: Whether the forwarded traffic
-     * from the VMs in the remote virtual network will be allowed/disallowed.
-     * 
+     * Set the allowForwardedTraffic property: Whether the forwarded traffic from the VMs in the local virtual network
+     * will be allowed/disallowed in remote virtual network.
+     *
      * @param allowForwardedTraffic the allowForwardedTraffic value to set.
      * @return the VirtualNetworkPeeringPropertiesFormat object itself.
      */
@@ -129,9 +155,9 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Get the allowGatewayTransit property: If gateway links can be used in
-     * remote virtual networking to link to this virtual network.
-     * 
+     * Get the allowGatewayTransit property: If gateway links can be used in remote virtual networking to link to this
+     * virtual network.
+     *
      * @return the allowGatewayTransit value.
      */
     public Boolean allowGatewayTransit() {
@@ -139,9 +165,9 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Set the allowGatewayTransit property: If gateway links can be used in
-     * remote virtual networking to link to this virtual network.
-     * 
+     * Set the allowGatewayTransit property: If gateway links can be used in remote virtual networking to link to this
+     * virtual network.
+     *
      * @param allowGatewayTransit the allowGatewayTransit value to set.
      * @return the VirtualNetworkPeeringPropertiesFormat object itself.
      */
@@ -151,13 +177,11 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Get the useRemoteGateways property: If remote gateways can be used on
-     * this virtual network. If the flag is set to true, and
-     * allowGatewayTransit on remote peering is also true, virtual network will
-     * use gateways of remote virtual network for transit. Only one peering can
-     * have this flag set to true. This flag cannot be set if virtual network
+     * Get the useRemoteGateways property: If remote gateways can be used on this virtual network. If the flag is set to
+     * true, and allowGatewayTransit on remote peering is also true, virtual network will use gateways of remote virtual
+     * network for transit. Only one peering can have this flag set to true. This flag cannot be set if virtual network
      * already has a gateway.
-     * 
+     *
      * @return the useRemoteGateways value.
      */
     public Boolean useRemoteGateways() {
@@ -165,13 +189,11 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Set the useRemoteGateways property: If remote gateways can be used on
-     * this virtual network. If the flag is set to true, and
-     * allowGatewayTransit on remote peering is also true, virtual network will
-     * use gateways of remote virtual network for transit. Only one peering can
-     * have this flag set to true. This flag cannot be set if virtual network
+     * Set the useRemoteGateways property: If remote gateways can be used on this virtual network. If the flag is set to
+     * true, and allowGatewayTransit on remote peering is also true, virtual network will use gateways of remote virtual
+     * network for transit. Only one peering can have this flag set to true. This flag cannot be set if virtual network
      * already has a gateway.
-     * 
+     *
      * @param useRemoteGateways the useRemoteGateways value to set.
      * @return the VirtualNetworkPeeringPropertiesFormat object itself.
      */
@@ -181,12 +203,10 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Get the remoteVirtualNetwork property: The reference of the remote
-     * virtual network. The remote virtual network can be in the same or
-     * different region (preview). See here to register for the preview and
-     * learn more
+     * Get the remoteVirtualNetwork property: The reference to the remote virtual network. The remote virtual network
+     * can be in the same or different region (preview). See here to register for the preview and learn more
      * (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-create-peering).
-     * 
+     *
      * @return the remoteVirtualNetwork value.
      */
     public SubResource remoteVirtualNetwork() {
@@ -194,12 +214,10 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Set the remoteVirtualNetwork property: The reference of the remote
-     * virtual network. The remote virtual network can be in the same or
-     * different region (preview). See here to register for the preview and
-     * learn more
+     * Set the remoteVirtualNetwork property: The reference to the remote virtual network. The remote virtual network
+     * can be in the same or different region (preview). See here to register for the preview and learn more
      * (https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-create-peering).
-     * 
+     *
      * @param remoteVirtualNetwork the remoteVirtualNetwork value to set.
      * @return the VirtualNetworkPeeringPropertiesFormat object itself.
      */
@@ -209,9 +227,8 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Get the remoteAddressSpace property: The reference of the remote virtual
-     * network address space.
-     * 
+     * Get the remoteAddressSpace property: The reference to the address space peered with the remote virtual network.
+     *
      * @return the remoteAddressSpace value.
      */
     public AddressSpace remoteAddressSpace() {
@@ -219,9 +236,8 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Set the remoteAddressSpace property: The reference of the remote virtual
-     * network address space.
-     * 
+     * Set the remoteAddressSpace property: The reference to the address space peered with the remote virtual network.
+     *
      * @param remoteAddressSpace the remoteAddressSpace value to set.
      * @return the VirtualNetworkPeeringPropertiesFormat object itself.
      */
@@ -231,10 +247,52 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Get the peeringState property: The status of the virtual network
-     * peering. Possible values are 'Initiated', 'Connected', and
-     * 'Disconnected'.
-     * 
+     * Get the remoteVirtualNetworkAddressSpace property: The reference to the current address space of the remote
+     * virtual network.
+     *
+     * @return the remoteVirtualNetworkAddressSpace value.
+     */
+    public AddressSpace remoteVirtualNetworkAddressSpace() {
+        return this.remoteVirtualNetworkAddressSpace;
+    }
+
+    /**
+     * Set the remoteVirtualNetworkAddressSpace property: The reference to the current address space of the remote
+     * virtual network.
+     *
+     * @param remoteVirtualNetworkAddressSpace the remoteVirtualNetworkAddressSpace value to set.
+     * @return the VirtualNetworkPeeringPropertiesFormat object itself.
+     */
+    public VirtualNetworkPeeringPropertiesFormat withRemoteVirtualNetworkAddressSpace(
+        AddressSpace remoteVirtualNetworkAddressSpace) {
+        this.remoteVirtualNetworkAddressSpace = remoteVirtualNetworkAddressSpace;
+        return this;
+    }
+
+    /**
+     * Get the remoteBgpCommunities property: The reference to the remote virtual network's Bgp Communities.
+     *
+     * @return the remoteBgpCommunities value.
+     */
+    public VirtualNetworkBgpCommunities remoteBgpCommunities() {
+        return this.remoteBgpCommunities;
+    }
+
+    /**
+     * Set the remoteBgpCommunities property: The reference to the remote virtual network's Bgp Communities.
+     *
+     * @param remoteBgpCommunities the remoteBgpCommunities value to set.
+     * @return the VirtualNetworkPeeringPropertiesFormat object itself.
+     */
+    public VirtualNetworkPeeringPropertiesFormat withRemoteBgpCommunities(
+        VirtualNetworkBgpCommunities remoteBgpCommunities) {
+        this.remoteBgpCommunities = remoteBgpCommunities;
+        return this;
+    }
+
+    /**
+     * Get the peeringState property: The status of the virtual network peering.
+     *
      * @return the peeringState value.
      */
     public VirtualNetworkPeeringState peeringState() {
@@ -242,10 +300,8 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Set the peeringState property: The status of the virtual network
-     * peering. Possible values are 'Initiated', 'Connected', and
-     * 'Disconnected'.
-     * 
+     * Set the peeringState property: The status of the virtual network peering.
+     *
      * @param peeringState the peeringState value to set.
      * @return the VirtualNetworkPeeringPropertiesFormat object itself.
      */
@@ -255,35 +311,77 @@ public final class VirtualNetworkPeeringPropertiesFormat {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * resource.
-     * 
-     * @return the provisioningState value.
+     * Get the peeringSyncLevel property: The peering sync status of the virtual network peering.
+     *
+     * @return the peeringSyncLevel value.
      */
-    public String provisioningState() {
-        return this.provisioningState;
+    public VirtualNetworkPeeringLevel peeringSyncLevel() {
+        return this.peeringSyncLevel;
     }
 
     /**
-     * Set the provisioningState property: The provisioning state of the
-     * resource.
-     * 
-     * @param provisioningState the provisioningState value to set.
+     * Set the peeringSyncLevel property: The peering sync status of the virtual network peering.
+     *
+     * @param peeringSyncLevel the peeringSyncLevel value to set.
      * @return the VirtualNetworkPeeringPropertiesFormat object itself.
      */
-    public VirtualNetworkPeeringPropertiesFormat withProvisioningState(String provisioningState) {
-        this.provisioningState = provisioningState;
+    public VirtualNetworkPeeringPropertiesFormat withPeeringSyncLevel(VirtualNetworkPeeringLevel peeringSyncLevel) {
+        this.peeringSyncLevel = peeringSyncLevel;
         return this;
     }
 
     /**
+     * Get the provisioningState property: The provisioning state of the virtual network peering resource.
+     *
+     * @return the provisioningState value.
+     */
+    public ProvisioningState provisioningState() {
+        return this.provisioningState;
+    }
+
+    /**
+     * Get the doNotVerifyRemoteGateways property: If we need to verify the provisioning state of the remote gateway.
+     *
+     * @return the doNotVerifyRemoteGateways value.
+     */
+    public Boolean doNotVerifyRemoteGateways() {
+        return this.doNotVerifyRemoteGateways;
+    }
+
+    /**
+     * Set the doNotVerifyRemoteGateways property: If we need to verify the provisioning state of the remote gateway.
+     *
+     * @param doNotVerifyRemoteGateways the doNotVerifyRemoteGateways value to set.
+     * @return the VirtualNetworkPeeringPropertiesFormat object itself.
+     */
+    public VirtualNetworkPeeringPropertiesFormat withDoNotVerifyRemoteGateways(Boolean doNotVerifyRemoteGateways) {
+        this.doNotVerifyRemoteGateways = doNotVerifyRemoteGateways;
+        return this;
+    }
+
+    /**
+     * Get the resourceGuid property: The resourceGuid property of the Virtual Network peering resource.
+     *
+     * @return the resourceGuid value.
+     */
+    public String resourceGuid() {
+        return this.resourceGuid;
+    }
+
+    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
         if (remoteAddressSpace() != null) {
             remoteAddressSpace().validate();
+        }
+        if (remoteVirtualNetworkAddressSpace() != null) {
+            remoteVirtualNetworkAddressSpace().validate();
+        }
+        if (remoteBgpCommunities() != null) {
+            remoteBgpCommunities().validate();
         }
     }
 }

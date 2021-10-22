@@ -5,22 +5,17 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.Resource;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
-/**
- * An application security group in a resource group.
- */
+/** An application security group in a resource group. */
 @Fluent
 public final class ApplicationSecurityGroupInner extends Resource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(ApplicationSecurityGroupInner.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(ApplicationSecurityGroupInner.class);
 
     /*
      * Properties of the application security group.
@@ -41,9 +36,8 @@ public final class ApplicationSecurityGroupInner extends Resource {
     private String id;
 
     /**
-     * Get the innerProperties property: Properties of the application security
-     * group.
-     * 
+     * Get the innerProperties property: Properties of the application security group.
+     *
      * @return the innerProperties value.
      */
     private ApplicationSecurityGroupPropertiesFormat innerProperties() {
@@ -51,9 +45,8 @@ public final class ApplicationSecurityGroupInner extends Resource {
     }
 
     /**
-     * Get the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
+     * Get the etag property: A unique read-only string that changes whenever the resource is updated.
+     *
      * @return the etag value.
      */
     public String etag() {
@@ -62,7 +55,7 @@ public final class ApplicationSecurityGroupInner extends Resource {
 
     /**
      * Get the id property: Resource ID.
-     * 
+     *
      * @return the id value.
      */
     public String id() {
@@ -71,7 +64,7 @@ public final class ApplicationSecurityGroupInner extends Resource {
 
     /**
      * Set the id property: Resource ID.
-     * 
+     *
      * @param id the id value to set.
      * @return the ApplicationSecurityGroupInner object itself.
      */
@@ -80,18 +73,14 @@ public final class ApplicationSecurityGroupInner extends Resource {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public ApplicationSecurityGroupInner withLocation(String location) {
         super.withLocation(location);
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public ApplicationSecurityGroupInner withTags(Map<String, String> tags) {
         super.withTags(tags);
@@ -99,11 +88,10 @@ public final class ApplicationSecurityGroupInner extends Resource {
     }
 
     /**
-     * Get the resourceGuid property: The resource GUID property of the
-     * application security group resource. It uniquely identifies a resource,
-     * even if the user changes its name or migrate the resource across
-     * subscriptions or resource groups.
-     * 
+     * Get the resourceGuid property: The resource GUID property of the application security group resource. It uniquely
+     * identifies a resource, even if the user changes its name or migrate the resource across subscriptions or resource
+     * groups.
+     *
      * @return the resourceGuid value.
      */
     public String resourceGuid() {
@@ -111,19 +99,17 @@ public final class ApplicationSecurityGroupInner extends Resource {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * application security group resource. Possible values are: 'Succeeded',
-     * 'Updating', 'Deleting', and 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the application security group resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.innerProperties() == null ? null : this.innerProperties().provisioningState();
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

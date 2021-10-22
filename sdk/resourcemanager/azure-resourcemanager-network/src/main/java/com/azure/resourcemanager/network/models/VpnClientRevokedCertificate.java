@@ -5,21 +5,16 @@
 package com.azure.resourcemanager.network.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.fluent.models.VpnClientRevokedCertificatePropertiesFormat;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * VPN client revoked certificate of virtual network gateway.
- */
+/** VPN client revoked certificate of virtual network gateway. */
 @Fluent
 public final class VpnClientRevokedCertificate extends SubResource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(VpnClientRevokedCertificate.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(VpnClientRevokedCertificate.class);
 
     /*
      * Properties of the vpn client revoked certificate.
@@ -37,13 +32,12 @@ public final class VpnClientRevokedCertificate extends SubResource {
     /*
      * A unique read-only string that changes whenever the resource is updated.
      */
-    @JsonProperty(value = "etag")
+    @JsonProperty(value = "etag", access = JsonProperty.Access.WRITE_ONLY)
     private String etag;
 
     /**
-     * Get the innerProperties property: Properties of the vpn client revoked
-     * certificate.
-     * 
+     * Get the innerProperties property: Properties of the vpn client revoked certificate.
+     *
      * @return the innerProperties value.
      */
     private VpnClientRevokedCertificatePropertiesFormat innerProperties() {
@@ -51,9 +45,9 @@ public final class VpnClientRevokedCertificate extends SubResource {
     }
 
     /**
-     * Get the name property: The name of the resource that is unique within a
-     * resource group. This name can be used to access the resource.
-     * 
+     * Get the name property: The name of the resource that is unique within a resource group. This name can be used to
+     * access the resource.
+     *
      * @return the name value.
      */
     public String name() {
@@ -61,9 +55,9 @@ public final class VpnClientRevokedCertificate extends SubResource {
     }
 
     /**
-     * Set the name property: The name of the resource that is unique within a
-     * resource group. This name can be used to access the resource.
-     * 
+     * Set the name property: The name of the resource that is unique within a resource group. This name can be used to
+     * access the resource.
+     *
      * @param name the name value to set.
      * @return the VpnClientRevokedCertificate object itself.
      */
@@ -73,30 +67,15 @@ public final class VpnClientRevokedCertificate extends SubResource {
     }
 
     /**
-     * Get the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
+     * Get the etag property: A unique read-only string that changes whenever the resource is updated.
+     *
      * @return the etag value.
      */
     public String etag() {
         return this.etag;
     }
 
-    /**
-     * Set the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
-     * @param etag the etag value to set.
-     * @return the VpnClientRevokedCertificate object itself.
-     */
-    public VpnClientRevokedCertificate withEtag(String etag) {
-        this.etag = etag;
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public VpnClientRevokedCertificate withId(String id) {
         super.withId(id);
@@ -104,9 +83,8 @@ public final class VpnClientRevokedCertificate extends SubResource {
     }
 
     /**
-     * Get the thumbprint property: The revoked VPN client certificate
-     * thumbprint.
-     * 
+     * Get the thumbprint property: The revoked VPN client certificate thumbprint.
+     *
      * @return the thumbprint value.
      */
     public String thumbprint() {
@@ -114,9 +92,8 @@ public final class VpnClientRevokedCertificate extends SubResource {
     }
 
     /**
-     * Set the thumbprint property: The revoked VPN client certificate
-     * thumbprint.
-     * 
+     * Set the thumbprint property: The revoked VPN client certificate thumbprint.
+     *
      * @param thumbprint the thumbprint value to set.
      * @return the VpnClientRevokedCertificate object itself.
      */
@@ -129,19 +106,17 @@ public final class VpnClientRevokedCertificate extends SubResource {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the VPN
-     * client revoked certificate resource. Possible values are: 'Updating',
-     * 'Deleting', and 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the VPN client revoked certificate resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.innerProperties() == null ? null : this.innerProperties().provisioningState();
     }
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

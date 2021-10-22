@@ -13,178 +13,118 @@ import com.azure.core.util.polling.PollerFlux;
 import com.azure.core.util.polling.SyncPoller;
 import com.azure.resourcemanager.containerservice.fluent.models.PrivateEndpointConnectionInner;
 import com.azure.resourcemanager.containerservice.fluent.models.PrivateEndpointConnectionListResultInner;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.nio.ByteBuffer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-/**
- * An instance of this class provides access to all the operations defined in
- * PrivateEndpointConnectionsClient.
- */
+/** An instance of this class provides access to all the operations defined in PrivateEndpointConnectionsClient. */
 public interface PrivateEndpointConnectionsClient {
     /**
-     * Gets a list of private endpoint connections in the specified managed cluster. The operation returns properties of each private endpoint connection.
-     * 
+     * To learn more about private clusters, see: https://docs.microsoft.com/azure/aks/private-clusters.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a list of private endpoint connections in the specified managed cluster.
+     * @return a list of private endpoint connections.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<Response<PrivateEndpointConnectionListResultInner>> listWithResponseAsync(String resourceGroupName, String resourceName);
+    Mono<Response<PrivateEndpointConnectionListResultInner>> listWithResponseAsync(
+        String resourceGroupName, String resourceName);
 
     /**
-     * Gets a list of private endpoint connections in the specified managed cluster. The operation returns properties of each private endpoint connection.
-     * 
+     * To learn more about private clusters, see: https://docs.microsoft.com/azure/aks/private-clusters.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a list of private endpoint connections in the specified managed cluster.
+     * @return a list of private endpoint connections.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<PrivateEndpointConnectionListResultInner> listAsync(String resourceGroupName, String resourceName);
 
     /**
-     * Gets a list of private endpoint connections in the specified managed cluster. The operation returns properties of each private endpoint connection.
-     * 
+     * To learn more about private clusters, see: https://docs.microsoft.com/azure/aks/private-clusters.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a list of private endpoint connections in the specified managed cluster.
+     * @return a list of private endpoint connections.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     PrivateEndpointConnectionListResultInner list(String resourceGroupName, String resourceName);
 
     /**
-     * Gets a list of private endpoint connections in the specified managed cluster. The operation returns properties of each private endpoint connection.
-     * 
+     * To learn more about private clusters, see: https://docs.microsoft.com/azure/aks/private-clusters.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a list of private endpoint connections in the specified managed cluster.
+     * @return a list of private endpoint connections.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Response<PrivateEndpointConnectionListResultInner> listWithResponse(String resourceGroupName, String resourceName, Context context);
+    Response<PrivateEndpointConnectionListResultInner> listWithResponse(
+        String resourceGroupName, String resourceName, Context context);
 
     /**
-     * Gets the details of the private endpoint connection by managed cluster and resource group.
-     * 
+     * To learn more about private clusters, see: https://docs.microsoft.com/azure/aks/private-clusters.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the details of the private endpoint connection by managed cluster and resource group.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<Response<PrivateEndpointConnectionInner>> getWithResponseAsync(String resourceGroupName, String resourceName, String privateEndpointConnectionName);
-
-    /**
-     * Gets the details of the private endpoint connection by managed cluster and resource group.
-     * 
-     * @param resourceGroupName The name of the resource group.
-     * @param resourceName The name of the managed cluster resource.
-     * @param privateEndpointConnectionName The name of the private endpoint connection.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the details of the private endpoint connection by managed cluster and resource group.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<PrivateEndpointConnectionInner> getAsync(String resourceGroupName, String resourceName, String privateEndpointConnectionName);
-
-    /**
-     * Gets the details of the private endpoint connection by managed cluster and resource group.
-     * 
-     * @param resourceGroupName The name of the resource group.
-     * @param resourceName The name of the managed cluster resource.
-     * @param privateEndpointConnectionName The name of the private endpoint connection.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the details of the private endpoint connection by managed cluster and resource group.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    PrivateEndpointConnectionInner get(String resourceGroupName, String resourceName, String privateEndpointConnectionName);
-
-    /**
-     * Gets the details of the private endpoint connection by managed cluster and resource group.
-     * 
-     * @param resourceGroupName The name of the resource group.
-     * @param resourceName The name of the managed cluster resource.
-     * @param privateEndpointConnectionName The name of the private endpoint connection.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the details of the private endpoint connection by managed cluster and resource group.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    Response<PrivateEndpointConnectionInner> getWithResponse(String resourceGroupName, String resourceName, String privateEndpointConnectionName, Context context);
-
-    /**
-     * Updates a private endpoint connection in the specified managed cluster.
-     * 
-     * @param resourceGroupName The name of the resource group.
-     * @param resourceName The name of the managed cluster resource.
-     * @param privateEndpointConnectionName The name of the private endpoint connection.
-     * @param parameters Parameters supplied to the Update a private endpoint connection operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return a private endpoint connection.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<Response<PrivateEndpointConnectionInner>> updateWithResponseAsync(String resourceGroupName, String resourceName, String privateEndpointConnectionName, PrivateEndpointConnectionInner parameters);
+    Mono<Response<PrivateEndpointConnectionInner>> getWithResponseAsync(
+        String resourceGroupName, String resourceName, String privateEndpointConnectionName);
 
     /**
-     * Updates a private endpoint connection in the specified managed cluster.
-     * 
+     * To learn more about private clusters, see: https://docs.microsoft.com/azure/aks/private-clusters.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.
-     * @param parameters Parameters supplied to the Update a private endpoint connection operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return a private endpoint connection.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<PrivateEndpointConnectionInner> updateAsync(String resourceGroupName, String resourceName, String privateEndpointConnectionName, PrivateEndpointConnectionInner parameters);
+    Mono<PrivateEndpointConnectionInner> getAsync(
+        String resourceGroupName, String resourceName, String privateEndpointConnectionName);
 
     /**
-     * Updates a private endpoint connection in the specified managed cluster.
-     * 
+     * To learn more about private clusters, see: https://docs.microsoft.com/azure/aks/private-clusters.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.
-     * @param parameters Parameters supplied to the Update a private endpoint connection operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return a private endpoint connection.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    PrivateEndpointConnectionInner update(String resourceGroupName, String resourceName, String privateEndpointConnectionName, PrivateEndpointConnectionInner parameters);
+    PrivateEndpointConnectionInner get(
+        String resourceGroupName, String resourceName, String privateEndpointConnectionName);
 
     /**
-     * Updates a private endpoint connection in the specified managed cluster.
-     * 
+     * To learn more about private clusters, see: https://docs.microsoft.com/azure/aks/private-clusters.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.
-     * @param parameters Parameters supplied to the Update a private endpoint connection operation.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
@@ -192,11 +132,90 @@ public interface PrivateEndpointConnectionsClient {
      * @return a private endpoint connection.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Response<PrivateEndpointConnectionInner> updateWithResponse(String resourceGroupName, String resourceName, String privateEndpointConnectionName, PrivateEndpointConnectionInner parameters, Context context);
+    Response<PrivateEndpointConnectionInner> getWithResponse(
+        String resourceGroupName, String resourceName, String privateEndpointConnectionName, Context context);
 
     /**
-     * Deletes the private endpoint connection in the specified managed cluster.
-     * 
+     * Updates a private endpoint connection.
+     *
+     * @param resourceGroupName The name of the resource group.
+     * @param resourceName The name of the managed cluster resource.
+     * @param privateEndpointConnectionName The name of the private endpoint connection.
+     * @param parameters The updated private endpoint connection.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a private endpoint connection.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<Response<PrivateEndpointConnectionInner>> updateWithResponseAsync(
+        String resourceGroupName,
+        String resourceName,
+        String privateEndpointConnectionName,
+        PrivateEndpointConnectionInner parameters);
+
+    /**
+     * Updates a private endpoint connection.
+     *
+     * @param resourceGroupName The name of the resource group.
+     * @param resourceName The name of the managed cluster resource.
+     * @param privateEndpointConnectionName The name of the private endpoint connection.
+     * @param parameters The updated private endpoint connection.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a private endpoint connection.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<PrivateEndpointConnectionInner> updateAsync(
+        String resourceGroupName,
+        String resourceName,
+        String privateEndpointConnectionName,
+        PrivateEndpointConnectionInner parameters);
+
+    /**
+     * Updates a private endpoint connection.
+     *
+     * @param resourceGroupName The name of the resource group.
+     * @param resourceName The name of the managed cluster resource.
+     * @param privateEndpointConnectionName The name of the private endpoint connection.
+     * @param parameters The updated private endpoint connection.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a private endpoint connection.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    PrivateEndpointConnectionInner update(
+        String resourceGroupName,
+        String resourceName,
+        String privateEndpointConnectionName,
+        PrivateEndpointConnectionInner parameters);
+
+    /**
+     * Updates a private endpoint connection.
+     *
+     * @param resourceGroupName The name of the resource group.
+     * @param resourceName The name of the managed cluster resource.
+     * @param privateEndpointConnectionName The name of the private endpoint connection.
+     * @param parameters The updated private endpoint connection.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return a private endpoint connection.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Response<PrivateEndpointConnectionInner> updateWithResponse(
+        String resourceGroupName,
+        String resourceName,
+        String privateEndpointConnectionName,
+        PrivateEndpointConnectionInner parameters,
+        Context context);
+
+    /**
+     * Deletes a private endpoint connection.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.
@@ -206,11 +225,12 @@ public interface PrivateEndpointConnectionsClient {
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<Response<Flux<ByteBuffer>>> deleteWithResponseAsync(String resourceGroupName, String resourceName, String privateEndpointConnectionName);
+    Mono<Response<Flux<ByteBuffer>>> deleteWithResponseAsync(
+        String resourceGroupName, String resourceName, String privateEndpointConnectionName);
 
     /**
-     * Deletes the private endpoint connection in the specified managed cluster.
-     * 
+     * Deletes a private endpoint connection.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.
@@ -220,11 +240,12 @@ public interface PrivateEndpointConnectionsClient {
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    PollerFlux<PollResult<Void>, Void> beginDeleteAsync(String resourceGroupName, String resourceName, String privateEndpointConnectionName);
+    PollerFlux<PollResult<Void>, Void> beginDeleteAsync(
+        String resourceGroupName, String resourceName, String privateEndpointConnectionName);
 
     /**
-     * Deletes the private endpoint connection in the specified managed cluster.
-     * 
+     * Deletes a private endpoint connection.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.
@@ -234,11 +255,12 @@ public interface PrivateEndpointConnectionsClient {
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    SyncPoller<PollResult<Void>, Void> beginDelete(String resourceGroupName, String resourceName, String privateEndpointConnectionName);
+    SyncPoller<PollResult<Void>, Void> beginDelete(
+        String resourceGroupName, String resourceName, String privateEndpointConnectionName);
 
     /**
-     * Deletes the private endpoint connection in the specified managed cluster.
-     * 
+     * Deletes a private endpoint connection.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.
@@ -249,11 +271,12 @@ public interface PrivateEndpointConnectionsClient {
      * @return the completion.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    SyncPoller<PollResult<Void>, Void> beginDelete(String resourceGroupName, String resourceName, String privateEndpointConnectionName, Context context);
+    SyncPoller<PollResult<Void>, Void> beginDelete(
+        String resourceGroupName, String resourceName, String privateEndpointConnectionName, Context context);
 
     /**
-     * Deletes the private endpoint connection in the specified managed cluster.
-     * 
+     * Deletes a private endpoint connection.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.
@@ -266,8 +289,8 @@ public interface PrivateEndpointConnectionsClient {
     Mono<Void> deleteAsync(String resourceGroupName, String resourceName, String privateEndpointConnectionName);
 
     /**
-     * Deletes the private endpoint connection in the specified managed cluster.
-     * 
+     * Deletes a private endpoint connection.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.
@@ -279,8 +302,8 @@ public interface PrivateEndpointConnectionsClient {
     void delete(String resourceGroupName, String resourceName, String privateEndpointConnectionName);
 
     /**
-     * Deletes the private endpoint connection in the specified managed cluster.
-     * 
+     * Deletes a private endpoint connection.
+     *
      * @param resourceGroupName The name of the resource group.
      * @param resourceName The name of the managed cluster resource.
      * @param privateEndpointConnectionName The name of the private endpoint connection.

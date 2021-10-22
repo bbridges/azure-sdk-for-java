@@ -27,7 +27,6 @@ import com.azure.core.http.rest.PagedResponse;
 import com.azure.core.http.rest.PagedResponseBase;
 import com.azure.core.http.rest.Response;
 import com.azure.core.http.rest.RestProxy;
-import com.azure.core.management.exception.ManagementException;
 import com.azure.core.management.polling.PollResult;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
@@ -102,17 +101,18 @@ public final class AppServiceCertificateOrdersClientImpl
             @HeaderParam("Accept") String accept,
             Context context);
 
-        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Headers({"Content-Type: application/json"})
         @Post(
             "/subscriptions/{subscriptionId}/providers/Microsoft.CertificateRegistration"
                 + "/validateCertificateRegistrationInformation")
         @ExpectedResponses({204})
-        @UnexpectedResponseExceptionType(ManagementException.class)
+        @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<Void>> validatePurchaseInformation(
             @HostParam("$host") String endpoint,
             @PathParam("subscriptionId") String subscriptionId,
             @QueryParam("api-version") String apiVersion,
             @BodyParam("application/json") AppServiceCertificateOrderInner appServiceCertificateOrder,
+            @HeaderParam("Accept") String accept,
             Context context);
 
         @Headers({"Content-Type: application/json"})
@@ -160,25 +160,26 @@ public final class AppServiceCertificateOrdersClientImpl
             @HeaderParam("Accept") String accept,
             Context context);
 
-        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Headers({"Content-Type: application/json"})
         @Delete(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers"
                 + "/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}")
         @ExpectedResponses({200, 204})
-        @UnexpectedResponseExceptionType(ManagementException.class)
+        @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<Void>> delete(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("certificateOrderName") String certificateOrderName,
             @PathParam("subscriptionId") String subscriptionId,
             @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
             Context context);
 
         @Headers({"Content-Type: application/json"})
         @Patch(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers"
                 + "/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}")
-        @ExpectedResponses({200, 201})
+        @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<AppServiceCertificateOrderInner>> update(
             @HostParam("$host") String endpoint,
@@ -238,12 +239,12 @@ public final class AppServiceCertificateOrdersClientImpl
             @HeaderParam("Accept") String accept,
             Context context);
 
-        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Headers({"Content-Type: application/json"})
         @Delete(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers"
                 + "/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates/{name}")
         @ExpectedResponses({200, 204})
-        @UnexpectedResponseExceptionType(ManagementException.class)
+        @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<Void>> deleteCertificate(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
@@ -251,13 +252,14 @@ public final class AppServiceCertificateOrdersClientImpl
             @PathParam("name") String name,
             @PathParam("subscriptionId") String subscriptionId,
             @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
             Context context);
 
         @Headers({"Content-Type: application/json"})
         @Patch(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers"
                 + "/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates/{name}")
-        @ExpectedResponses({200, 201})
+        @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<AppServiceCertificateResourceInner>> updateCertificate(
             @HostParam("$host") String endpoint,
@@ -270,12 +272,12 @@ public final class AppServiceCertificateOrdersClientImpl
             @HeaderParam("Accept") String accept,
             Context context);
 
-        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Headers({"Content-Type: application/json"})
         @Post(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers"
                 + "/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/reissue")
         @ExpectedResponses({204})
-        @UnexpectedResponseExceptionType(ManagementException.class)
+        @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<Void>> reissue(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
@@ -283,14 +285,15 @@ public final class AppServiceCertificateOrdersClientImpl
             @PathParam("subscriptionId") String subscriptionId,
             @QueryParam("api-version") String apiVersion,
             @BodyParam("application/json") ReissueCertificateOrderRequest reissueCertificateOrderRequest,
+            @HeaderParam("Accept") String accept,
             Context context);
 
-        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Headers({"Content-Type: application/json"})
         @Post(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers"
                 + "/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/renew")
         @ExpectedResponses({204})
-        @UnexpectedResponseExceptionType(ManagementException.class)
+        @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<Void>> renew(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
@@ -298,28 +301,30 @@ public final class AppServiceCertificateOrdersClientImpl
             @PathParam("subscriptionId") String subscriptionId,
             @QueryParam("api-version") String apiVersion,
             @BodyParam("application/json") RenewCertificateOrderRequest renewCertificateOrderRequest,
+            @HeaderParam("Accept") String accept,
             Context context);
 
-        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Headers({"Content-Type: application/json"})
         @Post(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers"
                 + "/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/resendEmail")
         @ExpectedResponses({204})
-        @UnexpectedResponseExceptionType(ManagementException.class)
+        @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<Void>> resendEmail(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("certificateOrderName") String certificateOrderName,
             @PathParam("subscriptionId") String subscriptionId,
             @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
             Context context);
 
-        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Headers({"Content-Type: application/json"})
         @Post(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers"
                 + "/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/resendRequestEmails")
         @ExpectedResponses({204})
-        @UnexpectedResponseExceptionType(ManagementException.class)
+        @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<Void>> resendRequestEmails(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
@@ -327,6 +332,7 @@ public final class AppServiceCertificateOrdersClientImpl
             @PathParam("subscriptionId") String subscriptionId,
             @QueryParam("api-version") String apiVersion,
             @BodyParam("application/json") NameIdentifierInner nameIdentifier,
+            @HeaderParam("Accept") String accept,
             Context context);
 
         @Headers({"Content-Type: application/json"})
@@ -345,18 +351,19 @@ public final class AppServiceCertificateOrdersClientImpl
             @HeaderParam("Accept") String accept,
             Context context);
 
-        @Headers({"Accept: application/json;q=0.9", "Content-Type: application/json"})
+        @Headers({"Content-Type: application/json"})
         @Post(
             "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers"
                 + "/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/verifyDomainOwnership")
         @ExpectedResponses({204})
-        @UnexpectedResponseExceptionType(ManagementException.class)
+        @UnexpectedResponseExceptionType(DefaultErrorResponseErrorException.class)
         Mono<Response<Void>> verifyDomainOwnership(
             @HostParam("$host") String endpoint,
             @PathParam("resourceGroupName") String resourceGroupName,
             @PathParam("certificateOrderName") String certificateOrderName,
             @PathParam("subscriptionId") String subscriptionId,
             @QueryParam("api-version") String apiVersion,
+            @HeaderParam("Accept") String accept,
             Context context);
 
         @Headers({"Content-Type: application/json"})
@@ -421,7 +428,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificate orders in a subscription.
+     * Description for List all certificate orders in a subscription.
      *
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -465,7 +472,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificate orders in a subscription.
+     * Description for List all certificate orders in a subscription.
      *
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -508,7 +515,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificate orders in a subscription.
+     * Description for List all certificate orders in a subscription.
      *
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -520,7 +527,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificate orders in a subscription.
+     * Description for List all certificate orders in a subscription.
      *
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -535,7 +542,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificate orders in a subscription.
+     * Description for List all certificate orders in a subscription.
      *
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
@@ -547,7 +554,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificate orders in a subscription.
+     * Description for List all certificate orders in a subscription.
      *
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -561,11 +568,11 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Validate information for a certificate order.
+     * Description for Validate information for a certificate order.
      *
      * @param appServiceCertificateOrder Information for a certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -592,6 +599,7 @@ public final class AppServiceCertificateOrdersClientImpl
         } else {
             appServiceCertificateOrder.validate();
         }
+        final String accept = "application/json";
         return FluxUtil
             .withContext(
                 context ->
@@ -601,17 +609,18 @@ public final class AppServiceCertificateOrdersClientImpl
                             this.client.getSubscriptionId(),
                             this.client.getApiVersion(),
                             appServiceCertificateOrder,
+                            accept,
                             context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Validate information for a certificate order.
+     * Description for Validate information for a certificate order.
      *
      * @param appServiceCertificateOrder Information for a certificate order.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -638,6 +647,7 @@ public final class AppServiceCertificateOrdersClientImpl
         } else {
             appServiceCertificateOrder.validate();
         }
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
         return service
             .validatePurchaseInformation(
@@ -645,15 +655,16 @@ public final class AppServiceCertificateOrdersClientImpl
                 this.client.getSubscriptionId(),
                 this.client.getApiVersion(),
                 appServiceCertificateOrder,
+                accept,
                 context);
     }
 
     /**
-     * Validate information for a certificate order.
+     * Description for Validate information for a certificate order.
      *
      * @param appServiceCertificateOrder Information for a certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -664,11 +675,11 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Validate information for a certificate order.
+     * Description for Validate information for a certificate order.
      *
      * @param appServiceCertificateOrder Information for a certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -677,12 +688,12 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Validate information for a certificate order.
+     * Description for Validate information for a certificate order.
      *
      * @param appServiceCertificateOrder Information for a certificate order.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -693,13 +704,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get certificate orders in a resource group.
+     * Description for Get certificate orders in a resource group.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return certificate orders in a resource group.
+     * @return collection of certificate orders.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<AppServiceCertificateOrderInner>> listByResourceGroupSinglePageAsync(
@@ -745,14 +756,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get certificate orders in a resource group.
+     * Description for Get certificate orders in a resource group.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return certificate orders in a resource group.
+     * @return collection of certificate orders.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<AppServiceCertificateOrderInner>> listByResourceGroupSinglePageAsync(
@@ -795,13 +806,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get certificate orders in a resource group.
+     * Description for Get certificate orders in a resource group.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return certificate orders in a resource group.
+     * @return collection of certificate orders.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedFlux<AppServiceCertificateOrderInner> listByResourceGroupAsync(String resourceGroupName) {
@@ -811,14 +822,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get certificate orders in a resource group.
+     * Description for Get certificate orders in a resource group.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return certificate orders in a resource group.
+     * @return collection of certificate orders.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     private PagedFlux<AppServiceCertificateOrderInner> listByResourceGroupAsync(
@@ -829,13 +840,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get certificate orders in a resource group.
+     * Description for Get certificate orders in a resource group.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return certificate orders in a resource group.
+     * @return collection of certificate orders.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<AppServiceCertificateOrderInner> listByResourceGroup(String resourceGroupName) {
@@ -843,14 +854,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get certificate orders in a resource group.
+     * Description for Get certificate orders in a resource group.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return certificate orders in a resource group.
+     * @return collection of certificate orders.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<AppServiceCertificateOrderInner> listByResourceGroup(
@@ -859,14 +870,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get a certificate order.
+     * Description for Get a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order..
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a certificate order.
+     * @return sSL certificate purchase order.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<AppServiceCertificateOrderInner>> getByResourceGroupWithResponseAsync(
@@ -908,7 +919,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get a certificate order.
+     * Description for Get a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order..
@@ -916,7 +927,7 @@ public final class AppServiceCertificateOrdersClientImpl
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a certificate order.
+     * @return sSL certificate purchase order.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<Response<AppServiceCertificateOrderInner>> getByResourceGroupWithResponseAsync(
@@ -955,14 +966,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get a certificate order.
+     * Description for Get a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order..
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a certificate order.
+     * @return sSL certificate purchase order.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<AppServiceCertificateOrderInner> getByResourceGroupAsync(
@@ -979,14 +990,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get a certificate order.
+     * Description for Get a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order..
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a certificate order.
+     * @return sSL certificate purchase order.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public AppServiceCertificateOrderInner getByResourceGroup(String resourceGroupName, String certificateOrderName) {
@@ -994,7 +1005,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get a certificate order.
+     * Description for Get a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order..
@@ -1002,7 +1013,7 @@ public final class AppServiceCertificateOrdersClientImpl
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a certificate order.
+     * @return sSL certificate purchase order.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Response<AppServiceCertificateOrderInner> getByResourceGroupWithResponse(
@@ -1011,7 +1022,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1072,7 +1083,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1132,7 +1143,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1161,7 +1172,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1194,7 +1205,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1214,7 +1225,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1236,7 +1247,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1257,7 +1268,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1280,7 +1291,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1299,7 +1310,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1321,12 +1332,12 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Delete an existing certificate order.
+     * Description for Delete an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -1352,6 +1363,7 @@ public final class AppServiceCertificateOrdersClientImpl
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        final String accept = "application/json";
         return FluxUtil
             .withContext(
                 context ->
@@ -1362,18 +1374,19 @@ public final class AppServiceCertificateOrdersClientImpl
                             certificateOrderName,
                             this.client.getSubscriptionId(),
                             this.client.getApiVersion(),
+                            accept,
                             context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Delete an existing certificate order.
+     * Description for Delete an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -1400,6 +1413,7 @@ public final class AppServiceCertificateOrdersClientImpl
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
         return service
             .delete(
@@ -1408,16 +1422,17 @@ public final class AppServiceCertificateOrdersClientImpl
                 certificateOrderName,
                 this.client.getSubscriptionId(),
                 this.client.getApiVersion(),
+                accept,
                 context);
     }
 
     /**
-     * Delete an existing certificate order.
+     * Description for Delete an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -1428,12 +1443,12 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Delete an existing certificate order.
+     * Description for Delete an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -1442,13 +1457,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Delete an existing certificate order.
+     * Description for Delete an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -1458,7 +1473,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1519,7 +1534,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1579,7 +1594,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1606,7 +1621,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1625,7 +1640,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Create or update a certificate purchase order.
+     * Description for Create or update a certificate purchase order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1647,7 +1662,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificates associated with a certificate order.
+     * Description for List all certificates associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1705,7 +1720,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificates associated with a certificate order.
+     * Description for List all certificates associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1761,7 +1776,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificates associated with a certificate order.
+     * Description for List all certificates associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1779,7 +1794,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificates associated with a certificate order.
+     * Description for List all certificates associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1798,7 +1813,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificates associated with a certificate order.
+     * Description for List all certificates associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1814,7 +1829,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * List all certificates associated with a certificate order.
+     * Description for List all certificates associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1831,7 +1846,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get the certificate associated with a certificate order.
+     * Description for Get the certificate associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1839,7 +1854,7 @@ public final class AppServiceCertificateOrdersClientImpl
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the certificate associated with a certificate order.
+     * @return key Vault container ARM resource for a certificate that is purchased through Azure.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<Response<AppServiceCertificateResourceInner>> getCertificateWithResponseAsync(
@@ -1885,7 +1900,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get the certificate associated with a certificate order.
+     * Description for Get the certificate associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1894,7 +1909,7 @@ public final class AppServiceCertificateOrdersClientImpl
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the certificate associated with a certificate order.
+     * @return key Vault container ARM resource for a certificate that is purchased through Azure.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<Response<AppServiceCertificateResourceInner>> getCertificateWithResponseAsync(
@@ -1937,7 +1952,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get the certificate associated with a certificate order.
+     * Description for Get the certificate associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1945,7 +1960,7 @@ public final class AppServiceCertificateOrdersClientImpl
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the certificate associated with a certificate order.
+     * @return key Vault container ARM resource for a certificate that is purchased through Azure.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Mono<AppServiceCertificateResourceInner> getCertificateAsync(
@@ -1962,7 +1977,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get the certificate associated with a certificate order.
+     * Description for Get the certificate associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1970,7 +1985,7 @@ public final class AppServiceCertificateOrdersClientImpl
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the certificate associated with a certificate order.
+     * @return key Vault container ARM resource for a certificate that is purchased through Azure.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public AppServiceCertificateResourceInner getCertificate(
@@ -1979,7 +1994,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Get the certificate associated with a certificate order.
+     * Description for Get the certificate associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -1988,7 +2003,7 @@ public final class AppServiceCertificateOrdersClientImpl
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the certificate associated with a certificate order.
+     * @return key Vault container ARM resource for a certificate that is purchased through Azure.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     public Response<AppServiceCertificateResourceInner> getCertificateWithResponse(
@@ -1997,7 +2012,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2062,7 +2077,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2126,7 +2141,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2158,7 +2173,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2193,7 +2208,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2216,7 +2231,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2242,7 +2257,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2265,7 +2280,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2291,7 +2306,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2313,7 +2328,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2338,13 +2353,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Delete the certificate associated with a certificate order.
+     * Description for Delete the certificate associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param name Name of the certificate.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -2374,6 +2389,7 @@ public final class AppServiceCertificateOrdersClientImpl
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        final String accept = "application/json";
         return FluxUtil
             .withContext(
                 context ->
@@ -2385,19 +2401,20 @@ public final class AppServiceCertificateOrdersClientImpl
                             name,
                             this.client.getSubscriptionId(),
                             this.client.getApiVersion(),
+                            accept,
                             context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Delete the certificate associated with a certificate order.
+     * Description for Delete the certificate associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param name Name of the certificate.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -2427,6 +2444,7 @@ public final class AppServiceCertificateOrdersClientImpl
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
         return service
             .deleteCertificate(
@@ -2436,17 +2454,18 @@ public final class AppServiceCertificateOrdersClientImpl
                 name,
                 this.client.getSubscriptionId(),
                 this.client.getApiVersion(),
+                accept,
                 context);
     }
 
     /**
-     * Delete the certificate associated with a certificate order.
+     * Description for Delete the certificate associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param name Name of the certificate.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -2457,13 +2476,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Delete the certificate associated with a certificate order.
+     * Description for Delete the certificate associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param name Name of the certificate.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -2472,14 +2491,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Delete the certificate associated with a certificate order.
+     * Description for Delete the certificate associated with a certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param name Name of the certificate.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -2490,7 +2509,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2555,7 +2574,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2619,7 +2638,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2648,7 +2667,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2669,7 +2688,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Creates or updates a certificate and associates with key vault secret.
+     * Description for Creates or updates a certificate and associates with key vault secret.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -2694,13 +2713,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Reissue an existing certificate order.
+     * Description for Reissue an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param reissueCertificateOrderRequest Parameters for the reissue.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -2737,6 +2756,7 @@ public final class AppServiceCertificateOrdersClientImpl
         } else {
             reissueCertificateOrderRequest.validate();
         }
+        final String accept = "application/json";
         return FluxUtil
             .withContext(
                 context ->
@@ -2748,19 +2768,20 @@ public final class AppServiceCertificateOrdersClientImpl
                             this.client.getSubscriptionId(),
                             this.client.getApiVersion(),
                             reissueCertificateOrderRequest,
+                            accept,
                             context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Reissue an existing certificate order.
+     * Description for Reissue an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param reissueCertificateOrderRequest Parameters for the reissue.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -2798,6 +2819,7 @@ public final class AppServiceCertificateOrdersClientImpl
         } else {
             reissueCertificateOrderRequest.validate();
         }
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
         return service
             .reissue(
@@ -2807,17 +2829,18 @@ public final class AppServiceCertificateOrdersClientImpl
                 this.client.getSubscriptionId(),
                 this.client.getApiVersion(),
                 reissueCertificateOrderRequest,
+                accept,
                 context);
     }
 
     /**
-     * Reissue an existing certificate order.
+     * Description for Reissue an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param reissueCertificateOrderRequest Parameters for the reissue.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -2831,13 +2854,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Reissue an existing certificate order.
+     * Description for Reissue an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param reissueCertificateOrderRequest Parameters for the reissue.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -2849,14 +2872,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Reissue an existing certificate order.
+     * Description for Reissue an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param reissueCertificateOrderRequest Parameters for the reissue.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -2872,13 +2895,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Renew an existing certificate order.
+     * Description for Renew an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param renewCertificateOrderRequest Renew parameters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -2915,6 +2938,7 @@ public final class AppServiceCertificateOrdersClientImpl
         } else {
             renewCertificateOrderRequest.validate();
         }
+        final String accept = "application/json";
         return FluxUtil
             .withContext(
                 context ->
@@ -2926,19 +2950,20 @@ public final class AppServiceCertificateOrdersClientImpl
                             this.client.getSubscriptionId(),
                             this.client.getApiVersion(),
                             renewCertificateOrderRequest,
+                            accept,
                             context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Renew an existing certificate order.
+     * Description for Renew an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param renewCertificateOrderRequest Renew parameters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -2976,6 +3001,7 @@ public final class AppServiceCertificateOrdersClientImpl
         } else {
             renewCertificateOrderRequest.validate();
         }
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
         return service
             .renew(
@@ -2985,17 +3011,18 @@ public final class AppServiceCertificateOrdersClientImpl
                 this.client.getSubscriptionId(),
                 this.client.getApiVersion(),
                 renewCertificateOrderRequest,
+                accept,
                 context);
     }
 
     /**
-     * Renew an existing certificate order.
+     * Description for Renew an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param renewCertificateOrderRequest Renew parameters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -3009,13 +3036,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Renew an existing certificate order.
+     * Description for Renew an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param renewCertificateOrderRequest Renew parameters.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -3027,14 +3054,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Renew an existing certificate order.
+     * Description for Renew an existing certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param renewCertificateOrderRequest Renew parameters.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -3049,12 +3076,12 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Resend certificate email.
+     * Description for Resend certificate email.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -3080,6 +3107,7 @@ public final class AppServiceCertificateOrdersClientImpl
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        final String accept = "application/json";
         return FluxUtil
             .withContext(
                 context ->
@@ -3090,18 +3118,19 @@ public final class AppServiceCertificateOrdersClientImpl
                             certificateOrderName,
                             this.client.getSubscriptionId(),
                             this.client.getApiVersion(),
+                            accept,
                             context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Resend certificate email.
+     * Description for Resend certificate email.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -3128,6 +3157,7 @@ public final class AppServiceCertificateOrdersClientImpl
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
         return service
             .resendEmail(
@@ -3136,16 +3166,17 @@ public final class AppServiceCertificateOrdersClientImpl
                 certificateOrderName,
                 this.client.getSubscriptionId(),
                 this.client.getApiVersion(),
+                accept,
                 context);
     }
 
     /**
-     * Resend certificate email.
+     * Description for Resend certificate email.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -3156,12 +3187,12 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Resend certificate email.
+     * Description for Resend certificate email.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -3170,13 +3201,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Resend certificate email.
+     * Description for Resend certificate email.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -3187,13 +3218,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * Resend domain verification ownership email containing steps on how to verify a domain for a given certificate
+     * order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param nameIdentifier Email address.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -3225,6 +3257,7 @@ public final class AppServiceCertificateOrdersClientImpl
         } else {
             nameIdentifier.validate();
         }
+        final String accept = "application/json";
         return FluxUtil
             .withContext(
                 context ->
@@ -3236,19 +3269,21 @@ public final class AppServiceCertificateOrdersClientImpl
                             this.client.getSubscriptionId(),
                             this.client.getApiVersion(),
                             nameIdentifier,
+                            accept,
                             context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * Resend domain verification ownership email containing steps on how to verify a domain for a given certificate
+     * order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param nameIdentifier Email address.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -3280,6 +3315,7 @@ public final class AppServiceCertificateOrdersClientImpl
         } else {
             nameIdentifier.validate();
         }
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
         return service
             .resendRequestEmails(
@@ -3289,17 +3325,19 @@ public final class AppServiceCertificateOrdersClientImpl
                 this.client.getSubscriptionId(),
                 this.client.getApiVersion(),
                 nameIdentifier,
+                accept,
                 context);
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * Resend domain verification ownership email containing steps on how to verify a domain for a given certificate
+     * order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param nameIdentifier Email address.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -3311,13 +3349,14 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * Resend domain verification ownership email containing steps on how to verify a domain for a given certificate
+     * order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param nameIdentifier Email address.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -3327,14 +3366,15 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * Resend domain verification ownership email containing steps on how to verify a domain for a given certificate
+     * order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param nameIdentifier Email address.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -3346,7 +3386,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * This method is used to obtain the site seal information for an issued certificate. A site seal is a graphic that
+     * the certificate purchaser can embed on their web site to show their visitors information about their SSL
+     * certificate. If a web site visitor clicks on the site seal image, a pop-up page is displayed that contains
+     * detailed information about the SSL certificate. The site seal token is used to link the site seal graphic image
+     * to the appropriate certificate details pop-up page display when a user clicks on the site seal. The site seal
+     * images are expected to be static images and hosted by the reseller, to minimize delays for customer page load
+     * times.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -3403,7 +3449,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * This method is used to obtain the site seal information for an issued certificate. A site seal is a graphic that
+     * the certificate purchaser can embed on their web site to show their visitors information about their SSL
+     * certificate. If a web site visitor clicks on the site seal image, a pop-up page is displayed that contains
+     * detailed information about the SSL certificate. The site seal token is used to link the site seal graphic image
+     * to the appropriate certificate details pop-up page display when a user clicks on the site seal. The site seal
+     * images are expected to be static images and hosted by the reseller, to minimize delays for customer page load
+     * times.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -3458,7 +3510,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * This method is used to obtain the site seal information for an issued certificate. A site seal is a graphic that
+     * the certificate purchaser can embed on their web site to show their visitors information about their SSL
+     * certificate. If a web site visitor clicks on the site seal image, a pop-up page is displayed that contains
+     * detailed information about the SSL certificate. The site seal token is used to link the site seal graphic image
+     * to the appropriate certificate details pop-up page display when a user clicks on the site seal. The site seal
+     * images are expected to be static images and hosted by the reseller, to minimize delays for customer page load
+     * times.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -3483,7 +3541,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * This method is used to obtain the site seal information for an issued certificate. A site seal is a graphic that
+     * the certificate purchaser can embed on their web site to show their visitors information about their SSL
+     * certificate. If a web site visitor clicks on the site seal image, a pop-up page is displayed that contains
+     * detailed information about the SSL certificate. The site seal token is used to link the site seal graphic image
+     * to the appropriate certificate details pop-up page display when a user clicks on the site seal. The site seal
+     * images are expected to be static images and hosted by the reseller, to minimize delays for customer page load
+     * times.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -3500,7 +3564,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * This method is used to obtain the site seal information for an issued certificate. A site seal is a graphic that
+     * the certificate purchaser can embed on their web site to show their visitors information about their SSL
+     * certificate. If a web site visitor clicks on the site seal image, a pop-up page is displayed that contains
+     * detailed information about the SSL certificate. The site seal token is used to link the site seal graphic image
+     * to the appropriate certificate details pop-up page display when a user clicks on the site seal. The site seal
+     * images are expected to be static images and hosted by the reseller, to minimize delays for customer page load
+     * times.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
@@ -3519,12 +3589,12 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * Description for Verify domain ownership for this certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -3551,6 +3621,7 @@ public final class AppServiceCertificateOrdersClientImpl
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        final String accept = "application/json";
         return FluxUtil
             .withContext(
                 context ->
@@ -3561,18 +3632,19 @@ public final class AppServiceCertificateOrdersClientImpl
                             certificateOrderName,
                             this.client.getSubscriptionId(),
                             this.client.getApiVersion(),
+                            accept,
                             context))
             .contextWrite(context -> context.putAll(FluxUtil.toReactorContext(this.client.getContext()).readOnly()));
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * Description for Verify domain ownership for this certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -3599,6 +3671,7 @@ public final class AppServiceCertificateOrdersClientImpl
                     new IllegalArgumentException(
                         "Parameter this.client.getSubscriptionId() is required and cannot be null."));
         }
+        final String accept = "application/json";
         context = this.client.mergeContext(context);
         return service
             .verifyDomainOwnership(
@@ -3607,16 +3680,17 @@ public final class AppServiceCertificateOrdersClientImpl
                 certificateOrderName,
                 this.client.getSubscriptionId(),
                 this.client.getApiVersion(),
+                accept,
                 context);
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * Description for Verify domain ownership for this certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -3627,12 +3701,12 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * Description for Verify domain ownership for this certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
@@ -3641,13 +3715,13 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Verify domain ownership for this certificate order.
+     * Description for Verify domain ownership for this certificate order.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param certificateOrderName Name of the certificate order.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws ManagementException thrown if the request is rejected by server.
+     * @throws DefaultErrorResponseErrorException thrown if the request is rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -3658,7 +3732,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Retrieve the list of certificate actions.
+     * Description for Retrieve the list of certificate actions.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the certificate order.
@@ -3706,7 +3780,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Retrieve the list of certificate actions.
+     * Description for Retrieve the list of certificate actions.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the certificate order.
@@ -3752,7 +3826,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Retrieve the list of certificate actions.
+     * Description for Retrieve the list of certificate actions.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the certificate order.
@@ -3776,7 +3850,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Retrieve the list of certificate actions.
+     * Description for Retrieve the list of certificate actions.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the certificate order.
@@ -3791,7 +3865,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Retrieve the list of certificate actions.
+     * Description for Retrieve the list of certificate actions.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the certificate order.
@@ -3808,7 +3882,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Retrieve email history.
+     * Description for Retrieve email history.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the certificate order.
@@ -3856,7 +3930,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Retrieve email history.
+     * Description for Retrieve email history.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the certificate order.
@@ -3902,7 +3976,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Retrieve email history.
+     * Description for Retrieve email history.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the certificate order.
@@ -3926,7 +4000,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Retrieve email history.
+     * Description for Retrieve email history.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the certificate order.
@@ -3941,7 +4015,7 @@ public final class AppServiceCertificateOrdersClientImpl
     }
 
     /**
-     * Retrieve email history.
+     * Description for Retrieve email history.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the certificate order.

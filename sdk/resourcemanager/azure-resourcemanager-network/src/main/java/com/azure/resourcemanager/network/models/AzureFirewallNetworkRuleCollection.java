@@ -5,47 +5,40 @@
 package com.azure.resourcemanager.network.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.fluent.models.AzureFirewallNetworkRuleCollectionPropertiesFormat;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-/**
- * Network rule collection resource.
- */
+/** Network rule collection resource. */
 @Fluent
 public final class AzureFirewallNetworkRuleCollection extends SubResource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(AzureFirewallNetworkRuleCollection.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(AzureFirewallNetworkRuleCollection.class);
 
     /*
-     * Properties of the network rule collection.
+     * Properties of the azure firewall network rule collection.
      */
     @JsonProperty(value = "properties")
     private AzureFirewallNetworkRuleCollectionPropertiesFormat innerProperties;
 
     /*
-     * Gets name of the resource that is unique within a resource group. This
+     * The name of the resource that is unique within the Azure firewall. This
      * name can be used to access the resource.
      */
     @JsonProperty(value = "name")
     private String name;
 
     /*
-     * Gets a unique read-only string that changes whenever the resource is
-     * updated.
+     * A unique read-only string that changes whenever the resource is updated.
      */
     @JsonProperty(value = "etag", access = JsonProperty.Access.WRITE_ONLY)
     private String etag;
 
     /**
-     * Get the innerProperties property: Properties of the network rule
-     * collection.
-     * 
+     * Get the innerProperties property: Properties of the azure firewall network rule collection.
+     *
      * @return the innerProperties value.
      */
     private AzureFirewallNetworkRuleCollectionPropertiesFormat innerProperties() {
@@ -53,9 +46,9 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
     }
 
     /**
-     * Get the name property: Gets name of the resource that is unique within a
-     * resource group. This name can be used to access the resource.
-     * 
+     * Get the name property: The name of the resource that is unique within the Azure firewall. This name can be used
+     * to access the resource.
+     *
      * @return the name value.
      */
     public String name() {
@@ -63,9 +56,9 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
     }
 
     /**
-     * Set the name property: Gets name of the resource that is unique within a
-     * resource group. This name can be used to access the resource.
-     * 
+     * Set the name property: The name of the resource that is unique within the Azure firewall. This name can be used
+     * to access the resource.
+     *
      * @param name the name value to set.
      * @return the AzureFirewallNetworkRuleCollection object itself.
      */
@@ -75,18 +68,15 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
     }
 
     /**
-     * Get the etag property: Gets a unique read-only string that changes
-     * whenever the resource is updated.
-     * 
+     * Get the etag property: A unique read-only string that changes whenever the resource is updated.
+     *
      * @return the etag value.
      */
     public String etag() {
         return this.etag;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public AzureFirewallNetworkRuleCollection withId(String id) {
         super.withId(id);
@@ -94,9 +84,8 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
     }
 
     /**
-     * Get the priority property: Priority of the network rule collection
-     * resource.
-     * 
+     * Get the priority property: Priority of the network rule collection resource.
+     *
      * @return the priority value.
      */
     public Integer priority() {
@@ -104,9 +93,8 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
     }
 
     /**
-     * Set the priority property: Priority of the network rule collection
-     * resource.
-     * 
+     * Set the priority property: Priority of the network rule collection resource.
+     *
      * @param priority the priority value to set.
      * @return the AzureFirewallNetworkRuleCollection object itself.
      */
@@ -120,7 +108,7 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
 
     /**
      * Get the action property: The action type of a rule collection.
-     * 
+     *
      * @return the action value.
      */
     public AzureFirewallRCAction action() {
@@ -129,7 +117,7 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
 
     /**
      * Set the action property: The action type of a rule collection.
-     * 
+     *
      * @param action the action value to set.
      * @return the AzureFirewallNetworkRuleCollection object itself.
      */
@@ -142,9 +130,8 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
     }
 
     /**
-     * Get the rules property: Collection of rules used by a network rule
-     * collection.
-     * 
+     * Get the rules property: Collection of rules used by a network rule collection.
+     *
      * @return the rules value.
      */
     public List<AzureFirewallNetworkRule> rules() {
@@ -152,9 +139,8 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
     }
 
     /**
-     * Set the rules property: Collection of rules used by a network rule
-     * collection.
-     * 
+     * Set the rules property: Collection of rules used by a network rule collection.
+     *
      * @param rules the rules value to set.
      * @return the AzureFirewallNetworkRuleCollection object itself.
      */
@@ -167,9 +153,8 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * resource.
-     * 
+     * Get the provisioningState property: The provisioning state of the network rule collection resource.
+     *
      * @return the provisioningState value.
      */
     public ProvisioningState provisioningState() {
@@ -177,23 +162,8 @@ public final class AzureFirewallNetworkRuleCollection extends SubResource {
     }
 
     /**
-     * Set the provisioningState property: The provisioning state of the
-     * resource.
-     * 
-     * @param provisioningState the provisioningState value to set.
-     * @return the AzureFirewallNetworkRuleCollection object itself.
-     */
-    public AzureFirewallNetworkRuleCollection withProvisioningState(ProvisioningState provisioningState) {
-        if (this.innerProperties() == null) {
-            this.innerProperties = new AzureFirewallNetworkRuleCollectionPropertiesFormat();
-        }
-        this.innerProperties().withProvisioningState(provisioningState);
-        return this;
-    }
-
-    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

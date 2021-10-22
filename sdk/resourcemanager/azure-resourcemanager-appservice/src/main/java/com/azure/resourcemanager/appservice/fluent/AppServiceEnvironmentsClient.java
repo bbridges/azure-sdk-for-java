@@ -16,20 +16,22 @@ import com.azure.core.util.polling.SyncPoller;
 import com.azure.resourcemanager.appservice.fluent.models.AddressResponseInner;
 import com.azure.resourcemanager.appservice.fluent.models.AppServiceEnvironmentResourceInner;
 import com.azure.resourcemanager.appservice.fluent.models.AppServicePlanInner;
+import com.azure.resourcemanager.appservice.fluent.models.AseV3NetworkingConfigurationInner;
 import com.azure.resourcemanager.appservice.fluent.models.CsmUsageQuotaInner;
 import com.azure.resourcemanager.appservice.fluent.models.HostingEnvironmentDiagnosticsInner;
 import com.azure.resourcemanager.appservice.fluent.models.InboundEnvironmentEndpointInner;
-import com.azure.resourcemanager.appservice.fluent.models.MetricDefinitionInner;
 import com.azure.resourcemanager.appservice.fluent.models.OperationInner;
 import com.azure.resourcemanager.appservice.fluent.models.OutboundEnvironmentEndpointInner;
+import com.azure.resourcemanager.appservice.fluent.models.PrivateLinkResourcesWrapperInner;
+import com.azure.resourcemanager.appservice.fluent.models.RemotePrivateEndpointConnectionArmResourceInner;
 import com.azure.resourcemanager.appservice.fluent.models.ResourceMetricDefinitionInner;
-import com.azure.resourcemanager.appservice.fluent.models.ResourceMetricInner;
 import com.azure.resourcemanager.appservice.fluent.models.SiteInner;
 import com.azure.resourcemanager.appservice.fluent.models.SkuInfoInner;
 import com.azure.resourcemanager.appservice.fluent.models.StampCapacityInner;
 import com.azure.resourcemanager.appservice.fluent.models.UsageInner;
 import com.azure.resourcemanager.appservice.fluent.models.WorkerPoolResourceInner;
 import com.azure.resourcemanager.appservice.models.AppServiceEnvironmentPatchResource;
+import com.azure.resourcemanager.appservice.models.PrivateLinkConnectionApprovalRequestResource;
 import com.azure.resourcemanager.appservice.models.VirtualNetworkProfile;
 import com.azure.resourcemanager.resources.fluentcore.collection.InnerSupportsDelete;
 import com.azure.resourcemanager.resources.fluentcore.collection.InnerSupportsGet;
@@ -45,68 +47,68 @@ public interface AppServiceEnvironmentsClient
         InnerSupportsListing<AppServiceEnvironmentResourceInner>,
         InnerSupportsDelete<Void> {
     /**
-     * Get all App Service Environments for a subscription.
+     * Description for Get all App Service Environments for a subscription.
      *
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all App Service Environments for a subscription.
+     * @return collection of App Service Environments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<AppServiceEnvironmentResourceInner> listAsync();
 
     /**
-     * Get all App Service Environments for a subscription.
+     * Description for Get all App Service Environments for a subscription.
      *
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all App Service Environments for a subscription.
+     * @return collection of App Service Environments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<AppServiceEnvironmentResourceInner> list();
 
     /**
-     * Get all App Service Environments for a subscription.
+     * Description for Get all App Service Environments for a subscription.
      *
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all App Service Environments for a subscription.
+     * @return collection of App Service Environments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<AppServiceEnvironmentResourceInner> list(Context context);
 
     /**
-     * Get all App Service Environments in a resource group.
+     * Description for Get all App Service Environments in a resource group.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all App Service Environments in a resource group.
+     * @return collection of App Service Environments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<AppServiceEnvironmentResourceInner> listByResourceGroupAsync(String resourceGroupName);
 
     /**
-     * Get all App Service Environments in a resource group.
+     * Description for Get all App Service Environments in a resource group.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all App Service Environments in a resource group.
+     * @return collection of App Service Environments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<AppServiceEnvironmentResourceInner> listByResourceGroup(String resourceGroupName);
 
     /**
-     * Get all App Service Environments in a resource group.
+     * Description for Get all App Service Environments in a resource group.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param context The context to associate with this operation.
@@ -114,13 +116,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all App Service Environments in a resource group.
+     * @return collection of App Service Environments.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<AppServiceEnvironmentResourceInner> listByResourceGroup(String resourceGroupName, Context context);
 
     /**
-     * Get the properties of an App Service Environment.
+     * Description for Get the properties of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -128,14 +130,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of an App Service Environment.
+     * @return app Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<Response<AppServiceEnvironmentResourceInner>> getByResourceGroupWithResponseAsync(
         String resourceGroupName, String name);
 
     /**
-     * Get the properties of an App Service Environment.
+     * Description for Get the properties of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -143,13 +145,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of an App Service Environment.
+     * @return app Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<AppServiceEnvironmentResourceInner> getByResourceGroupAsync(String resourceGroupName, String name);
 
     /**
-     * Get the properties of an App Service Environment.
+     * Description for Get the properties of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -157,13 +159,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of an App Service Environment.
+     * @return app Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     AppServiceEnvironmentResourceInner getByResourceGroup(String resourceGroupName, String name);
 
     /**
-     * Get the properties of an App Service Environment.
+     * Description for Get the properties of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -172,20 +174,21 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the properties of an App Service Environment.
+     * @return app Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Response<AppServiceEnvironmentResourceInner> getByResourceGroupWithResponse(
         String resourceGroupName, String name, Context context);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -194,13 +197,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, AppServiceEnvironmentResourceInner hostingEnvironmentEnvelope);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -210,13 +214,14 @@ public interface AppServiceEnvironmentsClient
             String resourceGroupName, String name, AppServiceEnvironmentResourceInner hostingEnvironmentEnvelope);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -225,14 +230,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, AppServiceEnvironmentResourceInner hostingEnvironmentEnvelope);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -244,13 +250,14 @@ public interface AppServiceEnvironmentsClient
         Context context);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -259,13 +266,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, AppServiceEnvironmentResourceInner hostingEnvironmentEnvelope);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -274,14 +282,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, AppServiceEnvironmentResourceInner hostingEnvironmentEnvelope);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -293,14 +302,15 @@ public interface AppServiceEnvironmentsClient
         Context context);
 
     /**
-     * Delete an App Service Environment.
+     * Description for Delete an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param forceDelete Specify &lt;code&gt;true&lt;/code&gt; to force the deletion even if the App Service
      *     Environment contains resources. The default is &lt;code&gt;false&lt;/code&gt;.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -309,14 +319,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, Boolean forceDelete);
 
     /**
-     * Delete an App Service Environment.
+     * Description for Delete an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param forceDelete Specify &lt;code&gt;true&lt;/code&gt; to force the deletion even if the App Service
      *     Environment contains resources. The default is &lt;code&gt;false&lt;/code&gt;.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -324,14 +335,15 @@ public interface AppServiceEnvironmentsClient
     PollerFlux<PollResult<Void>, Void> beginDeleteAsync(String resourceGroupName, String name, Boolean forceDelete);
 
     /**
-     * Delete an App Service Environment.
+     * Description for Delete an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param forceDelete Specify &lt;code&gt;true&lt;/code&gt; to force the deletion even if the App Service
      *     Environment contains resources. The default is &lt;code&gt;false&lt;/code&gt;.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -339,7 +351,7 @@ public interface AppServiceEnvironmentsClient
     SyncPoller<PollResult<Void>, Void> beginDelete(String resourceGroupName, String name, Boolean forceDelete);
 
     /**
-     * Delete an App Service Environment.
+     * Description for Delete an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -347,7 +359,8 @@ public interface AppServiceEnvironmentsClient
      *     Environment contains resources. The default is &lt;code&gt;false&lt;/code&gt;.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -356,14 +369,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, Boolean forceDelete, Context context);
 
     /**
-     * Delete an App Service Environment.
+     * Description for Delete an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param forceDelete Specify &lt;code&gt;true&lt;/code&gt; to force the deletion even if the App Service
      *     Environment contains resources. The default is &lt;code&gt;false&lt;/code&gt;.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -371,12 +385,13 @@ public interface AppServiceEnvironmentsClient
     Mono<Void> deleteAsync(String resourceGroupName, String name, Boolean forceDelete);
 
     /**
-     * Delete an App Service Environment.
+     * Description for Delete an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -384,33 +399,35 @@ public interface AppServiceEnvironmentsClient
     Mono<Void> deleteAsync(String resourceGroupName, String name);
 
     /**
-     * Delete an App Service Environment.
+     * Description for Delete an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param forceDelete Specify &lt;code&gt;true&lt;/code&gt; to force the deletion even if the App Service
      *     Environment contains resources. The default is &lt;code&gt;false&lt;/code&gt;.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     void delete(String resourceGroupName, String name, Boolean forceDelete);
 
     /**
-     * Delete an App Service Environment.
+     * Description for Delete an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     void delete(String resourceGroupName, String name);
 
     /**
-     * Delete an App Service Environment.
+     * Description for Delete an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -418,20 +435,22 @@ public interface AppServiceEnvironmentsClient
      *     Environment contains resources. The default is &lt;code&gt;false&lt;/code&gt;.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     void delete(String resourceGroupName, String name, Boolean forceDelete, Context context);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -440,13 +459,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, AppServiceEnvironmentPatchResource hostingEnvironmentEnvelope);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -455,13 +475,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, AppServiceEnvironmentPatchResource hostingEnvironmentEnvelope);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -470,14 +491,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, AppServiceEnvironmentPatchResource hostingEnvironmentEnvelope);
 
     /**
-     * Create or update an App Service Environment.
+     * Description for Create or update an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param hostingEnvironmentEnvelope Configuration details of the App Service Environment.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return app Service Environment ARM resource.
      */
@@ -489,7 +511,7 @@ public interface AppServiceEnvironmentsClient
         Context context);
 
     /**
-     * Get the used, available, and total worker capacity an App Service Environment.
+     * Description for Get the used, available, and total worker capacity an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -497,13 +519,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the used, available, and total worker capacity an App Service Environment.
+     * @return collection of stamp capacities.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<StampCapacityInner> listCapacitiesAsync(String resourceGroupName, String name);
 
     /**
-     * Get the used, available, and total worker capacity an App Service Environment.
+     * Description for Get the used, available, and total worker capacity an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -511,13 +533,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the used, available, and total worker capacity an App Service Environment.
+     * @return collection of stamp capacities.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<StampCapacityInner> listCapacities(String resourceGroupName, String name);
 
     /**
-     * Get the used, available, and total worker capacity an App Service Environment.
+     * Description for Get the used, available, and total worker capacity an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -526,13 +548,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the used, available, and total worker capacity an App Service Environment.
+     * @return collection of stamp capacities.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<StampCapacityInner> listCapacities(String resourceGroupName, String name, Context context);
 
     /**
-     * Get IP addresses assigned to an App Service Environment.
+     * Description for Get IP addresses assigned to an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -540,13 +562,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return iP addresses assigned to an App Service Environment.
+     * @return describes main public IP address and any extra virtual IPs.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<Response<AddressResponseInner>> listVipsWithResponseAsync(String resourceGroupName, String name);
+    Mono<Response<AddressResponseInner>> getVipInfoWithResponseAsync(String resourceGroupName, String name);
 
     /**
-     * Get IP addresses assigned to an App Service Environment.
+     * Description for Get IP addresses assigned to an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -554,13 +576,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return iP addresses assigned to an App Service Environment.
+     * @return describes main public IP address and any extra virtual IPs.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<AddressResponseInner> listVipsAsync(String resourceGroupName, String name);
+    Mono<AddressResponseInner> getVipInfoAsync(String resourceGroupName, String name);
 
     /**
-     * Get IP addresses assigned to an App Service Environment.
+     * Description for Get IP addresses assigned to an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -568,13 +590,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return iP addresses assigned to an App Service Environment.
+     * @return describes main public IP address and any extra virtual IPs.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    AddressResponseInner listVips(String resourceGroupName, String name);
+    AddressResponseInner getVipInfo(String resourceGroupName, String name);
 
     /**
-     * Get IP addresses assigned to an App Service Environment.
+     * Description for Get IP addresses assigned to an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -583,13 +605,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return iP addresses assigned to an App Service Environment.
+     * @return describes main public IP address and any extra virtual IPs.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    Response<AddressResponseInner> listVipsWithResponse(String resourceGroupName, String name, Context context);
+    Response<AddressResponseInner> getVipInfoWithResponse(String resourceGroupName, String name, Context context);
 
     /**
-     * Move an App Service Environment to a different VNET.
+     * Description for Move an App Service Environment to a different VNET.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -604,7 +626,7 @@ public interface AppServiceEnvironmentsClient
     PagedFlux<SiteInner> changeVnetAsync(String resourceGroupName, String name, VirtualNetworkProfile vnetInfo);
 
     /**
-     * Move an App Service Environment to a different VNET.
+     * Description for Move an App Service Environment to a different VNET.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -619,7 +641,7 @@ public interface AppServiceEnvironmentsClient
     PagedIterable<SiteInner> changeVnet(String resourceGroupName, String name, VirtualNetworkProfile vnetInfo);
 
     /**
-     * Move an App Service Environment to a different VNET.
+     * Description for Move an App Service Environment to a different VNET.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -636,7 +658,7 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, VirtualNetworkProfile vnetInfo, Context context);
 
     /**
-     * Get diagnostic information for an App Service Environment.
+     * Description for Get networking configuration of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -644,14 +666,141 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostic information for an App Service Environment.
+     * @return full view of networking configuration for an ASE.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<Response<AseV3NetworkingConfigurationInner>> getAseV3NetworkingConfigurationWithResponseAsync(
+        String resourceGroupName, String name);
+
+    /**
+     * Description for Get networking configuration of an App Service Environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return full view of networking configuration for an ASE.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<AseV3NetworkingConfigurationInner> getAseV3NetworkingConfigurationAsync(String resourceGroupName, String name);
+
+    /**
+     * Description for Get networking configuration of an App Service Environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return full view of networking configuration for an ASE.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    AseV3NetworkingConfigurationInner getAseV3NetworkingConfiguration(String resourceGroupName, String name);
+
+    /**
+     * Description for Get networking configuration of an App Service Environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return full view of networking configuration for an ASE.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Response<AseV3NetworkingConfigurationInner> getAseV3NetworkingConfigurationWithResponse(
+        String resourceGroupName, String name, Context context);
+
+    /**
+     * Description for Update networking configuration of an App Service Environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param aseNetworkingConfiguration Full view of networking configuration for an ASE.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return full view of networking configuration for an ASE.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<Response<AseV3NetworkingConfigurationInner>> updateAseNetworkingConfigurationWithResponseAsync(
+        String resourceGroupName, String name, AseV3NetworkingConfigurationInner aseNetworkingConfiguration);
+
+    /**
+     * Description for Update networking configuration of an App Service Environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param aseNetworkingConfiguration Full view of networking configuration for an ASE.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return full view of networking configuration for an ASE.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<AseV3NetworkingConfigurationInner> updateAseNetworkingConfigurationAsync(
+        String resourceGroupName, String name, AseV3NetworkingConfigurationInner aseNetworkingConfiguration);
+
+    /**
+     * Description for Update networking configuration of an App Service Environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param aseNetworkingConfiguration Full view of networking configuration for an ASE.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return full view of networking configuration for an ASE.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    AseV3NetworkingConfigurationInner updateAseNetworkingConfiguration(
+        String resourceGroupName, String name, AseV3NetworkingConfigurationInner aseNetworkingConfiguration);
+
+    /**
+     * Description for Update networking configuration of an App Service Environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param aseNetworkingConfiguration Full view of networking configuration for an ASE.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return full view of networking configuration for an ASE.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Response<AseV3NetworkingConfigurationInner> updateAseNetworkingConfigurationWithResponse(
+        String resourceGroupName,
+        String name,
+        AseV3NetworkingConfigurationInner aseNetworkingConfiguration,
+        Context context);
+
+    /**
+     * Description for Get diagnostic information for an App Service Environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return array of HostingEnvironmentDiagnostics.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<Response<List<HostingEnvironmentDiagnosticsInner>>> listDiagnosticsWithResponseAsync(
         String resourceGroupName, String name);
 
     /**
-     * Get diagnostic information for an App Service Environment.
+     * Description for Get diagnostic information for an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -659,13 +808,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostic information for an App Service Environment.
+     * @return array of HostingEnvironmentDiagnostics.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<List<HostingEnvironmentDiagnosticsInner>> listDiagnosticsAsync(String resourceGroupName, String name);
 
     /**
-     * Get diagnostic information for an App Service Environment.
+     * Description for Get diagnostic information for an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -673,13 +822,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostic information for an App Service Environment.
+     * @return array of HostingEnvironmentDiagnostics.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     List<HostingEnvironmentDiagnosticsInner> listDiagnostics(String resourceGroupName, String name);
 
     /**
-     * Get diagnostic information for an App Service Environment.
+     * Description for Get diagnostic information for an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -688,14 +837,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return diagnostic information for an App Service Environment.
+     * @return array of HostingEnvironmentDiagnostics.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Response<List<HostingEnvironmentDiagnosticsInner>> listDiagnosticsWithResponse(
         String resourceGroupName, String name, Context context);
 
     /**
-     * Get a diagnostics item for an App Service Environment.
+     * Description for Get a diagnostics item for an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -704,14 +853,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a diagnostics item for an App Service Environment.
+     * @return diagnostics for an App Service Environment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<Response<HostingEnvironmentDiagnosticsInner>> getDiagnosticsItemWithResponseAsync(
         String resourceGroupName, String name, String diagnosticsName);
 
     /**
-     * Get a diagnostics item for an App Service Environment.
+     * Description for Get a diagnostics item for an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -720,14 +869,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a diagnostics item for an App Service Environment.
+     * @return diagnostics for an App Service Environment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<HostingEnvironmentDiagnosticsInner> getDiagnosticsItemAsync(
         String resourceGroupName, String name, String diagnosticsName);
 
     /**
-     * Get a diagnostics item for an App Service Environment.
+     * Description for Get a diagnostics item for an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -736,14 +885,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a diagnostics item for an App Service Environment.
+     * @return diagnostics for an App Service Environment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     HostingEnvironmentDiagnosticsInner getDiagnosticsItem(
         String resourceGroupName, String name, String diagnosticsName);
 
     /**
-     * Get a diagnostics item for an App Service Environment.
+     * Description for Get a diagnostics item for an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -753,14 +902,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return a diagnostics item for an App Service Environment.
+     * @return diagnostics for an App Service Environment.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Response<HostingEnvironmentDiagnosticsInner> getDiagnosticsItemWithResponse(
         String resourceGroupName, String name, String diagnosticsName, Context context);
 
     /**
-     * Get the network endpoints of all inbound dependencies of an App Service Environment.
+     * Description for Get the network endpoints of all inbound dependencies of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -768,14 +917,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the network endpoints of all inbound dependencies of an App Service Environment.
+     * @return collection of Inbound Environment Endpoints.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<InboundEnvironmentEndpointInner> getInboundNetworkDependenciesEndpointsAsync(
         String resourceGroupName, String name);
 
     /**
-     * Get the network endpoints of all inbound dependencies of an App Service Environment.
+     * Description for Get the network endpoints of all inbound dependencies of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -783,14 +932,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the network endpoints of all inbound dependencies of an App Service Environment.
+     * @return collection of Inbound Environment Endpoints.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<InboundEnvironmentEndpointInner> getInboundNetworkDependenciesEndpoints(
         String resourceGroupName, String name);
 
     /**
-     * Get the network endpoints of all inbound dependencies of an App Service Environment.
+     * Description for Get the network endpoints of all inbound dependencies of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -799,14 +948,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the network endpoints of all inbound dependencies of an App Service Environment.
+     * @return collection of Inbound Environment Endpoints.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<InboundEnvironmentEndpointInner> getInboundNetworkDependenciesEndpoints(
         String resourceGroupName, String name, Context context);
 
     /**
-     * Get global metric definitions of an App Service Environment.
+     * Description for Get all multi-role pools.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -814,140 +963,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global metric definitions of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<Response<MetricDefinitionInner>> listMetricDefinitionsWithResponseAsync(String resourceGroupName, String name);
-
-    /**
-     * Get global metric definitions of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global metric definitions of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    Mono<MetricDefinitionInner> listMetricDefinitionsAsync(String resourceGroupName, String name);
-
-    /**
-     * Get global metric definitions of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global metric definitions of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    MetricDefinitionInner listMetricDefinitions(String resourceGroupName, String name);
-
-    /**
-     * Get global metric definitions of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global metric definitions of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.SINGLE)
-    Response<MetricDefinitionInner> listMetricDefinitionsWithResponse(
-        String resourceGroupName, String name, Context context);
-
-    /**
-     * Get global metrics of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param details Specify &lt;code&gt;true&lt;/code&gt; to include instance details. The default is
-     *     &lt;code&gt;false&lt;/code&gt;.
-     * @param filter Return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
-     *     $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq 2014-01-01T00:00:00Z and
-     *     endTime eq 2014-12-31T23:59:59Z and timeGrain eq duration'[Hour|Minute|Day]'.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global metrics of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<ResourceMetricInner> listMetricsAsync(
-        String resourceGroupName, String name, Boolean details, String filter);
-
-    /**
-     * Get global metrics of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global metrics of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<ResourceMetricInner> listMetricsAsync(String resourceGroupName, String name);
-
-    /**
-     * Get global metrics of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global metrics of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<ResourceMetricInner> listMetrics(String resourceGroupName, String name);
-
-    /**
-     * Get global metrics of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param details Specify &lt;code&gt;true&lt;/code&gt; to include instance details. The default is
-     *     &lt;code&gt;false&lt;/code&gt;.
-     * @param filter Return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
-     *     $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq 2014-01-01T00:00:00Z and
-     *     endTime eq 2014-12-31T23:59:59Z and timeGrain eq duration'[Hour|Minute|Day]'.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global metrics of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<ResourceMetricInner> listMetrics(
-        String resourceGroupName, String name, Boolean details, String filter, Context context);
-
-    /**
-     * Get all multi-role pools.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all multi-role pools.
+     * @return collection of worker pools.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<WorkerPoolResourceInner> listMultiRolePoolsAsync(String resourceGroupName, String name);
 
     /**
-     * Get all multi-role pools.
+     * Description for Get all multi-role pools.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -955,13 +977,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all multi-role pools.
+     * @return collection of worker pools.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<WorkerPoolResourceInner> listMultiRolePools(String resourceGroupName, String name);
 
     /**
-     * Get all multi-role pools.
+     * Description for Get all multi-role pools.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -970,13 +992,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all multi-role pools.
+     * @return collection of worker pools.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<WorkerPoolResourceInner> listMultiRolePools(String resourceGroupName, String name, Context context);
 
     /**
-     * Get properties of a multi-role pool.
+     * Description for Get properties of a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -984,13 +1006,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return properties of a multi-role pool.
+     * @return worker pool of an App Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<Response<WorkerPoolResourceInner>> getMultiRolePoolWithResponseAsync(String resourceGroupName, String name);
 
     /**
-     * Get properties of a multi-role pool.
+     * Description for Get properties of a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -998,13 +1020,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return properties of a multi-role pool.
+     * @return worker pool of an App Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<WorkerPoolResourceInner> getMultiRolePoolAsync(String resourceGroupName, String name);
 
     /**
-     * Get properties of a multi-role pool.
+     * Description for Get properties of a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1012,13 +1034,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return properties of a multi-role pool.
+     * @return worker pool of an App Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     WorkerPoolResourceInner getMultiRolePool(String resourceGroupName, String name);
 
     /**
-     * Get properties of a multi-role pool.
+     * Description for Get properties of a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1027,20 +1049,21 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return properties of a multi-role pool.
+     * @return worker pool of an App Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Response<WorkerPoolResourceInner> getMultiRolePoolWithResponse(
         String resourceGroupName, String name, Context context);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1049,13 +1072,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1064,13 +1088,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1079,14 +1104,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1095,13 +1121,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope, Context context);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1110,13 +1137,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1125,14 +1153,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1141,13 +1170,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope, Context context);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1156,13 +1186,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1171,13 +1202,14 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1186,14 +1218,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope);
 
     /**
-     * Create or update a multi-role pool.
+     * Description for Create or update a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param multiRolePoolEnvelope Properties of the multi-role pool.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -1202,7 +1235,8 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, WorkerPoolResourceInner multiRolePoolEnvelope, Context context);
 
     /**
-     * Get metric definitions for a specific instance of a multi-role pool of an App Service Environment.
+     * Description for Get metric definitions for a specific instance of a multi-role pool of an App Service
+     * Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1211,14 +1245,15 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a specific instance of a multi-role pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<ResourceMetricDefinitionInner> listMultiRolePoolInstanceMetricDefinitionsAsync(
         String resourceGroupName, String name, String instance);
 
     /**
-     * Get metric definitions for a specific instance of a multi-role pool of an App Service Environment.
+     * Description for Get metric definitions for a specific instance of a multi-role pool of an App Service
+     * Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1227,14 +1262,15 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a specific instance of a multi-role pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<ResourceMetricDefinitionInner> listMultiRolePoolInstanceMetricDefinitions(
         String resourceGroupName, String name, String instance);
 
     /**
-     * Get metric definitions for a specific instance of a multi-role pool of an App Service Environment.
+     * Description for Get metric definitions for a specific instance of a multi-role pool of an App Service
+     * Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1244,83 +1280,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a specific instance of a multi-role pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<ResourceMetricDefinitionInner> listMultiRolePoolInstanceMetricDefinitions(
         String resourceGroupName, String name, String instance, Context context);
 
     /**
-     * Get metrics for a specific instance of a multi-role pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param instance Name of the instance in the multi-role pool.
-     * @param details Specify &lt;code&gt;true&lt;/code&gt; to include instance details. The default is
-     *     &lt;code&gt;false&lt;/code&gt;.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a specific instance of a multi-role pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<ResourceMetricInner> listMultiRolePoolInstanceMetricsAsync(
-        String resourceGroupName, String name, String instance, Boolean details);
-
-    /**
-     * Get metrics for a specific instance of a multi-role pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param instance Name of the instance in the multi-role pool.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a specific instance of a multi-role pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<ResourceMetricInner> listMultiRolePoolInstanceMetricsAsync(
-        String resourceGroupName, String name, String instance);
-
-    /**
-     * Get metrics for a specific instance of a multi-role pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param instance Name of the instance in the multi-role pool.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a specific instance of a multi-role pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<ResourceMetricInner> listMultiRolePoolInstanceMetrics(
-        String resourceGroupName, String name, String instance);
-
-    /**
-     * Get metrics for a specific instance of a multi-role pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param instance Name of the instance in the multi-role pool.
-     * @param details Specify &lt;code&gt;true&lt;/code&gt; to include instance details. The default is
-     *     &lt;code&gt;false&lt;/code&gt;.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a specific instance of a multi-role pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<ResourceMetricInner> listMultiRolePoolInstanceMetrics(
-        String resourceGroupName, String name, String instance, Boolean details, Context context);
-
-    /**
-     * Get metric definitions for a multi-role pool of an App Service Environment.
+     * Description for Get metric definitions for a multi-role pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1328,13 +1295,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a multi-role pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<ResourceMetricDefinitionInner> listMultiRoleMetricDefinitionsAsync(String resourceGroupName, String name);
 
     /**
-     * Get metric definitions for a multi-role pool of an App Service Environment.
+     * Description for Get metric definitions for a multi-role pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1342,13 +1309,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a multi-role pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<ResourceMetricDefinitionInner> listMultiRoleMetricDefinitions(String resourceGroupName, String name);
 
     /**
-     * Get metric definitions for a multi-role pool of an App Service Environment.
+     * Description for Get metric definitions for a multi-role pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1357,43 +1324,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a multi-role pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<ResourceMetricDefinitionInner> listMultiRoleMetricDefinitions(
         String resourceGroupName, String name, Context context);
 
     /**
-     * Get metrics for a multi-role pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param startTime Beginning time of the metrics query.
-     * @param endTime End time of the metrics query.
-     * @param timeGrain Time granularity of the metrics query.
-     * @param details Specify &lt;code&gt;true&lt;/code&gt; to include instance details. The default is
-     *     &lt;code&gt;false&lt;/code&gt;.
-     * @param filter Return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
-     *     $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq 2014-01-01T00:00:00Z and
-     *     endTime eq 2014-12-31T23:59:59Z and timeGrain eq duration'[Hour|Minute|Day]'.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a multi-role pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<ResourceMetricInner> listMultiRoleMetricsAsync(
-        String resourceGroupName,
-        String name,
-        String startTime,
-        String endTime,
-        String timeGrain,
-        Boolean details,
-        String filter);
-
-    /**
-     * Get metrics for a multi-role pool of an App Service Environment.
+     * Description for Get available SKUs for scaling a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1401,72 +1339,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a multi-role pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<ResourceMetricInner> listMultiRoleMetricsAsync(String resourceGroupName, String name);
-
-    /**
-     * Get metrics for a multi-role pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a multi-role pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<ResourceMetricInner> listMultiRoleMetrics(String resourceGroupName, String name);
-
-    /**
-     * Get metrics for a multi-role pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param startTime Beginning time of the metrics query.
-     * @param endTime End time of the metrics query.
-     * @param timeGrain Time granularity of the metrics query.
-     * @param details Specify &lt;code&gt;true&lt;/code&gt; to include instance details. The default is
-     *     &lt;code&gt;false&lt;/code&gt;.
-     * @param filter Return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
-     *     $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq 2014-01-01T00:00:00Z and
-     *     endTime eq 2014-12-31T23:59:59Z and timeGrain eq duration'[Hour|Minute|Day]'.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a multi-role pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<ResourceMetricInner> listMultiRoleMetrics(
-        String resourceGroupName,
-        String name,
-        String startTime,
-        String endTime,
-        String timeGrain,
-        Boolean details,
-        String filter,
-        Context context);
-
-    /**
-     * Get available SKUs for scaling a multi-role pool.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return available SKUs for scaling a multi-role pool.
+     * @return collection of SKU information.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<SkuInfoInner> listMultiRolePoolSkusAsync(String resourceGroupName, String name);
 
     /**
-     * Get available SKUs for scaling a multi-role pool.
+     * Description for Get available SKUs for scaling a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1474,13 +1353,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return available SKUs for scaling a multi-role pool.
+     * @return collection of SKU information.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<SkuInfoInner> listMultiRolePoolSkus(String resourceGroupName, String name);
 
     /**
-     * Get available SKUs for scaling a multi-role pool.
+     * Description for Get available SKUs for scaling a multi-role pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1489,13 +1368,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return available SKUs for scaling a multi-role pool.
+     * @return collection of SKU information.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<SkuInfoInner> listMultiRolePoolSkus(String resourceGroupName, String name, Context context);
 
     /**
-     * Get usage metrics for a multi-role pool of an App Service Environment.
+     * Description for Get usage metrics for a multi-role pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1503,13 +1382,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return usage metrics for a multi-role pool of an App Service Environment.
+     * @return collection of usages.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<UsageInner> listMultiRoleUsagesAsync(String resourceGroupName, String name);
 
     /**
-     * Get usage metrics for a multi-role pool of an App Service Environment.
+     * Description for Get usage metrics for a multi-role pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1517,13 +1396,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return usage metrics for a multi-role pool of an App Service Environment.
+     * @return collection of usages.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<UsageInner> listMultiRoleUsages(String resourceGroupName, String name);
 
     /**
-     * Get usage metrics for a multi-role pool of an App Service Environment.
+     * Description for Get usage metrics for a multi-role pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1532,13 +1411,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return usage metrics for a multi-role pool of an App Service Environment.
+     * @return collection of usages.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<UsageInner> listMultiRoleUsages(String resourceGroupName, String name, Context context);
 
     /**
-     * List all currently running operations on the App Service Environment.
+     * Description for List all currently running operations on the App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1552,7 +1431,7 @@ public interface AppServiceEnvironmentsClient
     Mono<Response<List<OperationInner>>> listOperationsWithResponseAsync(String resourceGroupName, String name);
 
     /**
-     * List all currently running operations on the App Service Environment.
+     * Description for List all currently running operations on the App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1566,7 +1445,7 @@ public interface AppServiceEnvironmentsClient
     Mono<List<OperationInner>> listOperationsAsync(String resourceGroupName, String name);
 
     /**
-     * List all currently running operations on the App Service Environment.
+     * Description for List all currently running operations on the App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1580,7 +1459,7 @@ public interface AppServiceEnvironmentsClient
     List<OperationInner> listOperations(String resourceGroupName, String name);
 
     /**
-     * List all currently running operations on the App Service Environment.
+     * Description for List all currently running operations on the App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1595,7 +1474,7 @@ public interface AppServiceEnvironmentsClient
     Response<List<OperationInner>> listOperationsWithResponse(String resourceGroupName, String name, Context context);
 
     /**
-     * Get the network endpoints of all outbound dependencies of an App Service Environment.
+     * Description for Get the network endpoints of all outbound dependencies of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1603,14 +1482,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the network endpoints of all outbound dependencies of an App Service Environment.
+     * @return collection of Outbound Environment Endpoints.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<OutboundEnvironmentEndpointInner> getOutboundNetworkDependenciesEndpointsAsync(
         String resourceGroupName, String name);
 
     /**
-     * Get the network endpoints of all outbound dependencies of an App Service Environment.
+     * Description for Get the network endpoints of all outbound dependencies of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1618,14 +1497,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the network endpoints of all outbound dependencies of an App Service Environment.
+     * @return collection of Outbound Environment Endpoints.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<OutboundEnvironmentEndpointInner> getOutboundNetworkDependenciesEndpoints(
         String resourceGroupName, String name);
 
     /**
-     * Get the network endpoints of all outbound dependencies of an App Service Environment.
+     * Description for Get the network endpoints of all outbound dependencies of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1634,19 +1513,456 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the network endpoints of all outbound dependencies of an App Service Environment.
+     * @return collection of Outbound Environment Endpoints.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<OutboundEnvironmentEndpointInner> getOutboundNetworkDependenciesEndpoints(
         String resourceGroupName, String name, Context context);
 
     /**
-     * Reboot all machines in an App Service Environment.
+     * Description for Gets the list of private endpoints associated with a hosting environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    PagedFlux<RemotePrivateEndpointConnectionArmResourceInner> getPrivateEndpointConnectionListAsync(
+        String resourceGroupName, String name);
+
+    /**
+     * Description for Gets the list of private endpoints associated with a hosting environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    PagedIterable<RemotePrivateEndpointConnectionArmResourceInner> getPrivateEndpointConnectionList(
+        String resourceGroupName, String name);
+
+    /**
+     * Description for Gets the list of private endpoints associated with a hosting environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    PagedIterable<RemotePrivateEndpointConnectionArmResourceInner> getPrivateEndpointConnectionList(
+        String resourceGroupName, String name, Context context);
+
+    /**
+     * Description for Gets a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName Name of the private endpoint connection.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<Response<RemotePrivateEndpointConnectionArmResourceInner>> getPrivateEndpointConnectionWithResponseAsync(
+        String resourceGroupName, String name, String privateEndpointConnectionName);
+
+    /**
+     * Description for Gets a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName Name of the private endpoint connection.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<RemotePrivateEndpointConnectionArmResourceInner> getPrivateEndpointConnectionAsync(
+        String resourceGroupName, String name, String privateEndpointConnectionName);
+
+    /**
+     * Description for Gets a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName Name of the private endpoint connection.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    RemotePrivateEndpointConnectionArmResourceInner getPrivateEndpointConnection(
+        String resourceGroupName, String name, String privateEndpointConnectionName);
+
+    /**
+     * Description for Gets a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName Name of the private endpoint connection.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Response<RemotePrivateEndpointConnectionArmResourceInner> getPrivateEndpointConnectionWithResponse(
+        String resourceGroupName, String name, String privateEndpointConnectionName, Context context);
+
+    /**
+     * Description for Approves or rejects a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @param privateEndpointWrapper Private Endpoint Connection Approval ARM resource.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<Response<Flux<ByteBuffer>>> approveOrRejectPrivateEndpointConnectionWithResponseAsync(
+        String resourceGroupName,
+        String name,
+        String privateEndpointConnectionName,
+        PrivateLinkConnectionApprovalRequestResource privateEndpointWrapper);
+
+    /**
+     * Description for Approves or rejects a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @param privateEndpointWrapper Private Endpoint Connection Approval ARM resource.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    PollerFlux<
+            PollResult<RemotePrivateEndpointConnectionArmResourceInner>,
+            RemotePrivateEndpointConnectionArmResourceInner>
+        beginApproveOrRejectPrivateEndpointConnectionAsync(
+            String resourceGroupName,
+            String name,
+            String privateEndpointConnectionName,
+            PrivateLinkConnectionApprovalRequestResource privateEndpointWrapper);
+
+    /**
+     * Description for Approves or rejects a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @param privateEndpointWrapper Private Endpoint Connection Approval ARM resource.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    SyncPoller<
+            PollResult<RemotePrivateEndpointConnectionArmResourceInner>,
+            RemotePrivateEndpointConnectionArmResourceInner>
+        beginApproveOrRejectPrivateEndpointConnection(
+            String resourceGroupName,
+            String name,
+            String privateEndpointConnectionName,
+            PrivateLinkConnectionApprovalRequestResource privateEndpointWrapper);
+
+    /**
+     * Description for Approves or rejects a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @param privateEndpointWrapper Private Endpoint Connection Approval ARM resource.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    SyncPoller<
+            PollResult<RemotePrivateEndpointConnectionArmResourceInner>,
+            RemotePrivateEndpointConnectionArmResourceInner>
+        beginApproveOrRejectPrivateEndpointConnection(
+            String resourceGroupName,
+            String name,
+            String privateEndpointConnectionName,
+            PrivateLinkConnectionApprovalRequestResource privateEndpointWrapper,
+            Context context);
+
+    /**
+     * Description for Approves or rejects a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @param privateEndpointWrapper Private Endpoint Connection Approval ARM resource.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<RemotePrivateEndpointConnectionArmResourceInner> approveOrRejectPrivateEndpointConnectionAsync(
+        String resourceGroupName,
+        String name,
+        String privateEndpointConnectionName,
+        PrivateLinkConnectionApprovalRequestResource privateEndpointWrapper);
+
+    /**
+     * Description for Approves or rejects a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @param privateEndpointWrapper Private Endpoint Connection Approval ARM resource.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    RemotePrivateEndpointConnectionArmResourceInner approveOrRejectPrivateEndpointConnection(
+        String resourceGroupName,
+        String name,
+        String privateEndpointConnectionName,
+        PrivateLinkConnectionApprovalRequestResource privateEndpointWrapper);
+
+    /**
+     * Description for Approves or rejects a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @param privateEndpointWrapper Private Endpoint Connection Approval ARM resource.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return remote Private Endpoint Connection ARM resource.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    RemotePrivateEndpointConnectionArmResourceInner approveOrRejectPrivateEndpointConnection(
+        String resourceGroupName,
+        String name,
+        String privateEndpointConnectionName,
+        PrivateLinkConnectionApprovalRequestResource privateEndpointWrapper,
+        Context context);
+
+    /**
+     * Description for Deletes a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return any object.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<Response<Flux<ByteBuffer>>> deletePrivateEndpointConnectionWithResponseAsync(
+        String resourceGroupName, String name, String privateEndpointConnectionName);
+
+    /**
+     * Description for Deletes a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return any object.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    PollerFlux<PollResult<Object>, Object> beginDeletePrivateEndpointConnectionAsync(
+        String resourceGroupName, String name, String privateEndpointConnectionName);
+
+    /**
+     * Description for Deletes a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return any object.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    SyncPoller<PollResult<Object>, Object> beginDeletePrivateEndpointConnection(
+        String resourceGroupName, String name, String privateEndpointConnectionName);
+
+    /**
+     * Description for Deletes a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return any object.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    SyncPoller<PollResult<Object>, Object> beginDeletePrivateEndpointConnection(
+        String resourceGroupName, String name, String privateEndpointConnectionName, Context context);
+
+    /**
+     * Description for Deletes a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return any object.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<Object> deletePrivateEndpointConnectionAsync(
+        String resourceGroupName, String name, String privateEndpointConnectionName);
+
+    /**
+     * Description for Deletes a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return any object.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Object deletePrivateEndpointConnection(String resourceGroupName, String name, String privateEndpointConnectionName);
+
+    /**
+     * Description for Deletes a private endpoint connection.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param privateEndpointConnectionName The privateEndpointConnectionName parameter.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return any object.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Object deletePrivateEndpointConnection(
+        String resourceGroupName, String name, String privateEndpointConnectionName, Context context);
+
+    /**
+     * Description for Gets the private link resources.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return wrapper for a collection of private link resources.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<Response<PrivateLinkResourcesWrapperInner>> getPrivateLinkResourcesWithResponseAsync(
+        String resourceGroupName, String name);
+
+    /**
+     * Description for Gets the private link resources.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return wrapper for a collection of private link resources.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Mono<PrivateLinkResourcesWrapperInner> getPrivateLinkResourcesAsync(String resourceGroupName, String name);
+
+    /**
+     * Description for Gets the private link resources.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return wrapper for a collection of private link resources.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    PrivateLinkResourcesWrapperInner getPrivateLinkResources(String resourceGroupName, String name);
+
+    /**
+     * Description for Gets the private link resources.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @param context The context to associate with this operation.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return wrapper for a collection of private link resources.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    Response<PrivateLinkResourcesWrapperInner> getPrivateLinkResourcesWithResponse(
+        String resourceGroupName, String name, Context context);
+
+    /**
+     * Description for Reboot all machines in an App Service Environment.
+     *
+     * @param resourceGroupName Name of the resource group to which the resource belongs.
+     * @param name Name of the App Service Environment.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -1654,12 +1970,13 @@ public interface AppServiceEnvironmentsClient
     Mono<Response<Void>> rebootWithResponseAsync(String resourceGroupName, String name);
 
     /**
-     * Reboot all machines in an App Service Environment.
+     * Description for Reboot all machines in an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the completion.
      */
@@ -1667,25 +1984,27 @@ public interface AppServiceEnvironmentsClient
     Mono<Void> rebootAsync(String resourceGroupName, String name);
 
     /**
-     * Reboot all machines in an App Service Environment.
+     * Description for Reboot all machines in an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     void reboot(String resourceGroupName, String name);
 
     /**
-     * Reboot all machines in an App Service Environment.
+     * Description for Reboot all machines in an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return the response.
      */
@@ -1693,7 +2012,7 @@ public interface AppServiceEnvironmentsClient
     Response<Void> rebootWithResponse(String resourceGroupName, String name, Context context);
 
     /**
-     * Resume an App Service Environment.
+     * Description for Resume an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1707,7 +2026,7 @@ public interface AppServiceEnvironmentsClient
     PagedFlux<SiteInner> resumeAsync(String resourceGroupName, String name);
 
     /**
-     * Resume an App Service Environment.
+     * Description for Resume an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1721,7 +2040,7 @@ public interface AppServiceEnvironmentsClient
     PagedIterable<SiteInner> resume(String resourceGroupName, String name);
 
     /**
-     * Resume an App Service Environment.
+     * Description for Resume an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1736,7 +2055,7 @@ public interface AppServiceEnvironmentsClient
     PagedIterable<SiteInner> resume(String resourceGroupName, String name, Context context);
 
     /**
-     * Get all App Service plans in an App Service Environment.
+     * Description for Get all App Service plans in an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1744,13 +2063,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all App Service plans in an App Service Environment.
+     * @return collection of App Service plans.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<AppServicePlanInner> listAppServicePlansAsync(String resourceGroupName, String name);
 
     /**
-     * Get all App Service plans in an App Service Environment.
+     * Description for Get all App Service plans in an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1758,13 +2077,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all App Service plans in an App Service Environment.
+     * @return collection of App Service plans.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<AppServicePlanInner> listAppServicePlans(String resourceGroupName, String name);
 
     /**
-     * Get all App Service plans in an App Service Environment.
+     * Description for Get all App Service plans in an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1773,13 +2092,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all App Service plans in an App Service Environment.
+     * @return collection of App Service plans.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<AppServicePlanInner> listAppServicePlans(String resourceGroupName, String name, Context context);
 
     /**
-     * Get all apps in an App Service Environment.
+     * Description for Get all apps in an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1788,13 +2107,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all apps in an App Service Environment.
+     * @return collection of App Service apps.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<SiteInner> listWebAppsAsync(String resourceGroupName, String name, String propertiesToInclude);
 
     /**
-     * Get all apps in an App Service Environment.
+     * Description for Get all apps in an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1802,13 +2121,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all apps in an App Service Environment.
+     * @return collection of App Service apps.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<SiteInner> listWebAppsAsync(String resourceGroupName, String name);
 
     /**
-     * Get all apps in an App Service Environment.
+     * Description for Get all apps in an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1816,13 +2135,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all apps in an App Service Environment.
+     * @return collection of App Service apps.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<SiteInner> listWebApps(String resourceGroupName, String name);
 
     /**
-     * Get all apps in an App Service Environment.
+     * Description for Get all apps in an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1832,14 +2151,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all apps in an App Service Environment.
+     * @return collection of App Service apps.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<SiteInner> listWebApps(
         String resourceGroupName, String name, String propertiesToInclude, Context context);
 
     /**
-     * Suspend an App Service Environment.
+     * Description for Suspend an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1853,7 +2172,7 @@ public interface AppServiceEnvironmentsClient
     PagedFlux<SiteInner> suspendAsync(String resourceGroupName, String name);
 
     /**
-     * Suspend an App Service Environment.
+     * Description for Suspend an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1867,7 +2186,7 @@ public interface AppServiceEnvironmentsClient
     PagedIterable<SiteInner> suspend(String resourceGroupName, String name);
 
     /**
-     * Suspend an App Service Environment.
+     * Description for Suspend an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1882,7 +2201,7 @@ public interface AppServiceEnvironmentsClient
     PagedIterable<SiteInner> suspend(String resourceGroupName, String name, Context context);
 
     /**
-     * Get global usage metrics of an App Service Environment.
+     * Description for Get global usage metrics of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1893,13 +2212,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global usage metrics of an App Service Environment.
+     * @return collection of CSM usage quotas.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<CsmUsageQuotaInner> listUsagesAsync(String resourceGroupName, String name, String filter);
 
     /**
-     * Get global usage metrics of an App Service Environment.
+     * Description for Get global usage metrics of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1907,13 +2226,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global usage metrics of an App Service Environment.
+     * @return collection of CSM usage quotas.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<CsmUsageQuotaInner> listUsagesAsync(String resourceGroupName, String name);
 
     /**
-     * Get global usage metrics of an App Service Environment.
+     * Description for Get global usage metrics of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1921,13 +2240,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global usage metrics of an App Service Environment.
+     * @return collection of CSM usage quotas.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<CsmUsageQuotaInner> listUsages(String resourceGroupName, String name);
 
     /**
-     * Get global usage metrics of an App Service Environment.
+     * Description for Get global usage metrics of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1939,13 +2258,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return global usage metrics of an App Service Environment.
+     * @return collection of CSM usage quotas.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<CsmUsageQuotaInner> listUsages(String resourceGroupName, String name, String filter, Context context);
 
     /**
-     * Get all worker pools of an App Service Environment.
+     * Description for Get all worker pools of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1953,13 +2272,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all worker pools of an App Service Environment.
+     * @return collection of worker pools.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<WorkerPoolResourceInner> listWorkerPoolsAsync(String resourceGroupName, String name);
 
     /**
-     * Get all worker pools of an App Service Environment.
+     * Description for Get all worker pools of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1967,13 +2286,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all worker pools of an App Service Environment.
+     * @return collection of worker pools.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<WorkerPoolResourceInner> listWorkerPools(String resourceGroupName, String name);
 
     /**
-     * Get all worker pools of an App Service Environment.
+     * Description for Get all worker pools of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1982,13 +2301,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return all worker pools of an App Service Environment.
+     * @return collection of worker pools.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<WorkerPoolResourceInner> listWorkerPools(String resourceGroupName, String name, Context context);
 
     /**
-     * Get properties of a worker pool.
+     * Description for Get properties of a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -1997,14 +2316,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return properties of a worker pool.
+     * @return worker pool of an App Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<Response<WorkerPoolResourceInner>> getWorkerPoolWithResponseAsync(
         String resourceGroupName, String name, String workerPoolName);
 
     /**
-     * Get properties of a worker pool.
+     * Description for Get properties of a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2013,13 +2332,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return properties of a worker pool.
+     * @return worker pool of an App Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Mono<WorkerPoolResourceInner> getWorkerPoolAsync(String resourceGroupName, String name, String workerPoolName);
 
     /**
-     * Get properties of a worker pool.
+     * Description for Get properties of a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2028,13 +2347,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return properties of a worker pool.
+     * @return worker pool of an App Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     WorkerPoolResourceInner getWorkerPool(String resourceGroupName, String name, String workerPoolName);
 
     /**
-     * Get properties of a worker pool.
+     * Description for Get properties of a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2044,21 +2363,22 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return properties of a worker pool.
+     * @return worker pool of an App Service Environment ARM resource.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
     Response<WorkerPoolResourceInner> getWorkerPoolWithResponse(
         String resourceGroupName, String name, String workerPoolName, Context context);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param workerPoolName Name of the worker pool.
      * @param workerPoolEnvelope Properties of the worker pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2067,14 +2387,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, String workerPoolName, WorkerPoolResourceInner workerPoolEnvelope);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param workerPoolName Name of the worker pool.
      * @param workerPoolEnvelope Properties of the worker pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2083,14 +2404,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, String workerPoolName, WorkerPoolResourceInner workerPoolEnvelope);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param workerPoolName Name of the worker pool.
      * @param workerPoolEnvelope Properties of the worker pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2099,7 +2421,7 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, String workerPoolName, WorkerPoolResourceInner workerPoolEnvelope);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2107,7 +2429,8 @@ public interface AppServiceEnvironmentsClient
      * @param workerPoolEnvelope Properties of the worker pool.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2120,14 +2443,15 @@ public interface AppServiceEnvironmentsClient
         Context context);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param workerPoolName Name of the worker pool.
      * @param workerPoolEnvelope Properties of the worker pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2136,14 +2460,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, String workerPoolName, WorkerPoolResourceInner workerPoolEnvelope);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param workerPoolName Name of the worker pool.
      * @param workerPoolEnvelope Properties of the worker pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2152,7 +2477,7 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, String workerPoolName, WorkerPoolResourceInner workerPoolEnvelope);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2160,7 +2485,8 @@ public interface AppServiceEnvironmentsClient
      * @param workerPoolEnvelope Properties of the worker pool.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2173,14 +2499,15 @@ public interface AppServiceEnvironmentsClient
         Context context);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param workerPoolName Name of the worker pool.
      * @param workerPoolEnvelope Properties of the worker pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2189,14 +2516,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, String workerPoolName, WorkerPoolResourceInner workerPoolEnvelope);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param workerPoolName Name of the worker pool.
      * @param workerPoolEnvelope Properties of the worker pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2205,14 +2533,15 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, String workerPoolName, WorkerPoolResourceInner workerPoolEnvelope);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
      * @param workerPoolName Name of the worker pool.
      * @param workerPoolEnvelope Properties of the worker pool.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2221,7 +2550,7 @@ public interface AppServiceEnvironmentsClient
         String resourceGroupName, String name, String workerPoolName, WorkerPoolResourceInner workerPoolEnvelope);
 
     /**
-     * Create or update a worker pool.
+     * Description for Create or update a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2229,7 +2558,8 @@ public interface AppServiceEnvironmentsClient
      * @param workerPoolEnvelope Properties of the worker pool.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.core.management.exception.ManagementException thrown if the request is rejected by server.
+     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
+     *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
      * @return worker pool of an App Service Environment ARM resource.
      */
@@ -2242,7 +2572,7 @@ public interface AppServiceEnvironmentsClient
         Context context);
 
     /**
-     * Get metric definitions for a specific instance of a worker pool of an App Service Environment.
+     * Description for Get metric definitions for a specific instance of a worker pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2252,14 +2582,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a specific instance of a worker pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<ResourceMetricDefinitionInner> listWorkerPoolInstanceMetricDefinitionsAsync(
         String resourceGroupName, String name, String workerPoolName, String instance);
 
     /**
-     * Get metric definitions for a specific instance of a worker pool of an App Service Environment.
+     * Description for Get metric definitions for a specific instance of a worker pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2269,14 +2599,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a specific instance of a worker pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<ResourceMetricDefinitionInner> listWorkerPoolInstanceMetricDefinitions(
         String resourceGroupName, String name, String workerPoolName, String instance);
 
     /**
-     * Get metric definitions for a specific instance of a worker pool of an App Service Environment.
+     * Description for Get metric definitions for a specific instance of a worker pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2287,99 +2617,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a specific instance of a worker pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<ResourceMetricDefinitionInner> listWorkerPoolInstanceMetricDefinitions(
         String resourceGroupName, String name, String workerPoolName, String instance, Context context);
 
     /**
-     * Get metrics for a specific instance of a worker pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param workerPoolName Name of the worker pool.
-     * @param instance Name of the instance in the worker pool.
-     * @param details Specify &lt;code&gt;true&lt;/code&gt; to include instance details. The default is
-     *     &lt;code&gt;false&lt;/code&gt;.
-     * @param filter Return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
-     *     $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq 2014-01-01T00:00:00Z and
-     *     endTime eq 2014-12-31T23:59:59Z and timeGrain eq duration'[Hour|Minute|Day]'.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a specific instance of a worker pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<ResourceMetricInner> listWorkerPoolInstanceMetricsAsync(
-        String resourceGroupName, String name, String workerPoolName, String instance, Boolean details, String filter);
-
-    /**
-     * Get metrics for a specific instance of a worker pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param workerPoolName Name of the worker pool.
-     * @param instance Name of the instance in the worker pool.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a specific instance of a worker pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<ResourceMetricInner> listWorkerPoolInstanceMetricsAsync(
-        String resourceGroupName, String name, String workerPoolName, String instance);
-
-    /**
-     * Get metrics for a specific instance of a worker pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param workerPoolName Name of the worker pool.
-     * @param instance Name of the instance in the worker pool.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a specific instance of a worker pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<ResourceMetricInner> listWorkerPoolInstanceMetrics(
-        String resourceGroupName, String name, String workerPoolName, String instance);
-
-    /**
-     * Get metrics for a specific instance of a worker pool of an App Service Environment.
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param workerPoolName Name of the worker pool.
-     * @param instance Name of the instance in the worker pool.
-     * @param details Specify &lt;code&gt;true&lt;/code&gt; to include instance details. The default is
-     *     &lt;code&gt;false&lt;/code&gt;.
-     * @param filter Return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
-     *     $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq 2014-01-01T00:00:00Z and
-     *     endTime eq 2014-12-31T23:59:59Z and timeGrain eq duration'[Hour|Minute|Day]'.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a specific instance of a worker pool of an App Service Environment.
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<ResourceMetricInner> listWorkerPoolInstanceMetrics(
-        String resourceGroupName,
-        String name,
-        String workerPoolName,
-        String instance,
-        Boolean details,
-        String filter,
-        Context context);
-
-    /**
-     * Get metric definitions for a worker pool of an App Service Environment.
+     * Description for Get metric definitions for a worker pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2388,14 +2633,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a worker pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<ResourceMetricDefinitionInner> listWebWorkerMetricDefinitionsAsync(
         String resourceGroupName, String name, String workerPoolName);
 
     /**
-     * Get metric definitions for a worker pool of an App Service Environment.
+     * Description for Get metric definitions for a worker pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2404,14 +2649,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a worker pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<ResourceMetricDefinitionInner> listWebWorkerMetricDefinitions(
         String resourceGroupName, String name, String workerPoolName);
 
     /**
-     * Get metric definitions for a worker pool of an App Service Environment.
+     * Description for Get metric definitions for a worker pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2421,89 +2666,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metric definitions for a worker pool of an App Service Environment.
+     * @return collection of metric definitions.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<ResourceMetricDefinitionInner> listWebWorkerMetricDefinitions(
         String resourceGroupName, String name, String workerPoolName, Context context);
 
     /**
-     * Get metrics for a worker pool of a AppServiceEnvironment (App Service Environment).
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param workerPoolName Name of worker pool.
-     * @param details Specify &lt;code&gt;true&lt;/code&gt; to include instance details. The default is
-     *     &lt;code&gt;false&lt;/code&gt;.
-     * @param filter Return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
-     *     $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq 2014-01-01T00:00:00Z and
-     *     endTime eq 2014-12-31T23:59:59Z and timeGrain eq duration'[Hour|Minute|Day]'.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a worker pool of a AppServiceEnvironment (App Service Environment).
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<ResourceMetricInner> listWebWorkerMetricsAsync(
-        String resourceGroupName, String name, String workerPoolName, Boolean details, String filter);
-
-    /**
-     * Get metrics for a worker pool of a AppServiceEnvironment (App Service Environment).
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param workerPoolName Name of worker pool.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a worker pool of a AppServiceEnvironment (App Service Environment).
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedFlux<ResourceMetricInner> listWebWorkerMetricsAsync(
-        String resourceGroupName, String name, String workerPoolName);
-
-    /**
-     * Get metrics for a worker pool of a AppServiceEnvironment (App Service Environment).
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param workerPoolName Name of worker pool.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a worker pool of a AppServiceEnvironment (App Service Environment).
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<ResourceMetricInner> listWebWorkerMetrics(
-        String resourceGroupName, String name, String workerPoolName);
-
-    /**
-     * Get metrics for a worker pool of a AppServiceEnvironment (App Service Environment).
-     *
-     * @param resourceGroupName Name of the resource group to which the resource belongs.
-     * @param name Name of the App Service Environment.
-     * @param workerPoolName Name of worker pool.
-     * @param details Specify &lt;code&gt;true&lt;/code&gt; to include instance details. The default is
-     *     &lt;code&gt;false&lt;/code&gt;.
-     * @param filter Return only usages/metrics specified in the filter. Filter conforms to odata syntax. Example:
-     *     $filter=(name.value eq 'Metric1' or name.value eq 'Metric2') and startTime eq 2014-01-01T00:00:00Z and
-     *     endTime eq 2014-12-31T23:59:59Z and timeGrain eq duration'[Hour|Minute|Day]'.
-     * @param context The context to associate with this operation.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
-     *     rejected by server.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return metrics for a worker pool of a AppServiceEnvironment (App Service Environment).
-     */
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    PagedIterable<ResourceMetricInner> listWebWorkerMetrics(
-        String resourceGroupName, String name, String workerPoolName, Boolean details, String filter, Context context);
-
-    /**
-     * Get available SKUs for scaling a worker pool.
+     * Description for Get available SKUs for scaling a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2512,13 +2682,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return available SKUs for scaling a worker pool.
+     * @return collection of SKU information.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<SkuInfoInner> listWorkerPoolSkusAsync(String resourceGroupName, String name, String workerPoolName);
 
     /**
-     * Get available SKUs for scaling a worker pool.
+     * Description for Get available SKUs for scaling a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2527,13 +2697,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return available SKUs for scaling a worker pool.
+     * @return collection of SKU information.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<SkuInfoInner> listWorkerPoolSkus(String resourceGroupName, String name, String workerPoolName);
 
     /**
-     * Get available SKUs for scaling a worker pool.
+     * Description for Get available SKUs for scaling a worker pool.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2543,14 +2713,14 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return available SKUs for scaling a worker pool.
+     * @return collection of SKU information.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<SkuInfoInner> listWorkerPoolSkus(
         String resourceGroupName, String name, String workerPoolName, Context context);
 
     /**
-     * Get usage metrics for a worker pool of an App Service Environment.
+     * Description for Get usage metrics for a worker pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2559,13 +2729,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return usage metrics for a worker pool of an App Service Environment.
+     * @return collection of usages.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedFlux<UsageInner> listWebWorkerUsagesAsync(String resourceGroupName, String name, String workerPoolName);
 
     /**
-     * Get usage metrics for a worker pool of an App Service Environment.
+     * Description for Get usage metrics for a worker pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2574,13 +2744,13 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return usage metrics for a worker pool of an App Service Environment.
+     * @return collection of usages.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<UsageInner> listWebWorkerUsages(String resourceGroupName, String name, String workerPoolName);
 
     /**
-     * Get usage metrics for a worker pool of an App Service Environment.
+     * Description for Get usage metrics for a worker pool of an App Service Environment.
      *
      * @param resourceGroupName Name of the resource group to which the resource belongs.
      * @param name Name of the App Service Environment.
@@ -2590,7 +2760,7 @@ public interface AppServiceEnvironmentsClient
      * @throws com.azure.resourcemanager.appservice.models.DefaultErrorResponseErrorException thrown if the request is
      *     rejected by server.
      * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return usage metrics for a worker pool of an App Service Environment.
+     * @return collection of usages.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
     PagedIterable<UsageInner> listWebWorkerUsages(

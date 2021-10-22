@@ -98,7 +98,7 @@ public final class AppServiceCertificateOrderPatchResource extends ProxyOnlyReso
     }
 
     /**
-     * Get the validityInYears property: Duration in years (must be between 1 and 3).
+     * Get the validityInYears property: Duration in years (must be 1).
      *
      * @return the validityInYears value.
      */
@@ -107,7 +107,7 @@ public final class AppServiceCertificateOrderPatchResource extends ProxyOnlyReso
     }
 
     /**
-     * Set the validityInYears property: Duration in years (must be between 1 and 3).
+     * Set the validityInYears property: Duration in years (must be 1).
      *
      * @param validityInYears the validityInYears value to set.
      * @return the AppServiceCertificateOrderPatchResource object itself.
@@ -316,6 +316,15 @@ public final class AppServiceCertificateOrderPatchResource extends ProxyOnlyReso
      */
     public OffsetDateTime nextAutoRenewalTimestamp() {
         return this.innerProperties() == null ? null : this.innerProperties().nextAutoRenewalTimestamp();
+    }
+
+    /**
+     * Get the contact property: Contact info.
+     *
+     * @return the contact value.
+     */
+    public CertificateOrderContact contact() {
+        return this.innerProperties() == null ? null : this.innerProperties().contact();
     }
 
     /**

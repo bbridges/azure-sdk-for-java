@@ -5,6 +5,9 @@ package com.azure.resourcemanager.resources;
 
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.core.test.annotation.DoNotRecord;
+import com.azure.resourcemanager.resources.models.EnforcementMode;
+import com.azure.resourcemanager.resources.models.ParameterDefinitionsValue;
+import com.azure.resourcemanager.resources.models.ParameterType;
 import com.azure.resourcemanager.test.utils.TestUtilities;
 import com.azure.resourcemanager.resources.models.GenericResource;
 import com.azure.resourcemanager.resources.models.PolicyAssignment;
@@ -14,11 +17,9 @@ import com.azure.resourcemanager.resources.models.ResourceGroup;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.azure.core.management.Region;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
-import java.util.Map;
 
 public class PolicyTests extends ResourceManagementTest {
     private String policyRule = "{\"if\":{\"not\":{\"field\":\"location\",\"in\":[\"southcentralus\",\"westeurope\"]}},\"then\":{\"effect\":\"deny\"}}";
@@ -66,7 +67,6 @@ public class PolicyTests extends ResourceManagementTest {
     }
 
     @Test
-    @Disabled("default values won't work with policy definition parameters in 2016-12-01 in AzureCloud")
     @DoNotRecord(skipInPlayback = true)
     public void canCRUDPolicyAssignment() throws Exception {
         String policyName = generateRandomResourceName("policy", 15);
@@ -99,7 +99,9 @@ public class PolicyTests extends ResourceManagementTest {
             Assertions.assertEquals("My Assignment", assignment1.displayName());
 
             Assertions.assertEquals(group.id(), assignment1.scope());
-            Assertions.assertNull(assignment1.parameters());
+            Assertions.assertEquals(0, assignment1.excludedScopes().size());
+            Assertions.assertEquals(EnforcementMode.DEFAULT, assignment1.enforcementMode());
+            Assertions.assertEquals(0, assignment1.parameters().size());
 
             GenericResource resource = resourceClient.genericResources().define(resourceName)
                     .withRegion(Region.US_SOUTH_CENTRAL)
@@ -140,22 +142,26 @@ public class PolicyTests extends ResourceManagementTest {
             PolicyDefinition definition2 = resourceClient.policyDefinitions().define(policyName)
                 .withPolicyRuleJson(policyRule2)
                 .withPolicyType(PolicyType.CUSTOM)
-                .withParameters(new ObjectMapper().readTree(
-                    "{\"prefix\":{\"type\":\"string\"},\"suffix\":{\"type\":\"string\"}}"))
+                .withParameter("prefix", ParameterType.STRING, "dept")
+                .withParameter("suffix", new ParameterDefinitionsValue().withType(ParameterType.STRING).withDefaultValue("-US"))
                 .withDisplayName(displayName)
                 .withDescription("Test policy")
                 .create();
             PolicyAssignment assignment3 = resourceClient.policyAssignments().define(assignmentName3)
                 .forResourceGroup(group)
                 .withPolicyDefinition(definition2)
-                .withParameters(new ObjectMapper().readTree(
-                    "{\"prefix\":\"DeptA\",\"suffix\":\"-LC\"}"))
+                .withExcludedScope(resource.id())
+                .withEnforcementMode(EnforcementMode.DO_NOT_ENFORCE)
+                .withParameter("prefix", "DeptA")
+                .withParameter("suffix", "-LC")
                 .withDisplayName("Test Assignment")
                 .create();
 
             assignment3 = resourceClient.policyAssignments().getById(assignment3.id());
             Assertions.assertEquals(group.id(), assignment3.scope());
-            Assertions.assertEquals(2, new ObjectMapper().convertValue(assignment3.parameters(), Map.class).size());
+            Assertions.assertEquals(Collections.singletonList(resource.id()), assignment3.excludedScopes());
+            Assertions.assertEquals(EnforcementMode.DO_NOT_ENFORCE, assignment3.enforcementMode());
+            Assertions.assertEquals(2, assignment3.parameters().size());
 
             // Delete
             resourceClient.policyAssignments().deleteById(assignment1.id());

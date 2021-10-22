@@ -14,4 +14,10 @@ public interface Permission extends HasInnerModel<PermissionInner> {
 
     /** @return denied actions */
     List<String> notActions();
+
+    /** @return allowed Data actions */
+    List<String> dataActions();
+
+    /** @return denied Data actions */
+    List<String> notDataActions();
 }

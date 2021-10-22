@@ -5,32 +5,26 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.Resource;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.ProvisioningState;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
-/**
- * Network watcher in a resource group.
- */
+/** Network watcher in a resource group. */
 @Fluent
 public final class NetworkWatcherInner extends Resource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(NetworkWatcherInner.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(NetworkWatcherInner.class);
 
     /*
      * A unique read-only string that changes whenever the resource is updated.
      */
-    @JsonProperty(value = "etag")
+    @JsonProperty(value = "etag", access = JsonProperty.Access.WRITE_ONLY)
     private String etag;
 
     /*
-     * The network watcher properties.
+     * Properties of the network watcher.
      */
     @JsonProperty(value = "properties")
     private NetworkWatcherPropertiesFormat innerProperties;
@@ -42,9 +36,8 @@ public final class NetworkWatcherInner extends Resource {
     private String id;
 
     /**
-     * Get the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
+     * Get the etag property: A unique read-only string that changes whenever the resource is updated.
+     *
      * @return the etag value.
      */
     public String etag() {
@@ -52,20 +45,8 @@ public final class NetworkWatcherInner extends Resource {
     }
 
     /**
-     * Set the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
-     * @param etag the etag value to set.
-     * @return the NetworkWatcherInner object itself.
-     */
-    public NetworkWatcherInner withEtag(String etag) {
-        this.etag = etag;
-        return this;
-    }
-
-    /**
-     * Get the innerProperties property: The network watcher properties.
-     * 
+     * Get the innerProperties property: Properties of the network watcher.
+     *
      * @return the innerProperties value.
      */
     private NetworkWatcherPropertiesFormat innerProperties() {
@@ -74,7 +55,7 @@ public final class NetworkWatcherInner extends Resource {
 
     /**
      * Get the id property: Resource ID.
-     * 
+     *
      * @return the id value.
      */
     public String id() {
@@ -83,7 +64,7 @@ public final class NetworkWatcherInner extends Resource {
 
     /**
      * Set the id property: Resource ID.
-     * 
+     *
      * @param id the id value to set.
      * @return the NetworkWatcherInner object itself.
      */
@@ -92,18 +73,14 @@ public final class NetworkWatcherInner extends Resource {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public NetworkWatcherInner withLocation(String location) {
         super.withLocation(location);
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public NetworkWatcherInner withTags(Map<String, String> tags) {
         super.withTags(tags);
@@ -111,9 +88,8 @@ public final class NetworkWatcherInner extends Resource {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * resource.
-     * 
+     * Get the provisioningState property: The provisioning state of the network watcher resource.
+     *
      * @return the provisioningState value.
      */
     public ProvisioningState provisioningState() {
@@ -122,7 +98,7 @@ public final class NetworkWatcherInner extends Resource {
 
     /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

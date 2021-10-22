@@ -5,20 +5,16 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.network.models.AuthorizationUseStatus;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * The AuthorizationPropertiesFormat model.
- */
+/** Properties of ExpressRouteCircuitAuthorization. */
 @Fluent
 public final class AuthorizationPropertiesFormat {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(AuthorizationPropertiesFormat.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(AuthorizationPropertiesFormat.class);
 
     /*
      * The authorization key.
@@ -27,21 +23,20 @@ public final class AuthorizationPropertiesFormat {
     private String authorizationKey;
 
     /*
-     * AuthorizationUseStatus. Possible values are: 'Available' and 'InUse'.
+     * The authorization use status.
      */
     @JsonProperty(value = "authorizationUseStatus")
     private AuthorizationUseStatus authorizationUseStatus;
 
     /*
-     * Gets the provisioning state of the public IP resource. Possible values
-     * are: 'Updating', 'Deleting', and 'Failed'.
+     * The provisioning state of the authorization resource.
      */
-    @JsonProperty(value = "provisioningState")
-    private String provisioningState;
+    @JsonProperty(value = "provisioningState", access = JsonProperty.Access.WRITE_ONLY)
+    private ProvisioningState provisioningState;
 
     /**
      * Get the authorizationKey property: The authorization key.
-     * 
+     *
      * @return the authorizationKey value.
      */
     public String authorizationKey() {
@@ -50,7 +45,7 @@ public final class AuthorizationPropertiesFormat {
 
     /**
      * Set the authorizationKey property: The authorization key.
-     * 
+     *
      * @param authorizationKey the authorizationKey value to set.
      * @return the AuthorizationPropertiesFormat object itself.
      */
@@ -60,9 +55,8 @@ public final class AuthorizationPropertiesFormat {
     }
 
     /**
-     * Get the authorizationUseStatus property: AuthorizationUseStatus.
-     * Possible values are: 'Available' and 'InUse'.
-     * 
+     * Get the authorizationUseStatus property: The authorization use status.
+     *
      * @return the authorizationUseStatus value.
      */
     public AuthorizationUseStatus authorizationUseStatus() {
@@ -70,9 +64,8 @@ public final class AuthorizationPropertiesFormat {
     }
 
     /**
-     * Set the authorizationUseStatus property: AuthorizationUseStatus.
-     * Possible values are: 'Available' and 'InUse'.
-     * 
+     * Set the authorizationUseStatus property: The authorization use status.
+     *
      * @param authorizationUseStatus the authorizationUseStatus value to set.
      * @return the AuthorizationPropertiesFormat object itself.
      */
@@ -82,32 +75,17 @@ public final class AuthorizationPropertiesFormat {
     }
 
     /**
-     * Get the provisioningState property: Gets the provisioning state of the
-     * public IP resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the authorization resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.provisioningState;
     }
 
     /**
-     * Set the provisioningState property: Gets the provisioning state of the
-     * public IP resource. Possible values are: 'Updating', 'Deleting', and
-     * 'Failed'.
-     * 
-     * @param provisioningState the provisioningState value to set.
-     * @return the AuthorizationPropertiesFormat object itself.
-     */
-    public AuthorizationPropertiesFormat withProvisioningState(String provisioningState) {
-        this.provisioningState = provisioningState;
-        return this;
-    }
-
-    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

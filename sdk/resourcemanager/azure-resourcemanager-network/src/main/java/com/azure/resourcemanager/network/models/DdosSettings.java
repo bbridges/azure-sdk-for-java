@@ -5,20 +5,15 @@
 package com.azure.resourcemanager.network.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.SubResource;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Contains the DDoS protection settings of the public IP.
- */
+/** Contains the DDoS protection settings of the public IP. */
 @Fluent
 public final class DdosSettings {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(DdosSettings.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(DdosSettings.class);
 
     /*
      * The DDoS custom policy associated with the public IP.
@@ -33,10 +28,15 @@ public final class DdosSettings {
     @JsonProperty(value = "protectionCoverage")
     private DdosSettingsProtectionCoverage protectionCoverage;
 
+    /*
+     * Enables DDoS protection on the public IP.
+     */
+    @JsonProperty(value = "protectedIP")
+    private Boolean protectedIp;
+
     /**
-     * Get the ddosCustomPolicy property: The DDoS custom policy associated
-     * with the public IP.
-     * 
+     * Get the ddosCustomPolicy property: The DDoS custom policy associated with the public IP.
+     *
      * @return the ddosCustomPolicy value.
      */
     public SubResource ddosCustomPolicy() {
@@ -44,9 +44,8 @@ public final class DdosSettings {
     }
 
     /**
-     * Set the ddosCustomPolicy property: The DDoS custom policy associated
-     * with the public IP.
-     * 
+     * Set the ddosCustomPolicy property: The DDoS custom policy associated with the public IP.
+     *
      * @param ddosCustomPolicy the ddosCustomPolicy value to set.
      * @return the DdosSettings object itself.
      */
@@ -56,10 +55,9 @@ public final class DdosSettings {
     }
 
     /**
-     * Get the protectionCoverage property: The DDoS protection policy
-     * customizability of the public IP. Only standard coverage will have the
-     * ability to be customized.
-     * 
+     * Get the protectionCoverage property: The DDoS protection policy customizability of the public IP. Only standard
+     * coverage will have the ability to be customized.
+     *
      * @return the protectionCoverage value.
      */
     public DdosSettingsProtectionCoverage protectionCoverage() {
@@ -67,10 +65,9 @@ public final class DdosSettings {
     }
 
     /**
-     * Set the protectionCoverage property: The DDoS protection policy
-     * customizability of the public IP. Only standard coverage will have the
-     * ability to be customized.
-     * 
+     * Set the protectionCoverage property: The DDoS protection policy customizability of the public IP. Only standard
+     * coverage will have the ability to be customized.
+     *
      * @param protectionCoverage the protectionCoverage value to set.
      * @return the DdosSettings object itself.
      */
@@ -80,8 +77,28 @@ public final class DdosSettings {
     }
 
     /**
+     * Get the protectedIp property: Enables DDoS protection on the public IP.
+     *
+     * @return the protectedIp value.
+     */
+    public Boolean protectedIp() {
+        return this.protectedIp;
+    }
+
+    /**
+     * Set the protectedIp property: Enables DDoS protection on the public IP.
+     *
+     * @param protectedIp the protectedIp value to set.
+     * @return the DdosSettings object itself.
+     */
+    public DdosSettings withProtectedIp(Boolean protectedIp) {
+        this.protectedIp = protectedIp;
+        return this;
+    }
+
+    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {

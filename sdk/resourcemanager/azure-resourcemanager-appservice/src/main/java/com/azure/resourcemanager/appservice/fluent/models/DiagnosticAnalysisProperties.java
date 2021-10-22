@@ -7,6 +7,7 @@ package com.azure.resourcemanager.appservice.fluent.models;
 import com.azure.core.annotation.Fluent;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.resourcemanager.appservice.models.AbnormalTimePeriod;
+import com.azure.resourcemanager.appservice.models.AnalysisData;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.OffsetDateTime;
@@ -39,13 +40,13 @@ public final class DiagnosticAnalysisProperties {
      * Data by each detector
      */
     @JsonProperty(value = "payload")
-    private List<AnalysisDataInner> payload;
+    private List<AnalysisData> payload;
 
     /*
      * Data by each detector for detectors that did not corelate
      */
     @JsonProperty(value = "nonCorrelatedDetectors")
-    private List<DetectorDefinitionInner> nonCorrelatedDetectors;
+    private List<DetectorDefinition> nonCorrelatedDetectors;
 
     /**
      * Get the startTime property: Start time of the period.
@@ -112,7 +113,7 @@ public final class DiagnosticAnalysisProperties {
      *
      * @return the payload value.
      */
-    public List<AnalysisDataInner> payload() {
+    public List<AnalysisData> payload() {
         return this.payload;
     }
 
@@ -122,7 +123,7 @@ public final class DiagnosticAnalysisProperties {
      * @param payload the payload value to set.
      * @return the DiagnosticAnalysisProperties object itself.
      */
-    public DiagnosticAnalysisProperties withPayload(List<AnalysisDataInner> payload) {
+    public DiagnosticAnalysisProperties withPayload(List<AnalysisData> payload) {
         this.payload = payload;
         return this;
     }
@@ -132,7 +133,7 @@ public final class DiagnosticAnalysisProperties {
      *
      * @return the nonCorrelatedDetectors value.
      */
-    public List<DetectorDefinitionInner> nonCorrelatedDetectors() {
+    public List<DetectorDefinition> nonCorrelatedDetectors() {
         return this.nonCorrelatedDetectors;
     }
 
@@ -142,8 +143,7 @@ public final class DiagnosticAnalysisProperties {
      * @param nonCorrelatedDetectors the nonCorrelatedDetectors value to set.
      * @return the DiagnosticAnalysisProperties object itself.
      */
-    public DiagnosticAnalysisProperties withNonCorrelatedDetectors(
-        List<DetectorDefinitionInner> nonCorrelatedDetectors) {
+    public DiagnosticAnalysisProperties withNonCorrelatedDetectors(List<DetectorDefinition> nonCorrelatedDetectors) {
         this.nonCorrelatedDetectors = nonCorrelatedDetectors;
         return this;
     }

@@ -5,26 +5,21 @@
 package com.azure.resourcemanager.network.fluent.models;
 
 import com.azure.core.annotation.Fluent;
-import com.azure.core.annotation.Immutable;
 import com.azure.core.management.Resource;
 import com.azure.core.util.logging.ClientLogger;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.azure.resourcemanager.network.models.ProvisioningState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Service End point policy resource.
- */
+/** Service End point policy resource. */
 @Fluent
 public final class ServiceEndpointPolicyInner extends Resource {
-    @JsonIgnore
-    private final ClientLogger logger = new ClientLogger(ServiceEndpointPolicyInner.class);
+    @JsonIgnore private final ClientLogger logger = new ClientLogger(ServiceEndpointPolicyInner.class);
 
     /*
-     * Properties of the service end point policy
+     * Properties of the service end point policy.
      */
     @JsonProperty(value = "properties")
     private ServiceEndpointPolicyPropertiesFormat innerProperties;
@@ -32,8 +27,15 @@ public final class ServiceEndpointPolicyInner extends Resource {
     /*
      * A unique read-only string that changes whenever the resource is updated.
      */
-    @JsonProperty(value = "etag")
+    @JsonProperty(value = "etag", access = JsonProperty.Access.WRITE_ONLY)
     private String etag;
+
+    /*
+     * Kind of service endpoint policy. This is metadata used for the Azure
+     * portal experience.
+     */
+    @JsonProperty(value = "kind", access = JsonProperty.Access.WRITE_ONLY)
+    private String kind;
 
     /*
      * Resource ID.
@@ -42,9 +44,8 @@ public final class ServiceEndpointPolicyInner extends Resource {
     private String id;
 
     /**
-     * Get the innerProperties property: Properties of the service end point
-     * policy.
-     * 
+     * Get the innerProperties property: Properties of the service end point policy.
+     *
      * @return the innerProperties value.
      */
     private ServiceEndpointPolicyPropertiesFormat innerProperties() {
@@ -52,9 +53,8 @@ public final class ServiceEndpointPolicyInner extends Resource {
     }
 
     /**
-     * Get the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
+     * Get the etag property: A unique read-only string that changes whenever the resource is updated.
+     *
      * @return the etag value.
      */
     public String etag() {
@@ -62,20 +62,17 @@ public final class ServiceEndpointPolicyInner extends Resource {
     }
 
     /**
-     * Set the etag property: A unique read-only string that changes whenever
-     * the resource is updated.
-     * 
-     * @param etag the etag value to set.
-     * @return the ServiceEndpointPolicyInner object itself.
+     * Get the kind property: Kind of service endpoint policy. This is metadata used for the Azure portal experience.
+     *
+     * @return the kind value.
      */
-    public ServiceEndpointPolicyInner withEtag(String etag) {
-        this.etag = etag;
-        return this;
+    public String kind() {
+        return this.kind;
     }
 
     /**
      * Get the id property: Resource ID.
-     * 
+     *
      * @return the id value.
      */
     public String id() {
@@ -84,7 +81,7 @@ public final class ServiceEndpointPolicyInner extends Resource {
 
     /**
      * Set the id property: Resource ID.
-     * 
+     *
      * @param id the id value to set.
      * @return the ServiceEndpointPolicyInner object itself.
      */
@@ -93,18 +90,14 @@ public final class ServiceEndpointPolicyInner extends Resource {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public ServiceEndpointPolicyInner withLocation(String location) {
         super.withLocation(location);
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public ServiceEndpointPolicyInner withTags(Map<String, String> tags) {
         super.withTags(tags);
@@ -112,9 +105,9 @@ public final class ServiceEndpointPolicyInner extends Resource {
     }
 
     /**
-     * Get the serviceEndpointPolicyDefinitions property: A collection of
-     * service endpoint policy definitions of the service endpoint policy.
-     * 
+     * Get the serviceEndpointPolicyDefinitions property: A collection of service endpoint policy definitions of the
+     * service endpoint policy.
+     *
      * @return the serviceEndpointPolicyDefinitions value.
      */
     public List<ServiceEndpointPolicyDefinitionInner> serviceEndpointPolicyDefinitions() {
@@ -122,14 +115,14 @@ public final class ServiceEndpointPolicyInner extends Resource {
     }
 
     /**
-     * Set the serviceEndpointPolicyDefinitions property: A collection of
-     * service endpoint policy definitions of the service endpoint policy.
-     * 
-     * @param serviceEndpointPolicyDefinitions the
-     * serviceEndpointPolicyDefinitions value to set.
+     * Set the serviceEndpointPolicyDefinitions property: A collection of service endpoint policy definitions of the
+     * service endpoint policy.
+     *
+     * @param serviceEndpointPolicyDefinitions the serviceEndpointPolicyDefinitions value to set.
      * @return the ServiceEndpointPolicyInner object itself.
      */
-    public ServiceEndpointPolicyInner withServiceEndpointPolicyDefinitions(List<ServiceEndpointPolicyDefinitionInner> serviceEndpointPolicyDefinitions) {
+    public ServiceEndpointPolicyInner withServiceEndpointPolicyDefinitions(
+        List<ServiceEndpointPolicyDefinitionInner> serviceEndpointPolicyDefinitions) {
         if (this.innerProperties() == null) {
             this.innerProperties = new ServiceEndpointPolicyPropertiesFormat();
         }
@@ -139,7 +132,7 @@ public final class ServiceEndpointPolicyInner extends Resource {
 
     /**
      * Get the subnets property: A collection of references to subnets.
-     * 
+     *
      * @return the subnets value.
      */
     public List<SubnetInner> subnets() {
@@ -147,9 +140,8 @@ public final class ServiceEndpointPolicyInner extends Resource {
     }
 
     /**
-     * Get the resourceGuid property: The resource GUID property of the service
-     * endpoint policy resource.
-     * 
+     * Get the resourceGuid property: The resource GUID property of the service endpoint policy resource.
+     *
      * @return the resourceGuid value.
      */
     public String resourceGuid() {
@@ -157,19 +149,64 @@ public final class ServiceEndpointPolicyInner extends Resource {
     }
 
     /**
-     * Get the provisioningState property: The provisioning state of the
-     * service endpoint policy. Possible values are: 'Updating', 'Deleting',
-     * and 'Failed'.
-     * 
+     * Get the provisioningState property: The provisioning state of the service endpoint policy resource.
+     *
      * @return the provisioningState value.
      */
-    public String provisioningState() {
+    public ProvisioningState provisioningState() {
         return this.innerProperties() == null ? null : this.innerProperties().provisioningState();
     }
 
     /**
+     * Get the serviceAlias property: The alias indicating if the policy belongs to a service.
+     *
+     * @return the serviceAlias value.
+     */
+    public String serviceAlias() {
+        return this.innerProperties() == null ? null : this.innerProperties().serviceAlias();
+    }
+
+    /**
+     * Set the serviceAlias property: The alias indicating if the policy belongs to a service.
+     *
+     * @param serviceAlias the serviceAlias value to set.
+     * @return the ServiceEndpointPolicyInner object itself.
+     */
+    public ServiceEndpointPolicyInner withServiceAlias(String serviceAlias) {
+        if (this.innerProperties() == null) {
+            this.innerProperties = new ServiceEndpointPolicyPropertiesFormat();
+        }
+        this.innerProperties().withServiceAlias(serviceAlias);
+        return this;
+    }
+
+    /**
+     * Get the contextualServiceEndpointPolicies property: A collection of contextual service endpoint policy.
+     *
+     * @return the contextualServiceEndpointPolicies value.
+     */
+    public List<String> contextualServiceEndpointPolicies() {
+        return this.innerProperties() == null ? null : this.innerProperties().contextualServiceEndpointPolicies();
+    }
+
+    /**
+     * Set the contextualServiceEndpointPolicies property: A collection of contextual service endpoint policy.
+     *
+     * @param contextualServiceEndpointPolicies the contextualServiceEndpointPolicies value to set.
+     * @return the ServiceEndpointPolicyInner object itself.
+     */
+    public ServiceEndpointPolicyInner withContextualServiceEndpointPolicies(
+        List<String> contextualServiceEndpointPolicies) {
+        if (this.innerProperties() == null) {
+            this.innerProperties = new ServiceEndpointPolicyPropertiesFormat();
+        }
+        this.innerProperties().withContextualServiceEndpointPolicies(contextualServiceEndpointPolicies);
+        return this;
+    }
+
+    /**
      * Validates the instance.
-     * 
+     *
      * @throws IllegalArgumentException thrown if the instance is not valid.
      */
     public void validate() {
