@@ -14,6 +14,7 @@
     <profile>
       <id>coverage</id>
       <modules>
+        <module>azure-resourcemanagerhybrid</module>
         <module>azure-resourcemanagerhybrid-appservice</module>
         <module>azure-resourcemanagerhybrid-authorization</module>
         <module>azure-resourcemanagerhybrid-compute</module>
@@ -63,6 +64,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <modules>
+        <module>azure-resourcemanagerhybrid</module>
         <module>azure-resourcemanagerhybrid-appservice</module>
         <module>azure-resourcemanagerhybrid-authorization</module>
         <module>azure-resourcemanagerhybrid-compute</module>
